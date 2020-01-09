@@ -6,8 +6,8 @@ import { button } from 'react-native-elements';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>It works bitch!</Text>
-      <Button title='button bitch part 2' icon={{ name: 'code' }} />
+      <Text>It works friend!</Text>
+      <Button title='appropriate button part 2' icon={{ name: 'code' }} />
     </View>
   );
 }
