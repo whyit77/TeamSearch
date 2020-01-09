@@ -7,7 +7,9 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>It works friend!</Text>
-      <Button title='appropriate button part 2' icon={{ name: 'code' }} />
+      <Button title='appropriate button part 1' icon={{ name: 'code' }} />
+
+      <Button title='appropriater button part 2' icon={{ name: 'code' }} />
     </View>
   );
 }
