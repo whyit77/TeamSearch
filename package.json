@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@expo/next-adapter": "^2.0.1"
+  }
+}
