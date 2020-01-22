@@ -18,9 +18,16 @@ import ExampleComponents from './Components/Screen';
 const AppStack = createStackNavigator({
   ExampleScreen: {
     screen: exampleScreen,
-    // navigationOptions: {
-    //   headerTitle: 'Login'
-    // }
+      navigationOptions: {
+        // headerTitle: 'Example Screen',
+        // headerTitle: null,
+        // headerStyle: {
+        //   backgroundColor: 'grey'
+        // },
+        // headerTitleStyle: {
+        //   color: 'white'
+        // },
+      }
   }
 })
 
