@@ -2,16 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-export default function Header() {
-    return (
-        <View styles={ styles.header }>
-        <View>
-            <Text style={styles.headerText}>Team Info</Text>
-        </View>
-        </View>
-    )
-}
-
 const styles = StyleSheet.create({
     header: {
         width: '100%',
@@ -28,3 +18,14 @@ const styles = StyleSheet.create({
         letterSpacing: 1,
     }
 })
+
+
+export default function Header() {
+    return (
+        <View styles={ styles.header }>
+        <View>
+            <Text style={styles.headerText}>Team Info</Text>
+        </View>
+        </View>
+    )
+}
