@@ -19,17 +19,29 @@ const AppStack = createStackNavigator({
   ExampleScreen: {
     screen: exampleScreen,
       navigationOptions: {
-        // headerTitle: 'Example Screen',
-        // headerTitle: null,
-        // headerStyle: {
-        //   backgroundColor: 'grey'
-        // },
-        // headerTitleStyle: {
-        //   color: 'white'
-        // },
+        headerTitle: 'Example ScreEen',
+        headerStyle: {
+          backgroundColor: '#292929',
+          //borderBottomColor: 'white',
+        },
+        headerTitleStyle: {
+          color: 'white'
+        },
       }
   }
 })
+
+
+class header extends React.Component {
+  render() {
+    return(
+
+      <Text> custom header</Text>
+    )
+  }
+
+
+}
 
 const AppContainer = createAppContainer(AppStack);
 

@@ -19,17 +19,19 @@ const exampleStyle = StyleSheet.create({
   ////////////////////////
   // START Header Bar Style
   titleBar:{
-    alignSelf: 'center',
-    alignContent: 'center',
+    //alignSelf: 'center',
+    // alignContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    width: screen.width,
-    marginTop: 20,
-    marginBottom: 30,
+    //width: screen.width,
+    //marginTop: 20,
+    //marginBottom: 30,
     backgroundColor: "#292929",
-    height: Math.floor(screen.height/11),
-    //justifyContent: 'space-between',
+    //height: 80,
+
+    // height: Math.floor(screen.height/11),
+    justifyContent: 'space-between',
     //justifyContent: 'flex-end',
   },
   centerContainer: {
@@ -52,7 +54,7 @@ const exampleStyle = StyleSheet.create({
     // alignSelf: 'center',
     textAlign: 'center',
     //justifyContent: 'center',
-    marginTop: '9%',
+    marginTop: '14%',
     marginBottom: '3%',
     color: "white",
     fontSize: 25,
@@ -113,7 +115,6 @@ const exampleText = StyleSheet.create({
     color: 'white'
   },
 })
-
 const exampleButtons = StyleSheet.create({
     primary: {
       flex: 1,
@@ -127,15 +128,15 @@ const exampleButtons = StyleSheet.create({
     },
     buttonContainer: {
       backgroundColor: '#292929',
-      paddingVertical: 10,
+      paddingVertical: 9,
       paddingHorizontal: 20,
       borderRadius: 30,
-      width: 150,
+      width: 140,
    },
    buttonText: {
        textAlign: 'center',
        color: 'white',
-       fontSize: 18,
+       fontSize: 15,
        //fontWeight: 'bold',
    },
    viewStyle: {
