@@ -6,38 +6,51 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import { exampleButtons, exampleStyle, exampleText } from '../styles/exampleStyles'
 
-import t from 'tcomb-form-native';
+//import t from 'tcomb-form-native';
 
-const Form = t.form.Form;
-const fromStyles = {
-    ...Form.stylesheet,
-    controlLabel: {
-        normal: {
-            color: 'white',
+import Drawer from 'react-native-drawer';
+
+
+// const Form = t.form.Form;
+// const fromStyles = {
+//     ...Form.stylesheet,
+//     controlLabel: {
+//         normal: {
+//             color: 'white',
             
-        }
-    }
-}
+//         }
+//     }
+// }
 
-var Gender = t.enums ({
-    M: 'Male',
-    F: 'Female'
-})
+// var Gender = t.enums ({
+//     M: 'Male',
+//     F: 'Female'
+// })
 
-const ExampleForm = t.struct({
-    email: t.String,
-    username: t.String,
-    password: t.String,
-    terms: t.Boolean,
-    birthday: t.Date,
-    gender: Gender
-  });
+// const ExampleForm = t.struct({
+//     email: t.String,
+//     username: t.String,
+//     password: t.String,
+//     terms: t.Boolean,
+//     birthday: t.Date,
+//     gender: Gender
+//   });
+
+
+
 
 class ExampleScreen extends React.Component{
 
     // static navigationOptions = {
     //     title: 'example',
     // };
+
+    closeControlPanel = () => {
+        this._drawer.close()
+      };
+      openControlPanel = () => {
+        this._drawer.open()
+      };
 
     handleSubmit = () => {
         // Button submit handle
@@ -47,7 +60,9 @@ class ExampleScreen extends React.Component{
         header: ( /* custom header */
           <View style={exampleStyle.titleBar}>
             <TouchableOpacity>
+                <Drawer ref={(ref) => this._drawer = ref} content={<openControlPanel />}>
                 <Icon name='ios-menu' color={'white'} size={50} style={{ marginTop: 50, marginLeft: 20}}/>
+                </Drawer>
             </TouchableOpacity>
             <Text style={exampleStyle.centerText}>Header</Text>
             <TouchableOpacity>
@@ -71,16 +86,17 @@ class ExampleScreen extends React.Component{
                     <View style={exampleStyle.container}>
                         <Text style={exampleText.textStyle}>Here's the style y'all</Text>
                         
-                        <View style={exampleButtons.viewStyle}>
-                            <TouchableOpacity style={exampleStyle.buttonContainer}>
-                                <Text style={exampleButtons.buttonContainer}>Example</Text>
-                            </TouchableOpacity>
-                        </View>
+                        <TouchableOpacity style={exampleStyle.primary}>
+                            <View style={exampleButtons.buttonContainer}>
+                                <Text style={exampleButtons.buttonText}>Example</Text>
+                            </View>
+                        </TouchableOpacity>
+                       
 
                         
                     </View>
                     <View style={exampleStyle.formContainer}>
-                        <Form type={ExampleForm} style={exampleStyle.textStyle} />
+                        {/* <Form type={ExampleForm} style={exampleStyle.textStyle} /> */}
                         <TouchableOpacity style={exampleStyle.buttonContainer}>
                             <Text style={exampleStyle.formButtonText}>Submit</Text>
                         </TouchableOpacity>

@@ -151,28 +151,30 @@ const exampleText = StyleSheet.create({
   },
 })
 const exampleButtons = StyleSheet.create({
-    primary: {
-      flex: 1,
-      height: 7,
-      backgroundColor: 'grey',
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginLeft: 20,
-      marginRight: 20
+    // primary: {
+    //   flex: 1,
+    //   height: 7,
+    //   backgroundColor: 'grey',
+    //   justifyContent: 'center',
+    //   alignItems: 'center',
+    //   marginLeft: 20,
+    //   marginRight: 20
 
-    },
+    // },
     buttonContainer: {
       backgroundColor: '#292929',
       paddingVertical: 9,
       paddingHorizontal: 20,
       borderRadius: 30,
       width: 140,
+      marginTop: 10,
+      marginBottom: 10
    },
    buttonText: {
        textAlign: 'center',
        color: 'white',
        fontSize: 15,
-       //fontWeight: 'bold',
+       fontWeight: 'bold',
    },
    viewStyle: {
        alignItems: 'center',
