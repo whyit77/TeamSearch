@@ -26,5 +26,10 @@ export default ({ navigation }) => (
       color="#49475B"
       onPress={() => navigation.navigate("Create_acc")}
     />
+    <RowItem
+      name="Team List"
+      color="#36b1f0"
+      onPress={() => navigation.navigate("Team_list")}
+    />
   </ScrollView>
 );
