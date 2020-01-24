@@ -1,4 +1,4 @@
-// App/screens/teamList.js
+// App/screens/pinInfo.js
 
 import React from "react";
 import { View, StyleSheet, StatusBar, Text, SafeAreaView } from "react-native";
@@ -27,12 +27,13 @@ const styles = StyleSheet.create({
     }
 });
 
-class teamList extends React.Component {
+class pinInfo extends React.Component {
     state = {
 
     };
 
     render() {
+
 
         return (
             <View
@@ -44,7 +45,7 @@ class teamList extends React.Component {
                 <StatusBar barStyle="light-content" />
                 <SafeAreaView style={styles.safearea}>
                     <View>
-                        <Text style={styles.text}> team list data here </Text>
+                        <Text style={styles.text}> Pin info here </Text>
                     </View>
 
                 </SafeAreaView>
@@ -54,4 +55,4 @@ class teamList extends React.Component {
     }
 }
 
-export default teamList;
+export default pinInfo;
