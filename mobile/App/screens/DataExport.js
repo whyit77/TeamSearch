@@ -1,8 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
-// import { RadioButton } from "react-native-paper";
-// import ModalDropdown from "react-native-modal-dropdown";
+import ModalDropdown from "react-native-modal-dropdown";
 
 const styles = StyleSheet.create({
   container: {
@@ -13,9 +12,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "black",
-    fontSize: 15,
+    fontSize: 20,
     textAlign: "center",
-    letterSpacing: -0.02,
     fontWeight: "600"
   }
 });
@@ -28,13 +26,30 @@ class DataExport extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <Text style={styles.text}> Select criteria to export: </Text>
-        {/* <RadioButton> Group Data </RadioButton>
-      <RadioButton> List of Pins </RadioButton>
-      <RadioButton> Map Data </RadioButton> */}
-        <Text style={styles.text}> Email </Text>
+        <ModalDropdown
+          options={["Group Data", "List of Pins", "Map Data"]}
+          dropdownStyle={styles.container}
+          textStyle={styles.text}
+          onSelect={(index, value) => {
+            this.setState({ selectedCategory: value });
+          }}
+        />
+
         <Text style={styles.text}> Choose a method of export: </Text>
+        <ModalDropdown
+          options={["Email", "Text", "Carrier Pigeon"]}
+          dropdownStyle={styles.container}
+          textStyle={styles.text}
+          onSelect={(index, value) => {
+            this.setState({ selectedCategory: value });
+          }}
+        />
+
         <Text style={styles.text}> File Preview </Text>
-        {/* <Button> Export </Button> */}
+
+        <TouchableOpacity onPress={() => alert("Exported!")}>
+          <Text style={styles.text}> Export </Text>
+        </TouchableOpacity>
       </SafeAreaView>
     );
   }

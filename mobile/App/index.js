@@ -13,11 +13,11 @@ import {
 import React, { Component } from "react";
 // import SafeAreaView from "react-native-safe-area-view";
 
-import teamMemberList from "./screens/teamMemberList";
-import teamInfo from "./screens/teamInfo";
-import memberProfile from "./screens/memberProfile";
-import dataExport from "./screens/dataExport";
-import map from "./screens/map";
+import TeamMemberList from "./screens/TeamMemberList";
+import TeamInfo from "./screens/TeamInfo";
+import MemberProfile from "./screens/MemberProfile";
+import DataExport from "./screens/DataExport";
+import Map from "./screens/Map";
 
 const styles = StyleSheet.create({
   container: {
@@ -30,31 +30,31 @@ const styles = StyleSheet.create({
 
 const MainStack = createStackNavigator({
   // TeamMemberList: {
-  //   screen: teamMemberList,
+  //   screen: TeamMemberList,
   //   navigationOptions: {
   //     headerTitle: "Team Member List"
   //   }
   // },
   // MemberProfile: {
-  //   screen: memberProfile,
+  //   screen: MemberProfile,
   //   navigationOptions: ({ navigation }) => ({
   //     headerTitle: "Member Information"
   //   })
   // },
   TeamInfo: {
-    screen: teamInfo,
+    screen: TeamInfo,
     navigationOptions: {
       headerTitle: "Team Information"
     }
   },
   DataExport: {
-    screen: dataExport,
+    screen: DataExport,
     navigationOptions: {
       headerTitle: "Export Data"
     }
   },
   Map: {
-    screen: map,
+    screen: Map,
     navigationOptions: {
       headerTitle: "Map"
     }
