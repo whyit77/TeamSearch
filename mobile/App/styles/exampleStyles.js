@@ -24,13 +24,8 @@ const exampleStyle = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    //width: screen.width,
-    //marginTop: 20,
-    //marginBottom: 30,
     backgroundColor: "#292929",
-    //height: 80,
 
-    // height: Math.floor(screen.height/11),
     justifyContent: 'space-between',
     //justifyContent: 'flex-end',
   },
@@ -105,6 +100,46 @@ const exampleStyle = StyleSheet.create({
   
   // END Body Container
   //////////////////////////////
+
+  //////////////////////////////
+  // Form Styling
+  formContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems:'center',
+    backgroundColor: '#292929',
+    borderRadius: 30,
+    margin: 10
+  },
+  formText: {
+    color: 'white'
+  },
+    formButton: {
+      flex: 1,
+      height: 7,
+      backgroundColor: 'grey',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginLeft: 20,
+      marginRight: 20
+
+    },
+    formButtonContainer: {
+      backgroundColor: '#292929',
+      paddingVertical: 9,
+      paddingHorizontal: 20,
+      borderRadius: 30,
+      width: 140,
+   },
+   formButtonText: {
+       textAlign: 'center',
+       color: 'white',
+       fontSize: 15,
+       fontWeight: 'bold',
+   },
+   // END Form Styling
+   ////////////////////////////
+
       
 
 })
