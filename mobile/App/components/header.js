@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 
 const styles = StyleSheet.create({
     header: {
@@ -9,7 +8,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'red',
     },
     headerText: {
         fontWeight: 'bold',
@@ -19,10 +17,9 @@ const styles = StyleSheet.create({
     }
 })
 
-
 export default function Header() {
     return (
-        <View styles={ styles.header }>
+        <View style={ styles.header }>
         <View>
             <Text style={styles.headerText}>Team Info</Text>
         </View>
