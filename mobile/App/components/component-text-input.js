@@ -17,6 +17,11 @@ const styles = StyleSheet.create({
 
 export const NewTextInput = ({ ...props }) => (
 	<View style={styles.container}>
-		<TextInput style={styles.input} multiline numberOfLines={props.TextLines} {...props} />
+		<TextInput
+			style={styles.input}
+			multiline
+			numberOfLines={props.numberOfLines}
+			{...props}
+		/>
 	</View>
 );
