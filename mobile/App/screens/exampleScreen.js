@@ -4,37 +4,15 @@ import { SafeAreaView } from 'react-navigation';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import Icon from "react-native-vector-icons/Ionicons";
 
-import { exampleButtons, exampleStyle, exampleText } from '../styles/exampleStyles'
+import {TextField, RadioButton} from '../Components/Form';
+import {HeaderReg, HeaderDrawer, HeaderDrawerPlus, HeaderBack} from '../Components/Header'
 
-//import t from 'tcomb-form-native';
+import { buttonStyle, mainStyle, exampleText, formStyle } from '../styles/styles'
 
-import Drawer from 'react-native-drawer';
+import t from 'tcomb-form-native';
 
+// import { Drawer, createDrawerNavigator } from 'react-navigation-drawer';
 
-// const Form = t.form.Form;
-// const fromStyles = {
-//     ...Form.stylesheet,
-//     controlLabel: {
-//         normal: {
-//             color: 'white',
-            
-//         }
-//     }
-// }
-
-// var Gender = t.enums ({
-//     M: 'Male',
-//     F: 'Female'
-// })
-
-// const ExampleForm = t.struct({
-//     email: t.String,
-//     username: t.String,
-//     password: t.String,
-//     terms: t.Boolean,
-//     birthday: t.Date,
-//     gender: Gender
-//   });
 
 
 
@@ -44,6 +22,10 @@ class ExampleScreen extends React.Component{
     // static navigationOptions = {
     //     title: 'example',
     // };
+
+    navigateToLogIn = () => {
+      this.props.navigation.navigate('loginEx');
+    }
 
     closeControlPanel = () => {
         this._drawer.close()
@@ -58,48 +40,36 @@ class ExampleScreen extends React.Component{
 
     static navigationOptions = {
         header: ( /* custom header */
-          <View style={exampleStyle.titleBar}>
-            <TouchableOpacity>
-                <Drawer ref={(ref) => this._drawer = ref} content={<openControlPanel />}>
-                <Icon name='ios-menu' color={'white'} size={50} style={{ marginTop: 50, marginLeft: 20}}/>
-                </Drawer>
-            </TouchableOpacity>
-            <Text style={exampleStyle.centerText}>Header</Text>
-            <TouchableOpacity>
-                <Icon name='ios-add' color={'white'} size={50} style={{ marginTop: 50, marginRight: 20}}/>
-            </TouchableOpacity>
-          </View>
+          <HeaderReg label={'Home'}></HeaderReg>
         )
       };
 
 
     render() {
         return (
-            <View style={exampleStyle.toplevel}>
-                {/* ////////// START: Header Bar ///////////// */}
+            <View style={mainStyle.toplevel}>
 
-                <StatusBar barStyle='light-content'/>
-
-
-                {/* ////////// START: Main Content ///////////// */}
                 <ScrollView>
-                    <View style={exampleStyle.container}>
-                        <Text style={exampleText.textStyle}>Here's the style y'all</Text>
+                    <View style={mainStyle.container}>
+                        <Text style={mainStyle.bigText}>Team Search Rules</Text>
                         
-                        <TouchableOpacity style={exampleStyle.primary}>
-                            <View style={exampleButtons.buttonContainer}>
-                                <Text style={exampleButtons.buttonText}>Example</Text>
+                        <TouchableOpacity style={mainStyle.primary} >
+                            <View style={buttonStyle.buttonContainer} onPress={this.navigateToLogIn}>
+                                <Text style={buttonStyle.buttonText}>Example</Text>
                             </View>
                         </TouchableOpacity>
                        
 
                         
                     </View>
-                    <View style={exampleStyle.formContainer}>
-                        {/* <Form type={ExampleForm} style={exampleStyle.textStyle} /> */}
-                        <TouchableOpacity style={exampleStyle.buttonContainer}>
-                            <Text style={exampleStyle.formButtonText}>Submit</Text>
+                    <View style={formStyle.formContainer}>
+                        <TextField label={'Name'} placeholder={'Johnny'}></TextField>
+                        <TextField label={'Email'} placeholder={'JohnnyS@example.com'}></TextField>
+                        {/* <RadioButton label={'Gender'}></RadioButton> */}
+                        <TouchableOpacity style={formStyle.formButtonContainer}>
+                            <Text style={formStyle.formButtonText}>Submit</Text>
                         </TouchableOpacity>
+
                      </View>
                 </ScrollView>
                 

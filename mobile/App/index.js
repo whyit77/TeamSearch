@@ -6,28 +6,22 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 //import SafeAreaView from 'react-native-safe-area-view';
 // import { store } from './redux/store'
 
-import { exampleButton, exampleStyle} from './styles/exampleStyles';
+import { exampleButton, mainStyle} from './styles/styles';
 
 
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import exampleScreen from './screens/exampleScreen';
+import loginEx from './screens/loginEx';
 
 import ExampleComponents from './Components/Screen';
 
 const AppStack = createStackNavigator({
   ExampleScreen: {
     screen: exampleScreen,
-      navigationOptions: {
-        headerTitle: 'Example ScreEen',
-        headerStyle: {
-          backgroundColor: '#292929',
-          //borderBottomColor: 'white',
-        },
-        headerTitleStyle: {
-          color: 'white'
-        },
-      }
+  },
+  Login: {
+    screen: loginEx
   }
 })
 
@@ -73,3 +67,4 @@ const styles = StyleSheet.create({
     fontSize: 30,
 }
 });
+

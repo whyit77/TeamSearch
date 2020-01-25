@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { withNavigation } from 'react-navigation';
 
 // DrawerActions is a specific type of navigation dispatcher
-import { DrawerActions } from 'react-navigation-drawer';
+// import { DrawerActions } from 'react-navigation-drawer';
 
 class DrawerTrigger extends React.Component {
   render() {
