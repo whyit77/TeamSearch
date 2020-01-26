@@ -21,7 +21,8 @@ const MainStack = createStackNavigator({
   settingsIndex: {
     screen: settingsIndex,
     navigationOptions: {
-      headerTitle: "Settings"
+      headerTitle: "Settings",
+
     }
   },
 

@@ -12,14 +12,14 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 18,
-        color: "#fff",
+        color: "black",
         fontWeight: "600"
     }
 });
 
 export const RowItem = ({ onPress = () => { }, name, color }) => (
-    <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
-        <View style={[styles.row, { backgroundColor: color }]}>
+    <TouchableOpacity onPress={onPress} activeOpacity={1.0}>
+        <View style={[styles.row, { backgroundColor: "white" }]}>
             <Text style={styles.text}>{name}</Text>
         </View>
     </TouchableOpacity>

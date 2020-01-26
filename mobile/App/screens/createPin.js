@@ -1,58 +1,70 @@
-// App/screens/createPin.js
 
-import React from "react";
-import { View, StyleSheet, StatusBar, Text, SafeAreaView } from "react-native";
-import { navigation, StackActions, NavigationActions } from 'react-navigation';
-
-import { Button, ButtonContainer } from "../components/Button";
-import { Alert } from "../components/Alert";
+import React from 'react';
+import { TextInput, Switch, Text, View, StyleSheet, Image, Alert, Button } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "black",
         flex: 1,
-        paddingHorizontal: 20
+        alignItems: 'center',
     },
-    text: {
-        color: "black",
-        fontSize: 25,
-        textAlign: "center",
-        letterSpacing: -0.02,
-        fontWeight: "600"
-    },
-    safearea: {
-        flex: 1,
-        marginTop: 100,
-        justifyContent: "space-between"
-    }
+    underline: { textDecorationLine: 'underline' }
 });
 
-class createPin extends React.Component {
-    state = {
+export default class App extends React.Component {
 
+    state = {
+        switchITValue: false, switchLTValue: false,
+        name: "", location: "", descr: ""
+    };
+
+
+    toggleITSwitch = value => {
+        this.setState({ switchITValue: value });
+    };
+
+    toggleLTSwitch = value => {
+        this.setState({ switchLTValue: value });
     };
 
     render() {
-
-
         return (
-            <View
-                style={[
-                    styles.container,
-                    { backgroundColor: this.props.navigation.getParam("color") }
-                ]}
-            >
-                <StatusBar barStyle="light-content" />
-                <SafeAreaView style={styles.safearea}>
-                    <View>
-                        <Text style={styles.text}> create pin here </Text>
-                    </View>
+            <View style={styles.container}>
 
-                </SafeAreaView>
+                <Image
+                    style={{ width: 50, height: 50 }}
+                    source={{ uri: 'https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png' }}
+                />
+
+
+                <Text style={styles.underline} onPress={() => Alert.alert("Navigate to Change Photo Page")}>
+                    Photo/Video of Clue
+                </Text>
+
+                <TextInput
+                    onChangeText={(name) => this.setState({ name })}
+                    placeholder="Name of Pin"
+                    maxLength={40}
+                />
+
+
+                <TextInput
+                    onChangeText={(location) => this.setState({ location })}
+                    placeholder="Location of Pin"
+                    maxLength={40}
+                />
+
+
+                <TextInput
+                    onChangeText={(descr) => this.setState({ descr })}
+                    placeholder="Description of Pin:"
+                    maxLength={250}
+                />
+
+                <Button
+                    title="Create Pin"
+                />
 
             </View>
         );
     }
 }
-
-export default createPin;

@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.6",
+    "react-native-flip-toggle-button": "^1.0.8",
     "react-native-gesture-handler": "^1.5.3",
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^2.0.15"

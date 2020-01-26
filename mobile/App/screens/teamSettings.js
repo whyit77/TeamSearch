@@ -1,58 +1,104 @@
-// App/screens/teamSettings.js
 
-import React from "react";
-import { View, StyleSheet, StatusBar, Text, SafeAreaView } from "react-native";
-import { navigation, StackActions, NavigationActions } from 'react-navigation';
-
-import { Button, ButtonContainer } from "../components/Button";
-import { Alert } from "../components/Alert";
+import React from 'react';
+import { TextInput, Switch, Text, View, StyleSheet, Image, Alert, Button, TouchableOpacity } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "black",
         flex: 1,
-        paddingHorizontal: 20
+        alignItems: 'center',
     },
-    text: {
-        color: "black",
-        fontSize: 25,
-        textAlign: "center",
-        letterSpacing: -0.02,
-        fontWeight: "600"
-    },
-    safearea: {
-        flex: 1,
-        marginTop: 100,
-        justifyContent: "space-between"
+    underline: { textDecorationLine: 'underline' },
+    button: {
+        alignItems: 'center',
+        backgroundColor: '#DDDDDD',
+        padding: 10
     }
 });
 
-class teamSettings extends React.Component {
-    state = {
+export default class App extends React.Component {
 
+    state = {
+        switchITValue: false, switchLTValue: false,
+        text: "", name: "", email: "", certOrDescript: "", cell: "", changePass: "", confirmPass: "",
+        metricButtonColor: "#979797", imperialButtonColor: "#979797"
+    };
+
+    onMetricButtonPress = () => {
+        if (this.state.metricButtonColor == '#ff002b') {
+            this.setState({ metricButtonColor: '#979797' })
+        }
+        else {
+            this.setState({ metricButtonColor: '#ff002b' })
+            this.setState({ imperialButtonColor: '#979797' })
+        }
+    }
+
+    onImperialButtonPress = () => {
+        if (this.state.imperialButtonColor == '#ff002b') {
+            this.setState({ imperialButtonColor: '#979797' })
+        }
+        else {
+            this.setState({ imperialButtonColor: '#ff002b' })
+            this.setState({ metricButtonColor: '#979797' })
+        }
+    }
+
+
+    toggleITSwitch = value => {
+        this.setState({ switchITValue: value });
+    };
+
+    toggleLTSwitch = value => {
+        this.setState({ switchLTValue: value });
     };
 
     render() {
-
-
         return (
-            <View
-                style={[
-                    styles.container,
-                    { backgroundColor: this.props.navigation.getParam("color") }
-                ]}
-            >
-                <StatusBar barStyle="light-content" />
-                <SafeAreaView style={styles.safearea}>
-                    <View>
-                        <Text style={styles.text}> team settings here </Text>
-                    </View>
+            <View style={styles.container}>
 
-                </SafeAreaView>
+                <Text> Heatmap Legend </Text>
+
+
+                <Switch
+                    style={{ marginTop: 30 }}
+                    onValueChange={this.toggleITSwitch}
+                    value={this.state.switchITValue}
+
+                />
+                <Text>{this.state.switchITValue ? 'ON' : 'OFF'}</Text>
+
+
+                <Text> Heatmap </Text>
+                <Switch
+                    style={{ marginTop: 30 }}
+                    onValueChange={this.toggleLTSwitch}
+                    value={this.state.switchLTValue}
+
+                />
+                <Text>{this.state.switchLTValue ? 'ON' : 'OFF'}</Text>
+
+
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={this.onMetricButtonPress}
+                >
+                    <Text color={this.metricButtonColor}> Metric </Text>
+                </TouchableOpacity>
+
+                <Button color={this.state.metricButtonColor} onPress={() => { this.onMetricButtonPress }} title="Chosen" />
+
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={this.onImperialButtonPress}
+                >
+                    <Text color={this.imperialButtonColor}> Imperial </Text>
+                </TouchableOpacity>
+
+                <Button color={this.state.imperialButtonColor} onPress={() => { this.onImperialButtonPress }} title="Chosen" />
+
+
 
             </View>
         );
     }
 }
-
-export default teamSettings;

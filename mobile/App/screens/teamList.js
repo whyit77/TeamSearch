@@ -1,57 +1,49 @@
 // App/screens/teamList.js
 
 import React from "react";
-import { View, StyleSheet, StatusBar, Text, SafeAreaView } from "react-native";
-import { navigation, StackActions, NavigationActions } from 'react-navigation';
+import { ScrollView, StatusBar, Text } from "react-native";
+import { RowItem } from "../components/RowItem";
 
-import { Button, ButtonContainer } from "../components/Button";
-import { Alert } from "../components/Alert";
+export default ({ navigation }) => (
+    <ScrollView>
+        <StatusBar barStyle="dark-content" />
+        <RowItem
+            name="Team List"
+            color="black"
+            onPress={() =>
+                navigation.navigate('teamList')}
+        />
 
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: "black",
-        flex: 1,
-        paddingHorizontal: 20
-    },
-    text: {
-        color: "black",
-        fontSize: 25,
-        textAlign: "center",
-        letterSpacing: -0.02,
-        fontWeight: "600"
-    },
-    safearea: {
-        flex: 1,
-        marginTop: 100,
-        justifyContent: "space-between"
-    }
-});
+        <RowItem />
 
-class teamList extends React.Component {
-    state = {
+        <Text style={{ backgroundColor: 'white', alignSelf: 'center' }}>
+            Team Name
+</Text>
 
-    };
+        <RowItem
+            name="Team Info"
+            color="black"
+            onPress={() =>
+                navigation.navigate('teamInfo')}
+        />
+        <RowItem
+            name="Team Members"
+            color="black"
+            onPress={() =>
+                navigation.navigate('teamMembers')}
+        />
+        <RowItem
+            name="Map View"
+            color="black"
+            onPress={() =>
+                navigation.navigate('mapView')}
+        />
+        <RowItem
+            name="Team Alerts"
+            color="black"
+            onPress={() =>
+                navigation.navigate('teamAlerts')}
+        />
+    </ScrollView>
 
-    render() {
-
-        return (
-            <View
-                style={[
-                    styles.container,
-                    { backgroundColor: this.props.navigation.getParam("color") }
-                ]}
-            >
-                <StatusBar barStyle="light-content" />
-                <SafeAreaView style={styles.safearea}>
-                    <View>
-                        <Text style={styles.text}> team list data here </Text>
-                    </View>
-
-                </SafeAreaView>
-
-            </View>
-        );
-    }
-}
-
-export default teamList;
+);

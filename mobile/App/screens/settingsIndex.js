@@ -10,41 +10,43 @@ import { RowItem } from "../components/RowItem";
 
 export default ({ navigation }) => (
     <ScrollView>
-        <StatusBar barStyle="dark-content" />
+        <StatusBar />
+
         <RowItem
-            name="Settings"
+            name="14. Team List"
+            color="gray"
+            onPress={() =>
+                navigation.navigate('teamList')}
+        />
+        <RowItem
+            name="15. Settings"
             color="black"
             onPress={() =>
                 navigation.navigate('settings')}
 
         />
         <RowItem
-            name="User Settings"
+            name="16. User Settings"
             color="black"
             onPress={() =>
                 navigation.navigate('userSettings')}
 
         />
         <RowItem
-            name="Team Settings"
+            name="17. Team Settings"
             color="black"
             onPress={() =>
                 navigation.navigate('teamSettings')}
         />
+
         <RowItem
-            name="Team List"
-            color="gray"
-            onPress={() =>
-                navigation.navigate('teamList')}
-        />
-        <RowItem
-            name="Create Pin"
+            name="18. Create Pin"
             color="gray"
             onPress={() =>
                 navigation.navigate('createPin')}
         />
         <RowItem
-            name="Pin Info"
+            name="19. Pin Info"
             color="gray"
             onPress={() =>
                 navigation.navigate('pinInfo')}
