@@ -18,6 +18,7 @@ import TeamInfo from "./screens/TeamInfo";
 import MemberProfile from "./screens/MemberProfile";
 import DataExport from "./screens/DataExport";
 import Map from "./screens/Map";
+import TeamAlerts from "./screens/TeamAlerts";
 
 const styles = StyleSheet.create({
   container: {
@@ -29,18 +30,6 @@ const styles = StyleSheet.create({
 });
 
 const MainStack = createStackNavigator({
-  // TeamMemberList: {
-  //   screen: TeamMemberList,
-  //   navigationOptions: {
-  //     headerTitle: "Team Member List"
-  //   }
-  // },
-  // MemberProfile: {
-  //   screen: MemberProfile,
-  //   navigationOptions: ({ navigation }) => ({
-  //     headerTitle: "Member Information"
-  //   })
-  // },
   TeamInfo: {
     screen: TeamInfo,
     navigationOptions: {
@@ -57,6 +46,24 @@ const MainStack = createStackNavigator({
     screen: Map,
     navigationOptions: {
       headerTitle: "Map"
+    }
+  },
+  TeamAlerts: {
+    screen: TeamAlerts,
+    navigationOptions: {
+      headerTitle: "Team Alerts"
+    },
+    TeamMemberList: {
+      screen: TeamMemberList,
+      navigationOptions: {
+        headerTitle: "Team Member List"
+      }
+    },
+    MemberProfile: {
+      screen: MemberProfile,
+      navigationOptions: ({ navigation }) => ({
+        headerTitle: "Member Information"
+      })
     }
   }
 });

@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
   }
 });
 
-// Include dropdown menu for options
 class DataExport extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
