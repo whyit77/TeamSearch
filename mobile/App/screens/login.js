@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class SignIn extends React.Component {
+export default class Login extends React.Component {
   state = {
     email: "",
     password: "",
@@ -91,6 +91,7 @@ export default class SignIn extends React.Component {
           onPress={() => this.props.navigation.navigate("Team_list")}
         />
         <View style={styles.textBlock}>
+          <Text style={styles.text}>Don't have an account?</Text>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate("Create_acc")}
           >

@@ -4,7 +4,8 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  View
+  View,
+  KeyboardAvoidingView
 } from "react-native";
 
 import { TextField, ErrorText } from "../components/Form";
@@ -26,9 +27,12 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class Reset_pw extends React.Component {
+export default class Create_team extends React.Component {
   state = {
-    email: "",
+    teamName: "",
+    teamCode: "XXXXX",
+    searchDesc: "",
+    subjectDesc: "",
     error: ""
   };
 
@@ -67,20 +71,41 @@ export default class Reset_pw extends React.Component {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>
-        <TextField
-          label="Email"
-          placeholder="john.doe@example.com"
-          onChangeText={email => this.setState({ email })}
-          value={this.state.email}
-          autoCapitalize="none"
-        />
-        <ErrorText text={this.state.error} />
-        <Button
-          text="Send Temporary Password"
-          onPress={() => this.props.navigation.navigate("Login")}
-        />
-      </ScrollView>
+      <KeyboardAvoidingView behavior="position" enabled>
+        <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>
+          <Text style={styles.text}>PHOTO UPLOAD</Text>
+          <TextField
+            label="Team Name"
+            onChangeText={teamName => this.setState({ teamName })}
+            value={this.state.teamName}
+            autoCapitalize="none"
+          />
+          <TextField
+            label="Team Code"
+            value={this.state.teamCode}
+            autoCapitalize="none"
+          />
+          <TextField
+            label="Search Description"
+            placeholder="What is the situation?"
+            onChangeText={searchDesc => this.setState({ searchDesc })}
+            value={this.state.searchDesc}
+            autoCapitalize="none"
+          />
+          <TextField
+            label="Subject Description"
+            placeholder="What are you looking for?"
+            onChangeText={subjectDesc => this.setState({ subjectDesc })}
+            value={this.state.subjectDesc}
+            autoCapitalize="none"
+          />
+          <ErrorText text={this.state.error} />
+          <Button
+            text="Define Your Search Area"
+            onPress={() => this.props.navigation.navigate("Define_area")}
+          />
+        </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }

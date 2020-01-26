@@ -4,7 +4,8 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  View
+  View,
+  KeyboardAvoidingView
 } from "react-native";
 
 import { TextField, ErrorText } from "../components/Form";
@@ -26,9 +27,11 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class Reset_pw extends React.Component {
+export default class Create_team extends React.Component {
   state = {
-    email: "",
+    area: "",
+    units: "XXXXX",
+    radius: "",
     error: ""
   };
 
@@ -67,20 +70,23 @@ export default class Reset_pw extends React.Component {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>
-        <TextField
-          label="Email"
-          placeholder="john.doe@example.com"
-          onChangeText={email => this.setState({ email })}
-          value={this.state.email}
-          autoCapitalize="none"
-        />
-        <ErrorText text={this.state.error} />
-        <Button
-          text="Send Temporary Password"
-          onPress={() => this.props.navigation.navigate("Login")}
-        />
-      </ScrollView>
+      <KeyboardAvoidingView behavior="position" enabled>
+        <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>
+          <Text style={styles.text}>MAP</Text>
+          <Text style={styles.text}>UNITS DROPDOWN</Text>
+          <TextField
+            label="Search Radius"
+            onChangeText={radius => this.setState({ radius })}
+            value={this.state.radius}
+            autoCapitalize="none"
+          />
+          <ErrorText text={this.state.error} />
+          <Button
+            text="Finish Creating Team"
+            //onPress={() => this.props.navigation.navigate("Define_area")}
+          />
+        </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }
