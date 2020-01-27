@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class Reset_pw extends React.Component {
+export default class ResetPW extends React.Component {
   state = {
     email: "",
     error: ""

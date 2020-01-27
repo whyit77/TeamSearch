@@ -27,11 +27,12 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class Create_team extends React.Component {
+export default class CreateTeam extends React.Component {
   state = {
-    area: "",
-    units: "XXXXX",
-    radius: "",
+    teamName: "",
+    teamCode: "XXXXX",
+    searchDesc: "",
+    subjectDesc: "",
     error: ""
   };
 
@@ -72,18 +73,36 @@ export default class Create_team extends React.Component {
     return (
       <KeyboardAvoidingView behavior="position" enabled>
         <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>
-          <Text style={styles.text}>MAP</Text>
-          <Text style={styles.text}>UNITS DROPDOWN</Text>
+          <Text style={styles.text}>PHOTO UPLOAD</Text>
           <TextField
-            label="Search Radius"
-            onChangeText={radius => this.setState({ radius })}
-            value={this.state.radius}
+            label="Team Name"
+            onChangeText={teamName => this.setState({ teamName })}
+            value={this.state.teamName}
+            autoCapitalize="none"
+          />
+          <TextField
+            label="Team Code"
+            value={this.state.teamCode}
+            autoCapitalize="none"
+          />
+          <TextField
+            label="Search Description"
+            placeholder="What is the situation?"
+            onChangeText={searchDesc => this.setState({ searchDesc })}
+            value={this.state.searchDesc}
+            autoCapitalize="none"
+          />
+          <TextField
+            label="Subject Description"
+            placeholder="What are you looking for?"
+            onChangeText={subjectDesc => this.setState({ subjectDesc })}
+            value={this.state.subjectDesc}
             autoCapitalize="none"
           />
           <ErrorText text={this.state.error} />
           <Button
-            text="Finish Creating Team"
-            //onPress={() => this.props.navigation.navigate("Define_area")}
+            text="Define Your Search Area"
+            onPress={() => this.props.navigation.navigate("DefineArea")}
           />
         </ScrollView>
       </KeyboardAvoidingView>

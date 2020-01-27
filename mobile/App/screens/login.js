@@ -57,10 +57,6 @@ export default class Login extends React.Component {
   //     });
   // };
 
-  handleSubmit = () => {
-    this.props.navigation.navigate("team_list_view");
-  };
-
   render() {
     return (
       <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>
@@ -80,7 +76,7 @@ export default class Login extends React.Component {
         />
         <View style={styles.textBlock}>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate("Reset_pw")}
+            onPress={() => this.props.navigation.navigate("ResetPW")}
           >
             <Text style={[styles.text, styles.link]}>Forgot Password?</Text>
           </TouchableOpacity>
@@ -88,12 +84,12 @@ export default class Login extends React.Component {
         <ErrorText text={this.state.error} />
         <Button
           text="Submit"
-          onPress={() => this.props.navigation.navigate("Team_list")}
+          onPress={() => this.props.navigation.navigate("TeamListView")}
         />
         <View style={styles.textBlock}>
           <Text style={styles.text}>Don't have an account?</Text>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate("Create_acc")}
+            onPress={() => this.props.navigation.navigate("CreateAcc")}
           >
             <Text style={[styles.text, styles.link]}>Create New Account</Text>
           </TouchableOpacity>

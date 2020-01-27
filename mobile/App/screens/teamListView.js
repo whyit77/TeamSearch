@@ -15,12 +15,12 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class Create_acc extends React.Component {
+export default class TeamListView extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate("Create_team")}
+          onPress={() => this.props.navigation.navigate("CreateTeam")}
         >
           <Text style={styles.text}>+</Text>
         </TouchableOpacity>

@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class Create_acc extends React.Component {
+export default class CreateAcc extends React.Component {
   state = {
     email: "",
     firstName: "",
@@ -150,7 +150,7 @@ export default class Create_acc extends React.Component {
           <ErrorText text={this.state.error} />
           <Button
             text="Submit"
-            onPress={() => this.props.navigation.navigate("Team_list")}
+            onPress={() => this.props.navigation.navigate("TeamListView")}
           />
           <View style={styles.textBlock}>
             <Text style={styles.text}>Already have an account?</Text>
