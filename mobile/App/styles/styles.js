@@ -77,7 +77,8 @@ const formStyle = StyleSheet.create({
     backgroundColor: B2,
     borderRadius: 30,
     paddingBottom: 20,
-    margin: 10
+    margin: 10, 
+    paddingVertical: 10
   },
 
   row: {
@@ -274,4 +275,129 @@ const headerBackStyle = StyleSheet.create ({
 
 })
 
-export { mainStyle, buttonStyle, headerRegStyle, headerDrawerStyle, headerDrawerPlusStyle, headerBackStyle, formStyle }
+
+const teamListStyle = StyleSheet.create ({
+  teamContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems:'center',
+    backgroundColor: B2,
+    borderRadius: 30,
+    paddingBottom: 20,
+    paddingTop: 5,
+    margin: 10
+  },
+  centerContainer: {
+    justifyContent: 'center',
+    alignItems:'center',   
+    width: screen.width
+  },
+  teamLabelText: {
+    color: WHITE,
+    fontSize: 18,
+    fontWeight: "400",
+    marginBottom: 7,
+    marginTop: 10,
+  },
+  teamInputText: {
+    color: WHITE,
+    fontSize: 18,
+    fontWeight: "600",
+    marginBottom: 7,
+    marginTop: 10,
+  },
+  container1: {
+    marginTop: 10,
+    flexDirection: 'row',
+    //flex: 1,
+    justifyContent: 'center',
+    alignItems:'center',   
+    width: screen.width,
+    justifyContent: 'space-between',
+    width: screen.width,
+    marginBottom: 0
+  },
+  nameContainer: {
+      //flex: 1,
+      alignSelf: 'center',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems:'center',   
+      marginLeft: 20,
+      paddingVertical: 5,
+      paddingHorizontal: 20,
+      backgroundColor: B3,
+      borderRadius: 30,
+      width: screen.width/2
+  },
+  statusContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems:'center',  
+    paddingVertical: 5,
+    paddingHorizontal: 5,
+    marginRight: 20,
+    backgroundColor: B3,
+    borderRadius: 30,
+    width: screen.width/3+10
+  },
+  container2: {
+    marginTop: 5,
+    flexDirection: 'row',
+    //flex: 1,
+    justifyContent: 'center',
+    alignItems:'center',   
+    width: screen.width,
+    justifyContent: 'space-between',
+  },
+  adminContainer: {
+    //flex: 1,
+    alignSelf: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems:'center',   
+    marginLeft: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+    backgroundColor: B3,
+    borderRadius: 30,
+    width: screen.width/2
+  },
+  sizeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems:'center',  
+    paddingVertical: 5,
+    paddingHorizontal: 5,
+    marginRight: 20,
+    backgroundColor: B3,
+    borderRadius: 30,
+    width: screen.width/3+10
+  },
+  container3: {
+    flexDirection: 'row',
+    //flex: 1,
+    justifyContent: 'center',
+    alignItems:'center',   
+    width: screen.width,
+    justifyContent: 'space-between',
+    width: screen.width,
+    marginTop: 5
+  },
+  descriptionContainer: {
+    alignSelf: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems:'center',   
+    marginLeft: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+    backgroundColor: B3,
+    borderRadius: 30,
+    width: screen.width-40
+  }
+
+
+})
+
+export { mainStyle, buttonStyle, headerRegStyle, headerDrawerStyle, headerDrawerPlusStyle, headerBackStyle, formStyle, teamListStyle }

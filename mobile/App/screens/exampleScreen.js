@@ -5,9 +5,11 @@ import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elemen
 import Icon from "react-native-vector-icons/Ionicons";
 
 import {TextField, RadioButton} from '../Components/Form';
+import { TeamList } from '../Components/TeamList';
+
 import {HeaderReg, HeaderDrawer, HeaderDrawerPlus, HeaderBack} from '../Components/Header'
 
-import { buttonStyle, mainStyle, exampleText, formStyle } from '../styles/styles'
+import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
 
 import t from 'tcomb-form-native';
 
@@ -69,6 +71,10 @@ class ExampleScreen extends React.Component{
                         <TouchableOpacity style={formStyle.formButtonContainer}>
                             <Text style={formStyle.formButtonText}>Submit</Text>
                         </TouchableOpacity>
+
+                     </View>
+                     <View style={teamListStyle.teamContainer}>
+                        <TeamList name={'TeamSearch'} status={'Active'} admin={'Dr. Dan'} size={20} description={'Small boi'}></TeamList>
 
                      </View>
                 </ScrollView>
