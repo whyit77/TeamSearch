@@ -18,12 +18,11 @@ import MemberProfile from "./screens/MemberProfile";
 import DataExport from "./screens/DataExport";
 import Map from "./screens/Map";
 import TeamAlerts from "./screens/TeamAlerts";
-// screens 14-17
-import settingsIndex from "./screens/settingsIndex";
+// screens 14-19
 import settings from "./screens/settings";
 import teamSettings from "./screens/teamSettings";
 import userSettings from "./screens/userSettings";
-import teamList from "./screens/teamList";
+import Menu from "./screens/Menu";
 import createPin from "./screens/createPin";
 import pinInfo from "./screens/pinInfo";
 
@@ -92,25 +91,30 @@ const MainStack = createStackNavigator({
     screen: TeamAlerts,
     navigationOptions: {
       headerTitle: "Team Alerts"
-    },
-    TeamMemberList: {
-      screen: TeamMemberList,
-      navigationOptions: {
-        headerTitle: "Team Member List"
-      }
-    },
-    MemberProfile: {
-      screen: MemberProfile,
-      navigationOptions: ({ navigation }) => ({
-        headerTitle: "Member Information"
-      })
     }
   },
-  settingsIndex: {
-    screen: settingsIndex,
+  TeamMemberList: {
+    screen: TeamMemberList,
     navigationOptions: {
-      headerTitle: "Settings"
+      headerTitle: "Team Member List"
     }
+  },
+  MemberProfile: {
+    screen: MemberProfile,
+    navigationOptions: ({ navigation }) => ({
+      headerTitle: "Member Information"
+    })
+  },
+  Menu: {
+    screen: Menu,
+    navigationOptions: ({ navigation }) => ({
+      headerTitle: "Menu",
+      headerTintColor: "black",
+      headerStyle: {
+        backgroundColor: navigation.getParam("color"),
+        borderBottomColor: navigation.getParam("color")
+      }
+    })
   },
   settings: {
     screen: settings,
@@ -138,17 +142,6 @@ const MainStack = createStackNavigator({
     screen: teamSettings,
     navigationOptions: ({ navigation }) => ({
       headerTitle: "Team Settings",
-      headerTintColor: "black",
-      headerStyle: {
-        backgroundColor: navigation.getParam("color"),
-        borderBottomColor: navigation.getParam("color")
-      }
-    })
-  },
-  teamList: {
-    screen: teamList,
-    navigationOptions: ({ navigation }) => ({
-      headerTitle: "Team List",
       headerTintColor: "black",
       headerStyle: {
         backgroundColor: navigation.getParam("color"),

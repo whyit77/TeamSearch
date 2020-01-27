@@ -7,38 +7,93 @@ export default ({ navigation }) => (
     <StatusBar barStyle="dark-content" />
     <RowItem
       name="Login"
-      color="#9400D3"
+      color="#cc0000"
       onPress={() => navigation.navigate("Login")}
     />
     <RowItem
       name="Reset Password"
-      color="#4B0082"
-      onPress={() => navigation.navigate("Reset_pw")}
+      color="#ff3333"
+      onPress={() => navigation.navigate("ResetPW")}
     />
     <RowItem
       name="Create Account"
-      color="#0000FF"
-      onPress={() => navigation.navigate("Create_acc")}
+      color="#ff6633"
+      onPress={() => navigation.navigate("CreateAcc")}
     />
     <RowItem
       name="Team List"
-      color="#00FF00"
-      onPress={() => navigation.navigate("Team_list")}
+      color="#ff9933"
+      onPress={() => navigation.navigate("TeamListView")}
     />
     <RowItem
       name="Create Team"
-      color="#FFFF00"
-      onPress={() => navigation.navigate("Create_team")}
+      color="#ffbf00"
+      onPress={() => navigation.navigate("CreateTeam")}
     />
     <RowItem
       name="Define Search Area"
-      color="#FF7F00"
-      onPress={() => navigation.navigate("Define_area")}
+      color="#ffff33"
+      onPress={() => navigation.navigate("DefineArea")}
     />
     <RowItem
-      name="NEXT"
-      color="#FF0000"
-      //onPress={() => navigation.navigate("Define_area")}
+      name="Team Member List"
+      color="#80ff00"
+      onPress={() => navigation.navigate("TeamMemberList")}
+    />
+    <RowItem
+      name="Team Info"
+      color="#00ff00"
+      onPress={() => navigation.navigate("TeamInfo")}
+    />
+    <RowItem
+      name="Member Profile"
+      color="#00e600"
+      onPress={() => navigation.navigate("MemberProfile")}
+    />
+    <RowItem
+      name="Data Export"
+      color="#33ff99"
+      onPress={() => navigation.navigate("DataExport")}
+    />
+    <RowItem
+      name="Map"
+      color="#33ffcc"
+      onPress={() => navigation.navigate("Map")}
+    />
+    <RowItem
+      name="Team Alerts"
+      color="#33ffff"
+      onPress={() => navigation.navigate("Team Alerts")}
+    />
+    <RowItem
+      name="Menu"
+      color="#33ccff"
+      onPress={() => navigation.navigate("Menu")}
+    />
+    <RowItem
+      name="Settings"
+      color="#3366ff"
+      onPress={() => navigation.navigate("settings")}
+    />
+    <RowItem
+      name="Team Settings"
+      color="#3333ff"
+      onPress={() => navigation.navigate("teamSettings")}
+    />
+    <RowItem
+      name="User Settings"
+      color="#9933ff"
+      onPress={() => navigation.navigate("userSettings")}
+    />
+    <RowItem
+      name="Create Pin"
+      color="#cc33ff"
+      onPress={() => navigation.navigate("createPin")}
+    />
+    <RowItem
+      name="Pin Info"
+      color="#ff33ff"
+      onPress={() => navigation.navigate("pinInfo")}
     />
   </ScrollView>
 );
