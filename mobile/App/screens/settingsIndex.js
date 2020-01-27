@@ -13,10 +13,10 @@ export default ({ navigation }) => (
         <StatusBar />
 
         <RowItem
-            name="14. Team List"
+            name="14. Menu"
             color="gray"
             onPress={() =>
-                navigation.navigate('teamList')}
+                navigation.navigate('menu')}
         />
         <RowItem
             name="15. Settings"

@@ -10,7 +10,7 @@ import settingsIndex from "./screens/settingsIndex";
 import settings from "./screens/settings";
 import teamSettings from "./screens/teamSettings";
 import userSettings from "./screens/userSettings";
-import teamList from "./screens/teamList";
+import menu from "./screens/menu";
 import createPin from "./screens/createPin";
 import pinInfo from "./screens/pinInfo";
 
@@ -59,8 +59,8 @@ const MainStack = createStackNavigator({
       }
     })
   },
-  teamList: {
-    screen: teamList,
+  menu: {
+    screen: menu,
     navigationOptions: ({ navigation }) => ({
       headerTitle: "Team List",
       headerTintColor: "black",
