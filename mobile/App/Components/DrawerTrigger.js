@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-// withNavigation allows components to dispatch navigation actions
+// withNavigation allows Components to dispatch navigation actions
 import { withNavigation } from 'react-navigation';
 
 // DrawerActions is a specific type of navigation dispatcher

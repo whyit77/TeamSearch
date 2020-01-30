@@ -5,7 +5,7 @@ import { createAppContainer } from "react-navigation";
 
 import React from "react";
 import { ScrollView, StatusBar } from "react-native";
-import { RowItem } from "../components/RowItem";
+import { RowItem } from "../Components/RowItem";
 
 export default ({ navigation }) => (
   <ScrollView>

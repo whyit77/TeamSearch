@@ -3,7 +3,7 @@
 //HAMBURGER MENU
 import React from "react";
 import { ScrollView, StatusBar, Text } from "react-native";
-import { RowItem } from "../components/RowItem";
+import { RowItem } from "../Components/RowItem";
 
 export default ({ navigation }) => (
   <ScrollView>

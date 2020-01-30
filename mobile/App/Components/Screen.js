@@ -4,10 +4,10 @@
 
 // Part 1: import libraries
 import React from 'react'; 
-    // how different components work together
+    // how different Components work together
     // import whole React library
 import { Text, StyleSheet } from 'react-native';
-    // knows how to use info from components and show to user
+    // knows how to use info from Components and show to user
     // curly braces - importing just a few small parts out of a given library
 
 
