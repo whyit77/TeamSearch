@@ -4,27 +4,16 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  View
+  View,
 } from "react-native";
 
 import { TextField, ErrorText } from "../Components/Form";
 import { Button } from "../Components/Button";
+
+import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
+
 // import { reviewApi, saveAuthToken } from "../util/api";
 
-const styles = StyleSheet.create({
-  textBlock: {
-    marginTop: 20
-  },
-  text: {
-    fontSize: 18,
-    color: "#969696",
-    textAlign: "center",
-    marginBottom: 2
-  },
-  link: {
-    textDecorationLine: "underline"
-  }
-});
 
 export default class Login extends React.Component {
   state = {
@@ -59,42 +48,62 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>
-        <TextField
-          label="Email"
-          placeholder="john.doe@example.com"
-          onChangeText={email => this.setState({ email })}
-          value={this.state.email}
-          autoCapitalize="none"
-        />
-        <TextField
-          label="Password"
-          secureTextEntry
-          onChangeText={password => this.setState({ password })}
-          value={this.state.password}
-          autoCapitalize="none"
-        />
-        <View style={styles.textBlock}>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate("ResetPW")}
-          >
-            <Text style={[styles.text, styles.link]}>Forgot Password?</Text>
-          </TouchableOpacity>
-        </View>
-        <ErrorText text={this.state.error} />
-        <Button
-          text="Submit"
-          onPress={() => this.props.navigation.navigate("TeamListView")}
-        />
-        <View style={styles.textBlock}>
-          <Text style={styles.text}>Don't have an account?</Text>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate("CreateAcc")}
-          >
-            <Text style={[styles.text, styles.link]}>Create New Account</Text>
-          </TouchableOpacity>
+      <View style={formStyle.formContainer}>
+      <ScrollView contentContainerStyle={formStyle.formContainer} >
+        <View style={formStyle.formContainer}>
+          <Text style={formStyle.label} >Email</Text>
+          <TextField
+            //label="Email"
+            placeholder="john.doe@example.com"
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
+            autoCapitalize="none"
+            style={formStyle.placeholderStyle}
+            color='white'
+            selectionColor='red'
+            keyboardAppearance='dark'
+            keyboardType='email-address'
+            labelTextColor='white'
+            textContentType='emailAddress'
+          />
+          <Text style={formStyle.label} >Password</Text>
+          <TextField
+            //label="Password"
+            placeholder='Must be at least 8 characters'
+            secureTextEntry
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+            autoCapitalize="none"
+            style={formStyle.placeholderStyle}
+            color='white'
+            selectionColor='red'
+            keyboardAppearance='dark'
+
+          />
+          <View style={formStyle.textBlock}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("ResetPW")}
+            >
+              <Text style={[formStyle.text, formStyle.link]}>Forgot Password?</Text>
+            </TouchableOpacity>
+          </View>
+          <ErrorText text={this.state.error} />
+          <Button
+            style={formStyle.formButtonContainer}
+            text="Submit"
+            onPress={() => this.props.navigation.navigate("TeamListView")}
+          />
+          <View style={formStyle.textBlock}>
+            <Text style={formStyle.text}>Don't have an account?</Text>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("CreateAcc")}
+            >
+              <Text style={[formStyle.text, formStyle.link]}>Create New Account</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
+      </View>
     );
   }
 }

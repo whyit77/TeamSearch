@@ -26,29 +26,57 @@ import Menu from "./screens/Menu";
 import createPin from "./screens/createPin";
 import pinInfo from "./screens/pinInfo";
 
+// HEADER COLOR
+let HEADER_COLOR ='#292929';
+let WHITE = 'white';
+let FONT_WEIGHT_HEADER = 'bold'
+
 const MainStack = createStackNavigator({
   Screen0: {
     screen: Screen0,
     navigationOptions: {
-      headerTitle: "For Testing"
-    }
+      headerTitle: "For Testing",
+    },
   },
   Login: {
     screen: Login,
     navigationOptions: {
-      headerTitle: "Login"
+      headerTitle: "Login",
+      headerStyle: {
+        backgroundColor: HEADER_COLOR,
+      },
+      headerTintColor: '#fff',
+      //headerBorderBottom: 'black',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+      
     }
   },
   ResetPW: {
     screen: ResetPW,
     navigationOptions: {
-      headerTitle: "Reset Password"
+      headerTitle: "Reset Password",
+      headerStyle: {
+        backgroundColor: HEADER_COLOR,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
     }
   },
   CreateAcc: {
     screen: CreateAcc,
     navigationOptions: {
-      headerTitle: "Create Account"
+      headerTitle: "Create Account",
+      headerStyle: {
+        backgroundColor: HEADER_COLOR,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
     }
   },
   TeamListView: {

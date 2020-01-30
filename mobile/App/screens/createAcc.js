@@ -5,12 +5,18 @@ import {
   TouchableOpacity,
   StyleSheet,
   View,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  SafeAreaView
 } from "react-native";
+
+//import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+
 
 import { TextField, ErrorText } from "../Components/Form";
 import { Button } from "../Components/Button";
 //import { reviewApi } from "../util/api";
+
+import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
 
 const styles = StyleSheet.create({
   textBlock: {
@@ -75,49 +81,78 @@ export default class CreateAcc extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView behavior="position" enabled>
-        <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>
+      <SafeAreaView style={mainStyle.toplevel}>
+      <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column',justifyContent: 'center',}} behavior="padding" enabled>
+
+      <ScrollView contentContainerStyle={formStyle.formContainer}>
           <Text style={styles.text}>PHOTO UPLOAD</Text>
+          <Text style={formStyle.label} >Email</Text>
           <TextField
-            label="Email"
+            //label="Email"
             placeholder="john.doe@example.com"
             onChangeText={email => this.setState({ email })}
             value={this.state.email}
             autoCapitalize="none"
+            style={formStyle.placeholderStyle}
+            color='white'
+            selectionColor='red'
+            keyboardAppearance='dark'
+            keyboardType='email-address'
+            labelTextColor='white'
+            textContentType='emailAddress'
           />
+          <Text style={formStyle.label} >First Name</Text>
           <TextField
-            label="First Name"
+           // label="First Name"
             placeholder="John"
             onChangeText={firstName => this.setState({ firstName })}
             value={this.state.firstName}
             autoCapitalize="none"
+            keyboardAppearance='dark'
           />
+          <Text style={formStyle.label} >Last Name</Text>
           <TextField
-            label="Last Name"
+            //label="Last Name"
             placeholder="Doe"
             onChangeText={lastName => this.setState({ lastName })}
             value={this.state.lastName}
             autoCapitalize="none"
+            keyboardAppearance='dark'
           />
+          <Text style={formStyle.label} >Password</Text>
           <TextField
-            label="Password"
+            //label="Password"
             secureTextEntry
             onChangeText={password => this.setState({ password })}
             value={this.state.password}
             autoCapitalize="none"
+            style={formStyle.placeholderStyle}
+            color='white'
+            selectionColor='red'
+            keyboardAppearance='dark'
           />
+          <Text style={formStyle.label} >Confirm Password</Text>
           <TextField
-            label="Confirm Password"
+            //label="Confirm Password"
             secureTextEntry
             onChangeText={repassword => this.setState({ repassword })}
             value={this.state.repassword}
             autoCapitalize="none"
+            style={formStyle.placeholderStyle}
+            color='white'
+            selectionColor='red'
+            keyboardAppearance='dark'
           />
+          <Text style={formStyle.label} >Phone Number</Text>
           <TextField
-            label="Phone Number"
+            //label="Phone Number"
             placeholder="(000)000-0000"
             onChangeText={phone => this.setState({ phone })}
             value={this.state.phone}
+            style={formStyle.placeholderStyle}
+            color='white'
+            selectionColor='red'
+            keyboardAppearance='dark'
             // value={this.state.phoneNumberFormat}
             // onChangeText={phoneNumberFormat => {
             //   let phoneNumber = phoneNumberFormat.toString().replace(/\D+/g, "");
@@ -140,15 +175,21 @@ export default class CreateAcc extends React.Component {
             //       }
             // }
           />
+          <Text style={formStyle.label} >Certifications/Discription</Text>
           <TextField
-            label="Certifications/Description"
+            //label="Certifications/Description"
             placeholder="CPR certified, own a trained search hound, etc..."
             onChangeText={desc => this.setState({ desc })}
             value={this.state.desc}
             autoCapitalize="none"
+            style={formStyle.placeholderStyle}
+            color='white'
+            selectionColor='red'
+            keyboardAppearance='dark'
           />
           <ErrorText text={this.state.error} />
           <Button
+            style={formStyle.formButtonContainer}
             text="Submit"
             onPress={() => this.props.navigation.navigate("TeamListView")}
           />
@@ -161,7 +202,10 @@ export default class CreateAcc extends React.Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
-      </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+        </SafeAreaView>
+        
+      // </KeyboardAwareScrollView>
     );
   }
 }

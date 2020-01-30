@@ -1,6 +1,8 @@
 import { StyleSheet, flex, Dimensions } from 'react-native';
 
 const screen = Dimensions.get('screen');
+import Constants from 'expo-constants';
+
 
 let B1 = '#121212';
 let B2 = '#292929';
@@ -13,9 +15,14 @@ const mainStyle = StyleSheet.create({
   ///////////////////////
   // Top Level Container
   toplevel: {
-    flex: 1,
+    //flex: 1,
+    justifyContent: 'center',
+    //marginTop: 10,
+    //marginBottom: Constants.statusBarHeight*2,
+    alignContent: 'center',
     backgroundColor: B1,
-    //justifyContent: 'space-between',
+    height: screen.height,
+     paddingVertical: 10
 
   },
   ////////////////////////
@@ -23,7 +30,7 @@ const mainStyle = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: B1,
-    alignItems: 'center',
+    //alignItems: 'center',
     justifyContent: 'center',
   },
 
@@ -71,14 +78,15 @@ const buttonStyle = StyleSheet.create({
 
 const formStyle = StyleSheet.create({
   formContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems:'center',
-    backgroundColor: B2,
-    borderRadius: 30,
-    paddingBottom: 20,
-    margin: 10, 
-    paddingVertical: 10
+    // flex: 1,
+    // justifyContent: 'center',
+    // alignItems:'center',
+    backgroundColor: B1,
+    height: screen.height,
+    //borderRadius: 30,
+    paddingBottom: 10,
+    // margin: 10, 
+     paddingVertical: 10,
   },
 
   row: {
@@ -88,12 +96,21 @@ const formStyle = StyleSheet.create({
     marginBottom: 11,
     width: 250
   },
-  label: {
+  placeholderStyle: {
     color: WHITE,
     fontSize: 18,
     fontWeight: "600",
     marginBottom: 7,
-    marginTop: 10
+    marginTop: 10,
+  },
+  label: {
+    color: WHITE,
+    fontSize: 18,
+    fontWeight: "600",
+    marginBottom: -15,
+    marginTop: 10,
+    textShadowColor: WHITE,
+    marginLeft: 20
   },
   textfield: {
     fontSize: 18,
@@ -110,11 +127,11 @@ const formStyle = StyleSheet.create({
   },
   formButtonContainer: {
     backgroundColor: RED,
-    paddingVertical: 9,
-    paddingHorizontal: 20,
+    // paddingVertical: 9,
+    // paddingHorizontal: 20,
     borderRadius: 30,
-    width: 140,
-    marginTop: 10
+    // width: 140,
+    //marginTop: 10
    },
  formButtonText: {
      textAlign: 'center',
@@ -122,6 +139,18 @@ const formStyle = StyleSheet.create({
      fontSize: 15,
      fontWeight: 'bold',
  },
+ textBlock: {
+  marginTop: 20
+},
+text: {
+  fontSize: 18,
+  color: "#969696",
+  textAlign: "center",
+  marginBottom: 2
+},
+link: {
+  textDecorationLine: "underline"
+}
 
 })
 

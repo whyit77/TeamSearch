@@ -11,6 +11,9 @@ import { TextField, ErrorText } from "../Components/Form";
 import { Button } from "../Components/Button";
 //import { reviewApi } from "../util/api";
 
+import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
+
+
 const styles = StyleSheet.create({
   textBlock: {
     marginTop: 20
@@ -67,20 +70,34 @@ export default class ResetPW extends React.Component {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>
-        <TextField
-          label="Email"
-          placeholder="john.doe@example.com"
-          onChangeText={email => this.setState({ email })}
-          value={this.state.email}
-          autoCapitalize="none"
-        />
-        <ErrorText text={this.state.error} />
-        <Button
-          text="Send Temporary Password"
-          onPress={() => this.props.navigation.navigate("Login")}
-        />
+      <View style={formStyle.formContainer}>
+
+      <ScrollView contentContainerStyle={formStyle.formContainer}>
+        <View style={formStyle.formContainer}>
+
+          <Text style={formStyle.label} >Email</Text>
+          <TextField
+            //label="Email"
+            placeholder="john.doe@example.com"
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
+            autoCapitalize="none"
+            color='white'
+            selectionColor='red'
+            keyboardAppearance='dark'
+            keyboardType='email-address'
+            labelTextColor='white'
+            textContentType='emailAddress'
+          />
+          <ErrorText text={this.state.error} />
+          <Button
+            style={formStyle.formButtonContainer}
+            text="Send Temporary Password"
+            onPress={() => this.props.navigation.navigate("Login")}
+          />
+        </View>
       </ScrollView>
+      </View>
     );
   }
 }
