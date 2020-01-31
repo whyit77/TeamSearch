@@ -63,7 +63,7 @@ export default ({ navigation }) => (
     <RowItem
       name="Team Alerts"
       color="#33ffff"
-      onPress={() => navigation.navigate("Team Alerts")}
+      onPress={() => navigation.navigate("TeamAlerts")}
     />
     <RowItem
       name="Menu"
