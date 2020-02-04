@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		justifyContent: 'center',
 		alignItems: 'center',
+		paddingVertical: 10,
 	},
 	label: {
 		color: '#4A4A4A',
@@ -36,12 +37,16 @@ export const ImageField = ({
 	...props
 }) => (
 	<View style={[styles.column, viewStyles]}>
-		<Text style={[styles.label, topLabelStyles]} onPress={onTopPress}>
-			{topLabel}
-		</Text>
+		{topLabel === '' ? null : (
+			<Text style={[styles.label, topLabelStyles]} onPress={onTopPress}>
+				{topLabel}
+			</Text>
+		)}
 		<Image style={[styles.image, imageStyles]} source={source} {...props} />
-		<Text style={[styles.label, bottomLabelStyles]} onPress={onBottomPress}>
-			{bottomLabel}
-		</Text>
+		{bottomLabel === '' ? null : (
+			<Text style={[styles.label, bottomLabelStyles]} onPress={onBottomPress}>
+				{bottomLabel}
+			</Text>
+		)}
 	</View>
 );
