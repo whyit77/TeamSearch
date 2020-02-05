@@ -88,12 +88,14 @@ export default class Login extends React.Component {
             </TouchableOpacity>
           </View>
           <ErrorText text={this.state.error} />
+          <View style={formStyle.formButtonContainer}>
           <Button
-            style={formStyle.formButtonContainer}
+            style={formStyle.formButton}
             text="Submit"
             onPress={() => this.props.navigation.navigate("TeamListView")}
           />
-          <View style={formStyle.textBlock}>
+          </View>
+          <View >
             <Text style={formStyle.text}>Don't have an account?</Text>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate("CreateAcc")}

@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 export const TeamList = ({ label, name, status, admin, size, description }) => (
 
-    <View style={teamListStyle.centerContainer}>
+    <TouchableOpacity style={teamListStyle.centerContainer}>
         <View style={headerRegStyle.centerContainer}>
         <View style={teamListStyle.container1}>
             <View style={teamListStyle.nameContainer}>
@@ -38,6 +38,6 @@ export const TeamList = ({ label, name, status, admin, size, description }) => (
             </View>
         </View>
     </View>
-  </View>
+  </TouchableOpacity>
 
 );

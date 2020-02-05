@@ -1,4 +1,13 @@
 // Sprint 2 nav - WILL CHANGE
+import React from "react";
+import {
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  View,
+  Button
+} from "react-native";
 
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
@@ -10,7 +19,7 @@ import ResetPW from "./screens/resetPW";
 import CreateAcc from "./screens/createAcc";
 import TeamListView from "./screens/teamListView";
 import CreateTeam from "./screens/createTeam";
-import DefineArea from "./screens/defineArea";
+import DefineSearchArea from "./screens/DefineSearchArea";
 // screens 8-13
 import TeamMemberList from "./screens/TeamMemberList";
 import TeamInfo from "./screens/TeamInfo";
@@ -35,7 +44,7 @@ const MainStack = createStackNavigator({
   Screen0: {
     screen: Screen0,
     navigationOptions: {
-      headerTitle: "For Testing",
+      headerTitle: "Testing",
     },
   },
   Login: {
@@ -82,55 +91,129 @@ const MainStack = createStackNavigator({
   TeamListView: {
     screen: TeamListView,
     navigationOptions: {
-      headerTitle: "Team List View"
-    }
+      headerTitle: "Team List View",
+      headerStyle: {
+        backgroundColor: HEADER_COLOR,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+      navigationOptions: ({ navigation }) => ({
+        headerTitle: "New Team"
+      }),
+      headerRight: ({navigation}) => (
+        <TouchableOpacity onPress={() => alert('This is a button!')}>
+          <Text style={{fontSize: 50, color: 'white', marginTop: -20, marginRight: 10}}>+</Text>
+        </TouchableOpacity>
+      ),
+    },
+    
   },
   CreateTeam: {
     screen: CreateTeam,
     navigationOptions: {
-      headerTitle: "New Team"
+      headerTitle: "New Team",
+      headerStyle: {
+        backgroundColor: HEADER_COLOR,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
     }
   },
-  DefineArea: {
-    screen: DefineArea,
+  DefineSearchArea: {
+    screen: DefineSearchArea,
     navigationOptions: {
-      headerTitle: "Define Search Area"
+      headerTitle: "Define Search Area",
+      headerStyle: {
+        backgroundColor: HEADER_COLOR,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
     }
   },
   TeamInfo: {
     screen: TeamInfo,
     navigationOptions: {
-      headerTitle: "Team Information"
+      headerTitle: "Team Information",
+      headerStyle: {
+        backgroundColor: HEADER_COLOR,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
     }
   },
   DataExport: {
     screen: DataExport,
     navigationOptions: {
-      headerTitle: "Export Data"
+      headerTitle: "Export Data",
+      headerStyle: {
+        backgroundColor: HEADER_COLOR,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
     }
   },
   Map: {
     screen: Map,
     navigationOptions: {
-      headerTitle: "Map"
+      headerTitle: "Map",
+      headerStyle: {
+        backgroundColor: HEADER_COLOR,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
     }
   },
   TeamAlerts: {
     screen: TeamAlerts,
     navigationOptions: {
-      headerTitle: "Team Alerts"
+      headerTitle: "Team Alerts",
+      headerStyle: {
+        backgroundColor: HEADER_COLOR,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
     }
   },
   TeamMemberList: {
     screen: TeamMemberList,
     navigationOptions: {
-      headerTitle: "Team Member List"
+      headerTitle: "Team Member List",
+      headerStyle: {
+        backgroundColor: HEADER_COLOR,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
     }
   },
   MemberProfile: {
     screen: MemberProfile,
     navigationOptions: ({ navigation }) => ({
-      headerTitle: "Member Information"
+      headerTitle: "Member Profile",
+      headerStyle: {
+        backgroundColor: HEADER_COLOR,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+      
+      
     })
   },
   Menu: {
@@ -153,6 +236,7 @@ const MainStack = createStackNavigator({
         backgroundColor: navigation.getParam("color"),
         borderBottomColor: navigation.getParam("color")
       }
+
     })
   },
   userSettings: {

@@ -74,6 +74,7 @@ export default class ResetPW extends React.Component {
 
       <ScrollView contentContainerStyle={formStyle.formContainer}>
         <View style={formStyle.formContainer}>
+        <Text style={formStyle.text} >Please enter your email to recieve a temporary password.</Text>
 
           <Text style={formStyle.label} >Email</Text>
           <TextField
@@ -90,11 +91,13 @@ export default class ResetPW extends React.Component {
             textContentType='emailAddress'
           />
           <ErrorText text={this.state.error} />
+          <View style={formStyle.formButtonContainer}>
           <Button
-            style={formStyle.formButtonContainer}
-            text="Send Temporary Password"
+            style={formStyle.formButton}
+            text="Send"
             onPress={() => this.props.navigation.navigate("Login")}
           />
+        </View>
         </View>
       </ScrollView>
       </View>

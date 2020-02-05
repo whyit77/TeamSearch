@@ -5,8 +5,11 @@ import {
   TouchableOpacity,
   StyleSheet,
   View,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Picker
 } from "react-native";
+
+import { mainStyle, formStyle } from '../styles/styles';
 
 import { TextField, ErrorText } from "../Components/Form";
 import { Button } from "../Components/Button";
@@ -27,11 +30,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class DefineArea extends React.Component {
+export default class DefineSearchArea extends React.Component {
   state = {
     area: "",
-    units: "XXXXX",
-    radius: "",
+    units: "",
     error: ""
   };
 
@@ -70,19 +72,41 @@ export default class DefineArea extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView behavior="position" enabled>
-        <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>
-          <Text style={styles.text}>MAP</Text>
-          <Text style={styles.text}>UNITS DROPDOWN</Text>
+      <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column',justifyContent: 'center',}} behavior="padding" enabled>
+        <ScrollView contentContainerStyle={mainStyle.toplevel}>
+          <Text style={mainStyle.text}>MAP</Text>
+          {/* <Text style={mainStyle.text}>UNITS</Text> */}
+          <Picker
+            prompt='Units Selection'
+            mode='dropdown'
+             placeholderStyle='white'
+             style={formStyle.picker}
+             selectedValue={this.state.language}
+             onValueChange={(itemValue, itemIndex) =>
+              this.setState({language: itemValue})
+            }
+            placeholderStyle={{color: 'white'}}
+            itemStyle={{color: 'white'}}
+            >
+            {/* <Picker.Item label="SELECT" value='null' /> */}
+            <Picker.Item label="Imperial" value="imperial" />
+            <Picker.Item label="Metric" value="metric" />
+          </Picker>
+          <Text style={formStyle.label} >Search Radius</Text>
           <TextField
-            label="Search Radius"
+            //label="Search Radius"
             onChangeText={radius => this.setState({ radius })}
             value={this.state.radius}
             autoCapitalize="none"
+            style={formStyle.placeholderStyle}
+            color='white'
+            selectionColor='red'
+            keyboardAppearance='dark'
           />
           <ErrorText text={this.state.error} />
           <Button
-            text="Finish Creating Team"
+            style={formStyle.formButton}
+            text="Finish"
             onPress={() => this.props.navigation.navigate("TeamInfo")}
           />
         </ScrollView>

@@ -2,6 +2,7 @@ import { StyleSheet, flex, Dimensions } from 'react-native';
 
 const screen = Dimensions.get('screen');
 import Constants from 'expo-constants';
+import { HeaderHeightContext } from 'react-navigation-stack';
 
 
 let B1 = '#121212';
@@ -16,13 +17,15 @@ const mainStyle = StyleSheet.create({
   // Top Level Container
   toplevel: {
     //flex: 1,
-    justifyContent: 'center',
+   // justifyContent: 'center',
     //marginTop: 10,
     //marginBottom: Constants.statusBarHeight*2,
+    // marginTop: 20,
     alignContent: 'center',
     backgroundColor: B1,
-    height: screen.height,
-     paddingVertical: 10
+    height: screen.height*100,
+    paddingVertical: 10,
+
 
   },
   ////////////////////////
@@ -30,25 +33,48 @@ const mainStyle = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: B1,
-    //alignItems: 'center',
-    justifyContent: 'center',
+    height: screen.height,
+    paddingBottom: 10,
+    //marginTop: 10, 
+    paddingVertical: 10,
+    alignContent: 'center',
+    alignItems: 'center'
   },
+
+  /////////////////////////
+  // Text Style
 
   bigText: {
     fontSize: 30,
     color: WHITE,
-    margin: 10
+    margin: 10,
+    textAlign: 'center'
   },
   smallText: {
-    fontSize: 250,
-    color: WHITE,
-    margin: 10
+    fontSize: 20,
+    color: 'white',
+    margin: 10,
+    textAlign: "center",
+
+  },
+  textBlock: {
+    marginTop: 20
+  },
+  text: {
+    fontSize: 18,
+    color: "#969696",
+    textAlign: "center",
+    marginBottom: 2
+  },
+  link: {
+    textDecorationLine: "underline"
   }
 
 
 })
 
 
+// Button Styles
 const buttonStyle = StyleSheet.create({
     buttonContainer: {
       backgroundColor: B2,
@@ -78,9 +104,9 @@ const buttonStyle = StyleSheet.create({
 
 const formStyle = StyleSheet.create({
   formContainer: {
-    // flex: 1,
-    // justifyContent: 'center',
-    // alignItems:'center',
+     flex: 1,
+    //justifyContent: 'center',
+    //alignItems:'center',
     backgroundColor: B1,
     height: screen.height,
     //borderRadius: 30,
@@ -99,12 +125,12 @@ const formStyle = StyleSheet.create({
   placeholderStyle: {
     color: WHITE,
     fontSize: 18,
-    fontWeight: "600",
+    //fontWeight: "500",
     marginBottom: 7,
     marginTop: 10,
   },
   label: {
-    color: WHITE,
+    color: '#b3b3b3',
     fontSize: 18,
     fontWeight: "600",
     marginBottom: -15,
@@ -125,15 +151,38 @@ const formStyle = StyleSheet.create({
     marginBottom: 15,
     marginHorizontal: 20,
   },
+  buttons: {
+    alignContent: 'center',
+    alignItems: 'center'
+
+  },
   formButtonContainer: {
+    // paddingVertical: 9,
+    // paddingHorizontal: 20,
+    borderRadius: 30,
+    width: screen.width,
+    marginTop: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    //alignContent: 'center',
+    // backgroundColor: 'blue'
+
+   },
+  formButton: {
     backgroundColor: RED,
     // paddingVertical: 9,
     // paddingHorizontal: 20,
     borderRadius: 30,
-    // width: 140,
-    //marginTop: 10
+    width: 250,
+     marginTop: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    alignContent: 'center'
+
+
    },
- formButtonText: {
+  formButtonText: {
      textAlign: 'center',
      color: WHITE,
      fontSize: 15,
@@ -146,10 +195,19 @@ text: {
   fontSize: 18,
   color: "#969696",
   textAlign: "center",
-  marginBottom: 2
+  marginVertical: 5,
+  marginHorizontal: 10,
+  alignContent: 'center',
+  justifyContent: 'center',
+
 },
 link: {
   textDecorationLine: "underline"
+},
+picker: {
+  //width: 200, 
+  //height: 200, 
+  marginTop: -30
 }
 
 })
@@ -312,14 +370,22 @@ const teamListStyle = StyleSheet.create ({
     alignItems:'center',
     backgroundColor: B2,
     borderRadius: 30,
-    paddingBottom: 20,
-    paddingTop: 5,
-    margin: 10
+    //paddingBottom: 20,
+   // paddingTop: 5,
+    margin: 10,
   },
   centerContainer: {
     justifyContent: 'center',
-    alignItems:'center',   
-    width: screen.width
+    alignItems:'center', 
+    alignContent:'center',  
+    width: screen.width - 20,
+    backgroundColor: B2,
+    borderRadius: 30,
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginTop: 10
+
+
   },
   teamLabelText: {
     color: WHITE,
@@ -342,7 +408,6 @@ const teamListStyle = StyleSheet.create ({
     justifyContent: 'center',
     alignItems:'center',   
     width: screen.width,
-    justifyContent: 'space-between',
     width: screen.width,
     marginBottom: 0
   },
@@ -426,7 +491,45 @@ const teamListStyle = StyleSheet.create ({
     width: screen.width-40
   }
 
-
 })
 
-export { mainStyle, buttonStyle, headerRegStyle, headerDrawerStyle, headerDrawerPlusStyle, headerBackStyle, formStyle, teamListStyle }
+const teamMemberStyle = StyleSheet.create ({
+  mainContainer: {
+    width: screen.width - 10,
+    height: screen.height/11,
+    backgroundColor: B2,
+    borderRadius: 30,
+    padding: 10
+  },
+  contentContainer: {
+    justifyContent: 'center',
+    alignItems:'center',   
+    width: screen.width,
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
+
+  },
+  nameContainer: {
+    //flex: 1,
+    alignSelf: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems:'center',   
+    marginLeft: 20,
+    //paddingVertical: 5,
+    paddingHorizontal: 20,
+    borderRadius: 30,
+    width: screen.width/2
+
+  },
+  bigText: {
+    fontSize: 20,
+    color: WHITE,
+    //margin: 10,
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+})
+
+
+export { mainStyle, buttonStyle, teamMemberStyle, headerRegStyle, headerDrawerStyle, headerDrawerPlusStyle, headerBackStyle, formStyle, teamListStyle }

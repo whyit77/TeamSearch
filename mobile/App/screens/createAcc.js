@@ -18,20 +18,6 @@ import { Button } from "../Components/Button";
 
 import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
 
-const styles = StyleSheet.create({
-  textBlock: {
-    marginTop: 20
-  },
-  text: {
-    fontSize: 18,
-    color: "#969696",
-    textAlign: "center",
-    marginBottom: 2
-  },
-  link: {
-    textDecorationLine: "underline"
-  }
-});
 
 export default class CreateAcc extends React.Component {
   state = {
@@ -81,11 +67,12 @@ export default class CreateAcc extends React.Component {
 
   render() {
     return (
-      <SafeAreaView style={mainStyle.toplevel}>
-      <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column',justifyContent: 'center',}} behavior="padding" enabled>
-
-      <ScrollView contentContainerStyle={formStyle.formContainer}>
-          <Text style={styles.text}>PHOTO UPLOAD</Text>
+      <SafeAreaView style={mainStyle.container}>
+      {/* <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column' , justifyContent: 'center',}} behavior="padding" enabled> */}
+      <View>
+      <ScrollView >
+        <View style={mainStyle.toplevel}>
+          <Text style={mainStyle.text}>PHOTO UPLOAD</Text>
           <Text style={formStyle.label} >Email</Text>
           <TextField
             //label="Email"
@@ -188,24 +175,28 @@ export default class CreateAcc extends React.Component {
             keyboardAppearance='dark'
           />
           <ErrorText text={this.state.error} />
+          <View style={formStyle.formButtonContainer}>
           <Button
-            style={formStyle.formButtonContainer}
+            style={formStyle.formButton}
             text="Submit"
             onPress={() => this.props.navigation.navigate("TeamListView")}
           />
-          <View style={styles.textBlock}>
-            <Text style={styles.text}>Already have an account?</Text>
+          </View>
+          <View style={mainStyle.textBlock}>
+            <Text style={mainStyle.text}>Already have an account?</Text>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate("Login")}
             >
-              <Text style={[styles.text, styles.link]}>Sign in</Text>
+              <Text style={[mainStyle.text, mainStyle.link]}>Sign in</Text>
             </TouchableOpacity>
           </View>
+          </View>
         </ScrollView>
-        </KeyboardAvoidingView>
+        </View>
+        {/* </KeyboardAvoidingView> */}
         </SafeAreaView>
         
-      // </KeyboardAwareScrollView>
+        
     );
   }
 }

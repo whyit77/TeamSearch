@@ -33,7 +33,7 @@ export default ({ navigation }) => (
     <RowItem
       name="Define Search Area"
       color="#ffff33"
-      onPress={() => navigation.navigate("DefineArea")}
+      onPress={() => navigation.navigate("DefineSearchArea")}
     />
     <RowItem
       name="Team Member List"

@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 import ModalDropdown from "react-native-modal-dropdown";
 
+import { mainStyle, formStyle, buttonStyle } from '../styles/styles';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -23,31 +25,31 @@ class DataExport extends React.Component {
     const { navigate } = this.props.navigation;
 
     return (
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.text}> Select criteria to export: </Text>
+      <SafeAreaView style={mainStyle.container}>
+        <Text style={mainStyle.smallText}> Select criteria to export: </Text>
         <ModalDropdown
           options={["Group Data", "List of Pins", "Map Data"]}
-          dropdownStyle={styles.container}
-          textStyle={styles.text}
+          dropdownStyle={mainStyle.container}
+          textStyle={mainStyle.text}
           onSelect={(index, value) => {
             this.setState({ selectedCategory: value });
           }}
         />
 
-        <Text style={styles.text}> Choose a method of export: </Text>
+        <Text style={mainStyle.smallText}> Choose a method of export: </Text>
         <ModalDropdown
           options={["Email", "Text", "Carrier Pigeon"]}
           dropdownStyle={styles.container}
-          textStyle={styles.text}
+          textStyle={mainStyle.text}
           onSelect={(index, value) => {
             this.setState({ selectedCategory: value });
           }}
         />
 
-        <Text style={styles.text}> File Preview </Text>
+        <Text style={mainStyle.smallText}> File Preview </Text>
 
-        <TouchableOpacity onPress={() => alert("Exported!")}>
-          <Text style={styles.text}> Export </Text>
+        <TouchableOpacity style={buttonStyle.buttonContainer} onPress={() => alert("Exported!")}>
+          <Text style={buttonStyle.buttonText}> Export </Text>
         </TouchableOpacity>
       </SafeAreaView>
     );

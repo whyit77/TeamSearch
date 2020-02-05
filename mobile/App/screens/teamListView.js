@@ -1,16 +1,26 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  View,
+  SafeAreaView
+} from "react-native";
+import { TeamList } from '../Components/TeamList';
+import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center"
   },
   text: {
     fontSize: 200,
-    color: "#000000",
+    color: "white",
     textAlign: "center"
   }
 });
@@ -18,13 +28,26 @@ const styles = StyleSheet.create({
 export default class TeamListView extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={mainStyle.toplevel}>
+
+      <View style={mainStyle.toplevel}>
+      <ScrollView contentContainerStyle={mainStyle.container}>
+      <View style={mainStyle.toplevel}>
+        
+        <TouchableOpacity>
+          <TeamList name={'TeamSearch'} status={'Active'} admin={'Dr. Dan'} size={20} description={'Small boi'}></TeamList>
+        </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate("CreateTeam")}
-        >
+          onPress={() => this.props.navigation.navigate("CreateTeam")} >
+          
           <Text style={styles.text}>+</Text>
+
         </TouchableOpacity>
       </View>
+
+      </ScrollView>
+      </View>
+      </SafeAreaView>
     );
   }
 }

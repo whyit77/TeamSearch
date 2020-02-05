@@ -68,7 +68,7 @@ class ExampleScreen extends React.Component{
                         <TextField label={'Name'} placeholder={'Johnny'}></TextField>
                         <TextField label={'Email'} placeholder={'JohnnyS@example.com'}></TextField>
                         {/* <RadioButton label={'Gender'}></RadioButton> */}
-                        <TouchableOpacity style={formStyle.formButtonContainer}>
+                        <TouchableOpacity style={formStyle.formButton}>
                             <Text style={formStyle.formButtonText}>Submit</Text>
                         </TouchableOpacity>
 
