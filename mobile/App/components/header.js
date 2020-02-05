@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       color: '#333',
       letterSpacing: 1,
-      fontSize:30,
-      fontFamily: 'Courier',
+      fontSize:20,
+      fontFamily: 'Cochin',
     },
     icon: {
         position: 'absolute',

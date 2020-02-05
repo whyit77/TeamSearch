@@ -1,24 +1,24 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import TeamListView from '../screens/teamListView';
+import UserSettings from '../screens/userSettings';
 import Header from '../components/header';
 import React from 'react';
 
 const screens = {
-    TeamListView: {
-        screen: TeamListView,
+    UserSettings: {
+        screen: UserSettings,
         navigationOptions: ({ navigation }) => {
             return {
-                headerTitle: () => <Header navigation={navigation} title='Team List View'/>
+                headerTitle: () => <Header navigation={navigation} title='Settings'/>
             }
         }
     }
 }
 
-const TeamListStack = createStackNavigator( screens, {
+const SettingsStack = createStackNavigator( screens, {
     defaultNavigationOptions: {
         headerTintColor: '#444',
         headerStyle: { backgroundColor: '#eee', height: 100}
     }
 })
 
-export default TeamListStack;
+export default SettingsStack;
