@@ -9,7 +9,8 @@ import {
   StyleSheet,
   Image,
   Alert,
-  Button
+  Button,
+  StatusBar
 } from "react-native";
 
 const styles = StyleSheet.create({

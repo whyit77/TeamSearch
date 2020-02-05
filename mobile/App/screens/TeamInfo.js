@@ -6,6 +6,7 @@ import { StyleSheet,
   SafeAreaView,
   KeyboardAvoidingView,
   ScrollView,
+  StatusBar
  } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -29,6 +30,8 @@ const styles = StyleSheet.create({
 
 export default ({ navigation }) => (
   <SafeAreaView style={mainStyle.toplevel}>
+      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+
     <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column',justifyContent: 'center',}} behavior="padding" enabled>
 
       <ScrollView contentContainerStyle={formStyle.formContainer}>

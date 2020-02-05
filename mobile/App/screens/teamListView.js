@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   StyleSheet,
   View,
-  SafeAreaView
+  SafeAreaView,
+  StatusBar
 } from "react-native";
 import { TeamList } from '../Components/TeamList';
 import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
@@ -29,8 +30,9 @@ export default class TeamListView extends React.Component {
   render() {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
+      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
-      <View style={mainStyle.toplevel}>
+      <View style={mainStyle.container}>
       <ScrollView contentContainerStyle={mainStyle.container}>
       <View style={mainStyle.toplevel}>
         

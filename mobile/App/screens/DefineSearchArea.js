@@ -6,7 +6,8 @@ import {
   StyleSheet,
   View,
   KeyboardAvoidingView,
-  Picker
+  Picker,
+  StatusBar
 } from "react-native";
 
 import { mainStyle, formStyle } from '../styles/styles';
@@ -73,6 +74,8 @@ export default class DefineSearchArea extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column',justifyContent: 'center',}} behavior="padding" enabled>
+        <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+
         <ScrollView contentContainerStyle={mainStyle.toplevel}>
           <Text style={mainStyle.text}>MAP</Text>
           {/* <Text style={mainStyle.text}>UNITS</Text> */}
@@ -104,11 +107,13 @@ export default class DefineSearchArea extends React.Component {
             keyboardAppearance='dark'
           />
           <ErrorText text={this.state.error} />
-          <Button
-            style={formStyle.formButton}
-            text="Finish"
-            onPress={() => this.props.navigation.navigate("TeamInfo")}
-          />
+          <View style={mainStyle.container}>
+            <Button
+              style={formStyle.formButton}
+              text="Finish"
+              onPress={() => this.props.navigation.navigate("TeamInfo")}
+            />
+          </View>
         </ScrollView>
       </KeyboardAvoidingView>
     );

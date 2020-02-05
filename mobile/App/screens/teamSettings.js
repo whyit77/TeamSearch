@@ -10,7 +10,8 @@ import {
   Image,
   Alert,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  StatusBar
 } from "react-native";
 
 const styles = StyleSheet.create({

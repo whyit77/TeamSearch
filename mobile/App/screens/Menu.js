@@ -1,43 +1,44 @@
 // App/screens/menu.js
+import { B1, B2, B3, buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
 
 //HAMBURGER MENU
 import React from "react";
 import { ScrollView, StatusBar, Text } from "react-native";
 import { RowItem } from "../Components/RowItem";
 
-export default ({ navigation }) => (
-  <ScrollView>
-    <StatusBar barStyle="dark-content" />
+export default ({ navigation, teamName}) => (
+  <ScrollView contentContainerStyle={formStyle.formContainer} >
+  <StatusBar barStyle="light-content" />
     <RowItem
       name="Team List"
-      color="black"
+      color={B3}
       onPress={() => navigation.navigate("TeamListView")}
     />
 
-    <RowItem />
+    {/* <RowItem /> */}
 
-    <Text style={{ backgroundColor: "white", alignSelf: "center" }}>
+    <Text style={mainStyle.bigText}>
       Team Name
     </Text>
 
     <RowItem
       name="Team Info"
-      color="black"
+      color={B3}
       onPress={() => navigation.navigate("TeamInfo")}
     />
     <RowItem
       name="Team Members"
-      color="black"
+      color={B3}
       onPress={() => navigation.navigate("TeamMemberList")}
     />
     <RowItem
       name="Map View"
-      color="black"
+      color={B3}
       onPress={() => navigation.navigate("Map")}
     />
     <RowItem
       name="Team Alerts"
-      color="black"
+      color={B3}
       onPress={() => navigation.navigate("TeamAlerts")}
     />
 
@@ -45,7 +46,7 @@ export default ({ navigation }) => (
 
     <RowItem
       name="Settings"
-      color="black"
+      color={B3}
       onPress={() => navigation.navigate("settings")}
     />
   </ScrollView>

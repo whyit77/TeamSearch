@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   View,
+  StatusBar
 } from "react-native";
 
 import { TextField, ErrorText } from "../Components/Form";
@@ -48,7 +49,10 @@ export default class Login extends React.Component {
 
   render() {
     return (
+      
       <View style={formStyle.formContainer}>
+      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+
       <ScrollView contentContainerStyle={formStyle.formContainer} >
         <View style={formStyle.formContainer}>
           <Text style={formStyle.label} >Email</Text>

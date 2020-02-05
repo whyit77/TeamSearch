@@ -1,13 +1,13 @@
 import React from "react";
 import { Text, View, TextInput, StyleSheet, Dimensions, StatusBar, TouchableOpacity } from "react-native";
-import {mainStyle, teamListStyle, headerRegStyle} from '../styles/styles';
+import {mainStyle, teamListStyle} from '../styles/styles';
 import Icon from "react-native-vector-icons/Ionicons";
 
 
 export const TeamList = ({ label, name, status, admin, size, description }) => (
 
     <TouchableOpacity style={teamListStyle.centerContainer}>
-        <View style={headerRegStyle.centerContainer}>
+        <View style={teamListStyle.centerContainer}>
         <View style={teamListStyle.container1}>
             <View style={teamListStyle.nameContainer}>
                 <Text style={teamListStyle.teamLabelText}>Name: </Text>

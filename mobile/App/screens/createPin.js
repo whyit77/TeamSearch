@@ -9,7 +9,8 @@ import {
   StyleSheet,
   Image,
   Alert,
-  Button
+  Button,
+  StatusBar
 } from "react-native";
 
 const styles = StyleSheet.create({
@@ -40,6 +41,8 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+
         <Image
           style={{ width: 50, height: 50 }}
           source={{

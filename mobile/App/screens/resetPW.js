@@ -4,7 +4,8 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  View
+  View,
+  StatusBar
 } from "react-native";
 
 import { TextField, ErrorText } from "../Components/Form";
@@ -71,6 +72,7 @@ export default class ResetPW extends React.Component {
   render() {
     return (
       <View style={formStyle.formContainer}>
+      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
       <ScrollView contentContainerStyle={formStyle.formContainer}>
         <View style={formStyle.formContainer}>

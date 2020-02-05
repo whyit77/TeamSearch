@@ -6,7 +6,8 @@ import {
   StyleSheet,
   View,
   KeyboardAvoidingView,
-  SafeAreaView
+  SafeAreaView,
+  StatusBar
 } from "react-native";
 
 import { mainStyle, formStyle } from '../styles/styles'
@@ -61,9 +62,11 @@ export default class CreateTeam extends React.Component {
   render() {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
+      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
       <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column',justifyContent: 'center',}} behavior="padding" enabled>
-        <ScrollView contentContainerStyle={mainStyle.toplevel}>
+        <ScrollView contentContainerStyle={formStyle.formContainer}>
+          <View style={formStyle.formContainer}>
           <Text style={mainStyle.text}>PHOTO UPLOAD</Text>
           <Text style={formStyle.label} >Team Name</Text>
           <TextField
@@ -127,11 +130,15 @@ export default class CreateTeam extends React.Component {
 
           />
           <ErrorText text={this.state.error} />
+          <View style={mainStyle.container}>
+
           <Button
             style={formStyle.formButton}
             text="Next"
             onPress={() => this.props.navigation.navigate("DefineSearchArea")}
           />
+          </View>
+          </View>
         </ScrollView>
       </KeyboardAvoidingView>
       </SafeAreaView>

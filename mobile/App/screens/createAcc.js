@@ -6,7 +6,8 @@ import {
   StyleSheet,
   View,
   KeyboardAvoidingView,
-  SafeAreaView
+  SafeAreaView,
+  StatusBar
 } from "react-native";
 
 //import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
@@ -68,6 +69,7 @@ export default class CreateAcc extends React.Component {
   render() {
     return (
       <SafeAreaView style={mainStyle.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
       {/* <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column' , justifyContent: 'center',}} behavior="padding" enabled> */}
       <View>
       <ScrollView >

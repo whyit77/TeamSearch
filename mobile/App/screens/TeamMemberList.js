@@ -3,6 +3,7 @@ import { StyleSheet,
   Text, 
   View, 
   TouchableOpacity,
+  StatusBar
    } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 
@@ -33,6 +34,8 @@ const styles = StyleSheet.create({
 
 export default ({ navigation }) => (
   <SafeAreaView style={mainStyle.toplevel}>
+    <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+
     <ScrollView>
     <TeamMember nav={() => navigation.navigate("MemberProfile")} avatar={null} initial='JD' fname={'John'} lname={'Doe'} role={'Search'}> </TeamMember>
     <Text style={styles.text}> Team Member 1 </Text>

@@ -1,5 +1,10 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, 
+  Text, 
+  View, 
+  TouchableOpacity, 
+  StatusBar 
+} from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 import ModalDropdown from "react-native-modal-dropdown";
 
@@ -25,7 +30,10 @@ class DataExport extends React.Component {
     const { navigate } = this.props.navigation;
 
     return (
-      <SafeAreaView style={mainStyle.container}>
+      <SafeAreaView style={mainStyle.toplevel}>
+      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+
+        <View style={mainStyle.container}>
         <Text style={mainStyle.smallText}> Select criteria to export: </Text>
         <ModalDropdown
           options={["Group Data", "List of Pins", "Map Data"]}
@@ -51,6 +59,7 @@ class DataExport extends React.Component {
         <TouchableOpacity style={buttonStyle.buttonContainer} onPress={() => alert("Exported!")}>
           <Text style={buttonStyle.buttonText}> Export </Text>
         </TouchableOpacity>
+        </View>
       </SafeAreaView>
     );
   }

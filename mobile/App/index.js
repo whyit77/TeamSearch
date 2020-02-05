@@ -59,7 +59,6 @@ const MainStack = createStackNavigator({
       headerTitleStyle: {
         fontWeight: 'bold',
       },
-      
     }
   },
   ResetPW: {
@@ -222,9 +221,13 @@ const MainStack = createStackNavigator({
       headerTitle: "Menu",
       headerTintColor: "black",
       headerStyle: {
-        backgroundColor: navigation.getParam("color"),
-        borderBottomColor: navigation.getParam("color")
-      }
+        backgroundColor: HEADER_COLOR,
+      },
+      headerTintColor: '#fff',
+      //headerBorderBottom: 'black',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
     })
   },
   settings: {
@@ -233,9 +236,13 @@ const MainStack = createStackNavigator({
       headerTitle: "Settings",
       headerTintColor: "black",
       headerStyle: {
-        backgroundColor: navigation.getParam("color"),
-        borderBottomColor: navigation.getParam("color")
-      }
+        backgroundColor: HEADER_COLOR,
+      },
+      headerTintColor: '#fff',
+      //headerBorderBottom: 'black',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
 
     })
   },

@@ -21,6 +21,7 @@ class Map extends React.Component {
     //Alert.alert({ locationLong });
 
     return (
+      
       <MapView
         style={{ flex: 1 }}
         provider={PROVIDER_GOOGLE}

@@ -6,7 +6,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     borderBottomWidth: 1,
     borderBottomColor: "#E4E4E4",
-    marginBottom: 11
+    marginBottom: 11,
+    // marginTop: 10
   },
   label: {
     color: "#4A4A4A",

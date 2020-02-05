@@ -23,17 +23,18 @@ const mainStyle = StyleSheet.create({
     // marginTop: 20,
     alignContent: 'center',
     backgroundColor: B1,
-    height: screen.height*100,
+    height: screen.height,
     paddingVertical: 10,
+    paddingBottom: 100
 
 
   },
   ////////////////////////
   // Body Container
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: B1,
-    height: screen.height,
+    // height: screen.height,
     paddingBottom: 10,
     //marginTop: 10, 
     paddingVertical: 10,
@@ -68,8 +69,10 @@ const mainStyle = StyleSheet.create({
   },
   link: {
     textDecorationLine: "underline"
-  }
+  },
+  profilePic: {
 
+  }
 
 })
 
@@ -112,7 +115,7 @@ const formStyle = StyleSheet.create({
     //borderRadius: 30,
     paddingBottom: 10,
     // margin: 10, 
-     paddingVertical: 10,
+    //  paddingVertical: 10,
   },
 
   row: {
@@ -127,13 +130,13 @@ const formStyle = StyleSheet.create({
     fontSize: 18,
     //fontWeight: "500",
     marginBottom: 7,
-    marginTop: 10,
+    // marginTop: 10,
   },
   label: {
     color: '#b3b3b3',
     fontSize: 18,
     fontWeight: "600",
-    marginBottom: -15,
+    marginBottom: 0,
     marginTop: 10,
     textShadowColor: WHITE,
     marginLeft: 20
@@ -209,156 +212,6 @@ picker: {
   //height: 200, 
   marginTop: -30
 }
-
-})
-
-/////////////////////////////////////////
-// Plane Header Style: Text Only
-/////////////////////////////////////////
-
-const headerRegStyle = StyleSheet.create({
-
-  titleBar:{
-    alignSelf: 'center',
-    alignContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    backgroundColor: B2,
-    width: screen.width,
-    //justifyContent: 'space-between',
-    //justifyContent: 'flex-end',
-  },
-  centerContainer: {
-    //flex: 1,
-    //alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems:'center',   
-    width: screen.width
- 
-  },
-  centerText: {
-    //flexDirection: 'row',
-    alignSelf: 'center',
-    textAlign: 'center',
-    //justifyContent: 'center',
-    //alignContent: 'center',
-    marginTop: '14%',
-    marginBottom: '3%',
-    color: WHITE,
-    fontSize: 25,
-    fontWeight: 'bold',
-    //width: screen.width
-  },
-})
-
-/////////////////////////////////////////
-// Drawer Header Style: Text + L Drawer
-/////////////////////////////////////////
-
-const headerDrawerStyle = StyleSheet.create ({
-  titleBar:{
-    alignSelf: 'center',
-    alignContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    backgroundColor: B2,
-    width: screen.width,
-    //justifyContent: 'space-between',
-    //justifyContent: 'flex-end',
-  },
-  centerContainer: {
-    //flex: 1,
-    //alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems:'center',   
-    width: screen.width
- 
-  },
-  centerText: {
-    //flexDirection: 'row',
-    alignSelf: 'center',
-    textAlign: 'center',
-    //justifyContent: 'center',
-    //alignContent: 'center',
-    marginTop: '14%',
-    marginBottom: '3%',
-    color: WHITE,
-    fontSize: 25,
-    fontWeight: 'bold',
-    //width: screen.width
-  },
-})
-
-/////////////////////////////////////////
-// Drawer Header Plus Style: Drawer + Header + Plus
-/////////////////////////////////////////
-
-const headerDrawerPlusStyle = StyleSheet.create ({
-  titleBar:{
-    //alignSelf: 'center',
-    // alignContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    backgroundColor: B2,
-    justifyContent: 'space-between',
-    //justifyContent: 'flex-end',
-  },
-  centerContainer: {
-    //flex: 1,
-    justifyContent: 'center',
-    alignItems:'center',    
-  },
-  centerText: {
-    // flexDirection: 'row',
-    // alignSelf: 'center',
-    textAlign: 'center',
-    //justifyContent: 'center',
-    marginTop: '14%',
-    marginBottom: '3%',
-    color: WHITE,
-    fontSize: 25,
-    fontWeight: 'bold',
-  },
-
-})
-
-/////////////////////////////////////////
-// Back Header Style: Header + Back Arrow
-/////////////////////////////////////////
-const headerBackStyle = StyleSheet.create ({
-  titleBar:{
-    alignSelf: 'center',
-    alignContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    backgroundColor: B2,
-    width: screen.width,
-    //justifyContent: 'space-between',
-    //justifyContent: 'flex-end',
-  },
-  centerContainer: {
-    //flex: 1,
-    //alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems:'center',   
-    width: screen.width
- 
-  },
-  centerText: {
-    // flexDirection: 'row',
-    // alignSelf: 'center',
-    textAlign: 'center',
-    //justifyContent: 'center',
-    marginTop: '14%',
-    marginBottom: '3%',
-    color: WHITE,
-    fontSize: 25,
-    fontWeight: 'bold',
-  },
 
 })
 
@@ -532,4 +385,4 @@ const teamMemberStyle = StyleSheet.create ({
 })
 
 
-export { mainStyle, buttonStyle, teamMemberStyle, headerRegStyle, headerDrawerStyle, headerDrawerPlusStyle, headerBackStyle, formStyle, teamListStyle }
+export { B1, B2, B3, mainStyle, buttonStyle, teamMemberStyle, formStyle, teamListStyle }
