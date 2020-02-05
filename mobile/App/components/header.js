@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity , Dimensions} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { Drawer, DrawerActions } from 'react-navigation-drawer';
-import { withNavigation } from 'react-navigation';
 const screen = Dimensions.get('screen');
 
 export default function Header({ navigation, title }) {
@@ -22,20 +20,24 @@ export default function Header({ navigation, title }) {
 const styles = StyleSheet.create({
     header: {
     width: screen.width,
+    height: screen.height/17,
+    marginBottom: -30,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent : 'center',
+    backgroundColor: '#292929',
     
     },
     headerText: {
       fontWeight: 'bold',
-      color: '#333',
+      color: '#fff',
       letterSpacing: 1,
       fontSize:20,
-      fontFamily: 'Cochin',
+      // fontFamily: 'Cochin',
     },
     icon: {
         position: 'absolute',
         left: 16,
+        color: 'white'
     }
   });
