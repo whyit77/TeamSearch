@@ -10,7 +10,7 @@ import {
 
 import { TextField, ErrorText } from "../components/Form";
 import { Button } from "../components/Button";
-//import { reviewApi } from "../util/api";
+import { TSApi } from "../util/api";
 
 const styles = StyleSheet.create({
   textBlock: {
@@ -40,38 +40,40 @@ export default class CreateAcc extends React.Component {
     error: ""
   };
 
-  // handleSubmit = () => {
-  //   this.setState({ error: "" });
+  //componentDidMount() {}
 
-  //   ////////// CHECK PASSWORDS ////////////
-  //   if (this.state.password != this.state.repassword) {
-  //     this.setState({
-  //       error: "Passwords do not match!",
-  //       password: "",
-  //       repassword: ""
-  //     });
-  //   }
-  //   //////////////////////////////////////
+  handleSubmit = () => {
+    this.setState({ error: "" });
 
-  //   ////////// CREATE NEW ACCOUNT ////////////
-  //   reviewApi("/create-account", {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       email: this.state.email,
-  //       firstName: this.state.firstName,
-  //       lastName: this.state.lastName,
-  //       password: this.state.password
-  //     })
-  //   })
-  //     .then(() => {
-  //       // go to login screen
-  //       this.props.navigation.navigate("SignIn");
-  //     })
-  //     .catch(error => {
-  //       this.setState({ error: error.message });
-  //     });
-  //   ///////////////////////////////////////////
-  // };
+    // check if passwords match
+    if (this.state.password != this.state.repassword) {
+      this.setState({
+        error: "Passwords do not match!",
+        password: "",
+        repassword: ""
+      });
+    }
+
+    // create account
+    TSApi("/createAcc", {
+      method: "POST",
+      body: JSON.stringify({
+        email: this.state.email,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        password: this.state.password,
+        phone: this.state.phone,
+        desc: this.state.desc
+      })
+    })
+      .then(() => {
+        // go to login screen
+        this.props.navigation.navigate("Login");
+      })
+      .catch(error => {
+        this.setState({ error: error.message });
+      });
+  };
 
   render() {
     return (
@@ -148,10 +150,7 @@ export default class CreateAcc extends React.Component {
             autoCapitalize="none"
           />
           <ErrorText text={this.state.error} />
-          <Button
-            text="Submit"
-            onPress={() => this.props.navigation.navigate("TeamListView")}
-          />
+          <Button text="Submit" onPress={() => this.handleSubmit()} />
           <View style={styles.textBlock}>
             <Text style={styles.text}>Already have an account?</Text>
             <TouchableOpacity
