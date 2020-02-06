@@ -8,7 +8,7 @@ import {
   SafeAreaView,
   StatusBar
 } from "react-native";
-import { TeamList } from '../Components/Team';
+import { Team } from '../Components/Team';
 import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
 
 
@@ -37,7 +37,7 @@ export default class TeamList extends React.Component {
       <View style={mainStyle.toplevel}>
         
         <TouchableOpacity>
-          <TeamList name={'TeamSearch'} status={'Active'} admin={'Dr. Dan'} size={20} description={'Small boi'}></TeamList>
+          <Team name={'TeamSearch'} status={'Active'} admin={'Dr. Dan'} size={20} description={'Small boi'}></Team>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate("CreateTeam")} >

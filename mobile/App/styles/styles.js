@@ -234,26 +234,21 @@ picker: {
 
 const teamListStyle = StyleSheet.create ({
   teamContainer: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     alignItems:'center',
+    alignContent: 'center',
     backgroundColor: B2,
     borderRadius: 30,
-    //paddingBottom: 20,
-   // paddingTop: 5,
     margin: 10,
+    width: screen.width - 20,
+    padding: 10
   },
   centerContainer: {
     justifyContent: 'center',
     alignItems:'center', 
     alignContent:'center',  
-    width: screen.width - 20,
-    backgroundColor: B2,
-    borderRadius: 30,
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginTop: 10
-
+    margin: 5
 
   },
   teamLabelText: {
@@ -271,12 +266,11 @@ const teamListStyle = StyleSheet.create ({
     marginTop: 10,
   },
   container1: {
-    marginTop: 10,
+    // marginTop: 10,
     flexDirection: 'row',
     //flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems:'center',   
-    width: screen.width,
     width: screen.width,
     marginBottom: 0
   },

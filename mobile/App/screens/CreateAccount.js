@@ -72,7 +72,7 @@ export default class CreateAccount extends React.Component {
       <SafeAreaView style={mainStyle.toplevel}>
       <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
       {/* <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column' , justifyContent: 'center',}} behavior="padding" enabled> */}
-      <View>
+      <View style={formStyle.formContainer}>
       <ScrollView >
         <View style={mainStyle.toplevel}>
           <Text style={mainStyle.text}>PHOTO UPLOAD</Text>

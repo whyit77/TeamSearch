@@ -63,7 +63,6 @@ export default class CreateTeam extends React.Component {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
       <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
-
       <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column',justifyContent: 'center',}} behavior="padding" enabled>
         <ScrollView contentContainerStyle={formStyle.formContainer}>
           <View style={formStyle.formContainer}>
