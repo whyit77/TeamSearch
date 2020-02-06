@@ -16,9 +16,9 @@ import { createStackNavigator } from "react-navigation-stack";
 import Screen0 from "./screens/screen0-test";
 import Login from "./screens/login";
 import ResetPW from "./screens/resetPW";
-import CreateAcc from "./screens/createAcc";
-import TeamListView from "./screens/teamListView";
-import CreateTeam from "./screens/createTeam";
+import CreateAccount from "./screens/CreateAccount";
+import TeamList from "./screens/TeamList";
+import CreateTeam from "./screens/CreateTeam";
 import DefineSearchArea from "./screens/DefineSearchArea";
 // screens 8-13
 import TeamMemberList from "./screens/TeamMemberList";
@@ -32,7 +32,7 @@ import settings from "./screens/settings";
 import teamSettings from "./screens/teamSettings";
 import userSettings from "./screens/userSettings";
 import Menu from "./screens/Menu";
-import createPin from "./screens/createPin";
+import CreatePin from "./screens/CreatePin";
 import pinInfo from "./screens/pinInfo";
 
 // HEADER COLOR
@@ -73,8 +73,8 @@ const MainStack = createStackNavigator({
       },
     }
   },
-  CreateAcc: {
-    screen: CreateAcc,
+  CreateAccount: {
+    screen: CreateAccount,
     navigationOptions: {
       headerTitle: "Create Account",
       headerStyle: {
@@ -86,8 +86,8 @@ const MainStack = createStackNavigator({
       },
     }
   },
-  TeamListView: {
-    screen: TeamListView,
+  TeamList: {
+    screen: TeamList,
     navigationOptions: {
       headerTitle: "Team List View",
       headerStyle: {
@@ -218,7 +218,6 @@ const MainStack = createStackNavigator({
     screen: Menu,
     navigationOptions: ({ navigation }) => ({
       headerTitle: "Menu",
-      headerTintColor: "black",
       headerStyle: {
         backgroundColor: HEADER_COLOR,
       },
@@ -273,8 +272,8 @@ const MainStack = createStackNavigator({
       },
     })
   },
-  createPin: {
-    screen: createPin,
+  CreatePin: {
+    screen: CreatePin,
     navigationOptions: ({ navigation }) => ({
       headerTitle: "Create Pin",
       headerTintColor: "black",
@@ -293,9 +292,12 @@ const MainStack = createStackNavigator({
       headerTitle: "Pin Info",
       headerTintColor: "black",
       headerStyle: {
-        backgroundColor: navigation.getParam("color"),
-        borderBottomColor: navigation.getParam("color")
-      }
+        backgroundColor: HEADER_COLOR,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
     })
   }
 });

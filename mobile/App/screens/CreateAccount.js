@@ -20,7 +20,7 @@ import { Button } from "../Components/Button";
 import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
 
 
-export default class CreateAcc extends React.Component {
+export default class CreateAccount extends React.Component {
   state = {
     email: "",
     firstName: "",
@@ -68,7 +68,8 @@ export default class CreateAcc extends React.Component {
 
   render() {
     return (
-      <SafeAreaView style={mainStyle.container}>
+
+      <SafeAreaView style={mainStyle.toplevel}>
       <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
       {/* <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column' , justifyContent: 'center',}} behavior="padding" enabled> */}
       <View>
@@ -181,7 +182,7 @@ export default class CreateAcc extends React.Component {
           <Button
             style={formStyle.formButton}
             text="Submit"
-            onPress={() => this.props.navigation.navigate("TeamListView")}
+            onPress={() => this.props.navigation.navigate("TeamList")}
           />
           </View>
           <View style={mainStyle.textBlock}>
@@ -197,7 +198,6 @@ export default class CreateAcc extends React.Component {
         </View>
         {/* </KeyboardAvoidingView> */}
         </SafeAreaView>
-        
         
     );
   }

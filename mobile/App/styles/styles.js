@@ -24,7 +24,7 @@ const mainStyle = StyleSheet.create({
     alignContent: 'center',
     backgroundColor: B1,
     height: screen.height,
-    paddingVertical: 10,
+    paddingVertical: 20,
     paddingBottom: 100
 
 
@@ -201,7 +201,11 @@ toggleLabel: {
   marginBottom: 0,
   marginTop: 30,
   textShadowColor: WHITE,
-  marginLeft: 20
+  marginHorizontal: 20
+},
+toggle: {
+  marginTop: 30,
+  marginLeft: 10
 },
 text: {
   fontSize: 18,
@@ -214,7 +218,10 @@ text: {
 
 },
 link: {
-  textDecorationLine: "underline"
+  textDecorationLine: "underline",
+  color: '#b3b3b3',
+  fontSize: 18,
+
 },
 picker: {
   //width: 200, 

@@ -71,6 +71,8 @@ export default class ResetPW extends React.Component {
 
   render() {
     return (
+      <View style={mainStyle.toplevel}>
+
       <View style={formStyle.formContainer}>
       <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
@@ -102,6 +104,7 @@ export default class ResetPW extends React.Component {
         </View>
         </View>
       </ScrollView>
+      </View>
       </View>
     );
   }

@@ -10,8 +10,13 @@ import {
   Image,
   Alert,
   Button,
-  StatusBar
+  StatusBar,
+  ScrollView,
+  TouchableOpacity
 } from "react-native";
+
+import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
+import { TextField, ErrorText } from "../Components/Form";
 
 const styles = StyleSheet.create({
   container: {
@@ -40,31 +45,39 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+<View style={formStyle.formContainer}>
+      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+
+      <ScrollView contentContainerStyle={formStyle.formContainer} >
+        <View style={mainStyle.container}>        
         <Image
-          style={{ width: 50, height: 50 }}
+          style={{ width: 100, height: 100 }}
           source={{
             uri:
               "https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png"
           }}
         />
-
-        <TextInput
+        </View>
+        <TextField
           onChangeText={location => this.setState({ location })}
           placeholder="Name of pin"
           maxLength={40}
         />
 
-        <Text> Pinned By: (Name Here) </Text>
+        <Text style={formStyle.label}> Pinned By: (Name) </Text>
 
-        <TextInput
+        <TextField
           onChangeText={descr => this.setState({ descr })}
           placeholder="Description of pin:"
           maxLength={250}
         />
-
-        <Button title="Apply Changes" />
-      </View>
+        <View style={mainStyle.container}>
+        <TouchableOpacity style={buttonStyle.buttonContainer}>
+          <Text style={buttonStyle.buttonText}>Apply</Text>
+        </TouchableOpacity>
+          </View>
+        </ScrollView>
+          </View>
     );
   }
 }

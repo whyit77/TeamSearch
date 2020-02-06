@@ -8,7 +8,7 @@ import {
   SafeAreaView,
   StatusBar
 } from "react-native";
-import { TeamList } from '../Components/TeamList';
+import { TeamList } from '../Components/Team';
 import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
 
 
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class TeamListView extends React.Component {
+export default class TeamList extends React.Component {
   render() {
     return (
       <SafeAreaView style={mainStyle.toplevel}>

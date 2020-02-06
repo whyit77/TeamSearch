@@ -18,12 +18,12 @@ export default ({ navigation }) => (
     <RowItem
       name="Create Account"
       color="#ff6633"
-      onPress={() => navigation.navigate("CreateAcc")}
+      onPress={() => navigation.navigate("CreateAccount")}
     />
     <RowItem
       name="Team List"
       color="#ff9933"
-      onPress={() => navigation.navigate("TeamListView")}
+      onPress={() => navigation.navigate("TeamList")}
     />
     <RowItem
       name="Create Team"
@@ -88,7 +88,7 @@ export default ({ navigation }) => (
     <RowItem
       name="Create Pin"
       color="#cc33ff"
-      onPress={() => navigation.navigate("createPin")}
+      onPress={() => navigation.navigate("CreatePin")}
     />
     <RowItem
       name="Pin Info"

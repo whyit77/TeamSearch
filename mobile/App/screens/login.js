@@ -49,7 +49,8 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      
+      <View style={mainStyle.toplevel}>
+
       <View style={formStyle.formContainer}>
       <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
@@ -96,19 +97,20 @@ export default class Login extends React.Component {
           <Button
             style={formStyle.formButton}
             text="Submit"
-            onPress={() => this.props.navigation.navigate("TeamListView")}
+            onPress={() => this.props.navigation.navigate("TeamList")}
           />
           </View>
           <View >
             <Text style={formStyle.text}>Don't have an account?</Text>
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate("CreateAcc")}
+              onPress={() => this.props.navigation.navigate("CreateAccount")}
             >
               <Text style={[formStyle.text, formStyle.link]}>Create New Account</Text>
             </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
+      </View>
       </View>
     );
   }

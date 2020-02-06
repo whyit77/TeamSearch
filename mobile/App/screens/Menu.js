@@ -3,16 +3,17 @@ import { B1, B2, B3, buttonStyle, mainStyle, exampleText, formStyle, teamListSty
 
 //HAMBURGER MENU
 import React from "react";
-import { ScrollView, StatusBar, Text } from "react-native";
+import { ScrollView, StatusBar, Text, View } from "react-native";
 import { RowItem } from "../Components/RowItem";
 
 export default ({ navigation, teamName}) => (
+  <View style={mainStyle.toplevel}>
   <ScrollView contentContainerStyle={formStyle.formContainer} >
   <StatusBar barStyle="light-content" />
     <RowItem
       name="Team List"
       color={B3}
-      onPress={() => navigation.navigate("TeamListView")}
+      onPress={() => navigation.navigate("TeamList")}
     />
 
     {/* <RowItem /> */}
@@ -50,4 +51,5 @@ export default ({ navigation, teamName}) => (
       onPress={() => navigation.navigate("settings")}
     />
   </ScrollView>
+  </View>
 );
