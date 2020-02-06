@@ -55,7 +55,6 @@ const MainStack = createStackNavigator({
         backgroundColor: HEADER_COLOR,
       },
       headerTintColor: '#fff',
-      //headerBorderBottom: 'black',
       headerTitleStyle: {
         fontWeight: 'bold',
       },
@@ -252,9 +251,12 @@ const MainStack = createStackNavigator({
       headerTitle: "User Settings",
       headerTintColor: "black",
       headerStyle: {
-        backgroundColor: navigation.getParam("color"),
-        borderBottomColor: navigation.getParam("color")
-      }
+        backgroundColor: HEADER_COLOR,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
     })
   },
   teamSettings: {
@@ -263,9 +265,12 @@ const MainStack = createStackNavigator({
       headerTitle: "Team Settings",
       headerTintColor: "black",
       headerStyle: {
-        backgroundColor: navigation.getParam("color"),
-        borderBottomColor: navigation.getParam("color")
-      }
+        backgroundColor: HEADER_COLOR,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
     })
   },
   createPin: {
@@ -274,9 +279,12 @@ const MainStack = createStackNavigator({
       headerTitle: "Create Pin",
       headerTintColor: "black",
       headerStyle: {
-        backgroundColor: navigation.getParam("color"),
-        borderBottomColor: navigation.getParam("color")
-      }
+        backgroundColor: HEADER_COLOR,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
     })
   },
   pinInfo: {

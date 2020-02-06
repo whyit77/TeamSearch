@@ -11,8 +11,13 @@ import {
   Alert,
   Button,
   TouchableOpacity,
-  StatusBar
+  StatusBar,
+  ScrollView
 } from "react-native";
+
+import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
+import { form } from "tcomb-form-native/lib";
+
 
 const styles = StyleSheet.create({
   container: {
@@ -70,29 +75,38 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text> Heatmap Legend </Text>
+<View style={formStyle.formContainer}>
+      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
+      <ScrollView contentContainerStyle={formStyle.formContainer} >
+        <View style={mainStyle.container}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+
+          {/* <Text style={{fontSize: 13, color: "#969696", textAlign: "center", marginTop: 30, marginLeft: 5}} >{this.state.switchITValue ? "ON" : "OFF"}</Text> */}
         <Switch
-          style={{ marginTop: 30 }}
-          onValueChange={this.toggleITSwitch}
-          value={this.state.switchITValue}
-        />
-        <Text>{this.state.switchITValue ? "ON" : "OFF"}</Text>
+            style={{ marginTop: 30, color: 'white' }}
+            onValueChange={this.toggleITSwitch}
+            value={this.state.switchITValue}
+            trackColor={{true: 'red', false: 'grey'}}
+          />
+
+          <Text style={formStyle.toggleLabel}> Heatmap Legend </Text>
+          
+        </View>
 
         <Text> Heatmap </Text>
         <Switch
           style={{ marginTop: 30 }}
           onValueChange={this.toggleLTSwitch}
           value={this.state.switchLTValue}
+          trackColor={{true: 'red', false: 'grey'}}
         />
-        <Text>{this.state.switchLTValue ? "ON" : "OFF"}</Text>
-
+        <Text style={mainStyle.text}>{this.state.switchLTValue ? "ON" : "OFF"}</Text>
         <TouchableOpacity
-          style={styles.button}
+          style={buttonStyle.buttonContainer}
           onPress={this.onMetricButtonPress}
         >
-          <Text color={this.metricButtonColor}> Metric </Text>
+          <Text style={formStyle.formButtonText} color={this.metricButtonColor}> Metric </Text>
         </TouchableOpacity>
 
         <Button
@@ -118,6 +132,9 @@ export default class App extends React.Component {
           title="Chosen"
         />
       </View>
+      </ScrollView>
+      </View>
+      
     );
   }
 }

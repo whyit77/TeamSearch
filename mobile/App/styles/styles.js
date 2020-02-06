@@ -163,7 +163,7 @@ const formStyle = StyleSheet.create({
     // paddingVertical: 9,
     // paddingHorizontal: 20,
     borderRadius: 30,
-    width: screen.width,
+    // width: screen.width,
     marginTop: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -193,6 +193,15 @@ const formStyle = StyleSheet.create({
  },
  textBlock: {
   marginTop: 20
+},
+toggleLabel: {
+  color: '#b3b3b3',
+  fontSize: 18,
+  fontWeight: "600",
+  marginBottom: 0,
+  marginTop: 30,
+  textShadowColor: WHITE,
+  marginLeft: 20
 },
 text: {
   fontSize: 18,
