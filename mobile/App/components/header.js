@@ -13,6 +13,7 @@ export default function Header({ navigation, title }) {
         <View>
         <Text style={styles.headerText}>{ title }</Text>
         </View>
+        {/* <MaterialIcons name='add' size={28} onPress={openMenu} style={styles.icon}/> */}
     </View>
   );
 }

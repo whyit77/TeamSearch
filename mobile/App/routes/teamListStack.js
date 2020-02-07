@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import TeamListView from '../screens/teamListView';
-import Header from '../components/header';
+import TeamListView from '../screens/TeamList';
+import Header from '../Components/header';
 import React from 'react';
 
 const screens = {

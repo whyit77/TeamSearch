@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import TeamAlerts from '../screens/TeamAlerts';
-import Header from '../components/header';
+import Header from '../Components/header';
 import React from 'react';
 
 const screens = {

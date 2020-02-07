@@ -1,11 +1,11 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import FirstTimeCreation from '../screens/createAcc';
-import Header from '../components/header';
+import ComponentsCreation from '../screens/CreateAccount';
+import Header from '../Components/header';
 import React from 'react';
 
 const screens = {
-    FirstTimeCreation: {
-        screen: FirstTimeCreation,
+    ComponentsCreation: {
+        screen: ComponentsCreation,
         navigationOptions: ({ navigation }) => {
             return {
                 headerTitle: () => <Header navigation={navigation} title='First Time User Creation'/>
@@ -14,11 +14,11 @@ const screens = {
     }
 }
 
-const FirstTimeCreationStack = createStackNavigator( screens, {
+const ComponentsCreationStack = createStackNavigator( screens, {
     defaultNavigationOptions: {
         headerTintColor: '#444',
         headerStyle: { backgroundColor: '#eee', height: 100}
     }
 })
 
-export default FirstTimeCreationStack;
+export default ComponentsCreationStack;
