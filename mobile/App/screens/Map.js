@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Alert } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Marker } from "react-native-maps";
+
+import HeatMap from "../components/HeatMap";
 
 class Map extends React.Component {
   state = {
@@ -13,15 +14,8 @@ class Map extends React.Component {
   render() {
     const { location, loading } = this.state;
 
-    // locationLat = this.props.navigation.state.params.locationLat;
-    // locationLong = this.props.navigation.state.params.locationLong;
-    // statLat = this.props.navigation.state.params.statLat;
-    // statLong = this.props.navigation.state.params.statLong;
-
-    //Alert.alert({ locationLong });
-
     return (
-      <MapView
+      <HeatMap
         style={{ flex: 1 }}
         provider={PROVIDER_GOOGLE}
         showsUserLocation
@@ -38,7 +32,7 @@ class Map extends React.Component {
             longitude: 117.8884
           }}
         />
-      </MapView>
+      </HeatMap>
     );
   }
 }
