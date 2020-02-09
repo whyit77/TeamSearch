@@ -20,9 +20,10 @@ export default function Header({ navigation, title }) {
 
 const styles = StyleSheet.create({
     header: {
+    flex: 1,
     width: screen.width,
-    height: screen.height/17,
-    marginBottom: -30,
+    // height: screen.height/17,
+    // marginBottom: -30,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent : 'center',
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     
     },
     headerText: {
-      fontWeight: 'bold',
+      // fontWeight: 'bold',
       color: '#fff',
       letterSpacing: 1,
       fontSize:20,

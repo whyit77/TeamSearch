@@ -17,7 +17,7 @@ const screens = {
 const ResetPasswordStack = createStackNavigator( screens, {
     defaultNavigationOptions: {
         headerTintColor: '#444',
-        headerStyle: { backgroundColor: '#eee', height: 100}
+        headerStyle: { backgroundColor: '#292929', height: 100}
     }
 })
 
