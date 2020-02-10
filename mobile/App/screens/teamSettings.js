@@ -15,10 +15,14 @@ import {
   ScrollView
 } from "react-native";
 
-import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
+import {
+  buttonStyle,
+  mainStyle,
+  exampleText,
+  formStyle,
+  teamListStyle
+} from "../styles/styles";
 import { form } from "tcomb-form-native/lib";
-
-
 
 export default class App extends React.Component {
   state = {
@@ -67,58 +71,50 @@ export default class App extends React.Component {
 
   render() {
     return (
-<View style={formStyle.formContainer}>
-      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+      <View style={formStyle.formContainer}>
+        <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
-      <ScrollView contentContainerStyle={formStyle.formContainer} >
-        <View style={mainStyle.container}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <ScrollView contentContainerStyle={formStyle.formContainer}>
+          <View style={mainStyle.container}>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              {/* <Text style={{fontSize: 13, color: "#969696", textAlign: "center", marginTop: 30, marginLeft: 5}} >{this.state.switchITValue ? "ON" : "OFF"}</Text> */}
+              <Switch
+                style={formStyle.toggle}
+                onValueChange={this.toggleITSwitch}
+                value={this.state.switchITValue}
+                trackColor={{ true: "red", false: "grey" }}
+              />
 
-            {/* <Text style={{fontSize: 13, color: "#969696", textAlign: "center", marginTop: 30, marginLeft: 5}} >{this.state.switchITValue ? "ON" : "OFF"}</Text> */}
-          <Switch
-              style={formStyle.toggle}
-              onValueChange={this.toggleITSwitch}
-              value={this.state.switchITValue}
-              trackColor={{true: 'red', false: 'grey'}}
-            />
+              <Text style={formStyle.toggleLabel}> Heatmap Legend </Text>
+            </View>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              {/* <Text style={{fontSize: 13, color: "#969696", textAlign: "center", marginTop: 30, marginLeft: 5}} >{this.state.switchITValue ? "ON" : "OFF"}</Text> */}
+              <Switch
+                style={formStyle.toggle}
+                onValueChange={this.toggleLTSwitch}
+                value={this.state.switchLTValue}
+                trackColor={{ true: "red", false: "grey" }}
+              />
 
-            <Text style={formStyle.toggleLabel}> Heatmap Legend </Text>
-          
-        </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={formStyle.toggleLabel}> Heatmap </Text>
+            </View>
 
-            {/* <Text style={{fontSize: 13, color: "#969696", textAlign: "center", marginTop: 30, marginLeft: 5}} >{this.state.switchITValue ? "ON" : "OFF"}</Text> */}
-          <Switch
-              style={formStyle.toggle}
-              onValueChange={this.toggleLTSwitch}
-              value={this.state.switchLTValue}
-              trackColor={{true: 'red', false: 'grey'}}
-            />
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              {/* <Text style={{fontSize: 13, color: "#969696", textAlign: "center", marginTop: 30, marginLeft: 5}} >{this.state.switchITValue ? "ON" : "OFF"}</Text> */}
+              <Text style={formStyle.toggleLabel}>Metric </Text>
 
-            <Text style={formStyle.toggleLabel}> Heatmap </Text>
-          
-        </View>
+              <Switch
+                style={formStyle.toggle}
+                onValueChange={this.toggleUTSwitch}
+                value={this.state.switchUTValue}
+                trackColor={{ true: "red", false: "grey" }}
+              />
 
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-
-            {/* <Text style={{fontSize: 13, color: "#969696", textAlign: "center", marginTop: 30, marginLeft: 5}} >{this.state.switchITValue ? "ON" : "OFF"}</Text> */}
-          <Text style={formStyle.toggleLabel}>Metric </Text>
-
-          <Switch
-              style={formStyle.toggle}
-              onValueChange={this.toggleUTSwitch}
-              value={this.state.switchUTValue}
-              trackColor={{true: 'red', false: 'grey'}}
-            />
-
-            <Text style={formStyle.toggleLabel}> Imperial </Text>
-          
-        
-        </View>
+              <Text style={formStyle.toggleLabel}> Imperial </Text>
+            </View>
+          </View>
+        </ScrollView>
       </View>
-      </ScrollView>
-      </View>
-      
     );
   }
 }

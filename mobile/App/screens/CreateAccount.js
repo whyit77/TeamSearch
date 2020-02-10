@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   ScrollView,
   Text,
@@ -33,38 +33,50 @@ export default class CreateAccount extends React.Component {
     error: ""
   };
 
-  // handleSubmit = () => {
-  //   this.setState({ error: "" });
+	//   ////////// CHECK PASSWORDS ////////////
+	//   if (this.state.password != this.state.repassword) {
+	//     this.setState({
+	//       error: "Passwords do not match!",
+	//       password: "",
+	//       repassword: ""
+	//     });
+	//   }
+	//   //////////////////////////////////////
 
-  //   ////////// CHECK PASSWORDS ////////////
-  //   if (this.state.password != this.state.repassword) {
-  //     this.setState({
-  //       error: "Passwords do not match!",
-  //       password: "",
-  //       repassword: ""
-  //     });
-  //   }
-  //   //////////////////////////////////////
+	//   ////////// CREATE NEW ACCOUNT ////////////
+	//   reviewApi("/create-account", {
+	//     method: "POST",
+	//     body: JSON.stringify({
+	//       email: this.state.email,
+	//       firstName: this.state.firstName,
+	//       lastName: this.state.lastName,
+	//       password: this.state.password
+	//     })
+	//   })
+	//     .then(() => {
+	//       // go to login screen
+	//       this.props.navigation.navigate("SignIn");
+	//     })
+	//     .catch(error => {
+	//       this.setState({ error: error.message });
+	//     });
+	//   ///////////////////////////////////////////
+	// };
 
-  //   ////////// CREATE NEW ACCOUNT ////////////
-  //   reviewApi("/create-account", {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       email: this.state.email,
-  //       firstName: this.state.firstName,
-  //       lastName: this.state.lastName,
-  //       password: this.state.password
-  //     })
-  //   })
-  //     .then(() => {
-  //       // go to login screen
-  //       this.props.navigation.navigate("SignIn");
-  //     })
-  //     .catch(error => {
-  //       this.setState({ error: error.message });
-  //     });
-  //   ///////////////////////////////////////////
-  // };
+	render() {
+		return (
+			<KeyboardAvoidingView behavior="position" enabled>
+				<ScrollView contentContainerStyle={{ paddingVertical: 20 }}>
+					<ImageField
+						imageStyles={{ width: 60, height: 60 }}
+						source={{
+							uri:
+								'https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png',
+						}}
+						bottomLabel="Add/Change Photo"
+						onBottomPress={() => Alert.alert('Navigate to Change Photo Page')}
+						bottomLabelStyles={styles.underline}
+					/>
 
   render() {
     return (
