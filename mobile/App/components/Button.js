@@ -1,4 +1,4 @@
-// App/components / Button.js
+// App/Components / Button.js
 
 //KYLE
 // import React from "react";

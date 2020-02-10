@@ -10,21 +10,15 @@ import {
   Image,
   Alert,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  StatusBar,
+  ScrollView
 } from "react-native";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center"
-  },
-  underline: { textDecorationLine: "underline" },
-  button: {
-    alignItems: "center",
-    backgroundColor: "#DDDDDD",
-    padding: 10
-  }
-});
+import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
+import { form } from "tcomb-form-native/lib";
+
+
 
 export default class App extends React.Component {
   state = {
@@ -67,56 +61,64 @@ export default class App extends React.Component {
     this.setState({ switchLTValue: value });
   };
 
+  toggleUTSwitch = value => {
+    this.setState({ switchUTValue: value });
+  };
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text> Heatmap Legend </Text>
+<View style={formStyle.formContainer}>
+      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
-        <Switch
-          style={{ marginTop: 30 }}
-          onValueChange={this.toggleITSwitch}
-          value={this.state.switchITValue}
-        />
-        <Text>{this.state.switchITValue ? "ON" : "OFF"}</Text>
+      <ScrollView contentContainerStyle={formStyle.formContainer} >
+        <View style={mainStyle.container}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
 
-        <Text> Heatmap </Text>
-        <Switch
-          style={{ marginTop: 30 }}
-          onValueChange={this.toggleLTSwitch}
-          value={this.state.switchLTValue}
-        />
-        <Text>{this.state.switchLTValue ? "ON" : "OFF"}</Text>
+            {/* <Text style={{fontSize: 13, color: "#969696", textAlign: "center", marginTop: 30, marginLeft: 5}} >{this.state.switchITValue ? "ON" : "OFF"}</Text> */}
+          <Switch
+              style={formStyle.toggle}
+              onValueChange={this.toggleITSwitch}
+              value={this.state.switchITValue}
+              trackColor={{true: 'red', false: 'grey'}}
+            />
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={this.onMetricButtonPress}
-        >
-          <Text color={this.metricButtonColor}> Metric </Text>
-        </TouchableOpacity>
+            <Text style={formStyle.toggleLabel}> Heatmap Legend </Text>
+          
+        </View>
+        <View style={{ flexDirection: 'row', alignItems: 'center'}}>
 
-        <Button
-          color={this.state.metricButtonColor}
-          onPress={() => {
-            this.onMetricButtonPress;
-          }}
-          title="Chosen"
-        />
+            {/* <Text style={{fontSize: 13, color: "#969696", textAlign: "center", marginTop: 30, marginLeft: 5}} >{this.state.switchITValue ? "ON" : "OFF"}</Text> */}
+          <Switch
+              style={formStyle.toggle}
+              onValueChange={this.toggleLTSwitch}
+              value={this.state.switchLTValue}
+              trackColor={{true: 'red', false: 'grey'}}
+            />
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={this.onImperialButtonPress}
-        >
-          <Text color={this.imperialButtonColor}> Imperial </Text>
-        </TouchableOpacity>
+            <Text style={formStyle.toggleLabel}> Heatmap </Text>
+          
+        </View>
 
-        <Button
-          color={this.state.imperialButtonColor}
-          onPress={() => {
-            this.onImperialButtonPress;
-          }}
-          title="Chosen"
-        />
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+
+            {/* <Text style={{fontSize: 13, color: "#969696", textAlign: "center", marginTop: 30, marginLeft: 5}} >{this.state.switchITValue ? "ON" : "OFF"}</Text> */}
+          <Text style={formStyle.toggleLabel}>Metric </Text>
+
+          <Switch
+              style={formStyle.toggle}
+              onValueChange={this.toggleUTSwitch}
+              value={this.state.switchUTValue}
+              trackColor={{true: 'red', false: 'grey'}}
+            />
+
+            <Text style={formStyle.toggleLabel}> Imperial </Text>
+          
+        
+        </View>
       </View>
+      </ScrollView>
+      </View>
+      
     );
   }
 }

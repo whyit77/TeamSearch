@@ -4,21 +4,26 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 
 import React from "react";
-import { ScrollView, StatusBar } from "react-native";
-import { RowItem } from "../components/RowItem";
+import { ScrollView, StatusBar, View } from "react-native";
+import { RowItem } from "../Components/RowItem";
+
+import { B1, B2, B3, buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
+
 
 export default ({ navigation }) => (
-  <ScrollView>
-    <StatusBar barStyle="dark-content" />
+  <View style={mainStyle.toplevel}>
+  <ScrollView contentContainerStyle={formStyle.formContainer} >
+  <StatusBar barStyle="light-content" />
     <RowItem
       name="User Settings"
-      color="black"
+      color={B3}
       onPress={() => navigation.navigate("userSettings")}
     />
     <RowItem
       name="Team Settings"
-      color="black"
+      color={B3}
       onPress={() => navigation.navigate("teamSettings")}
     />
   </ScrollView>
+  </View>
 );
