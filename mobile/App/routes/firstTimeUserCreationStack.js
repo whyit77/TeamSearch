@@ -8,7 +8,7 @@ const screens = {
         screen: ComponentsCreation,
         navigationOptions: ({ navigation }) => {
             return {
-                headerTitle: () => <Header navigation={navigation} title='First Time User Creation'/>
+                headerTitle: () => <Header navigation={navigation} title='Create Account'/>
             }
         }
     }

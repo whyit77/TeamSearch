@@ -72,7 +72,12 @@ const mainStyle = StyleSheet.create({
   },
   profilePic: {
 
-  }
+  },
+  scrollView: {
+    // paddingVertical: 10,
+    height: screen.height*4,
+    flex: 4
+  },
 
 })
 
@@ -107,15 +112,15 @@ const buttonStyle = StyleSheet.create({
 
 const formStyle = StyleSheet.create({
   formContainer: {
-     flex: 1,
+     flex: 3,
     //justifyContent: 'center',
     //alignItems:'center',
     backgroundColor: B1,
-    height: screen.height,
+    // height: screen.height,
     //borderRadius: 30,
     paddingBottom: 10,
-    // margin: 10, 
-    //  paddingVertical: 10,
+    marginBottom: 100, 
+    //  paddingBottom: 100,
   },
 
   row: {

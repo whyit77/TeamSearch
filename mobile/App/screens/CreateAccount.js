@@ -73,7 +73,7 @@ export default class CreateAccount extends React.Component {
       <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
       {/* <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column' , justifyContent: 'center',}} behavior="padding" enabled> */}
       <View style={formStyle.formContainer}>
-      <ScrollView >
+      <ScrollView style={mainStyle.scrollView} >
         <View style={mainStyle.toplevel}>
           <Text style={mainStyle.text}>PHOTO UPLOAD</Text>
           <Text style={formStyle.label} >Email</Text>

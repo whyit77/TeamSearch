@@ -6,6 +6,7 @@ const CustomDrawerContentComponent = props => (
     <SafeAreaView
       style={styles.container}
       forceInset={{ top: 'always', horizontal: 'never' }}
+      drawerBackgroundColor= {'black'}
     >
       <DrawerItems {...props} />
     </SafeAreaView>

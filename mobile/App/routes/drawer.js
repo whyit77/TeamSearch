@@ -26,7 +26,7 @@ const RootDrawerNavigator = createDrawerNavigator({
     FirstTimeUserCreation: {
         screen: FirstTimeUserCreationStack,
         navigationOptions: {
-            title: 'First Time User Creation'
+            title: 'Create Account'
         }
     },
     TeamListView: {
