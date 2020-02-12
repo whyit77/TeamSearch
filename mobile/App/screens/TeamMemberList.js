@@ -9,7 +9,7 @@ import SafeAreaView from "react-native-safe-area-view";
 
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer, AppRegistry } from "react-navigation";
-import { TeamMember } from "../Components/TeamMember";
+import { TeamMember } from "../components/TeamMember";
 import { mainStyle } from "../styles/styles";
 import { ScrollView } from "react-native-gesture-handler";
 

@@ -8,7 +8,7 @@ import {
   SafeAreaView,
   StatusBar
 } from "react-native";
-import { Team } from '../Components/Team';
+import { Team } from '../components/Team';
 import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
 
 
