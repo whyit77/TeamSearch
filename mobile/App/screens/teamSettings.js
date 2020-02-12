@@ -2,15 +2,26 @@
 
 import React from 'react';
 import {
-	TextInput,
-	Text,
-	View,
-	StyleSheet,
-	Image,
-	Alert,
-	Button,
-	TouchableOpacity,
-} from 'react-native';
+  TextInput,
+  Switch,
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  Alert,
+  Button,
+  TouchableOpacity,
+  StatusBar,
+  ScrollView
+} from "react-native";
+import {
+  buttonStyle,
+  mainStyle,
+  exampleText,
+  formStyle,
+  teamListStyle
+} from "../styles/styles";
+import { form } from "tcomb-form-native/lib";
 import { Switch } from '../components/Button';
 
 const styles = StyleSheet.create({
@@ -67,53 +78,56 @@ export default class App extends React.Component {
 		this.setState({ switchLTValue: value });
 	};
 
-	render() {
-		return (
-			<View style={styles.container}>
-				<Switch
-					onValueChange={this.toggleITSwitch}
-					value={this.state.switchITValue}
-					headerText={'Heatmap Legend'}
-					buttonSwitchText={this.state.switchITValue ? 'ON' : 'OFF'}
-				/>
+  toggleUTSwitch = value => {
+    this.setState({ switchUTValue: value });
+  };
 
-				<Text> Heatmap </Text>
-				<Switch
-					onValueChange={this.toggleLTSwitch}
-					value={this.state.switchLTValue}
-				/>
-				<Text>{this.state.switchLTValue ? 'ON' : 'OFF'}</Text>
+  render() {
+    return (
+      <View style={formStyle.formContainer}>
+        <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
-				<TouchableOpacity
-					style={styles.button}
-					onPress={this.onMetricButtonPress}
-				>
-					<Text color={this.metricButtonColor}> Metric </Text>
-				</TouchableOpacity>
+        <ScrollView contentContainerStyle={formStyle.formContainer}>
+          <View style={mainStyle.container}>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              {/* <Text style={{fontSize: 13, color: "#969696", textAlign: "center", marginTop: 30, marginLeft: 5}} >{this.state.switchITValue ? "ON" : "OFF"}</Text> */}
+              <Switch
+                style={formStyle.toggle}
+                onValueChange={this.toggleITSwitch}
+                value={this.state.switchITValue}
+                trackColor={{ true: "red", false: "grey" }}
+              />
 
-				<Button
-					color={this.state.metricButtonColor}
-					onPress={() => {
-						this.onMetricButtonPress;
-					}}
-					title="Chosen"
-				/>
+              <Text style={formStyle.toggleLabel}> Heatmap Legend </Text>
+            </View>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              {/* <Text style={{fontSize: 13, color: "#969696", textAlign: "center", marginTop: 30, marginLeft: 5}} >{this.state.switchITValue ? "ON" : "OFF"}</Text> */}
+              <Switch
+                style={formStyle.toggle}
+                onValueChange={this.toggleLTSwitch}
+                value={this.state.switchLTValue}
+                trackColor={{ true: "red", false: "grey" }}
+              />
 
-				<TouchableOpacity
-					style={styles.button}
-					onPress={this.onImperialButtonPress}
-				>
-					<Text color={this.imperialButtonColor}> Imperial </Text>
-				</TouchableOpacity>
+              <Text style={formStyle.toggleLabel}> Heatmap </Text>
+            </View>
 
-				<Button
-					color={this.state.imperialButtonColor}
-					onPress={() => {
-						this.onImperialButtonPress;
-					}}
-					title="Chosen"
-				/>
-			</View>
-		);
-	}
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              {/* <Text style={{fontSize: 13, color: "#969696", textAlign: "center", marginTop: 30, marginLeft: 5}} >{this.state.switchITValue ? "ON" : "OFF"}</Text> */}
+              <Text style={formStyle.toggleLabel}>Metric </Text>
+
+              <Switch
+                style={formStyle.toggle}
+                onValueChange={this.toggleUTSwitch}
+                value={this.state.switchUTValue}
+                trackColor={{ true: "red", false: "grey" }}
+              />
+
+              <Text style={formStyle.toggleLabel}> Imperial </Text>
+            </View>
+          </View>
+        </ScrollView>
+      </View>
+    );
+  }
 }

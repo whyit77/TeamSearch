@@ -1,4 +1,4 @@
-const BASE_URL = "http://10.30.140.146:3000"; // CHECK YOUR IP ADDRESS AND REPLACE
+const BASE_URL = "http://192.168.0.152"; // CHECK YOUR IP ADDRESS AND REPLACE
 
 export const geoFetch = (path, options = {}) => {
   return fetch(`${BASE_URL}/api${path}`, options)
