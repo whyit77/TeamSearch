@@ -1,6 +1,6 @@
 // App/screens/teamSettings.js
 
-import React from "react";
+import React from 'react';
 import {
   TextInput,
   Switch,
@@ -14,7 +14,6 @@ import {
   StatusBar,
   ScrollView
 } from "react-native";
-
 import {
   buttonStyle,
   mainStyle,
@@ -23,47 +22,61 @@ import {
   teamListStyle
 } from "../styles/styles";
 import { form } from "tcomb-form-native/lib";
+import { Switch } from '../components/Button';
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		alignItems: 'center',
+	},
+	underline: { textDecorationLine: 'underline' },
+	button: {
+		alignItems: 'center',
+		backgroundColor: '#DDDDDD',
+		padding: 10,
+	},
+});
 
 export default class App extends React.Component {
-  state = {
-    switchITValue: false,
-    switchLTValue: false,
-    text: "",
-    name: "",
-    email: "",
-    certOrDescript: "",
-    cell: "",
-    changePass: "",
-    confirmPass: "",
-    metricButtonColor: "#979797",
-    imperialButtonColor: "#979797"
-  };
+	state = {
+		switchITValue: false,
+		switchLTValue: false,
+		text: '',
+		name: '',
+		email: '',
+		certOrDescript: '',
+		cell: '',
+		changePass: '',
+		confirmPass: '',
+		metricButtonColor: '#979797',
+		imperialButtonColor: '#979797',
+	};
 
-  onMetricButtonPress = () => {
-    if (this.state.metricButtonColor == "#ff002b") {
-      this.setState({ metricButtonColor: "#979797" });
-    } else {
-      this.setState({ metricButtonColor: "#ff002b" });
-      this.setState({ imperialButtonColor: "#979797" });
-    }
-  };
+	onMetricButtonPress = () => {
+		if (this.state.metricButtonColor == '#ff002b') {
+			this.setState({ metricButtonColor: '#979797' });
+		} else {
+			this.setState({ metricButtonColor: '#ff002b' });
+			this.setState({ imperialButtonColor: '#979797' });
+		}
+	};
 
-  onImperialButtonPress = () => {
-    if (this.state.imperialButtonColor == "#ff002b") {
-      this.setState({ imperialButtonColor: "#979797" });
-    } else {
-      this.setState({ imperialButtonColor: "#ff002b" });
-      this.setState({ metricButtonColor: "#979797" });
-    }
-  };
+	onImperialButtonPress = () => {
+		if (this.state.imperialButtonColor == '#ff002b') {
+			this.setState({ imperialButtonColor: '#979797' });
+		} else {
+			this.setState({ imperialButtonColor: '#ff002b' });
+			this.setState({ metricButtonColor: '#979797' });
+		}
+	};
 
-  toggleITSwitch = value => {
-    this.setState({ switchITValue: value });
-  };
+	toggleITSwitch = value => {
+		this.setState({ switchITValue: value });
+	};
 
-  toggleLTSwitch = value => {
-    this.setState({ switchLTValue: value });
-  };
+	toggleLTSwitch = value => {
+		this.setState({ switchLTValue: value });
+	};
 
   toggleUTSwitch = value => {
     this.setState({ switchUTValue: value });
