@@ -74,14 +74,14 @@ export default class CreateAccount extends React.Component {
       <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
       {/* <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column' , justifyContent: 'center',}} behavior="padding" enabled> */}
       <View style={formStyle.formContainer}>
-      <ScrollView style={mainStyle.scrollView} >
+      <ScrollView contentInsetAdjustmentBehavior='automatic' style={mainStyle.scrollView} >
         <View style={mainStyle.toplevel}>
           <Text style={mainStyle.text}>PHOTO UPLOAD</Text>
           <ImageField
 						imageStyles={{ width: 60, height: 60 }}
 						source={{
 							uri:
-								'https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png',
+								'https://i.ya-webdesign.com/images/white-camera-png-7.png',
 						}}
 						bottomLabel="Add/Change Photo"
 						onBottomPress={() => Alert.alert('Navigate to Change Photo Page')}

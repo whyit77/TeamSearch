@@ -16,14 +16,14 @@ const mainStyle = StyleSheet.create({
   ///////////////////////
   // Top Level Container
   toplevel: {
-    //flex: 1,
+    flex: 1,
    // justifyContent: 'center',
     //marginTop: 10,
-    //marginBottom: Constants.statusBarHeight*2,
+    // marginBottom: Constants.statusBarHeight*2,
     // marginTop: 20,
     alignContent: 'center',
     backgroundColor: B1,
-    height: screen.height,
+    height: screen.height*1.5,
     paddingVertical: 20,
     paddingBottom: 100
 
@@ -112,14 +112,14 @@ const buttonStyle = StyleSheet.create({
 
 const formStyle = StyleSheet.create({
   formContainer: {
-     flex: 3,
+     flex: 1,
     //justifyContent: 'center',
     //alignItems:'center',
     backgroundColor: B1,
-    // height: screen.height,
+    height: screen.height*5,
     //borderRadius: 30,
-    paddingBottom: 10,
-    marginBottom: 100, 
+    // paddingBottom: 10,
+    marginBottom: 10, 
     //  paddingBottom: 100,
   },
 
@@ -173,7 +173,8 @@ const formStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     //alignContent: 'center',
-    // backgroundColor: 'blue'
+    // backgroundColor: 'blue',
+    color: WHITE
 
    },
   formButton: {
@@ -186,7 +187,8 @@ const formStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',
-    alignContent: 'center'
+    alignContent: 'center',
+    color: WHITE
 
 
    },

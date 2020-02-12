@@ -97,6 +97,7 @@ export default class Login extends React.Component {
           <Button
             style={formStyle.formButton}
             text="Submit"
+            color='white'
             onPress={() => this.props.navigation.navigate("TeamList")}
           />
           </View>
