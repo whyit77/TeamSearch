@@ -7,7 +7,8 @@ import {
   View,
   KeyboardAvoidingView,
   SafeAreaView,
-  StatusBar
+  StatusBar,
+  Alert
 } from "react-native";
 
 //import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
@@ -15,6 +16,8 @@ import {
 
 import { TextField, ErrorText } from "../Components/Form";
 import { Button } from "../Components/Button";
+import { ImageField } from "../Components/image";
+
 //import { reviewApi } from "../util/api";
 
 import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
@@ -63,20 +66,6 @@ export default class CreateAccount extends React.Component {
 	//   ///////////////////////////////////////////
 	// };
 
-	render() {
-		return (
-			<KeyboardAvoidingView behavior="position" enabled>
-				<ScrollView contentContainerStyle={{ paddingVertical: 20 }}>
-					<ImageField
-						imageStyles={{ width: 60, height: 60 }}
-						source={{
-							uri:
-								'https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png',
-						}}
-						bottomLabel="Add/Change Photo"
-						onBottomPress={() => Alert.alert('Navigate to Change Photo Page')}
-						bottomLabelStyles={styles.underline}
-					/>
 
   render() {
     return (
@@ -88,6 +77,16 @@ export default class CreateAccount extends React.Component {
       <ScrollView style={mainStyle.scrollView} >
         <View style={mainStyle.toplevel}>
           <Text style={mainStyle.text}>PHOTO UPLOAD</Text>
+          <ImageField
+						imageStyles={{ width: 60, height: 60 }}
+						source={{
+							uri:
+								'https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png',
+						}}
+						bottomLabel="Add/Change Photo"
+						onBottomPress={() => Alert.alert('Navigate to Change Photo Page')}
+						bottomLabelStyles={mainStyle.link}
+					/>
           <Text style={formStyle.label} >Email</Text>
           <TextField
             //label="Email"
