@@ -5,7 +5,7 @@ import { createAppContainer } from "react-navigation";
 
 import React from "react";
 import { ScrollView, StatusBar, View } from "react-native";
-import { RowItem } from "../Components/RowItem";
+import { RowItem } from "../components/RowItem";
 
 import { B1, B2, B3, buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
 

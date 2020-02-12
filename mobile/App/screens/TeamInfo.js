@@ -13,7 +13,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer, AppRegistry } from "react-navigation";
 
-import { TextField, ErrorText } from "../Components/Form";
+import { TextField, ErrorText } from "../components/Form";
 
 import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
 import { form } from "tcomb-form-native/lib";

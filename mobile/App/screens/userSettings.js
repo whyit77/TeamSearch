@@ -21,7 +21,7 @@ import {
   formStyle,
   teamListStyle
 } from "../styles/styles";
-import { TextField, ErrorText } from "../Components/Form";
+import { TextField, ErrorText } from "../components/Form";
 
 export default class App extends React.Component {
   state = {

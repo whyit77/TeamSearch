@@ -16,7 +16,7 @@ import {
 } from "react-native";
 
 import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
-import { TextField, ErrorText } from "../Components/Form";
+import { TextField, ErrorText } from "../components/Form";
 
 const styles = StyleSheet.create({
   container: {
