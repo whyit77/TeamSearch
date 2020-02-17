@@ -6,7 +6,7 @@ let isConnected;
 // REMOVE PASSWORD BEFORE PUSHING <password>
 // REPLACE PASSWORD TO RUN
 const DB_URL =
-  "mongodb+srv://Erin1:DrDan!480@teamsearch1-8sc8z.mongodb.net/test?retryWrites=true&w=majority";
+  "mongodb+srv://erinmori26:<password>@cluster0-ds4lf.mongodb.net/TeamSearch1?retryWrites=true&w=majority";
 
 const connectToDatabase = () => {
   if (isConnected) {

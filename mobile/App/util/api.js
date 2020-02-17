@@ -1,18 +1,61 @@
-const BASE_URL = "http://192.168.0.152"; // CHECK YOUR IP ADDRESS AND REPLACE
+import { AsyncStorage } from "react-native";
 
-export const geoFetch = (path, options = {}) => {
-  return fetch(`${BASE_URL}/api${path}`, options)
-    .then(res => {
-      if (res.ok) {
-        return res.json();
+const BASE_URL = "http://10.30.128.234:3000"; // CHECK YOUR IP ADDRESS AND REPLACE
+const AUTH_TOKEN = "TeamSearch::AUTH_TOKEN";
+
+// save user login info
+export const saveAuthToken = token => {
+  // sign out
+  if (!token) {
+    return AsyncStorage.removeItem(AUTH_TOKEN);
+  }
+
+  return AsyncStorage.setItem(AUTH_TOKEN, token);
+};
+
+// check if login info saved before
+export const hasAuthToken = () => {
+  return AsyncStorage.getItem(AUTH_TOKEN).then(token => {
+    if (token) {
+      return true;
+    }
+
+    return false;
+  });
+};
+
+export const TSApi = (path, options = {}) => {
+  return AsyncStorage.getItem(AUTH_TOKEN).then(token => {
+    const completeOptions = {
+      // json type
+      ...options,
+      headers: {
+        ...options.headers,
+        "Content-Type": "application/json"
       }
+    };
 
-      throw new Error("Something went wrong... please try again.");
-    })
-    .catch(error => {
-      // catch global errors
-      console.warn("ERROR: ", `${BASE_URL}/api${path}`, error);
+    // add token info to get access to app
+    if (token) {
+      completeOptions.headers.authorization = `Bearer ${token}`;
+    }
 
-      throw new Error(error);
-    });
+    return fetch(`${BASE_URL}/pages/api${path}`, completeOptions).then(
+      async res => {
+        const responseJson = await res.json();
+
+        if (res.ok) {
+          return responseJson;
+        }
+
+        // if unauthorized
+        if (res.status === 401) {
+          navigation.navigate("Login"); // go to login screen
+          saveAuthToken(); // remove auth token
+        }
+
+        throw new Error(responseJson.error);
+      }
+    );
+  });
 };
