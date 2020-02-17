@@ -10,9 +10,7 @@ import {
   MenuTrigger,
 } from 'react-native-popup-menu';
 
-export default function HeaderPopup() {
-  render() {
-    return (
+export default HeaderPopup = () => (
       <MenuContext style={styles.header}>
         <View>
           <Menu>
@@ -34,9 +32,7 @@ export default function HeaderPopup() {
           </Menu>
         </View>
       </MenuContext>
-    );
-  }
-}
+)
 
 const styles = StyleSheet.create({
     header: {
