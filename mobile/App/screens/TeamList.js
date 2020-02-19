@@ -39,12 +39,6 @@ export default class TeamList extends React.Component {
         <TouchableOpacity>
           <Team name={'TeamSearch'} status={'Active'} admin={'Dr. Dan'} size={20} description={'Small boi'}></Team>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate("CreateTeam")} >
-          
-          <Text style={styles.text}>+</Text>
-
-        </TouchableOpacity>
       </View>
 
       </ScrollView>
