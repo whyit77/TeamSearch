@@ -1,6 +1,6 @@
 import { AsyncStorage } from "react-native";
 
-const BASE_URL = "http://10.30.128.234:3000"; // CHECK YOUR IP ADDRESS AND REPLACE
+const BASE_URL = "http://172.17.56.72:3000"; // CHECK YOUR IP ADDRESS AND REPLACE
 const AUTH_TOKEN = "TeamSearch::AUTH_TOKEN";
 
 // save user login info

@@ -1,4 +1,4 @@
-// App/components / Button.js
+// App/Components / Button.js
 
 import React from 'react';
 import {
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		fontWeight: '500',
-		fontSize: 12,
-		color: '#4A4A4A',
+		fontSize: 15,
+		color: 'white',
 	},
 });
 
