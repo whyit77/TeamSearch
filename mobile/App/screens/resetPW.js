@@ -10,10 +10,14 @@ import {
 
 import { TextField, ErrorText } from "../components/Form";
 import { Button } from "../components/Button";
-//import { reviewApi } from "../util/api";
 
-import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
-
+import {
+  buttonStyle,
+  mainStyle,
+  exampleText,
+  formStyle,
+  teamListStyle
+} from "../styles/styles";
 
 const styles = StyleSheet.create({
   textBlock: {
@@ -72,39 +76,40 @@ export default class ResetPW extends React.Component {
   render() {
     return (
       <View style={mainStyle.toplevel}>
-
-      <View style={formStyle.formContainer}>
-      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
-
-      <ScrollView contentContainerStyle={formStyle.formContainer}>
         <View style={formStyle.formContainer}>
-        <Text style={formStyle.text} >Please enter your email to recieve a temporary password.</Text>
+          <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
-          <Text style={formStyle.label} >Email</Text>
-          <TextField
-            //label="Email"
-            placeholder="john.doe@example.com"
-            onChangeText={email => this.setState({ email })}
-            value={this.state.email}
-            autoCapitalize="none"
-            color='white'
-            selectionColor='red'
-            keyboardAppearance='dark'
-            keyboardType='email-address'
-            labelTextColor='white'
-            textContentType='emailAddress'
-          />
-          <ErrorText text={this.state.error} />
-          <View style={formStyle.formButtonContainer}>
-          <Button
-            style={formStyle.formButton}
-            text="Send"
-            onPress={() => this.props.navigation.navigate("Login")}
-          />
+          <ScrollView contentContainerStyle={formStyle.formContainer}>
+            <View style={formStyle.formContainer}>
+              <Text style={formStyle.text}>
+                Please enter your email to recieve a temporary password.
+              </Text>
+
+              <Text style={formStyle.label}>Email</Text>
+              <TextField
+                //label="Email"
+                placeholder="john.doe@example.com"
+                onChangeText={email => this.setState({ email })}
+                value={this.state.email}
+                autoCapitalize="none"
+                color="white"
+                selectionColor="red"
+                keyboardAppearance="dark"
+                keyboardType="email-address"
+                labelTextColor="white"
+                textContentType="emailAddress"
+              />
+              <ErrorText text={this.state.error} />
+              <View style={formStyle.formButtonContainer}>
+                <Button
+                  style={formStyle.formButton}
+                  text="Send"
+                  onPress={() => this.props.navigation.navigate("Login")}
+                />
+              </View>
+            </View>
+          </ScrollView>
         </View>
-        </View>
-      </ScrollView>
-      </View>
       </View>
     );
   }
