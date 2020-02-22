@@ -84,7 +84,8 @@ export default class CreateAccount extends React.Component {
 								'https://i.ya-webdesign.com/images/white-camera-png-7.png',
 						}}
 						bottomLabel="Add/Change Photo"
-						onBottomPress={() => Alert.alert('Navigate to Change Photo Page')}
+            onBottomPress={() => Alert.alert('Navigate to Change Photo Page')}
+            
 						bottomLabelStyles={mainStyle.link}
 					/>
           <Text style={formStyle.label} >Email</Text>
