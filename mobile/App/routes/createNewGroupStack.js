@@ -17,7 +17,10 @@ const screens = {
 const CreateGroupStack = createStackNavigator( screens, {
     defaultNavigationOptions: {
         // headerTintColor: '#444',
-        headerStyle: { backgroundColor: '#292929', height: 100}
+        headerStyle: { 
+            backgroundColor: '#292929', 
+            height: 100
+        }
     }
 })
 

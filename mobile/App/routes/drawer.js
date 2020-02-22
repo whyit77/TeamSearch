@@ -15,7 +15,9 @@ import SettingsStack from './settingsStack';
 
 const RootDrawerNavigator = createDrawerNavigator({
     Login: {
-        screen: LoginStack
+        screen: LoginStack,
+        
+        
     },
     ResetPassword: {
         screen: ResetPasswordStack,
@@ -71,6 +73,17 @@ const RootDrawerNavigator = createDrawerNavigator({
             title: 'Settings'
         }
     },
+    
+    
+},{
+    drawerBackgroundColor: '#292929',
+    contentOptions: {
+        activeTintColor: 'red',
+        activeBackgroundColor: '#3d3d3d',
+        inactiveTintColor: 'white',
+        inactiveBackgroundColor: '#292929'
+      }
+    //overlayColor: 'white',
 })
 
 export default createAppContainer(RootDrawerNavigator);
