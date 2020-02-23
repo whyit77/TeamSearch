@@ -16,8 +16,6 @@ import SettingsStack from './settingsStack';
 const RootDrawerNavigator = createDrawerNavigator({
     Login: {
         screen: LoginStack,
-        
-        
     },
     ResetPassword: {
         screen: ResetPasswordStack,
