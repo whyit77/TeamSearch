@@ -1,0 +1,7 @@
+{
+	"env": {
+		"MONGO_USER": "wzeimis",
+		"MONGO_PASSWORD": "Flames77",
+		"MONGO_DB": "team-search"
+	}
+}
