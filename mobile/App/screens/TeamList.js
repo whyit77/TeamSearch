@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import {
   ScrollView,
   Text,
@@ -9,24 +9,28 @@ import {
   StatusBar
 } from "react-native";
 import { Team } from '../components/Team';
-import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
+import { mainStyle } from '../styles/styles'
+import CreateTeamMenuIcon from '../components/CreateTeamMenuIcon';
 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "black",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  text: {
-    fontSize: 200,
-    color: "white",
-    textAlign: "center"
-  }
-});
-
-export default class TeamList extends React.Component {
+export default class TeamList extends Component {
+    static navigationOptions = ({ navigation }) => {
+      return {
+        headerRight: (  
+          <CreateTeamMenuIcon 
+              option1="Create Team"
+              option2="Join Team"
+              menuStyle= {{
+                  marginRight: 40,
+                  flexDirection: 'row',
+                  justifyContent: 'flex-end',
+              }}
+              option1Click={() => {
+                  navigation.navigate('CreateTeam')
+              }}
+          />
+        ),
+      }
+  };
   render() {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
@@ -47,3 +51,17 @@ export default class TeamList extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "black",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  text: {
+    fontSize: 200,
+    color: "white",
+    textAlign: "center"
+  }
+});

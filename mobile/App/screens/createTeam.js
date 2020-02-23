@@ -9,13 +9,10 @@ import {
   SafeAreaView,
   StatusBar
 } from "react-native";
-
 import { mainStyle, formStyle } from '../styles/styles'
-
 import { TextField, ErrorText } from "../components/Form";
 import { Button } from "../components/Button";
 import { ImageField } from "../components/image";
-
 //import { reviewApi } from "../util/api";
 
 
@@ -145,7 +142,7 @@ export default class CreateTeam extends React.Component {
 
           <Button
             style={formStyle.formButton}
-            text="Next"
+            text="Define Search Area"
             onPress={() => this.props.navigation.navigate("DefineSearchArea")}
           />
           </View>

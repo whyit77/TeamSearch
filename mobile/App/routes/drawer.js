@@ -1,6 +1,5 @@
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createAppContainer } from 'react-navigation';
-
 import LoginStack from './loginStack';
 import ResetPasswordStack from './resetPasswordStack';
 import FirstTimeUserCreationStack from './firstTimeUserCreationStack';
@@ -11,16 +10,18 @@ import TeamMemberListStack from './teamMemberListStack';
 import MapViewStack from './mapViewStack';
 import TeamAlertsStack from './teamAlertsStack';
 import SettingsStack from './settingsStack';
+import React, { Component } from 'react';
 
-
-const RootDrawerNavigator = createDrawerNavigator({
+const RootDrawerNavigator = createDrawerNavigator(
+    {
     Login: {
-        screen: LoginStack
+        screen: LoginStack,
     },
     ResetPassword: {
         screen: ResetPasswordStack,
         navigationOptions: {
             title: 'Reset Password'
+            
         }
     },
     FirstTimeUserCreation: {
@@ -70,7 +71,19 @@ const RootDrawerNavigator = createDrawerNavigator({
         navigationOptions: {
             title: 'Settings'
         }
+    }
     },
-})
+    {
+        initialRouteName: 'Login',
+        drawerBackgroundColor: '#BCBCBC',
+        drawerWidth: 200,
+    }
+);
 
-export default createAppContainer(RootDrawerNavigator);
+const AppContainer = createAppContainer(RootDrawerNavigator);
+
+export default class Navigator extends Component {
+    render() {
+        return <AppContainer/>
+    }
+}

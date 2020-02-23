@@ -1,22 +1,15 @@
 import React from "react";
 import { StyleSheet, 
   Text, 
-  View, 
-  TextInput,
+  View,
   SafeAreaView,
   KeyboardAvoidingView,
   ScrollView,
   StatusBar
  } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
-import { createStackNavigator } from "react-navigation-stack";
-import { createAppContainer, AppRegistry } from "react-navigation";
-
-import { TextField, ErrorText } from "../components/Form";
-
-import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
-import { form } from "tcomb-form-native/lib";
+import { TextField } from "../components/Form";
+import { mainStyle, formStyle } from '../styles/styles';
 
 
 const styles = StyleSheet.create({

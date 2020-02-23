@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import {
   ScrollView,
   Text,
@@ -6,17 +6,13 @@ import {
   StyleSheet,
   View,
   StatusBar
-} from "react-native";
-
-import { TextField, ErrorText } from "../components/Form";
-import { Button } from "../components/Button";
-
-import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
-
-// import { reviewApi, saveAuthToken } from "../util/api";
+} from 'react-native';
+import { TextField, ErrorText } from '../components/Form';
+import { Button } from '../components/Button';
+import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles';
 
 
-export default class Login extends React.Component {
+export default class Login extends Component {
   state = {
     email: "",
     password: "",
