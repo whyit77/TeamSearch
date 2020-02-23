@@ -3,6 +3,7 @@ import Login from '../screens/login';
 import Header from '../components/Header';
 import React from 'react';
 import  TeamList from '../screens/TeamList';
+import ResetPW from '../screens/resetPW';
 
 const screens = {
     Login: {
@@ -18,6 +19,9 @@ const screens = {
         navigationOptions: {
             title: 'Team List'
         }
+    },
+    ResetPW: {
+        screen: ResetPW
     }
 }
 
