@@ -12,8 +12,10 @@
     "format-code": "yarn run prettier && yarn run lint:fix"
   },
   "dependencies": {
+    "@cawfree/react-native-heat-map": "0.0.2",
     "@react-native-community/masked-view": "^0.1.6",
     "expo": "^36.0.2",
+    "expo-linear-gradient": "^8.0.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",

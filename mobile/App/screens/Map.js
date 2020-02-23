@@ -1,7 +1,19 @@
 import React, { Component } from "react";
-import { Alert } from "react-native";
+import { StyleSheet, View } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Marker } from "react-native-maps";
+
+const styles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    // opacity: 0.5,
+    backgroundColor: "red"
+  },
+  gradient: {
+    flex: 1,
+    backgroundColor: "blue"
+  }
+});
 
 class Map extends React.Component {
   state = {
@@ -13,32 +25,62 @@ class Map extends React.Component {
   render() {
     const { location, loading } = this.state;
 
-    // locationLat = this.props.navigation.state.params.locationLat;
-    // locationLong = this.props.navigation.state.params.locationLong;
-    // statLat = this.props.navigation.state.params.statLat;
-    // statLong = this.props.navigation.state.params.statLong;
-
-    //Alert.alert({ locationLong });
-
     return (
-      <MapView
-        style={{ flex: 1 }}
-        provider={PROVIDER_GOOGLE}
-        showsUserLocation
-        initialRegion={{
-          latitude: 34.1301,
-          longitude: 117.8884,
-          latitudeDelta: 0.00922,
-          longitudeDelta: 0.00421
-        }}
-      >
-        <Marker
-          coordinate={{
+      <View style={styles.overlay}>
+        <MapView
+          customMapStyle={[
+            {
+              featureType: "road.local",
+              elementType: "geometry.fill",
+              stylers: [
+                {
+                  color: "#ff8080"
+                },
+                {
+                  visibility: "on"
+                },
+                {
+                  weight: 5
+                }
+              ]
+            },
+            {
+              featureType: "landscape.natural.landcover",
+              elementType: "geometry.fill",
+              stylers: [
+                {
+                  color: "#3d84ff"
+                },
+                {
+                  saturation: -50
+                },
+                {
+                  lightness: 25
+                },
+                {
+                  visibility: "on"
+                }
+              ]
+            }
+          ]}
+          style={styles.gradient}
+          provider={PROVIDER_GOOGLE}
+          showsUserLocation
+          initialRegion={{
             latitude: 34.1301,
-            longitude: 117.8884
+            longitude: -117.8884,
+            latitudeDelta: 0.00922,
+            longitudeDelta: 0.00421
           }}
-        />
-      </MapView>
+        >
+          <Marker
+            coordinate={{
+              latitude: 34.1301,
+              longitude: -117.8884
+            }}
+          />
+        </MapView>
+      </View>
     );
   }
 }
