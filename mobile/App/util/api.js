@@ -1,6 +1,6 @@
 const BASE_URL = "http://10.30.136.110:3000"; // CHECK YOUR IP ADDRESS AND REPLACE
 
-import { parse } from "himalaya";
+// import { parse } from "himalaya";
 
 import { AsyncStorage } from "react-native";
 // import { navigate } from "./NavigationService";
@@ -54,8 +54,8 @@ export const TSApi = (path, options = {}) => {
     return fetch(`${BASE_URL}/api${path}`, completeOptions).then(async res => {
       console.log("0.5");
 
-      const data1 = await res.text();
-      const d1 = parse(data1);
+      const data1 = await res.json();
+      // const d1 = parse(data1);
       // data1 = JSON.stringify(data1);
       // console.log(d1);
 
@@ -63,7 +63,7 @@ export const TSApi = (path, options = {}) => {
       // data2 = data2.replace(/\r?\n/g, "").replace(/[\u0080-\uFFFF]/g, "");
       // console.log(data2);
 
-      const data2 = JSON.stringify(d1);
+      const data2 = JSON.stringify(data1);
 
       console.log("0.75");
       const responseJson = JSON.parse(data2);
