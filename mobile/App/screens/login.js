@@ -57,23 +57,6 @@ export default class Login extends React.Component {
       }
     };
 
-    // if (!this.state.isLogin) {
-    //   requestBody = {
-    //     query: `
-    //       mutation CreateUser($email: String!, $password: String!) {
-    //         createUser(userInput: {email: $email, password: $password}) {
-    //           _id
-    //           email
-    //         }
-    //       }
-    //     `,
-    //     variables: {
-    //       email: email,
-    //       password: password
-    //     }
-    //   };
-    // }
-
     // CHECK IP ADDRESS
     fetch("http://172.17.57.147:3000/graphql", {
       method: "POST",
@@ -86,7 +69,7 @@ export default class Login extends React.Component {
         const responseJson = await res.json();
 
         if (res.ok) {
-          console.log("Okay");
+          console.log("Okay LOGIN");
           this.props.navigation.navigate("TeamListView");
           return responseJson;
         }

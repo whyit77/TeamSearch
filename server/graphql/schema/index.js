@@ -1,4 +1,4 @@
-const { buildSchema } = require('graphql');
+const { buildSchema } = require("graphql");
 
 module.exports = buildSchema(`
 type Booking {
@@ -21,7 +21,11 @@ type Event {
 type User {
   _id: ID!
   email: String!
-  password: String
+  firstName: String!
+  lastName: String!
+  password: String!
+  phone: String!
+  desc: String
   createdEvents: [Event!]
 }
 
@@ -40,7 +44,11 @@ input EventInput {
 
 input UserInput {
   email: String!
+  firstName: String!
+  lastName: String!
   password: String!
+  phone: String!
+  desc: String
 }
 
 type RootQuery {

@@ -44,53 +44,35 @@ export default class CreateAccount extends React.Component {
     // event.preventDefault();
     const email = this.state.email;
     const password = this.state.password;
+    const firstName = this.state.firstName;
+    const lastName = this.state.lastName;
+    const phone = this.state.phone;
+    const desc = this.state.desc;
 
     // if (email.trim().length === 0 || password.trim().length === 0) {
     //   return;
     // }
 
-    ////////// CHECK PASSWORDS ////////////
-    if (this.state.password != this.state.repassword) {
-      this.setState({
-        error: "Passwords do not match!",
-        password: "",
-        repassword: ""
-      });
-    }
-    //////////////////////////////////////
-
     let requestBody = {
       query: `
-        query Login($email: String!, $password: String!) {
-          login(email: $email, password: $password) {
-            userId
-            token
-            tokenExpiration
+          mutation CreateUser($email: String!, $firstName: String!, $lastName: String!, $password: String!, $phone: String!, $desc: String) {
+            createUser(userInput: {email: $email, firstName: $firstName, lastName: $lastName, password: $password, phone: $phone, desc: $desc}) {
+              _id
+              email
+              firstName
+              lastName
+            }
           }
-        }
-      `,
+        `,
       variables: {
         email: email,
-        password: password
+        firstName: firstName,
+        lastName: lastName,
+        password: password,
+        phone: phone,
+        desc: desc
       }
     };
-
-    // if (!this.state.isLogin) {
-    //   requestBody = {
-    //     query: `
-    //       mutation CreateUser($email: String!, $password: String!) {
-    //         createUser(userInput: {email: $email, password: $password}) {
-    //           _id
-    //           email
-    //         }
-    //       }
-    //     `,
-    //     variables: {
-    //       email: email,
-    //       password: password
-    //     }
-    //   };
-    // }
 
     // CHECK IP ADDRESS
     fetch("http://172.17.57.147:3000/graphql", {
@@ -103,9 +85,22 @@ export default class CreateAccount extends React.Component {
       .then(async res => {
         const responseJson = await res.json();
 
+        ////////// CHECK PASSWORDS ////////////
+        if (this.state.password != this.state.repassword) {
+          this.setState({
+            error: "Passwords do not match!",
+            password: "",
+            repassword: ""
+          });
+          return responseJson;
+        }
+        //////////////////////////////////////
+
+        console.log(responseJson);
+
         if (res.ok) {
-          console.log("Okay");
-          this.props.navigation.navigate("TeamListView");
+          console.log("Okay CREATE");
+          this.props.navigation.navigate("Login");
           return responseJson;
         }
 
@@ -118,15 +113,15 @@ export default class CreateAccount extends React.Component {
 
         // return res.json();
       })
-      .then(resData => {
-        if (resData.data.login.token) {
-          this.context.login(
-            resData.data.login.token,
-            resData.data.login.userId,
-            resData.data.login.tokenExpiration
-          );
-        }
-      })
+      // .then(resData => {
+      //   if (resData.data.login.token) {
+      //     this.context.login(
+      //       resData.data.login.token,
+      //       resData.data.login.userId,
+      //       resData.data.login.tokenExpiration
+      //     );
+      //   }
+      // })
       .catch(err => {
         console.log(err);
       });
