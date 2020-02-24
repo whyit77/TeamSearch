@@ -1,17 +1,13 @@
 import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Marker } from "react-native-maps";
+import { Overlay } from "react-native-elements";
 
 const styles = StyleSheet.create({
-  overlay: {
+  map: {
     flex: 1,
-    // opacity: 0.5,
-    backgroundColor: "red"
-  },
-  gradient: {
-    flex: 1,
-    backgroundColor: "blue"
+    opacity: 0.5
   }
 });
 
@@ -26,7 +22,7 @@ class Map extends React.Component {
     const { location, loading } = this.state;
 
     return (
-      <View style={styles.overlay}>
+      <Overlay isVisible={true} overlayBackgroundColor="red" fullScreen={true}>
         <MapView
           customMapStyle={[
             {
@@ -63,7 +59,7 @@ class Map extends React.Component {
               ]
             }
           ]}
-          style={styles.gradient}
+          style={styles.map}
           provider={PROVIDER_GOOGLE}
           showsUserLocation
           initialRegion={{
@@ -80,7 +76,7 @@ class Map extends React.Component {
             }}
           />
         </MapView>
-      </View>
+      </Overlay>
     );
   }
 }
