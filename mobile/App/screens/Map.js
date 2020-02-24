@@ -8,21 +8,23 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
     opacity: 0.5
+  },
+  overlay: {
+    flex: 1
+    // opacity: 0.5,
+    // backgroundColor: "blue"
   }
 });
 
 class Map extends React.Component {
-  state = {
-    loading: false,
-    location: null,
-    showMap: false
-  };
-
   render() {
-    const { location, loading } = this.state;
-
     return (
-      <Overlay isVisible={true} overlayBackgroundColor="red" fullScreen={true}>
+      <Overlay
+        isVisible={true}
+        overlayBackgroundColor="red"
+        fullScreen={true}
+        overlayStyle={styles.overlay}
+      >
         <MapView
           customMapStyle={[
             {
