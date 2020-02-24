@@ -14,7 +14,13 @@ const screens = {
         }
     },
     DefineSearchArea: {
-        screen: DefineSearchArea
+        screen: DefineSearchArea,
+        navigationOptions: () => {
+            return {
+                headerTitle: 'Define Search Area',
+                headerTintColor: 'white',
+            }
+        }
     }
 }
 

@@ -14,7 +14,13 @@ const screens = {
         }
     },
     MemberProfile: {
-        screen: MemberProfile
+        screen: MemberProfile,
+        navigationOptions: () => {
+            return {
+                headerTitle: 'Member Profile',
+                headerTintColor: 'white',
+            }
+        }
     }
 }
 

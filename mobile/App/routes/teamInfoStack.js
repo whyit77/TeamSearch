@@ -17,12 +17,30 @@ const screens = {
     },
     Map: {
         screen: HeatMap,
+        navigationOptions: () => {
+            return {
+                headerTitle: 'Map',
+                headerTintColor: 'white',
+            }
+        }
     },
     DataExport: {
         screen: DataExport,
+        navigationOptions: () => {
+            return {
+                headerTitle: 'Export Data',
+                headerTintColor: 'white',
+            }
+        }
     },
     TeamAlerts: {
-        screen: TeamAlerts
+        screen: TeamAlerts,
+        navigationOptions: () => {
+            return {
+                headerTitle: 'Team Alerts',
+                headerTintColor: 'white',
+            }
+        }
     }
 }
 

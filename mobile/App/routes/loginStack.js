@@ -16,12 +16,21 @@ const screens = {
     },
     TeamList: {
         screen: TeamList,
-        navigationOptions: {
-            title: 'Team List'
+        navigationOptions: () => {
+            return {
+                headerTitle: 'Team List',
+                headerTintColor: 'white',
+            }
         }
     },
     ResetPW: {
-        screen: ResetPW
+        screen: ResetPW,
+        navigationOptions: () => {
+            return {
+                headerTitle: 'Reset Password',
+                headerTintColor: 'white',
+            }
+        }
     }
 }
 

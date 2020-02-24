@@ -14,7 +14,13 @@ const screens = {
         }
     },
     CreateTeam: {
-        screen: CreateTeam
+        screen: CreateTeam,
+        navigationOptions: () => {
+            return {
+                headerTitle: 'Create Team',
+                headerTintColor: 'white',
+            }
+        }
     },
     
 }
