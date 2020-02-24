@@ -8,7 +8,7 @@ const CustomDrawerContentComponent = props => (
       forceInset={{ top: 'always', horizontal: 'never' }}
       drawerBackgroundColor= {'black'}
     >
-      <DrawerItems {...props} />
+      <DrawerItems activeBackgroundColor={'grey'} {...props} />
     </SafeAreaView>
   </ScrollView>
 );

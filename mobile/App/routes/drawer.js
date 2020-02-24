@@ -72,15 +72,16 @@ const RootDrawerNavigator = createDrawerNavigator(
             title: 'Settings'
         }
     }
-    },
-    {
-        initialRouteName: 'Login',
-        drawerBackgroundColor: '#BCBCBC',
-        drawerWidth: 200,
+    },{
+    drawerBackgroundColor: '#292929',
+    contentOptions: {
+        activeTintColor: 'red',
+        activeBackgroundColor: '#3d3d3d',
+        inactiveTintColor: 'white',
+        inactiveBackgroundColor: '#292929'
     }
-);
-
-const AppContainer = createAppContainer(RootDrawerNavigator);
+    //overlayColor: 'white',
+})
 
 export default class Navigator extends Component {
     render() {

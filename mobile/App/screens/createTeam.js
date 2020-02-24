@@ -7,7 +7,8 @@ import {
   View,
   KeyboardAvoidingView,
   SafeAreaView,
-  StatusBar
+  StatusBar,
+  Alert
 } from "react-native";
 import { mainStyle, formStyle } from '../styles/styles'
 import { TextField, ErrorText } from "../components/Form";
