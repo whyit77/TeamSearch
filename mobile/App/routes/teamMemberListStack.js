@@ -1,6 +1,7 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import TeamMemberList from '../screens/TeamMemberList';
 import Header from '../components/Header';
+import MemberProfile from '../screens/MemberProfile';
 import React from 'react';
 
 const screens = {
@@ -9,6 +10,15 @@ const screens = {
         navigationOptions: ({ navigation }) => {
             return {
                 headerTitle: () => <Header navigation={navigation} title='Team Members'/>
+            }
+        }
+    },
+    MemberProfile: {
+        screen: MemberProfile,
+        navigationOptions: () => {
+            return {
+                headerTitle: 'Member Profile',
+                headerTintColor: 'white',
             }
         }
     }

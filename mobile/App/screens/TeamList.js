@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import {
   ScrollView,
   Text,
@@ -9,8 +9,48 @@ import {
   StatusBar
 } from "react-native";
 import { Team } from '../components/Team';
-import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
+import { mainStyle } from '../styles/styles'
+import CreateTeamMenuIcon from '../components/CreateTeamMenuIcon';
 
+export default class TeamList extends Component {
+    static navigationOptions = ({ navigation }) => {
+      return {
+        headerRight: (  
+          <CreateTeamMenuIcon 
+              option1="Create Team"
+              option2="Join Team"
+              menuStyle= {{
+                  marginRight: 40,
+                  flexDirection: 'row',
+                  justifyContent: 'flex-end',
+              }}
+              option1Click={() => {
+                  navigation.navigate('CreateTeam')
+              }}
+          />
+        ),
+      }
+  };
+  render() {
+    return (
+      <SafeAreaView style={mainStyle.toplevel}>
+      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+
+      <View style={mainStyle.container}>
+      <ScrollView contentContainerStyle={mainStyle.container}>
+      <View style={mainStyle.toplevel}>
+        
+        <TouchableOpacity>
+          <Team name={'TeamSearch'} status={'Active'} admin={'Dr. Dan'} size={20} description={'Small boi'}></Team>
+        </TouchableOpacity>
+      </View>
+
+      </ScrollView>
+      </View>
+      </SafeAreaView>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -25,31 +65,3 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
-
-export default class TeamList extends React.Component {
-  render() {
-    return (
-      <SafeAreaView style={mainStyle.toplevel}>
-      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
-
-      <View style={mainStyle.container}>
-      <ScrollView contentContainerStyle={mainStyle.container}>
-      <View style={mainStyle.toplevel}>
-        
-        <TouchableOpacity>
-          <Team name={'TeamSearch'} status={'Active'} admin={'Dr. Dan'} size={20} description={'Small boi'}></Team>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate("CreateTeam")} >
-          
-          <Text style={styles.text}>+</Text>
-
-        </TouchableOpacity>
-      </View>
-
-      </ScrollView>
-      </View>
-      </SafeAreaView>
-    );
-  }
-}
