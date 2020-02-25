@@ -7,13 +7,13 @@ import {
   View,
   KeyboardAvoidingView,
   SafeAreaView,
-  StatusBar
+  StatusBar,
+  Alert
 } from "react-native";
-
 import { mainStyle, formStyle } from '../styles/styles'
-
-import { TextField, ErrorText } from "../Components/Form";
-import { Button } from "../Components/Button";
+import { TextField, ErrorText } from "../components/Form";
+import { Button } from "../components/Button";
+import { ImageField } from "../components/image";
 //import { reviewApi } from "../util/api";
 
 
@@ -67,6 +67,16 @@ export default class CreateTeam extends React.Component {
         <ScrollView contentContainerStyle={formStyle.formContainer}>
           <View style={formStyle.formContainer}>
           <Text style={mainStyle.text}>PHOTO UPLOAD</Text>
+          <ImageField
+						imageStyles={{ width: 60, height: 60 }}
+						source={{
+							uri:
+								'https://i.ya-webdesign.com/images/white-camera-png-7.png',
+						}}
+						bottomLabel="Add/Change Photo"
+						onBottomPress={() => Alert.alert('Navigate to Change Photo Page')}
+						bottomLabelStyles={mainStyle.link}
+					/>
           <Text style={formStyle.label} >Team Name</Text>
           <TextField
             //label="Team Name"
@@ -133,7 +143,7 @@ export default class CreateTeam extends React.Component {
 
           <Button
             style={formStyle.formButton}
-            text="Next"
+            text="Define Search Area"
             onPress={() => this.props.navigation.navigate("DefineSearchArea")}
           />
           </View>

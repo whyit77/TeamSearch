@@ -1,7 +1,9 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import Login from '../screens/login';
-import Header from '../Components/header';
+import Header from '../components/Header';
 import React from 'react';
+import  TeamList from '../screens/TeamList';
+import ResetPW from '../screens/resetPW';
 
 const screens = {
     Login: {
@@ -9,6 +11,24 @@ const screens = {
         navigationOptions: ({ navigation }) => {
             return {
                 headerTitle: () => <Header navigation={navigation} title='Login'/>
+            }
+        }
+    },
+    TeamList: {
+        screen: TeamList,
+        navigationOptions: () => {
+            return {
+                headerTitle: 'Team List',
+                headerTintColor: 'white',
+            }
+        }
+    },
+    ResetPW: {
+        screen: ResetPW,
+        navigationOptions: () => {
+            return {
+                headerTitle: 'Reset Password',
+                headerTintColor: 'white',
             }
         }
     }

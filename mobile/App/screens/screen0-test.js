@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollView, StatusBar } from "react-native";
-import { RowItem } from "../Components/RowItem";
+import { RowItem } from "../components/RowItem";
 
 export default ({ navigation }) => (
   <ScrollView>

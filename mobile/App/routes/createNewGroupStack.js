@@ -1,6 +1,7 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import CreateNewGroup from '../screens/createTeam';
-import Header from '../Components/header';
+import DefineSearchArea from '../screens/DefineSearchArea';
+import Header from '../components/Header';
 import React from 'react';
 
 const screens = {
@@ -11,13 +12,25 @@ const screens = {
                 headerTitle: () => <Header navigation={navigation} title='Create New Group'/>
             }
         }
+    },
+    DefineSearchArea: {
+        screen: DefineSearchArea,
+        navigationOptions: () => {
+            return {
+                headerTitle: 'Define Search Area',
+                headerTintColor: 'white',
+            }
+        }
     }
 }
 
 const CreateGroupStack = createStackNavigator( screens, {
     defaultNavigationOptions: {
         // headerTintColor: '#444',
-        headerStyle: { backgroundColor: '#292929', height: 100}
+        headerStyle: { 
+            backgroundColor: '#292929', 
+            height: 100
+        }
     }
 })
 

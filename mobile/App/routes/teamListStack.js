@@ -1,6 +1,7 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import TeamListView from '../screens/TeamList';
-import Header from '../Components/header';
+import CreateTeam from '../screens/createTeam';
+import Header from '../components/Header';
 import React from 'react';
 
 const screens = {
@@ -8,10 +9,20 @@ const screens = {
         screen: TeamListView,
         navigationOptions: ({ navigation }) => {
             return {
-                headerTitle: () => <Header navigation={navigation} title='Team List View'/>
+                headerTitle: () => <Header navigation={navigation} title='Team List View'/>,
             }
         }
-    }
+    },
+    CreateTeam: {
+        screen: CreateTeam,
+        navigationOptions: () => {
+            return {
+                headerTitle: 'Create Team',
+                headerTintColor: 'white',
+            }
+        }
+    },
+    
 }
 
 const TeamListStack = createStackNavigator( screens, {
