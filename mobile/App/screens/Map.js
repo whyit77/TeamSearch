@@ -3,6 +3,8 @@ import { Alert } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Marker } from "react-native-maps";
 
+import { EmbeddedWebView } from '../components/EmbeddedWebView';
+
 class Map extends React.Component {
   state = {
     loading: false,
@@ -21,24 +23,9 @@ class Map extends React.Component {
     //Alert.alert({ locationLong });
 
     return (
-      <MapView
-        style={{ flex: 1 }}
-        provider={PROVIDER_GOOGLE}
-        showsUserLocation
-        initialRegion={{
-          latitude: 34.1301,
-          longitude: 117.8884,
-          latitudeDelta: 0.00922,
-          longitudeDelta: 0.00421
-        }}
-      >
-        <Marker
-          coordinate={{
-            latitude: 34.1301,
-            longitude: 117.8884
-          }}
-        />
-      </MapView>
+
+      <EmbeddedWebView url={"http://localhost:8000/"} />
+
     );
   }
 }

@@ -1,33 +1,64 @@
 import React from "react";
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import { StyleSheet, 
+  Text, 
+  View,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  ScrollView,
+  StatusBar
+ } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { TextField } from "../components/Form";
+import { mainStyle, formStyle } from '../styles/styles';
 
-import { createStackNavigator } from "react-navigation-stack";
-import { createAppContainer, AppRegistry } from "react-navigation";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center"
   }
 });
 
 export default ({ navigation }) => (
-  <View style={styles.container}>
-    <Text> Search Description </Text>
-    <TextInput style={{ height: 40 }} placeholder="Enter text here" />
-    <Text> Object Description </Text>
-    <TextInput style={{ height: 40 }} placeholder="Enter text here" />
-    <TouchableOpacity onPress={() => navigation.navigate("Map")}>
-      <Text style={styles.text}> Map </Text>
-    </TouchableOpacity>
-    <TouchableOpacity onPress={() => navigation.navigate("DataExport")}>
-      <Text style={styles.text}> Export Data </Text>
-    </TouchableOpacity>
-    <TouchableOpacity onPress={() => navigation.navigate("TeamAlerts")}>
-      <Text style={styles.text}> Team Alerts </Text>
-    </TouchableOpacity>
-  </View>
+  <SafeAreaView style={mainStyle.toplevel}>
+      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+
+    <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column',justifyContent: 'center',}} behavior="padding" enabled>
+
+      <ScrollView contentContainerStyle={formStyle.formContainer}>
+      <View style={formStyle.formContainer}>
+        <Text style={formStyle.label} >Search Description</Text>
+        <TextField 
+        placeholder='Description'
+        editable={false}
+        />
+        <Text style={formStyle.label} >Object Description</Text>
+        <TextField 
+        placeholder='Object'
+        editable={false}
+        />        
+        <View style={formStyle.buttons}>
+        <TouchableOpacity 
+          style={formStyle.formButton}
+          onPress={() => navigation.navigate("Map")}
+          >
+        <Text style={mainStyle.smallText} >Map</Text>
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={formStyle.formButton}
+          onPress={() => navigation.navigate("DataExport")}>
+          <Text style={mainStyle.smallText} >Export Data</Text>
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={formStyle.formButton}
+          onPress={() => navigation.navigate("TeamAlerts")}>
+        <Text style={mainStyle.smallText}>Alerts</Text>
+        </TouchableOpacity>
+        </View>
+      </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
+  </SafeAreaView>
 );
