@@ -72,7 +72,8 @@ const RootDrawerNavigator = createDrawerNavigator(
             title: 'Settings'
         }
     }
-    },{
+    },
+    {
     drawerBackgroundColor: '#292929',
     contentOptions: {
         activeTintColor: 'red',
@@ -80,11 +81,6 @@ const RootDrawerNavigator = createDrawerNavigator(
         inactiveTintColor: 'white',
         inactiveBackgroundColor: '#292929'
     }
-    //overlayColor: 'white',
 })
 
-export default class Navigator extends Component {
-    render() {
-        return <AppContainer/>
-    }
-}
+export default createAppContainer(RootDrawerNavigator);
