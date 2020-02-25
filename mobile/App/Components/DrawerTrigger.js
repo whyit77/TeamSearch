@@ -19,7 +19,7 @@ class DrawerTrigger extends React.Component {
         <Ionicons
           name={'md-arrow-round-forward'}
           size={47}
-          color={'grey'}
+          color={'whiteS'}
         />
       </TouchableOpacity>
     )
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     width: 60,
     height: 60,
+    backgroundColor: 'grey'
   }
 });
 
