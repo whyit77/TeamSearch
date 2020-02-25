@@ -56,9 +56,9 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "eslint-plugin-vue": "^6.1.2",
-    "prettier": "^1.19.1",
     "gridfs-stream": "^1.1.1",
-    "mongoose": "^4.13.6"
+    "mongoose": "^5.9.2",
+    "prettier": "^1.19.1"
   },
   "private": true
 }
