@@ -1,4 +1,4 @@
-// App/screens/createPin.js
+// App/screens/CreatePin.js
 
 import React from "react";
 import {
@@ -9,16 +9,20 @@ import {
   StyleSheet,
   Image,
   Alert,
-  Button
+  Button,
+  StatusBar,
+  ScrollView,
+  TouchableOpacity
 } from "react-native";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center"
-  },
-  underline: { textDecorationLine: "underline" }
-});
+import {
+  buttonStyle,
+  mainStyle,
+  exampleText,
+  formStyle,
+  teamListStyle
+} from "../styles/styles";
+import { TextField, ErrorText } from "../components/Form";
 
 export default class App extends React.Component {
   state = {
@@ -39,41 +43,51 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Image
-          style={{ width: 50, height: 50 }}
-          source={{
-            uri:
-              "https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png"
-          }}
-        />
+      <View style={formStyle.formContainer}>
+        <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
-        <Text
-          style={styles.underline}
-          onPress={() => Alert.alert("Navigate to Change Photo Page")}
-        >
-          Photo/Video of Clue
-        </Text>
+        <ScrollView contentContainerStyle={formStyle.formContainer}>
+          <View style={mainStyle.container}>
+            <Image
+              style={{ width: 100, height: 100, color: "white" }}
+              color="white"
+              source={{
+                uri:
+                  "https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png"
+              }}
+            />
 
-        <TextInput
-          onChangeText={name => this.setState({ name })}
-          placeholder="Name of Pin"
-          maxLength={40}
-        />
+            <Text
+              style={formStyle.link}
+              onPress={() => Alert.alert("Navigate to Change Photo Page")}
+            >
+              Photo/Video of Clue
+            </Text>
+          </View>
 
-        <TextInput
-          onChangeText={location => this.setState({ location })}
-          placeholder="Location of Pin"
-          maxLength={40}
-        />
+          <TextField
+            onChangeText={name => this.setState({ name })}
+            placeholder="Name of Pin"
+            maxLength={40}
+          />
 
-        <TextInput
-          onChangeText={descr => this.setState({ descr })}
-          placeholder="Description of Pin:"
-          maxLength={250}
-        />
+          <TextField
+            onChangeText={location => this.setState({ location })}
+            placeholder="Location of Pin"
+            maxLength={40}
+          />
 
-        <Button title="Create Pin" />
+          <TextField
+            onChangeText={descr => this.setState({ descr })}
+            placeholder="Description of Pin:"
+            maxLength={250}
+          />
+          <View style={mainStyle.container}>
+            <TouchableOpacity style={buttonStyle.buttonContainer}>
+              <Text style={buttonStyle.buttonText}>Create Pin</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </View>
     );
   }
