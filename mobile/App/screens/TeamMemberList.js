@@ -6,10 +6,10 @@ import { StyleSheet,
   StatusBar
    } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
-import { TeamMember } from "../components/TeamMember";
+import { TeamMember } from "../Components/TeamMember";
 import { mainStyle } from "../styles/styles";
 import { ScrollView } from "react-native-gesture-handler";
-import TeamMemberListAddButton from '../components/TeamMemberListAddButton';
+import TeamMemberListAddButton from '../Components/TeamMemberListAddButton';
 
 // Necessary to extract how many team members are currently in a team and then make rows for all members
 export default class TeamMemberList extends Component {

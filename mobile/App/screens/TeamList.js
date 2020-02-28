@@ -8,9 +8,9 @@ import {
   SafeAreaView,
   StatusBar
 } from "react-native";
-import { Team } from '../components/Team';
+import { Team } from '../Components/Team';
 import { mainStyle } from '../styles/styles'
-import CreateTeamMenuIcon from '../components/CreateTeamMenuIcon';
+import CreateTeamMenuIcon from '../Components/CreateTeamMenuIcon';
 
 export default class TeamList extends Component {
     static navigationOptions = ({ navigation }) => {

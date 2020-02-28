@@ -12,8 +12,8 @@ import {
 
 import { mainStyle, formStyle } from '../styles/styles';
 
-import { TextField, ErrorText } from "../components/Form";
-import { Button } from "../components/Button";
+import { TextField, ErrorText } from "../Components/Form";
+import { Button } from "../Components/Button";
 //import { reviewApi } from "../util/api";
 
 const styles = StyleSheet.create({

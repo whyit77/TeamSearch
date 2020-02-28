@@ -22,7 +22,7 @@ import {
   formStyle,
   teamListStyle
 } from "../styles/styles";
-import { TextField, ErrorText } from "../components/Form";
+import { TextField, ErrorText } from "../Components/Form";
 
 export default class App extends React.Component {
   state = {

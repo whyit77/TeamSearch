@@ -12,7 +12,7 @@ import {
 } from "react-native";
 // import SafeAreaView from "react-native-safe-area-view";
 import ModalDropdown from "react-native-modal-dropdown";
-import { TextField, ErrorText } from "../components/Form";
+import { TextField, ErrorText } from "../Components/Form";
 
 
 import { createStackNavigator } from "react-navigation-stack";

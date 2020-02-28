@@ -8,8 +8,8 @@ import {
   StatusBar
 } from "react-native";
 
-import { TextField, ErrorText } from "../components/Form";
-import { Button } from "../components/Button";
+import { TextField, ErrorText } from "../Components/Form";
+import { Button } from "../Components/Button";
 //import { reviewApi } from "../util/api";
 
 import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'

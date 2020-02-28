@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import MapView from '../screens/Map';
-import Header from '../components/Header';
+import Header from '../Components/Header';
 import React from 'react';
 
 const screens = {

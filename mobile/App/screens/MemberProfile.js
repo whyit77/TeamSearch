@@ -10,7 +10,7 @@ import {
 } from "react-native";import SafeAreaView from "react-native-safe-area-view";
 
 import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
-import { TextField, ErrorText } from "../components/Form";
+import { TextField, ErrorText } from "../Components/Form";
 
 import { Avatar } from "react-native-elements";
 

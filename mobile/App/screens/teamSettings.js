@@ -22,7 +22,7 @@ import {
   teamListStyle
 } from "../styles/styles";
 import { form } from "tcomb-form-native/lib";
-import { Switch } from '../components/Button';
+import { Switch } from '../Components/Button';
 
 const styles = StyleSheet.create({
 	container: {
