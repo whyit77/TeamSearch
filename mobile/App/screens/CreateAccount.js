@@ -11,13 +11,14 @@ import {
   Alert
 } from "react-native";
 
+import { validate } from "validate";
+import constraints from "../util/constraints";
+
 //import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 
 import { TextField, ErrorText } from "../components/Form";
 import { Button } from "../components/Button";
 import { ImageField } from "../components/image";
-
-//import { reviewApi } from "../util/api";
 
 import {
   buttonStyle,
@@ -85,6 +86,15 @@ export default class CreateAccount extends React.Component {
       .then(async res => {
         const responseJson = await res.json();
 
+        // VALIDATE EMAIL /////////////////////////////////////////////////////////
+        const validationResult = validate(this.state.data, constraints);
+        // validationResult is undefined if there are no errors
+        this.setState({ error: validationResult });
+        if (this.state.error != null) {
+          // there is an error
+          return responseJson;
+        }
+
         ////////// CHECK PASSWORDS ////////////
         if (this.state.password != this.state.repassword) {
           this.setState({
@@ -98,6 +108,13 @@ export default class CreateAccount extends React.Component {
 
         console.log(responseJson);
 
+        this.setState({ error: responseJson.errors[0].message });
+        if (this.state.error.includes("User validation failed")) {
+          return this.state.error;
+        } else if (this.state.error.includes("User exists already.")) {
+          return this.state.error;
+        }
+
         if (res.ok) {
           console.log("Okay CREATE");
           this.props.navigation.navigate("Login");
@@ -108,7 +125,6 @@ export default class CreateAccount extends React.Component {
         //   throw new Error(res.error);
         // }
 
-        this.setState({ error: responseJson.errors[0].message });
         throw new Error(responseJson.error);
 
         // return res.json();

@@ -149,7 +149,7 @@ export default class Login extends React.Component {
                 <Text style={formStyle.text}>Don't have an account?</Text>
                 <TouchableOpacity
                   onPress={() =>
-                    this.props.navigation.navigate("ComponentsCreation")
+                    this.props.navigation.navigate("CreateAccount")
                   }
                 >
                   <Text style={[formStyle.text, formStyle.link]}>
