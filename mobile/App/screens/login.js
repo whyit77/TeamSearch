@@ -6,9 +6,9 @@ import {
   StyleSheet,
   View,
   StatusBar
-} from 'react-native';
-import { TextField, ErrorText } from '../Components/Form';
-import { Button } from '../Components/Button';
+} from "react-native";
+import { TextField, ErrorText } from "../components/Form";
+import { Button } from "../components/Button";
 import {
   buttonStyle,
   mainStyle,
@@ -51,8 +51,8 @@ export default class Login extends React.Component {
       }
     };
 
-    // CHECK IP ADDRESS
-    fetch("http://172.17.57.147:3000/graphql", {
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://172.17.57.238:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {

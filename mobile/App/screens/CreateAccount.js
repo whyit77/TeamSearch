@@ -13,9 +13,9 @@ import {
 
 //import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 
-import { TextField, ErrorText } from "../Components/Form";
-import { Button } from "../Components/Button";
-import { ImageField } from "../Components/image";
+import { TextField, ErrorText } from "../components/Form";
+import { Button } from "../components/Button";
+import { ImageField } from "../components/image";
 
 //import { reviewApi } from "../util/api";
 
@@ -74,8 +74,8 @@ export default class CreateAccount extends React.Component {
       }
     };
 
-    // CHECK IP ADDRESS
-    fetch("http://172.17.57.147:3000/graphql", {
+    // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
+    fetch("http://172.17.57.238:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {

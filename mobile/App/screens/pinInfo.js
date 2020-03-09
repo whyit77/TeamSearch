@@ -15,8 +15,14 @@ import {
   TouchableOpacity
 } from "react-native";
 
-import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
-import { TextField, ErrorText } from "../Components/Form";
+import {
+  buttonStyle,
+  mainStyle,
+  exampleText,
+  formStyle,
+  teamListStyle
+} from "../styles/styles";
+import { TextField, ErrorText } from "../components/Form";
 
 const styles = StyleSheet.create({
   container: {
@@ -45,39 +51,39 @@ export default class App extends React.Component {
 
   render() {
     return (
-<View style={formStyle.formContainer}>
-      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+      <View style={formStyle.formContainer}>
+        <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
-      <ScrollView contentContainerStyle={formStyle.formContainer} >
-        <View style={mainStyle.container}>        
-        <Image
-          style={{ width: 100, height: 100 }}
-          source={{
-            uri:
-              "https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png"
-          }}
-        />
-        </View>
-        <TextField
-          onChangeText={location => this.setState({ location })}
-          placeholder="Name of pin"
-          maxLength={40}
-        />
+        <ScrollView contentContainerStyle={formStyle.formContainer}>
+          <View style={mainStyle.container}>
+            <Image
+              style={{ width: 100, height: 100 }}
+              source={{
+                uri:
+                  "https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png"
+              }}
+            />
+          </View>
+          <TextField
+            onChangeText={location => this.setState({ location })}
+            placeholder="Name of pin"
+            maxLength={40}
+          />
 
-        <Text style={formStyle.label}> Pinned By: (Name) </Text>
+          <Text style={formStyle.label}> Pinned By: (Name) </Text>
 
-        <TextField
-          onChangeText={descr => this.setState({ descr })}
-          placeholder="Description of pin:"
-          maxLength={250}
-        />
-        <View style={mainStyle.container}>
-        <TouchableOpacity style={buttonStyle.buttonContainer}>
-          <Text style={buttonStyle.buttonText}>Apply</Text>
-        </TouchableOpacity>
+          <TextField
+            onChangeText={descr => this.setState({ descr })}
+            placeholder="Description of pin:"
+            maxLength={250}
+          />
+          <View style={mainStyle.container}>
+            <TouchableOpacity style={buttonStyle.buttonContainer}>
+              <Text style={buttonStyle.buttonText}>Apply</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
-          </View>
+      </View>
     );
   }
 }
