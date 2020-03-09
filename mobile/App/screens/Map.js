@@ -3,7 +3,7 @@ import { Alert } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Marker } from "react-native-maps";
 
-import { EmbeddedWebView } from '../Components/EmbeddedWebView';
+import { EmbeddedWebView } from '../components/EmbeddedWebView';
 
 class Map extends React.Component {
   state = {

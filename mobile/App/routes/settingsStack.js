@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import UserSettings from '../screens/UserSettings';
-import Header from '../Components/Header';
+import Header from '../components/Header';
 import React from 'react';
 
 const screens = {

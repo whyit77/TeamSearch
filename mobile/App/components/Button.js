@@ -1,4 +1,4 @@
-// App/Components / Button.js
+// App/components / Button.js
 
 import React from 'react';
 import {

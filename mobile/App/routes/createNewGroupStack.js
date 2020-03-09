@@ -1,7 +1,7 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import CreateNewGroup from '../screens/CreateTeam';
 import DefineSearchArea from '../screens/DefineSearchArea';
-import Header from '../Components/Header';
+import Header from '../components/Header';
 import React from 'react';
 
 const screens = {

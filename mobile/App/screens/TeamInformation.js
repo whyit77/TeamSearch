@@ -8,7 +8,7 @@ import { StyleSheet,
   StatusBar
  } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { TextField } from "../Components/Form";
+import { TextField } from "../components/Form";
 import { mainStyle, formStyle } from '../styles/styles';
 
 

@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import Reset from '../screens/ResetPassword';
-import Header from '../Components/Header';
+import Header from '../components/Header';
 import React from 'react';
 
 const screens = {

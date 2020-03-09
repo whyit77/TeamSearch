@@ -4,10 +4,10 @@ import { SafeAreaView } from 'react-navigation';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import Icon from "react-native-vector-icons/Ionicons";
 
-import {TextField, RadioButton} from '../Components/Form';
-import { TeamList } from '../Components/TeamList';
+import {TextField, RadioButton} from '../components/Form';
+import { TeamList } from '../components/TeamList';
 
-import {HeaderReg, HeaderDrawer, HeaderDrawerPlus, HeaderBack} from '../Components/Header'
+import {HeaderReg, HeaderDrawer, HeaderDrawerPlus, HeaderBack} from '../components/Header'
 
 import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
 

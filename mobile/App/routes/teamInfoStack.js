@@ -3,7 +3,7 @@ import TeamInfo from '../screens/TeamInformation';
 import DataExport from '../screens/DataExport';
 import TeamAlerts from '../screens/TeamAlerts';
 import HeatMap from '../screens/Map';
-import Header from '../Components/Header';
+import Header from '../components/Header';
 import React from 'react';
 
 const screens = {
