@@ -13,6 +13,14 @@ import { mainStyle } from '../styles/styles'
 import CreateTeamMenuIcon from '../components/CreateTeamMenuIcon';
 
 export default class TeamList extends Component {
+  state = {
+    name: "",
+    status: "",
+    admin: "",
+    size: "",
+    description: ""
+  }
+  
     static navigationOptions = ({ navigation }) => {
       return {
         headerRight: (  

@@ -9,7 +9,7 @@ const screens = {
         screen: TeamListView,
         navigationOptions: ({ navigation }) => {
             return {
-                headerTitle: () => <Header navigation={navigation} title='Team List View'/>,
+                headerTitle: () => <Header navigation={navigation} title='Team List'/>,
             }
         }
     },

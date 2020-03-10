@@ -21,6 +21,8 @@ import { createAppContainer, AppRegistry } from "react-navigation";
 
 import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
 import { Team } from "../components/Team";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 const styles = StyleSheet.create({
   container: {
@@ -37,17 +39,19 @@ const styles = StyleSheet.create({
   }
 });
 
+
+
 // Urgency Level Dropdown Menu
 
 // export default ({ navigation }) => (
 export default class TeamAlerts extends Component {
   state = {
-    title: "",
+    title: "Example Alerts",
     alertMessage: "",
-    sender: "",
-    time: "",
+    sender: " Dr. Dan",
+    time: "", // TODO add time stamp
     urgency: "",
-    send:"",
+    sends:"",
     error: ""
   };
   render() {
@@ -55,7 +59,7 @@ export default class TeamAlerts extends Component {
   <View style={mainStyle.toplevel}>
     <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
-  <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column', justifyContent: 'center',}} behavior="padding" enabled>
+    <KeyboardAwareScrollView extraScrollHeight={50}>
   <ScrollView contentContainerStyle={mainStyle.toplevel}>
     <View style={formStyle.formContainer}>
     <Text style={formStyle.label}>Type your update here: </Text>
@@ -93,13 +97,11 @@ export default class TeamAlerts extends Component {
     </TouchableOpacity>
     </View>
     <Text style={mainStyle.bigText}>Current Notifications </Text>
-    <TeamAlert></TeamAlert>
-    <Text style={formStyle.label}>Time: </Text>
-    <Text style={formStyle.label}>Message: </Text>
-    <Text style={formStyle.label}>Urgency: </Text>
+    <TeamAlert title={this.state.title} urgency={this.state.urgency} sender={this.state.sender} time={this.state.time}></TeamAlert>
+    
     </View>
     </ScrollView>
-    </KeyboardAvoidingView>
+    </KeyboardAwareScrollView>
   </View>
   )
 }
