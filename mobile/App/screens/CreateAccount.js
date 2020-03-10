@@ -142,10 +142,10 @@ export default class CreateAccount extends React.Component {
               <Text style={mainStyle.text}>PHOTO UPLOAD</Text>
               <ImageField
                 imageStyles={{ width: 60, height: 60 }}
-                source={{
-                  uri:
-                    "https://i.ya-webdesign.com/images/white-camera-png-7.png"
-                }}
+                // source={{
+                //   uri:
+                //     "https://i.ya-webdesign.com/images/white-camera-png-7.png"
+                // }}
                 bottomLabel="Add/Change Photo"
                 onBottomPress={() =>
                   Alert.alert("Navigate to Change Photo Page")

@@ -119,7 +119,7 @@ const formStyle = StyleSheet.create({
     // height: screen.height*5,
     //borderRadius: 30,
     // paddingBottom: 10,
-    marginBottom: 10, 
+    // marginBottom: 10, 
     //  paddingBottom: 100,
   },
 

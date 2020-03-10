@@ -45,6 +45,7 @@ export default class App extends React.Component {
     return (
       <View style={formStyle.formContainer}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+        <KeyboardAwareScrollView extraScrollHeight={50}>
 
         <ScrollView contentContainerStyle={formStyle.formContainer}>
           <View style={mainStyle.container}>
@@ -88,6 +89,7 @@ export default class App extends React.Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
     );
   }
