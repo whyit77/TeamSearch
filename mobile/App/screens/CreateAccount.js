@@ -11,7 +11,7 @@ import {
   Alert
 } from "react-native";
 
-//import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import { TextField, ErrorText } from "../components/Form";
 import { Button } from "../components/Button";
@@ -131,7 +131,8 @@ export default class CreateAccount extends React.Component {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
-        {/* <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column' , justifyContent: 'center',}} behavior="padding" enabled> */}
+        <KeyboardAwareScrollView extraScrollHeight={50}>
+
         <View style={formStyle.formContainer}>
           <ScrollView
             contentInsetAdjustmentBehavior="automatic"
@@ -271,7 +272,7 @@ export default class CreateAccount extends React.Component {
             </View>
           </ScrollView>
         </View>
-        {/* </KeyboardAvoidingView> */}
+        </KeyboardAwareScrollView>
       </SafeAreaView>
     );
   }

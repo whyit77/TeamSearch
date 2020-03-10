@@ -15,6 +15,7 @@ import { TextField, ErrorText } from "../components/Form";
 import { Button } from "../components/Button";
 import { ImageField } from "../components/image";
 //import { reviewApi } from "../util/api";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
 export default class CreateTeam extends React.Component {
@@ -63,7 +64,7 @@ export default class CreateTeam extends React.Component {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
       <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
-      <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column',justifyContent: 'center',}} behavior="padding" enabled>
+      <KeyboardAwareScrollView extraScrollHeight={50}>
         <ScrollView contentContainerStyle={formStyle.formContainer}>
           <View style={formStyle.formContainer}>
           <Text style={mainStyle.text}>PHOTO UPLOAD</Text>
@@ -149,7 +150,7 @@ export default class CreateTeam extends React.Component {
           </View>
           </View>
         </ScrollView>
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
       </SafeAreaView>
     );
   }

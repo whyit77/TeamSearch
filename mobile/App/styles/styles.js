@@ -23,9 +23,9 @@ const mainStyle = StyleSheet.create({
     // marginTop: 20,
     alignContent: 'center',
     backgroundColor: B1,
-    height: screen.height*1.5,
+    // height: screen.height*1.5,
     paddingVertical: 20,
-    paddingBottom: 100
+    // paddingBottom: 100
 
 
   },
@@ -75,7 +75,7 @@ const mainStyle = StyleSheet.create({
   },
   scrollView: {
     // paddingVertical: 10,
-    height: screen.height*4,
+    // height: screen.height*4,
     flex: 4
   },
 
@@ -116,7 +116,7 @@ const formStyle = StyleSheet.create({
     //justifyContent: 'center',
     //alignItems:'center',
     backgroundColor: B1,
-    height: screen.height*5,
+    // height: screen.height*5,
     //borderRadius: 30,
     // paddingBottom: 10,
     marginBottom: 10, 
