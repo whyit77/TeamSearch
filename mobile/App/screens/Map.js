@@ -18,7 +18,7 @@
 // export default Map;
 
 import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Marker } from "react-native-maps";
 // import { Overlay } from "react-native-elements";
@@ -35,6 +35,7 @@ class Map extends React.Component {
     const gradientHeight = 500;
     const gradientBackground = "red";
     const data = Array.from({ length: gradientHeight });
+    let { width, height } = Dimensions.get("window");
 
     return (
       // <Overlay
@@ -43,6 +44,7 @@ class Map extends React.Component {
       //   fullScreen={true}
       //   overlayStyle={styles.overlay}
       // >
+
       <MapView
         customMapStyle={[
           {
@@ -89,27 +91,45 @@ class Map extends React.Component {
           longitudeDelta: 0.00421
         }}
       >
-        {data.map((_, i) => (
-          <View
-            key={i}
-            style={{
-              position: "relative",
-              backgroundColor: gradientBackground,
-              height: 0.25,
-              // bottom: gradientHeight - i,
-              right: 0,
-              left: 0,
-              zIndex: 2,
-              opacity: (1 / gradientHeight) * (i + 1)
+        <View
+          style={{
+            position: "absolute",
+            justifyContent: "center",
+            // Notes: Dimensions must be pulled in from user data
+            // top: -width / 2 + 100,
+            // left: -width / 2 + 50,
+            // right: -width / 2 + 50,
+            // bottom: -width / 2 + 200,
+            backgroundColor: "transparent",
+
+            borderWidth: width / 4,
+            borderRadius: width,
+            borderColor: "red",
+            opacity: 0.3
+          }}
+        >
+          {/* {data.map((_, i) => (
+            <View
+              key={i}
+              style={{
+                position: "relative",
+                backgroundColor: gradientBackground,
+                height: 0.25,
+                // bottom: gradientHeight - i,
+                right: 0,
+                left: 0,
+                zIndex: 2,
+                opacity: (1 / gradientHeight) * (i + 1)
+              }}
+            />
+          ))} */}
+          <Marker
+            coordinate={{
+              latitude: 34.1301,
+              longitude: -117.8884
             }}
           />
-        ))}
-        <Marker
-          coordinate={{
-            latitude: 34.1301,
-            longitude: -117.8884
-          }}
-        />
+        </View>
       </MapView>
       // </Overlay>
     );
