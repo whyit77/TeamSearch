@@ -11,12 +11,8 @@ import {
   Alert
 } from "react-native";
 
-import { validate } from "validate";
-import constraints from "../util/constraints";
-
-//import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
-
 import { TextField, ErrorText } from "../components/Form";
+// import { TextFieldEmail } from "../components/FormEmail";
 import { Button } from "../components/Button";
 import { ImageField } from "../components/image";
 
@@ -28,21 +24,24 @@ import {
   teamListStyle
 } from "../styles/styles";
 
+const initialState = {
+  username: "",
+  email: "",
+  firstName: "",
+  lastName: "",
+  password: "",
+  repassword: "",
+  phone: "",
+  phoneNumberFormat: "",
+  desc: "",
+  error: ""
+};
+
 export default class CreateAccount extends React.Component {
-  state = {
-    email: "",
-    firstName: "",
-    lastName: "",
-    password: "",
-    repassword: "",
-    phone: "",
-    phoneNumberFormat: "",
-    desc: "",
-    error: ""
-  };
+  state = initialState;
 
   handleSubmit = () => {
-    // event.preventDefault();
+    const username = this.state.username;
     const email = this.state.email;
     const password = this.state.password;
     const firstName = this.state.firstName;
@@ -50,15 +49,12 @@ export default class CreateAccount extends React.Component {
     const phone = this.state.phone;
     const desc = this.state.desc;
 
-    // if (email.trim().length === 0 || password.trim().length === 0) {
-    //   return;
-    // }
-
     let requestBody = {
       query: `
-          mutation CreateUser($email: String!, $firstName: String!, $lastName: String!, $password: String!, $phone: String!, $desc: String) {
-            createUser(userInput: {email: $email, firstName: $firstName, lastName: $lastName, password: $password, phone: $phone, desc: $desc}) {
+          mutation CreateUser($username: String!, $email: String!, $firstName: String!, $lastName: String!, $password: String!, $phone: String!, $desc: String) {
+            createUser(userInput: {username: $username, email: $email, firstName: $firstName, lastName: $lastName, password: $password, phone: $phone, desc: $desc}) {
               _id
+              username
               email
               firstName
               lastName
@@ -66,6 +62,7 @@ export default class CreateAccount extends React.Component {
           }
         `,
       variables: {
+        username: username,
         email: email,
         firstName: firstName,
         lastName: lastName,
@@ -76,7 +73,7 @@ export default class CreateAccount extends React.Component {
     };
 
     // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
-    fetch("http://172.17.57.238:3000/graphql", {
+    fetch("http://172.20.10.4:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -87,13 +84,22 @@ export default class CreateAccount extends React.Component {
         const responseJson = await res.json();
 
         // VALIDATE EMAIL /////////////////////////////////////////////////////////
-        const validationResult = validate(this.state.data, constraints);
-        // validationResult is undefined if there are no errors
-        this.setState({ error: validationResult });
-        if (this.state.error != null) {
-          // there is an error
-          return responseJson;
-        }
+        // const isValid = this.validate({
+        //   emailAddress: { email: true }
+        // });
+
+        // if (isValid == false) {
+        //   this.setState({ initialState });
+        //   this.setState({ error: "Email address is invalid." });
+        //   return responseJson;
+        // }
+
+        // this.validate({
+        //   name: {minlength:3, maxlength:7, required: true},
+        //   email: {email: true},
+        //   number: {numbers: true},
+        //   date: {date: 'YYYY-MM-DD'}
+        // });
 
         ////////// CHECK PASSWORDS ////////////
         if (this.state.password != this.state.repassword) {
@@ -108,36 +114,29 @@ export default class CreateAccount extends React.Component {
 
         console.log(responseJson);
 
-        this.setState({ error: responseJson.errors[0].message });
+        if (responseJson.data.createUser == null) {
+          this.setState({ error: responseJson.errors[0].message });
+        }
         if (this.state.error.includes("User validation failed")) {
-          return this.state.error;
+          this.setState({
+            error: "User validation failed: required fields missing."
+          });
+          this.setState(initialState);
+          return responseJson;
         } else if (this.state.error.includes("User exists already.")) {
-          return this.state.error;
+          this.setState(initialState);
+          return responseJson;
         }
 
         if (res.ok) {
           console.log("Okay CREATE");
           this.props.navigation.navigate("Login");
+          // TODO: CLEAR FIELDS AFTER NAVIGATING AWAY
           return responseJson;
         }
 
-        // if (res.status !== 200 && res.status !== 201) {
-        //   throw new Error(res.error);
-        // }
-
         throw new Error(responseJson.error);
-
-        // return res.json();
       })
-      // .then(resData => {
-      //   if (resData.data.login.token) {
-      //     this.context.login(
-      //       resData.data.login.token,
-      //       resData.data.login.userId,
-      //       resData.data.login.tokenExpiration
-      //     );
-      //   }
-      // })
       .catch(err => {
         console.log(err);
       });
@@ -166,6 +165,21 @@ export default class CreateAccount extends React.Component {
                   Alert.alert("Navigate to Change Photo Page")
                 }
                 bottomLabelStyles={mainStyle.link}
+              />
+              <Text style={formStyle.label}>Username</Text>
+              <TextField
+                //label="Username"
+                placeholder="user123"
+                onChangeText={username => this.setState({ username })}
+                value={this.state.username}
+                autoCapitalize="none"
+                style={formStyle.placeholderStyle}
+                color="white"
+                selectionColor="red"
+                keyboardAppearance="dark"
+                // keyboardType="username"
+                labelTextColor="white"
+                // textContentType="username"
               />
               <Text style={formStyle.label}>Email</Text>
               <TextField

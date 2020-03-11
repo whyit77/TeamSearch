@@ -26,36 +26,7 @@ export default class CreateTeam extends React.Component {
   };
 
   // handleSubmit = () => {
-  //   this.setState({ error: "" });
-
-  //   ////////// CHECK PASSWORDS ////////////
-  //   if (this.state.password != this.state.repassword) {
-  //     this.setState({
-  //       error: "Passwords do not match!",
-  //       password: "",
-  //       repassword: ""
-  //     });
-  //   }
-  //   //////////////////////////////////////
-
-  //   ////////// CREATE NEW ACCOUNT ////////////
-  //   reviewApi("/create-account", {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       email: this.state.email,
-  //       firstName: this.state.firstName,
-  //       lastName: this.state.lastName,
-  //       password: this.state.password
-  //     })
-  //   })
-  //     .then(() => {
-  //       // go to login screen
-  //       this.props.navigation.navigate("SignIn");
-  //     })
-  //     .catch(error => {
-  //       this.setState({ error: error.message });
-  //     });
-  //   ///////////////////////////////////////////
+  //
   // };
 
   render() {

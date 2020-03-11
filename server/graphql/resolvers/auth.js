@@ -6,15 +6,18 @@ const User = require("../../models/user");
 module.exports = {
   createUser: async args => {
     try {
-      const existingUser = await User.findOne({ email: args.userInput.email });
+      const existingUser = await User.findOne({
+        username: args.userInput.username
+      });
       if (existingUser) {
-        console.log("ERR");
+        console.log("User exists already.");
         throw new Error("User exists already.");
       }
 
       const hashedPassword = await bcrypt.hash(args.userInput.password, 12);
 
       const user = new User({
+        username: args.userInput.username,
         email: args.userInput.email,
         firstName: args.userInput.firstName,
         lastName: args.userInput.lastName,
@@ -30,8 +33,8 @@ module.exports = {
       throw err;
     }
   },
-  login: async ({ email, password }) => {
-    const user = await User.findOne({ email: email });
+  login: async ({ username, password }) => {
+    const user = await User.findOne({ username: username });
     if (!user) {
       throw new Error("User does not exist!");
     }
@@ -40,7 +43,7 @@ module.exports = {
       throw new Error("Password is incorrect!");
     }
     const token = jwt.sign(
-      { userId: user.id, email: user.email },
+      { userId: user.id, username: user.username },
       "F320DF1F1D727FF73D773C79FBA43251ED40BDA3C329FF75D64B34C88034F386",
       {
         expiresIn: "1h"
