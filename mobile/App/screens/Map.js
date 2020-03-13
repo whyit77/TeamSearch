@@ -18,7 +18,7 @@
 // export default Map;
 
 import React, { Component } from "react";
-import { StyleSheet, View, Dimensions } from "react-native";
+import { StyleSheet, View, Dimensions, Text } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Marker } from "react-native-maps";
 // import { Overlay } from "react-native-elements";
@@ -27,10 +27,47 @@ const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     backgroundColor: "blue"
+  },
+  marker: {
+    backgroundColor: "#550bbc",
+    padding: 5,
+    borderRadius: 5
+  },
+  text: {
+    color: "#FFF",
+    fontWeight: "bold"
   }
 });
 
+function getRandomKey(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 class Map extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      markers: []
+    };
+
+    this.handlePress = this.handlePress.bind(this);
+  }
+
+  handlePress(e) {
+    this.setState({
+      markers: [
+        ...this.state.markers,
+        {
+          coordinate: e.nativeEvent.coordinate,
+          key: getRandomKey(0, 180)
+        }
+      ]
+    });
+  }
+
   render() {
     const gradientHeight = 500;
     const gradientBackground = "red";
@@ -47,21 +84,6 @@ class Map extends React.Component {
 
       <MapView
         customMapStyle={[
-          {
-            featureType: "road.local",
-            elementType: "geometry.fill",
-            stylers: [
-              {
-                color: "#ff8080"
-              },
-              {
-                visibility: "on"
-              },
-              {
-                weight: 5
-              }
-            ]
-          },
           {
             featureType: "landscape.natural.landcover",
             elementType: "geometry.fill",
@@ -90,6 +112,7 @@ class Map extends React.Component {
           latitudeDelta: 0.00922,
           longitudeDelta: 0.00421
         }}
+        onPress={this.handlePress}
       >
         <View
           style={{
@@ -123,12 +146,21 @@ class Map extends React.Component {
               }}
             />
           ))} */}
-          <Marker
+
+          {this.state.markers.map(marker => {
+            return (
+              <View style={styles.marker}>
+                <Text style={styles.text}>Pin</Text>
+              </View>
+            );
+          })}
+
+          {/* <Marker
             coordinate={{
               latitude: 34.1301,
               longitude: -117.8884
             }}
-          />
+          /> */}
         </View>
       </MapView>
       // </Overlay>
