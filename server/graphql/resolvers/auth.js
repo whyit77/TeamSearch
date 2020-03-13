@@ -13,6 +13,10 @@ module.exports = {
         console.log("User exists already.");
         throw new Error("User exists already.");
       }
+      if (args.userInput.password != args.userInput.repassword) {
+        console.log("Passwords NO MATCHY");
+        throw new Error("Passwords do not match!");
+      }
 
       const hashedPassword = await bcrypt.hash(args.userInput.password, 12);
 

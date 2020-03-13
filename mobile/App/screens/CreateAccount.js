@@ -44,6 +44,7 @@ export default class CreateAccount extends React.Component {
     const username = this.state.username;
     const email = this.state.email;
     const password = this.state.password;
+    const repassword = this.state.repassword;
     const firstName = this.state.firstName;
     const lastName = this.state.lastName;
     const phone = this.state.phone;
@@ -51,8 +52,8 @@ export default class CreateAccount extends React.Component {
 
     let requestBody = {
       query: `
-          mutation CreateUser($username: String!, $email: String!, $firstName: String!, $lastName: String!, $password: String!, $phone: String!, $desc: String) {
-            createUser(userInput: {username: $username, email: $email, firstName: $firstName, lastName: $lastName, password: $password, phone: $phone, desc: $desc}) {
+          mutation CreateUser($username: String!, $email: String!, $firstName: String!, $lastName: String!, $password: String!, $repassword: String!, $phone: String!, $desc: String) {
+            createUser(userInput: {username: $username, email: $email, firstName: $firstName, lastName: $lastName, password: $password, repassword: $repassword, phone: $phone, desc: $desc}) {
               _id
               username
               email
@@ -67,13 +68,14 @@ export default class CreateAccount extends React.Component {
         firstName: firstName,
         lastName: lastName,
         password: password,
+        repassword: repassword,
         phone: phone,
         desc: desc
       }
     };
 
     // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
-    fetch("http://172.20.10.4:3000/graphql", {
+    fetch("http://172.17.57.181:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -101,37 +103,51 @@ export default class CreateAccount extends React.Component {
         //   date: {date: 'YYYY-MM-DD'}
         // });
 
-        ////////// CHECK PASSWORDS ////////////
-        if (this.state.password != this.state.repassword) {
-          this.setState({
-            error: "Passwords do not match!",
-            password: "",
-            repassword: ""
-          });
-          return responseJson;
-        }
-        //////////////////////////////////////
-
         console.log(responseJson);
 
+        ////////// CHECK if fields missing OR if user exists ////////////
         if (responseJson.data.createUser == null) {
           this.setState({ error: responseJson.errors[0].message });
-        }
-        if (this.state.error.includes("User validation failed")) {
-          this.setState({
-            error: "User validation failed: required fields missing."
-          });
-          this.setState(initialState);
-          return responseJson;
-        } else if (this.state.error.includes("User exists already.")) {
-          this.setState(initialState);
+
+          if (this.state.error.includes("User validation failed")) {
+            this.setState({
+              error: "User validation failed: required fields missing."
+            });
+          }
+          if (this.state.error.includes("User exists already.")) {
+            this.setState(initialState);
+            this.setState({ error: "User exists already." });
+          }
+
+          console.log(this.state.error);
           return responseJson;
         }
 
+        // if (this.state.error.includes("User validation failed")) {
+        //   this.setState({
+        //     error: "User validation failed: required fields missing."
+        //   });
+        //   this.setState(initialState);
+        //   return responseJson;
+        // } else if (this.state.error.includes("User exists already.")) {
+        //   this.setState(initialState);
+        //   return responseJson;
+        // }
+
+        ////////// CHECK if passwords match ////////////
+        // if (this.state.password != this.state.repassword) {
+        //   this.setState({
+        //     error: "Passwords do not match!",
+        //     password: "",
+        //     repassword: ""
+        //   });
+        //   console.log(this.state.error);
+        //   return responseJson;
+        // }
         if (res.ok) {
           console.log("Okay CREATE");
           this.props.navigation.navigate("Login");
-          // TODO: CLEAR FIELDS AFTER NAVIGATING AWAY
+          this.setState(initialState);
           return responseJson;
         }
 
@@ -169,7 +185,7 @@ export default class CreateAccount extends React.Component {
               <Text style={formStyle.label}>Username</Text>
               <TextField
                 //label="Username"
-                placeholder="user123"
+                placeholder="Username"
                 onChangeText={username => this.setState({ username })}
                 value={this.state.username}
                 autoCapitalize="none"
@@ -177,9 +193,7 @@ export default class CreateAccount extends React.Component {
                 color="white"
                 selectionColor="red"
                 keyboardAppearance="dark"
-                // keyboardType="username"
                 labelTextColor="white"
-                // textContentType="username"
               />
               <Text style={formStyle.label}>Email</Text>
               <TextField
@@ -248,6 +262,8 @@ export default class CreateAccount extends React.Component {
                 color="white"
                 selectionColor="red"
                 keyboardAppearance="dark"
+                keyboardType="phone-pad"
+                textContentType="telephoneNumber"
                 // value={this.state.phoneNumberFormat}
                 // onChangeText={phoneNumberFormat => {
                 //   let phoneNumber = phoneNumberFormat.toString().replace(/\D+/g, "");

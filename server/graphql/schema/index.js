@@ -49,6 +49,7 @@ input UserInput {
   firstName: String!
   lastName: String!
   password: String!
+  repassword: String!
   phone: String!
   desc: String
 }

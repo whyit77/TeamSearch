@@ -51,7 +51,7 @@ export default class Login extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://172.20.10.4:3000/graphql", {
+    fetch("http://172.17.57.181:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -64,7 +64,7 @@ export default class Login extends React.Component {
         if (res.ok) {
           console.log("Okay LOGIN");
           this.props.navigation.navigate("TeamListView");
-          // TODO: CLEAR FIELDS AFTER NAVIGATING AWAY
+          this.setState(initialState);
           return responseJson;
         }
 
