@@ -18,6 +18,7 @@ import {
 } from "../styles/styles";
 
 // import { AuthContext } from "../context/auth-context";
+//////// TODO: LEARN TO DO AUTH TO HAVE LOGGED IN ID //////////////////
 
 const initialState = {
   username: "",
@@ -26,9 +27,9 @@ const initialState = {
 };
 
 export default class Login extends React.Component {
-  state = initialState;
-
   // static contextType = AuthContext;
+
+  state = initialState;
 
   handleSubmit = () => {
     const username = this.state.username;
@@ -72,16 +73,16 @@ export default class Login extends React.Component {
         this.setState({ error: responseJson.errors[0].message });
         throw new Error(responseJson.error);
       })
-      .then(resData => {
-        if (resData.data.login.token) {
-          //////////////
-          // this.context.Login(
-          //   resData.data.login.token,
-          //   resData.data.login.userId,
-          //   resData.data.login.tokenExpiration
-          // );
-        }
-      })
+      // .then(resData => {
+      //   if (resData.data.login.token) {
+      //     //////////////
+      //     this.context.Login(
+      //       resData.data.login.token,
+      //       resData.data.login.userId,
+      //       resData.data.login.tokenExpiration
+      //     );
+      //   }
+      // })
       .catch(err => {
         console.log(err);
       });

@@ -58,6 +58,8 @@ type RootQuery {
     events: [Event!]!
     bookings: [Booking!]!
     login(username: String!, password: String!): AuthData!
+    getUser(username: String!): User!
+    me: User!
 }
 
 type RootMutation {

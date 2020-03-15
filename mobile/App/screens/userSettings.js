@@ -23,16 +23,22 @@ import {
 } from "../styles/styles";
 import { TextField, ErrorText } from "../components/Form";
 
+// import { AuthContext } from "../context/auth-context";
+
 export default class App extends React.Component {
+  // static contextType = AuthContext;
+
   state = {
     switchITValue: false,
     switchLTValue: false,
-    name: "",
+    username: "",
+    firstName: "",
+    lastName: "",
     email: "",
-    certOrDescript: "",
-    cell: "",
-    changePass: "",
-    confirmPass: ""
+    desc: "",
+    phone: ""
+    // changePass: "",
+    // confirmPass: ""
   };
 
   toggleITSwitch = value => {
@@ -42,6 +48,82 @@ export default class App extends React.Component {
   toggleLTSwitch = value => {
     this.setState({ switchLTValue: value });
   };
+
+  componentDidMount() {
+    // const user1 = this.props.navigation.getParams("_id", {});
+    // const user1 = "test2";
+    let requestBody = {
+      //   query: `
+      //     query getUser($username: String!) {
+      //       getUser(username: $username) {
+      //         _id
+      //         username
+      //       }
+      //     }`,
+      //   variables: {
+      //     username: user1
+      //   }
+      query: `
+        query {
+          me {
+            _id
+            username
+            firstName
+            lastName
+            email
+            desc
+            phone
+          }
+        }
+      `
+    }; // TODO: FIX currently pulls first person in database
+
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://172.17.57.223:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(async res => {
+        // if (res.status !== 200 && res.status !== 201) {
+        //   throw new Error("Failed!");
+        // }
+
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          const username = responseJson.data.me.username;
+          const firstName = responseJson.data.me.firstName;
+          const lastName = responseJson.data.me.lastName;
+          const email = responseJson.data.me.email;
+          const desc = responseJson.data.me.desc;
+          const phone = responseJson.data.me.phone;
+
+          this.setState({
+            username: username,
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            desc: desc,
+            phone: phone
+          });
+
+          if (desc == "") {
+            this.setState({ desc: "NONE" });
+          }
+
+          return responseJson;
+        }
+
+        throw new Error(responseJson.error);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
   render() {
     return (
@@ -65,29 +147,39 @@ export default class App extends React.Component {
             </Text>
           </View>
           <View>
-            <TextField
+            {/* <TextField
+              // onChangeText={username => this.setState({ username })}
+              // placeholder="Username"
+              value={this.state.username}
+              maxLength={40}
+            /> */}
+            <Text style={mainStyle.smallText}>{this.state.username}</Text>
+            {/* <TextField
               onChangeText={name => this.setState({ name })}
               placeholder="Name"
               maxLength={40}
-            />
-
-            <TextField
+            /> */}
+            <Text style={mainStyle.smallText}>
+              {this.state.firstName} {this.state.lastName}
+            </Text>
+            {/* <TextField
               onChangeText={email => this.setState({ email })}
               placeholder="Email"
               maxLength={40}
-            />
-
-            <TextField
+            /> */}
+            <Text style={mainStyle.smallText}>{this.state.email}</Text>
+            {/* <TextField
               onChangeText={cert => this.setState({ cert })}
               placeholder="Certifications/Descriptions"
               maxLength={250}
-            />
-
-            <TextField
+            /> */}
+            <Text style={mainStyle.smallText}>{this.state.desc}</Text>
+            {/* <TextField
               onChangeText={cell => this.setState({ cell })}
               placeholder="Cell #"
               maxLength={40}
-            />
+            /> */}
+            <Text style={mainStyle.smallText}>{this.state.phone}</Text>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Switch
                 style={formStyle.toggle}

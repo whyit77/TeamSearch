@@ -83,7 +83,7 @@ export default class ResetPW extends React.Component {
           <ScrollView contentContainerStyle={formStyle.formContainer}>
             <View style={formStyle.formContainer}>
               <Text style={formStyle.text}>
-                Please enter your email to recieve a temporary password.
+                Please enter your email to receive a temporary password.
               </Text>
 
               <Text style={formStyle.label}>Email</Text>
