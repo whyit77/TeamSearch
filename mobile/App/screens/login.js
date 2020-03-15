@@ -51,7 +51,7 @@ export default class Login extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://172.17.57.181:3000/graphql", {
+    fetch("http://172.17.57.223:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -98,7 +98,7 @@ export default class Login extends React.Component {
               <Text style={formStyle.label}>Username</Text>
               <TextField
                 //label="Username"
-                placeholder="user123"
+                placeholder="Username"
                 onChangeText={username => this.setState({ username })}
                 value={this.state.username}
                 autoCapitalize="none"
@@ -113,7 +113,7 @@ export default class Login extends React.Component {
               <Text style={formStyle.label}>Password</Text>
               <TextField
                 //label="Password"
-                placeholder=""
+                placeholder="Password"
                 secureTextEntry
                 onChangeText={password => this.setState({ password })}
                 value={this.state.password}

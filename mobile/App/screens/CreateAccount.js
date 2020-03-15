@@ -52,8 +52,10 @@ export default class CreateAccount extends React.Component {
 
     let requestBody = {
       query: `
-          mutation CreateUser($username: String!, $email: String!, $firstName: String!, $lastName: String!, $password: String!, $repassword: String!, $phone: String!, $desc: String) {
-            createUser(userInput: {username: $username, email: $email, firstName: $firstName, lastName: $lastName, password: $password, repassword: $repassword, phone: $phone, desc: $desc}) {
+          mutation CreateUser($username: String!, $email: String!, $firstName: String!, $lastName: String!, 
+                  $password: String!, $repassword: String!, $phone: String!, $desc: String) {
+            createUser(userInput: {username: $username, email: $email, firstName: $firstName, lastName: $lastName, 
+                    password: $password, repassword: $repassword, phone: $phone, desc: $desc}) {
               _id
               username
               email
@@ -75,7 +77,7 @@ export default class CreateAccount extends React.Component {
     };
 
     // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
-    fetch("http://172.17.57.181:3000/graphql", {
+    fetch("http://172.17.57.223:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -105,45 +107,42 @@ export default class CreateAccount extends React.Component {
 
         console.log(responseJson);
 
-        ////////// CHECK if fields missing OR if user exists ////////////
+        ////////// VERIFY INPUT ////////////
         if (responseJson.data.createUser == null) {
           this.setState({ error: responseJson.errors[0].message });
 
+          // CHECK if fields missing
           if (this.state.error.includes("User validation failed")) {
             this.setState({
               error: "User validation failed: required fields missing."
             });
           }
+          // CHECK if user exists
           if (this.state.error.includes("User exists already.")) {
             this.setState(initialState);
             this.setState({ error: "User exists already." });
+          }
+          // CHECK if passwords match
+          if (this.state.error.includes("Passwords do not match!")) {
+            this.setState({ password: "", repassword: "" });
+          }
+          // CHECK password length (>= 8 chars)
+          if (
+            this.state.error.includes(
+              "Password must be at least 8 characters long."
+            )
+          ) {
+            this.setState({ password: "", repassword: "" });
+          }
+          // CHECK phone number length (10 chars)
+          if (this.state.error.includes("Phone number is invalid.")) {
+            this.setState({ phone: "" });
           }
 
           console.log(this.state.error);
           return responseJson;
         }
 
-        // if (this.state.error.includes("User validation failed")) {
-        //   this.setState({
-        //     error: "User validation failed: required fields missing."
-        //   });
-        //   this.setState(initialState);
-        //   return responseJson;
-        // } else if (this.state.error.includes("User exists already.")) {
-        //   this.setState(initialState);
-        //   return responseJson;
-        // }
-
-        ////////// CHECK if passwords match ////////////
-        // if (this.state.password != this.state.repassword) {
-        //   this.setState({
-        //     error: "Passwords do not match!",
-        //     password: "",
-        //     repassword: ""
-        //   });
-        //   console.log(this.state.error);
-        //   return responseJson;
-        // }
         if (res.ok) {
           console.log("Okay CREATE");
           this.props.navigation.navigate("Login");
@@ -151,6 +150,7 @@ export default class CreateAccount extends React.Component {
           return responseJson;
         }
 
+        this.setState(initialState);
         throw new Error(responseJson.error);
       })
       .catch(err => {
@@ -217,7 +217,11 @@ export default class CreateAccount extends React.Component {
                 onChangeText={firstName => this.setState({ firstName })}
                 value={this.state.firstName}
                 autoCapitalize="none"
+                style={formStyle.placeholderStyle}
+                color="white"
+                selectionColor="red"
                 keyboardAppearance="dark"
+                labelTextColor="white"
               />
               <Text style={formStyle.label}>Last Name</Text>
               <TextField
@@ -226,11 +230,16 @@ export default class CreateAccount extends React.Component {
                 onChangeText={lastName => this.setState({ lastName })}
                 value={this.state.lastName}
                 autoCapitalize="none"
+                style={formStyle.placeholderStyle}
+                color="white"
+                selectionColor="red"
                 keyboardAppearance="dark"
+                labelTextColor="white"
               />
               <Text style={formStyle.label}>Password</Text>
               <TextField
                 //label="Password"
+                placeholder="Must be at least 8 characters."
                 secureTextEntry
                 onChangeText={password => this.setState({ password })}
                 value={this.state.password}
@@ -255,7 +264,7 @@ export default class CreateAccount extends React.Component {
               <Text style={formStyle.label}>Phone Number</Text>
               <TextField
                 //label="Phone Number"
-                placeholder="(000)000-0000"
+                placeholder="000-000-0000"
                 onChangeText={phone => this.setState({ phone })}
                 value={this.state.phone}
                 style={formStyle.placeholderStyle}
