@@ -11,6 +11,7 @@ import {
 import { Team } from '../components/Team';
 import { mainStyle } from '../styles/styles'
 import CreateTeamMenuIcon from '../components/CreateTeamMenuIcon';
+import { TeamListCard } from "../components/TeamListCard";
 
 export default class TeamList extends Component {
   state = {
@@ -18,8 +19,10 @@ export default class TeamList extends Component {
     status: "",
     admin: "",
     size: "",
-    description: ""
+    description: "this is a description"
   }
+
+  
   
     static navigationOptions = ({ navigation }) => {
       return {
@@ -51,6 +54,9 @@ export default class TeamList extends Component {
         <TouchableOpacity>
           <Team name={'TeamSearch'} status={'Active'} admin={'Dr. Dan'} size={20} description={'Small boi'}></Team>
         </TouchableOpacity>
+        <TouchableOpacity>
+          <TeamListCard description={this.state.description}></TeamListCard>
+        </TouchableOpacity>
       </View>
 
       </ScrollView>
@@ -60,16 +66,4 @@ export default class TeamList extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "black",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  text: {
-    fontSize: 200,
-    color: "white",
-    textAlign: "center"
-  }
-});
+

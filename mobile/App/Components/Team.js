@@ -4,7 +4,7 @@ import {mainStyle, teamListStyle} from '../styles/styles';
 import Icon from "react-native-vector-icons/Ionicons";
 
 
-export const Team = ({ label, name, status, admin, size, description }) => (
+export const Team = ({ name, status, admin, size, description }) => (
 
     <TouchableOpacity style={teamListStyle.teamContainer}>
         <View style={teamListStyle.centerContainer}>
