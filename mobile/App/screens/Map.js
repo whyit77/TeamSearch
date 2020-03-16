@@ -3,6 +3,8 @@ import { Dimensions, StyleSheet, View } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Heatmap, Marker } from "react-native-maps";
 
+import { area } from "../screens/DefineSearchArea";
+
 const styles = StyleSheet.create({
   map: {
     flex: 1
@@ -16,7 +18,8 @@ class Map extends React.Component {
       longitude: -74.0042,
       latitudeDelta: 0.09,
       longitudeDelta: 0.035
-    }
+    },
+    radius: area
   };
 
   points = [
@@ -68,6 +71,7 @@ class Map extends React.Component {
   };
 
   render() {
+    console.log(this.state.radius);
     let { width } = Dimensions.get("window");
     return (
       <MapView
