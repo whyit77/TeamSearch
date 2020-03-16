@@ -1,7 +1,7 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
-import { Heatmap } from "react-native-maps";
+import { Heatmap, Marker } from "react-native-maps";
 
 const styles = StyleSheet.create({
   map: {
@@ -63,7 +63,12 @@ class Map extends React.Component {
     { latitude: 41.0232, longitude: -74.0014, weight: 1 }
   ];
 
+  onPress = () => {
+    console.log("Pressed.");
+  };
+
   render() {
+    let { width } = Dimensions.get("window");
     return (
       <MapView
         provider={PROVIDER_GOOGLE}
@@ -80,7 +85,28 @@ class Map extends React.Component {
             startPoints: [0.01, 0.04, 0.1, 0.45, 0.5],
             colorMapSize: 200
           }}
-        ></Heatmap>
+        />
+        <View
+          style={{
+            position: "absolute",
+            justifyContent: "center",
+            // Notes: Dimensions must be pulled in from user data
+            // top: -width / 2 + 100,
+            // left: -width / 2 + 50,
+            // right: -width / 2 + 50,
+            // bottom: -width / 2 + 200,
+            backgroundColor: "transparent",
+
+            borderWidth: width / 4,
+            borderRadius: width,
+            borderColor: "red",
+            opacity: 0.3
+          }}
+        />
+        <Marker
+          coordinate={{ latitude: 40.7143, longitude: -74.0042 }}
+          onPress={this.onPress}
+        />
       </MapView>
     );
   }
