@@ -1,5 +1,5 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import Login from '../screens/Login';
+import Login from '../screens/login';
 import Header from '../components/Header';
 import React from 'react';
 import  TeamList from '../screens/TeamList';
