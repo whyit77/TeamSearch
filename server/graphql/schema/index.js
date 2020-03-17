@@ -31,6 +31,7 @@ type Team {
 
 type User {
   _id: ID!
+  username: String!
   email: String!
   firstName: String!
   lastName: String!
@@ -61,10 +62,12 @@ input TeamInput {
 }
 
 input UserInput {
+  username: String!
   email: String!
   firstName: String!
   lastName: String!
   password: String!
+  repassword: String!
   phone: String!
   desc: String
 }
@@ -74,6 +77,9 @@ type RootQuery {
     bookings: [Booking!]!
     teams: [Team!]!
     login(email: String!, password: String!): AuthData!
+    login(username: String!, password: String!): AuthData!
+    getUser(username: String!): User!
+    me: User!
 }
 
 type RootMutation {
