@@ -15,7 +15,7 @@ import {
 
 import { TextField, ErrorText } from '../components/Form';
 import { Button } from '../components/Button';
-import { ImageField } from '../components/Image';
+import { ImageField } from '../components/image';
 
 //import { reviewApi } from "../util/api";
 
