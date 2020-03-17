@@ -10,7 +10,7 @@ import {
   StatusBar
 } from "react-native";
 
-import { mainStyle, formStyle } from '../styles/styles';
+import { mainStyle, formStyle } from "../styles/styles";
 
 import { TextField, ErrorText } from "../components/Form";
 import { Button } from "../components/Button";
@@ -73,7 +73,11 @@ export default class DefineSearchArea extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column',justifyContent: 'center',}} behavior="padding" enabled>
+      <KeyboardAvoidingView
+        style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
+        behavior="padding"
+        enabled
+      >
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
         <ScrollView contentContainerStyle={mainStyle.toplevel}>
@@ -95,7 +99,7 @@ export default class DefineSearchArea extends React.Component {
             <Picker.Item label="Imperial" value="imperial" />
             <Picker.Item label="Metric" value="metric" />
           </Picker>
-          <Text style={formStyle.label} >Search Radius</Text>
+          <Text style={formStyle.label}>Search Radius</Text>
           <TextField
             //label="Search Radius"
             onChangeText={radius => this.setState({ radius })}

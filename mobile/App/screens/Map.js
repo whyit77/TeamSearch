@@ -3,7 +3,7 @@ import { Alert } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Marker } from "react-native-maps";
 
-import { EmbeddedWebView } from '../components/EmbeddedWebView';
+import { EmbeddedWebView } from "../components/EmbeddedWebView";
 
 class Map extends React.Component {
   state = {
@@ -22,11 +22,7 @@ class Map extends React.Component {
 
     //Alert.alert({ locationLong });
 
-    return (
-
-      <EmbeddedWebView url={"http://localhost:8000/"} />
-
-    );
+    return <EmbeddedWebView url={"http://localhost:8000/"} />;
   }
 }
 

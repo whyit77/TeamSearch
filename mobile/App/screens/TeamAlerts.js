@@ -15,7 +15,6 @@ import ModalDropdown from "react-native-modal-dropdown";
 import { TextField, ErrorText } from "../components/Form";
 import {TeamAlert} from '../components/TeamAlert';
 
-
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer, AppRegistry } from "react-navigation";
 

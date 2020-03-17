@@ -1,22 +1,22 @@
-import React from "react";
+import React from 'react';
 import {
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  View,
-  KeyboardAvoidingView,
-  SafeAreaView,
-  StatusBar,
-  Alert
-} from "react-native";
-import { mainStyle, formStyle } from '../styles/styles'
-import { TextField, ErrorText } from "../components/Form";
-import { Button } from "../components/Button";
-import { ImageField } from "../components/image";
+	ScrollView,
+	Text,
+	TouchableOpacity,
+	StyleSheet,
+	View,
+	KeyboardAvoidingView,
+	SafeAreaView,
+	StatusBar,
+	Alert,
+	Button
+} from 'react-native';
+import { mainStyle, formStyle } from '../styles/styles';
+import { TextField, ErrorText } from '../components/Form';
+import { Button } from '../components/Button';
+import { ImageField } from '../components/Image';
 //import { reviewApi } from "../util/api";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
 
 export default class CreateTeam extends React.Component {
   state = {
@@ -136,18 +136,14 @@ export default class CreateTeam extends React.Component {
             selectionColor='red'
             keyboardAppearance='dark'
             labelTextColor='white'
-            maxLength={300}
-
-          />
-          <ErrorText text={this.state.error} />
-          <View style={mainStyle.container}>
+			maxLength={300}
+			/>
 
           <Button
             style={formStyle.formButton}
             text="Define Search Area"
             onPress={() => this.props.navigation.navigate("DefineSearchArea")}
           />
-          </View>
           </View>
         </ScrollView>
       </KeyboardAwareScrollView>

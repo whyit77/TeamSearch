@@ -45,7 +45,7 @@ export default class TeamList extends Component {
   render() {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
-      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+        <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
       <View style={mainStyle.container}>
       <ScrollView contentContainerStyle={mainStyle.container}>
