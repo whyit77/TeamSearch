@@ -1,5 +1,5 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import CreateNewGroup from '../screens/createTeam';
+import CreateNewGroup from '../screens/CreateTeam';
 import DefineSearchArea from '../screens/DefineSearchArea';
 import Header from '../components/Header';
 import React from 'react';
