@@ -55,7 +55,7 @@ export const TeamListCard = ({ name, status, admin, size, description }) => (
    // implemented with Text and Button as children
 
    <View style={styles.container}>
-        <CardList cards={cards} />
+        <CardList users={users} />
       </View>
 
 //    <Card
