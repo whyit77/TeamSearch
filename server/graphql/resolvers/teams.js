@@ -19,7 +19,7 @@ module.exports = {
 		// 	throw new Error('Unauthenticated!');
 		// }
 
-		req.userId = '5e55f703d063a029c394e837';
+		req.userId = '5e7031dc9c7708107b2bfaa7';
 		let creator;
 		try {
 			creator = await User.findById(req.userId);
@@ -29,7 +29,8 @@ module.exports = {
 
 			const team = new Team({
 				title: args.teamInput.title,
-				description: args.teamInput.description,
+				searchDescription: args.teamInput.searchDescription,
+				subjectDescription: args.teamInput.subjectDescription,
 				code: randomize('Aa0', 8),
 				creator: req.userId,
 				members: [creator],

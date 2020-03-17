@@ -14,6 +14,17 @@ const events = async eventIds => {
 	}
 };
 
+const teams = async teamIds => {
+	try {
+		const teams = await Team.find({ _id: { $in: teamIds } });
+		return teams.map(team => {
+			return transformTeam(team);
+		});
+	} catch (err) {
+		throw err;
+	}
+};
+
 const singleEvent = async eventId => {
 	try {
 		const event = await Event.findById(eventId);
@@ -26,14 +37,20 @@ const singleEvent = async eventId => {
 const user = async userId => {
 	try {
 		const user = await User.findById(userId);
-		return {
-			...user._doc,
-			_id: user.id,
-			createdEvents: events.bind(this, user._doc.createdEvents),
-		};
+		return transformUser(user);
 	} catch (err) {
 		throw err;
 	}
+};
+
+const transformUser = user => {
+	return {
+		...user._doc,
+		_id: user.id,
+		createdEvents: events.bind(this, user._doc.createdEvents),
+		joinedTeams: teams.bind(this, user._doc.joinedTeams),
+		createdTeams: teams.bind(this, user._doc.createdTeams),
+	};
 };
 
 const transformEvent = event => {
@@ -52,6 +69,7 @@ const transformTeam = team => {
 		createdAt: dateToString(team._doc.createdAt),
 		updatedAt: dateToString(team._doc.updatedAt),
 		creator: user.bind(this, team.creator),
+		members: user.bind(team._doc.members),
 	};
 };
 
@@ -69,6 +87,7 @@ const transformBooking = booking => {
 exports.transformEvent = transformEvent;
 exports.transformBooking = transformBooking;
 exports.transformTeam = transformTeam;
+exports.transformUser = transformUser;
 
 // exports.user = user;
 // exports.events = events;

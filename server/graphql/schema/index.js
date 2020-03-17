@@ -21,7 +21,8 @@ type Event {
 type Team {
   _id: ID!
   title: String!
-  description: String!
+  searchDescription: String!
+  subjectDescription: String!
   code: String!
   creator: User!
   members: [User!]
@@ -58,7 +59,8 @@ input EventInput {
 
 input TeamInput {
   title: String!
-  description: String
+  searchDescription: String!
+  subjectDescription: String
 }
 
 input UserInput {
@@ -69,7 +71,7 @@ input UserInput {
   password: String!
   repassword: String!
   phone: String!
-  desc: String
+  description: String
 }
 
 type RootQuery {
@@ -78,7 +80,9 @@ type RootQuery {
     teams: [Team!]!
     login2(email: String!, password: String!): AuthData!
     login(username: String!, password: String!): AuthData!
-    getUser(username: String!): User!
+    getUser(userId: String!): User!
+    getTeam(teamId: String!): Team!
+    getUserTeams(userId: String!): [Team!]!
     me: User!
 }
 

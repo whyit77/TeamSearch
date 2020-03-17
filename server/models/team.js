@@ -8,7 +8,11 @@ const teamSchema = new Schema(
 			type: String,
 			required: true,
 		},
-		description: {
+		searchDescription: {
+			type: String,
+			required: true,
+		},
+		subjectDescription: {
 			type: String,
 			required: true,
 		},
