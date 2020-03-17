@@ -84,17 +84,17 @@ export default class DefineSearchArea extends React.Component {
           <Text style={mainStyle.text}>MAP</Text>
           {/* <Text style={mainStyle.text}>UNITS</Text> */}
           <Picker
-            prompt="Units Selection"
-            mode="dropdown"
-            placeholderStyle="white"
-            style={formStyle.picker}
-            selectedValue={this.state.language}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({ language: itemValue })
+            prompt="Select your map's units:"
+            label='Units Selection'
+            mode='dropdown'
+             placeholderStyle='white'
+             style={formStyle.picker}
+             //selectedValue={this.state.area}
+             onValueChange={(itemValue, itemIndex) =>
+              this.setState({units: itemValue})
             }
-            placeholderStyle={{ color: "white" }}
-            itemStyle={{ color: "white" }}
-          >
+              itemStyle={{color: 'white'}}
+            >
             {/* <Picker.Item label="SELECT" value='null' /> */}
             <Picker.Item label="Imperial" value="imperial" />
             <Picker.Item label="Metric" value="metric" />
@@ -106,10 +106,12 @@ export default class DefineSearchArea extends React.Component {
             value={this.state.radius}
             autoCapitalize="none"
             style={formStyle.placeholderStyle}
-            color="white"
-            selectionColor="red"
-            keyboardAppearance="dark"
-          />
+            color='white'
+            selectionColor='red'
+            keyboardAppearance='dark'
+            
+          >{this.state.units}</TextField>
+          <Text>{this.state.units}</Text>
           <ErrorText text={this.state.error} />
           <View style={mainStyle.container}>
             <Button
