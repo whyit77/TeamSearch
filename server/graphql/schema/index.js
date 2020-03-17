@@ -76,7 +76,7 @@ type RootQuery {
     events: [Event!]!
     bookings: [Booking!]!
     teams: [Team!]!
-    login(email: String!, password: String!): AuthData!
+    login2(email: String!, password: String!): AuthData!
     login(username: String!, password: String!): AuthData!
     getUser(username: String!): User!
     me: User!
