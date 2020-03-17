@@ -41,6 +41,7 @@
     "react-navigation-material-bottom-tabs": "^2.1.5",
     "react-navigation-stack": "^2.2.2",
     "react-navigation-tabs": "^2.7.0",
+    "simple-icons": "^2.6.0",
     "tcomb-form-native": "^0.6.20"
   },
   "devDependencies": {

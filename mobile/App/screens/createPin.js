@@ -16,13 +16,13 @@ import {
 } from 'react-native';
 
 import {
-	buttonStyle,
-	mainStyle,
-	exampleText,
-	formStyle,
-	teamListStyle,
-} from '../styles/styles';
-import { TextField, ErrorText } from '../components/Form';
+  buttonStyle,
+  mainStyle,
+  exampleText,
+  formStyle,
+  teamListStyle
+} from "../styles/styles";
+import { TextField, ErrorText } from "../components/Form";
 
 export default class App extends React.Component {
 	state = {

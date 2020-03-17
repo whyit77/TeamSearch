@@ -13,7 +13,7 @@ import {
 import { mainStyle, formStyle } from '../styles/styles';
 import { TextField, ErrorText } from '../components/Form';
 import { Button } from '../components/Button';
-import { ImageField } from '../components/image';
+import { ImageField } from '../components/Image';
 //import { reviewApi } from "../util/api";
 
 export default class CreateTeam extends React.Component {
@@ -26,36 +26,7 @@ export default class CreateTeam extends React.Component {
 	};
 
 	// handleSubmit = () => {
-	//   this.setState({ error: "" });
-
-	//   ////////// CHECK PASSWORDS ////////////
-	//   if (this.state.password != this.state.repassword) {
-	//     this.setState({
-	//       error: "Passwords do not match!",
-	//       password: "",
-	//       repassword: ""
-	//     });
-	//   }
-	//   //////////////////////////////////////
-
-	//   ////////// CREATE NEW ACCOUNT ////////////
-	//   reviewApi("/create-account", {
-	//     method: "POST",
-	//     body: JSON.stringify({
-	//       email: this.state.email,
-	//       firstName: this.state.firstName,
-	//       lastName: this.state.lastName,
-	//       password: this.state.password
-	//     })
-	//   })
-	//     .then(() => {
-	//       // go to login screen
-	//       this.props.navigation.navigate("SignIn");
-	//     })
-	//     .catch(error => {
-	//       this.setState({ error: error.message });
-	//     });
-	//   ///////////////////////////////////////////
+	//
 	// };
 
 	render() {

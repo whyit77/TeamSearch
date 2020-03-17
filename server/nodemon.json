@@ -1,7 +1,7 @@
 {
-  "env": {
-    "MONGO_USER": "erinmori26",
-    "MONGO_PASSWORD": "<password>",
-    "MONGO_DB": "ts1"
-  }
+	"env": {
+		"MONGO_USER": "wzeimis",
+		"MONGO_PASSWORD": "Flames77",
+		"MONGO_DB": "team-search"
+	}
 }
