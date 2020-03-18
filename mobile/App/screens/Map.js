@@ -71,14 +71,15 @@ class Map extends React.Component {
   };
 
   render() {
-    console.log(this.state.radius);
-    let { width } = Dimensions.get("window");
+    // console.log(this.state.radius);
+    // let { width } = Dimensions.get("window");
     return (
       <MapView
         provider={PROVIDER_GOOGLE}
         ref={map => (this._map = map)}
         style={styles.map}
         initialRegion={this.state.initialPosition}
+        showsUserLocation={true}
       >
         <Heatmap
           initialRegion={this.state.initialPosition}
@@ -90,7 +91,7 @@ class Map extends React.Component {
             colorMapSize: 200
           }}
         />
-        <View
+        {/* <View
           style={{
             position: "absolute",
             justifyContent: "center",
@@ -106,7 +107,7 @@ class Map extends React.Component {
             borderColor: "red",
             opacity: 0.3
           }}
-        />
+        /> */}
         <Marker
           coordinate={{ latitude: 40.7143, longitude: -74.0042 }}
           onPress={this.onPress}
