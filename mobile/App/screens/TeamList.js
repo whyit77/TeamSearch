@@ -47,7 +47,7 @@ export default class TeamList extends Component {
 			},
 		};
 
-		if (state.count == 1) {
+		if (this.state.count == 1) {
 			console.log('fetching...');
 
 			fetch('http://172.17.62.12:3000/graphql', {
@@ -64,11 +64,11 @@ export default class TeamList extends Component {
 
 					if (res.ok) {
 						console.log('Okay Fetched Teams');
-						this.setState(initialState);
+						// this.setState(initialState);
 						return responseJson;
 					}
 
-					this.setState(initialState);
+					// this.setState(initialState);
 					this.setState({ error: responseJson.errors[0].message });
 					throw new Error(responseJson.error);
 				})
@@ -76,7 +76,7 @@ export default class TeamList extends Component {
 					console.log(err);
 				});
 
-			state.count = 2;
+			this.state.count = 2;
 		}
 	};
 
@@ -115,7 +115,7 @@ export default class TeamList extends Component {
 									description={'Small boi'}
 								></Team>
 							</TouchableOpacity>
-							<TouchableOpacity>
+							<TouchableOpacity onPress={this.handleSubmit()}>
 								<TeamListCard
 									description={this.state.description}
 								></TeamListCard>
