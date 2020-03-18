@@ -12,16 +12,15 @@ import { WebView } from 'react-native-webview';
 const Screen = Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
-        height: Screen.height * 0.85,
+        height: Screen.height,
         backgroundColor: '#fff',
         shadowColor: '#000',
-        shadowRadius: 10,
-        shadowOpacity: 0.25,
-        shadowOffset: { width: 0, height: -1 },
+        shadowRadius: 0,
+
     },
     loadingContainer: {
         position: 'absolute',
-        top: 10,
+        top: 0,
         bottom: 0,
         left: 0,
         right: 0,
@@ -32,9 +31,9 @@ const styles = StyleSheet.create({
     },
     input: {
         backgroundColor: '#fff',
-        padding: 10,
-        margin: 10,
-        borderRadius: 10,
+        padding: 0,
+        margin: 0,
+        borderRadius: 0,
     },
     inputText: {
         color: '#3d3c41',
@@ -43,13 +42,7 @@ const styles = StyleSheet.create({
 
 export const EmbeddedWebView = ({ url }) => (
     <View style={styles.container}>
-        <View style={styles.topBar}>
-            <View style={styles.input}>
-                <Text style={styles.inputText} numberOfLines={1} ellipsizeMode="tail">
-                    {url}
-                </Text>
-            </View>
-        </View>
+
         <WebView
             source={{ uri: url }}
             startInLoadingState

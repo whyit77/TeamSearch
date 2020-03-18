@@ -24,7 +24,7 @@ class Map extends React.Component {
 
     return (
 
-      <EmbeddedWebView url={"http://localhost:8000/"} />
+      <EmbeddedWebView url={"http://172.17.59.143:3000"} />
 
     );
   }
