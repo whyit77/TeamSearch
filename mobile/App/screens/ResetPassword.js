@@ -12,13 +12,9 @@ import { TextField, ErrorText } from "../components/Form";
 import { Button } from "../components/Button";
 //import { reviewApi } from "../util/api";
 
-import {
-  buttonStyle,
-  mainStyle,
-  exampleText,
-  formStyle,
-  teamListStyle
-} from "../styles/styles";
+import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 const styles = StyleSheet.create({
   textBlock: {
@@ -77,6 +73,12 @@ export default class ResetPW extends React.Component {
   render() {
     return (
       <View style={mainStyle.toplevel}>
+
+      <View style={formStyle.formContainer}>
+      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+      <KeyboardAwareScrollView extraScrollHeight={50}>
+
+      <ScrollView contentContainerStyle={formStyle.formContainer}>
         <View style={formStyle.formContainer}>
           <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
@@ -111,6 +113,9 @@ export default class ResetPW extends React.Component {
             </View>
           </ScrollView>
         </View>
+      </ScrollView>
+      </KeyboardAwareScrollView>
+      </View>
       </View>
     );
   }

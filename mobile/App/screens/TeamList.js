@@ -11,16 +11,20 @@ import {
 import { Team } from '../components/Team';
 import { mainStyle } from '../styles/styles';
 import CreateTeamMenuIcon from '../components/CreateTeamMenuIcon';
-
-const initialState = {
-	userId: '5e7031dc9c7708107b2bfaa7',
-	joinedTeams: [],
-	createdTeams: [],
-	count: 1,
-};
+import { TeamListCard } from '../components/TeamListCard';
 
 export default class TeamList extends Component {
-	state = initialState;
+	state = {
+		name: '',
+		status: '',
+		admin: '',
+		size: '',
+		description: 'this is a description',
+		userId: '5e7031dc9c7708107b2bfaa7',
+		joinedTeams: [],
+		createdTeams: [],
+		count: 1,
+	};
 
 	handleSubmit = () => {
 		let requestBody = {
@@ -43,7 +47,7 @@ export default class TeamList extends Component {
 			},
 		};
 
-		if (initialState.count == 1) {
+		if (state.count == 1) {
 			console.log('fetching...');
 
 			fetch('http://172.17.62.12:3000/graphql', {
@@ -72,13 +76,13 @@ export default class TeamList extends Component {
 					console.log(err);
 				});
 
-			initialState.count = 2;
+			state.count = 2;
 		}
 	};
 
 	static navigationOptions = ({ navigation }) => {
 		return {
-			headerRight: () => (
+			headerRight: (
 				<CreateTeamMenuIcon
 					option1="Create Team"
 					option2="Join Team"
@@ -102,7 +106,7 @@ export default class TeamList extends Component {
 				<View style={mainStyle.container}>
 					<ScrollView contentContainerStyle={mainStyle.container}>
 						<View style={mainStyle.toplevel}>
-							<TouchableOpacity onPress={this.handleSubmit()}>
+							<TouchableOpacity>
 								<Team
 									name={'TeamSearch'}
 									status={'Active'}
@@ -111,6 +115,11 @@ export default class TeamList extends Component {
 									description={'Small boi'}
 								></Team>
 							</TouchableOpacity>
+							<TouchableOpacity>
+								<TeamListCard
+									description={this.state.description}
+								></TeamListCard>
+							</TouchableOpacity>
 						</View>
 					</ScrollView>
 				</View>
@@ -118,17 +127,3 @@ export default class TeamList extends Component {
 		);
 	}
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: 'black',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	text: {
-		fontSize: 200,
-		color: 'white',
-		textAlign: 'center',
-	},
-});

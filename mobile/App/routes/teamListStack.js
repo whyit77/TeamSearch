@@ -10,7 +10,7 @@ const screens = {
     navigationOptions: ({ navigation }) => {
       return {
         headerTitle: () => (
-          <Header navigation={navigation} title="Team List View" />
+          <Header navigation={navigation} title="Team List" />
         )
       };
     }

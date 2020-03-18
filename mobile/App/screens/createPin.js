@@ -41,10 +41,11 @@ export default class App extends React.Component {
 		this.setState({ switchLTValue: value });
 	};
 
-	render() {
-		return (
-			<View style={formStyle.formContainer}>
-				<StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+  render() {
+    return (
+      <View style={formStyle.formContainer}>
+        <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+        <KeyboardAwareScrollView extraScrollHeight={50}>
 
 				<ScrollView contentContainerStyle={formStyle.formContainer}>
 					<View style={mainStyle.container}>
@@ -77,18 +78,19 @@ export default class App extends React.Component {
 						maxLength={40}
 					/>
 
-					<TextField
-						onChangeText={descr => this.setState({ descr })}
-						placeholder="Description of Pin:"
-						maxLength={250}
-					/>
-					<View style={mainStyle.container}>
-						<TouchableOpacity style={buttonStyle.buttonContainer}>
-							<Text style={buttonStyle.buttonText}>Create Pin</Text>
-						</TouchableOpacity>
-					</View>
-				</ScrollView>
-			</View>
-		);
-	}
+          <TextField
+            onChangeText={descr => this.setState({ descr })}
+            placeholder="Description of Pin:"
+            maxLength={250}
+          />
+          <View style={mainStyle.container}>
+            <TouchableOpacity style={buttonStyle.buttonContainer}>
+              <Text style={buttonStyle.buttonText}>Create Pin</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+        </KeyboardAwareScrollView>
+      </View>
+    );
+  }
 }
