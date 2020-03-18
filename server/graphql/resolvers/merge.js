@@ -34,10 +34,12 @@ const singleEvent = async eventId => {
 	}
 };
 
-const user = async userId => {
+const user = async userIds => {
 	try {
-		const user = await User.findById(userId);
-		return transformUser(user);
+		const users = await User.find({ _id: { $in: userIds } });
+    return users.map(user => {
+			return transformUser(user);
+		});
 	} catch (err) {
 		throw err;
 	}
@@ -69,7 +71,7 @@ const transformTeam = team => {
 		createdAt: dateToString(team._doc.createdAt),
 		updatedAt: dateToString(team._doc.updatedAt),
 		creator: user.bind(this, team.creator),
-		members: user.bind(team._doc.members),
+		members: user.bind(this, team._doc.members),
 	};
 };
 

@@ -16,62 +16,69 @@ const initialState = {
 	userId: '5e7031dc9c7708107b2bfaa7',
 	joinedTeams: [],
 	createdTeams: [],
+	count: 1,
 };
 
 export default class TeamList extends Component {
 	state = initialState;
 
-	componentWillMount() {
+	handleSubmit = () => {
 		let requestBody = {
 			query: `
-          query getUser($userId: String!) {
-            getUser(userId: $userId) {
-              joinedTeams {
-                title
-                searchDescription
-                subjectDescription
-              }
-              createdTeams {
-                title
-              }
-            }
-          }
-        `,
+		      query getUser($userId: String!) {
+		        getUser(userId: $userId) {
+		          joinedTeams {
+		            title
+		            searchDescription
+		            subjectDescription
+		          }
+		          createdTeams {
+		            title
+		          }
+		        }
+		      }
+		    `,
 			variables: {
 				userId: this.state.userId,
 			},
 		};
 
-		fetch('http://172.17.57.223:3000/graphql', {
-			method: 'POST',
-			body: JSON.stringify(requestBody),
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		})
-			.then(async res => {
-				const responseJson = await res.json();
+		if (initialState.count == 1) {
+			console.log('fetching...');
 
-				console.log(responseJson);
-
-				if (res.ok) {
-					console.log('Okay Fetched Teams');
-					this.setState(initialState);
-					return responseJson;
-				}
-
-				this.setState(initialState);
-				this.setState({ error: responseJson.errors[0].message });
-				throw new Error(responseJson.error);
+			fetch('http://172.17.62.12:3000/graphql', {
+				method: 'POST',
+				body: JSON.stringify(requestBody),
+				headers: {
+					'Content-Type': 'application/json',
+				},
 			})
-			.catch(err => {
-				console.log(err);
-			});
-	}
+				.then(async res => {
+					const responseJson = await res.json();
+
+					console.log(responseJson);
+
+					if (res.ok) {
+						console.log('Okay Fetched Teams');
+						this.setState(initialState);
+						return responseJson;
+					}
+
+					this.setState(initialState);
+					this.setState({ error: responseJson.errors[0].message });
+					throw new Error(responseJson.error);
+				})
+				.catch(err => {
+					console.log(err);
+				});
+
+			initialState.count = 2;
+		}
+	};
 
 	static navigationOptions = ({ navigation }) => {
 		return {
-			headerRight: (
+			headerRight: () => (
 				<CreateTeamMenuIcon
 					option1="Create Team"
 					option2="Join Team"
@@ -95,7 +102,7 @@ export default class TeamList extends Component {
 				<View style={mainStyle.container}>
 					<ScrollView contentContainerStyle={mainStyle.container}>
 						<View style={mainStyle.toplevel}>
-							<TouchableOpacity>
+							<TouchableOpacity onPress={this.handleSubmit()}>
 								<Team
 									name={'TeamSearch'}
 									status={'Active'}

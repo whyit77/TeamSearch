@@ -14,6 +14,23 @@ module.exports = {
 			throw err;
 		}
 	},
+	getTeam: async (args, req) => {
+		console.log('GET TEAM');
+		// if (!req.isAuth) {
+		//   throw new Error("Unauthenticated!");
+		// }
+
+		req.teamId = '5e7036ad802861124f9bc10c';
+
+		try {
+			const team = await Team.findById(req.teamId);
+
+      console.log(team)
+			return transformTeam(team);
+		} catch (err) {
+			throw err;
+		}
+	},
 	createTeam: async (args, req) => {
 		// if (!req.isAuth) {
 		// 	throw new Error('Unauthenticated!');

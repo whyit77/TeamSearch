@@ -82,7 +82,6 @@ type RootQuery {
     login(username: String!, password: String!): AuthData!
     getUser(userId: String!): User!
     getTeam(teamId: String!): Team!
-    getUserTeams(userId: String!): [Team!]!
     me: User!
 }
 
