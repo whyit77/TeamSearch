@@ -9,7 +9,7 @@ import {
 	SafeAreaView,
 	StatusBar,
 	Alert,
-	Button
+	
 } from 'react-native';
 import { mainStyle, formStyle } from '../styles/styles';
 import { TextField, ErrorText } from '../components/Form';
@@ -138,12 +138,13 @@ export default class CreateTeam extends React.Component {
             labelTextColor='white'
 			maxLength={300}
 			/>
-
+         <View style={mainStyle.container}>
           <Button
             style={formStyle.formButton}
             text="Define Search Area"
             onPress={() => this.props.navigation.navigate("DefineSearchArea")}
           />
+          </View>
           </View>
         </ScrollView>
       </KeyboardAwareScrollView>

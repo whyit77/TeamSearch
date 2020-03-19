@@ -22,6 +22,7 @@ import {
 	teamListStyle,
 } from '../styles/styles';
 import { TextField, ErrorText } from '../components/Form';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 // import { AuthContext } from "../context/auth-context";
 
@@ -129,6 +130,7 @@ export default class App extends React.Component {
 		return (
 			<View style={formStyle.formContainer}>
 				<StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+				<KeyboardAwareScrollView extraScrollHeight={50}>
 
 				<ScrollView contentContainerStyle={formStyle.formContainer}>
 					<View style={mainStyle.container}>
@@ -199,19 +201,25 @@ export default class App extends React.Component {
 								trackColor={{ true: 'red', false: 'grey' }}
 							/>
 							<Text style={formStyle.toggleLabel}> Location Tracking </Text>
-							<Text>{this.state.switchLTValue ? 'ON' : 'OFF'}</Text>
+							{/* <Text>{this.state.switchLTValue ? 'ON' : 'OFF'}</Text> */}
 						</View>
 
 						<TextField
 							onChangeText={changePass => this.setState({ changePass })}
 							placeholder="Change Password"
 							maxLength={40}
+							selectionColor='red'
+							keyboardAppearance='dark'
+							color='white'
 						/>
 
 						<TextField
 							onChangeText={confirmPass => this.setState({ confirmPass })}
 							placeholder="Confirm Password"
 							maxLength={40}
+							selectionColor='red'
+							keyboardAppearance='dark'
+							color='white'
 						/>
 						<View style={mainStyle.container}>
 							<TouchableOpacity style={buttonStyle.buttonContainer}>
@@ -220,6 +228,7 @@ export default class App extends React.Component {
 						</View>
 					</View>
 				</ScrollView>
+				</KeyboardAwareScrollView>
 			</View>
 		);
 	}

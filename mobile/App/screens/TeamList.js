@@ -47,8 +47,8 @@ export default class TeamList extends Component {
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
-      <View style={mainStyle.container}>
-      <ScrollView contentContainerStyle={mainStyle.container}>
+      <View style={mainStyle.toplevel}>
+      <ScrollView >
       <View style={mainStyle.toplevel}>
         
         <TouchableOpacity>
