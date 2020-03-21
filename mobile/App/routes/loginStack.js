@@ -1,9 +1,9 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import Login from '../screens/login';
+import Login from '../screens/Login';
 import Header from '../components/Header';
 import React from 'react';
 import  TeamList from '../screens/TeamList';
-import ResetPW from '../screens/resetPW';
+import ResetPW from '../screens/ResetPassword';
 
 const screens = {
     Login: {

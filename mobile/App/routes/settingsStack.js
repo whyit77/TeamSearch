@@ -1,5 +1,5 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import UserSettings from '../screens/userSettings';
+import UserSettings from '../screens/UserSettings';
 import Header from '../components/Header';
 import React from 'react';
 

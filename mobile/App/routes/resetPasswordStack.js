@@ -1,5 +1,5 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import Reset from '../screens/resetPW';
+import Reset from '../screens/ResetPassword';
 import Header from '../components/Header';
 import React from 'react';
 

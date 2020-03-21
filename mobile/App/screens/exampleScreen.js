@@ -7,7 +7,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import {TextField, RadioButton} from '../components/Form';
 import { TeamList } from '../components/TeamList';
 
-import {HeaderReg, HeaderDrawer, HeaderDrawerPlus, HeaderBack} from '../Components/Header'
+import {HeaderReg, HeaderDrawer, HeaderDrawerPlus, HeaderBack} from '../components/Header'
 
 import { buttonStyle, mainStyle, exampleText, formStyle, teamListStyle } from '../styles/styles'
 

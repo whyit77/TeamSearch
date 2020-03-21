@@ -1,5 +1,5 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import TeamInfo from '../screens/TeamInfo';
+import TeamInfo from '../screens/TeamInformation';
 import DataExport from '../screens/DataExport';
 import TeamAlerts from '../screens/TeamAlerts';
 import HeatMap from '../screens/Map';

@@ -4,7 +4,7 @@ import { B1, B2, B3, buttonStyle, mainStyle, exampleText, formStyle, teamListSty
 //HAMBURGER MENU
 import React from "react";
 import { ScrollView, StatusBar, Text, View } from "react-native";
-import { RowItem } from "../Components/RowItem";
+import { RowItem } from "../components/RowItem";
 
 export default ({ navigation, teamName}) => (
   <View style={mainStyle.toplevel}>
