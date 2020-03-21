@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 
+
 const styles = StyleSheet.create({
 	column: {
 		marginBottom: 10,
@@ -47,6 +48,7 @@ export const ImageField = ({
 			<Text style={[styles.label, bottomLabelStyles]} onPress={onBottomPress}>
 				{bottomLabel}
 			</Text>
+			
 		)}
 	</View>
 );

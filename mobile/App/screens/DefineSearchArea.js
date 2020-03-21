@@ -10,7 +10,7 @@ import {
   StatusBar
 } from "react-native";
 
-import { mainStyle, formStyle } from '../styles/styles';
+import { mainStyle, formStyle } from "../styles/styles";
 
 import { TextField, ErrorText } from "../components/Form";
 import { Button } from "../components/Button";
@@ -73,29 +73,33 @@ export default class DefineSearchArea extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column',justifyContent: 'center',}} behavior="padding" enabled>
+      <KeyboardAvoidingView
+        style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
+        behavior="padding"
+        enabled
+      >
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
         <ScrollView contentContainerStyle={mainStyle.toplevel}>
           <Text style={mainStyle.text}>MAP</Text>
           {/* <Text style={mainStyle.text}>UNITS</Text> */}
           <Picker
-            prompt='Units Selection'
+            prompt="Select your map's units:"
+            label='Units Selection'
             mode='dropdown'
              placeholderStyle='white'
              style={formStyle.picker}
-             selectedValue={this.state.language}
+             //selectedValue={this.state.area}
              onValueChange={(itemValue, itemIndex) =>
-              this.setState({language: itemValue})
+              this.setState({units: itemValue})
             }
-            placeholderStyle={{color: 'white'}}
-            itemStyle={{color: 'white'}}
+              itemStyle={{color: 'white'}}
             >
             {/* <Picker.Item label="SELECT" value='null' /> */}
             <Picker.Item label="Imperial" value="imperial" />
             <Picker.Item label="Metric" value="metric" />
           </Picker>
-          <Text style={formStyle.label} >Search Radius</Text>
+          <Text style={formStyle.label}>Search Radius</Text>
           <TextField
             //label="Search Radius"
             onChangeText={radius => this.setState({ radius })}
@@ -105,7 +109,9 @@ export default class DefineSearchArea extends React.Component {
             color='white'
             selectionColor='red'
             keyboardAppearance='dark'
-          />
+            
+          >{this.state.units}</TextField>
+          <Text>{this.state.units}</Text>
           <ErrorText text={this.state.error} />
           <View style={mainStyle.container}>
             <Button

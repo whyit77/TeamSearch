@@ -1,137 +1,171 @@
-import React from "react";
+import React from 'react';
 import {
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  View,
-  KeyboardAvoidingView,
-  SafeAreaView,
-  StatusBar,
-  Alert
-} from "react-native";
+	ScrollView,
+	Text,
+	TouchableOpacity,
+	StyleSheet,
+	View,
+	KeyboardAvoidingView,
+	SafeAreaView,
+	StatusBar,
+	Alert,
+} from 'react-native';
 
-//import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import { TextField, ErrorText } from '../components/Form';
+// import { TextFieldEmail } from "../components/FormEmail";
+import { Button } from '../components/Button';
+import { ImageField } from '../components/Image';
 
-import { TextField, ErrorText } from "../components/Form";
-import { Button } from "../components/Button";
-import { ImageField } from "../components/image";
-
-//import { reviewApi } from "../util/api";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import {
-  buttonStyle,
-  mainStyle,
-  exampleText,
-  formStyle,
-  teamListStyle
-} from "../styles/styles";
+	buttonStyle,
+	mainStyle,
+	exampleText,
+	formStyle,
+	teamListStyle,
+} from '../styles/styles';
+
+const initialState = {
+	username: '',
+	email: '',
+	firstName: '',
+	lastName: '',
+	password: '',
+	repassword: '',
+	phone: '',
+	phoneNumberFormat: '',
+	desc: '',
+	error: '',
+};
 
 export default class CreateAccount extends React.Component {
-  state = {
-    email: "",
-    firstName: "",
-    lastName: "",
-    password: "",
-    repassword: "",
-    phone: "",
-    phoneNumberFormat: "",
-    desc: "",
-    error: ""
-  };
+	state = initialState;
 
-  handleSubmit = () => {
-    // event.preventDefault();
-    const email = this.state.email;
-    const password = this.state.password;
-    const firstName = this.state.firstName;
-    const lastName = this.state.lastName;
-    const phone = this.state.phone;
-    const desc = this.state.desc;
+	handleSubmit = () => {
+		const username = this.state.username;
+		const email = this.state.email;
+		const password = this.state.password;
+		const repassword = this.state.repassword;
+		const firstName = this.state.firstName;
+		const lastName = this.state.lastName;
+		const phone = this.state.phone;
+		const desc = this.state.desc;
 
-    // if (email.trim().length === 0 || password.trim().length === 0) {
-    //   return;
-    // }
-
-    let requestBody = {
-      query: `
-          mutation CreateUser($email: String!, $firstName: String!, $lastName: String!, $password: String!, $phone: String!, $desc: String) {
-            createUser(userInput: {email: $email, firstName: $firstName, lastName: $lastName, password: $password, phone: $phone, desc: $desc}) {
+		let requestBody = {
+			query: `
+          mutation CreateUser($username: String!, $email: String!, $firstName: String!, $lastName: String!, 
+                  $password: String!, $repassword: String!, $phone: String!, $desc: String) {
+            createUser(userInput: {username: $username, email: $email, firstName: $firstName, lastName: $lastName, 
+                    password: $password, repassword: $repassword, phone: $phone, desc: $desc}) {
               _id
+              username
               email
               firstName
               lastName
             }
           }
         `,
-      variables: {
-        email: email,
-        firstName: firstName,
-        lastName: lastName,
-        password: password,
-        phone: phone,
-        desc: desc
-      }
-    };
+			variables: {
+				username: username,
+				email: email,
+				firstName: firstName,
+				lastName: lastName,
+				password: password,
+				repassword: repassword,
+				phone: phone,
+				desc: desc,
+			},
+		};
 
-    // CHECK IP ADDRESS
-    fetch("http://172.17.57.147:3000/graphql", {
-      method: "POST",
-      body: JSON.stringify(requestBody),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(async res => {
-        const responseJson = await res.json();
+		// CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
+		fetch('http://172.17.57.223:3000/graphql', {
+			method: 'POST',
+			body: JSON.stringify(requestBody),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+			.then(async res => {
+				const responseJson = await res.json();
 
-        ////////// CHECK PASSWORDS ////////////
-        if (this.state.password != this.state.repassword) {
-          this.setState({
-            error: "Passwords do not match!",
-            password: "",
-            repassword: ""
-          });
-          return responseJson;
-        }
-        //////////////////////////////////////
+				// VALIDATE EMAIL /////////////////////////////////////////////////////////
+				// const isValid = this.validate({
+				//   emailAddress: { email: true }
+				// });
 
-        console.log(responseJson);
+				// if (isValid == false) {
+				//   this.setState({ initialState });
+				//   this.setState({ error: "Email address is invalid." });
+				//   return responseJson;
+				// }
 
-        if (res.ok) {
-          console.log("Okay CREATE");
-          this.props.navigation.navigate("Login");
-          return responseJson;
-        }
+				// this.validate({
+				//   name: {minlength:3, maxlength:7, required: true},
+				//   email: {email: true},
+				//   number: {numbers: true},
+				//   date: {date: 'YYYY-MM-DD'}
+				// });
 
-        // if (res.status !== 200 && res.status !== 201) {
-        //   throw new Error(res.error);
-        // }
+				console.log(responseJson);
 
-        this.setState({ error: responseJson.errors[0].message });
-        throw new Error(responseJson.error);
+				////////// VERIFY INPUT ////////////
+				if (responseJson.data.createUser == null) {
+					this.setState({ error: responseJson.errors[0].message });
 
-        // return res.json();
-      })
-      // .then(resData => {
-      //   if (resData.data.login.token) {
-      //     this.context.login(
-      //       resData.data.login.token,
-      //       resData.data.login.userId,
-      //       resData.data.login.tokenExpiration
-      //     );
-      //   }
-      // })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+					// CHECK if fields missing
+					if (this.state.error.includes('User validation failed')) {
+						this.setState({
+							error: 'User validation failed: required fields missing.',
+						});
+					}
+					// CHECK if user exists
+					if (this.state.error.includes('User exists already.')) {
+						this.setState(initialState);
+						this.setState({ error: 'User exists already.' });
+					}
+					// CHECK if passwords match
+					if (this.state.error.includes('Passwords do not match!')) {
+						this.setState({ password: '', repassword: '' });
+					}
+					// CHECK password length (>= 8 chars)
+					if (
+						this.state.error.includes(
+							'Password must be at least 8 characters long.'
+						)
+					) {
+						this.setState({ password: '', repassword: '' });
+					}
+					// CHECK phone number length (10 chars)
+					if (this.state.error.includes('Phone number is invalid.')) {
+						this.setState({ phone: '' });
+					}
+
+					console.log(this.state.error);
+					return responseJson;
+				}
+
+				if (res.ok) {
+					console.log('Okay CREATE');
+					this.props.navigation.navigate('Login');
+					this.setState(initialState);
+					return responseJson;
+				}
+
+				this.setState(initialState);
+				throw new Error(responseJson.error);
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	};
 
   render() {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
-        {/* <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column' , justifyContent: 'center',}} behavior="padding" enabled> */}
+        <KeyboardAwareScrollView extraScrollHeight={50}>
+
         <View style={formStyle.formContainer}>
           <ScrollView
             contentInsetAdjustmentBehavior="automatic"
@@ -141,10 +175,10 @@ export default class CreateAccount extends React.Component {
               <Text style={mainStyle.text}>PHOTO UPLOAD</Text>
               <ImageField
                 imageStyles={{ width: 60, height: 60 }}
-                source={{
-                  uri:
-                    "https://i.ya-webdesign.com/images/white-camera-png-7.png"
-                }}
+                // source={{
+                //   uri:
+                //     "https://i.ya-webdesign.com/images/white-camera-png-7.png"
+                // }}
                 bottomLabel="Add/Change Photo"
                 onBottomPress={() =>
                   Alert.alert("Navigate to Change Photo Page")
@@ -271,7 +305,7 @@ export default class CreateAccount extends React.Component {
             </View>
           </ScrollView>
         </View>
-        {/* </KeyboardAvoidingView> */}
+        </KeyboardAwareScrollView>
       </SafeAreaView>
     );
   }

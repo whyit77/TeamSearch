@@ -1,21 +1,22 @@
-import React from "react";
+import React from 'react';
 import {
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  View,
-  KeyboardAvoidingView,
-  SafeAreaView,
-  StatusBar,
-  Alert
-} from "react-native";
-import { mainStyle, formStyle } from '../styles/styles'
-import { TextField, ErrorText } from "../components/Form";
-import { Button } from "../components/Button";
-import { ImageField } from "../components/image";
+	ScrollView,
+	Text,
+	TouchableOpacity,
+	StyleSheet,
+	View,
+	KeyboardAvoidingView,
+	SafeAreaView,
+	StatusBar,
+	Alert,
+	
+} from 'react-native';
+import { mainStyle, formStyle } from '../styles/styles';
+import { TextField, ErrorText } from '../components/Form';
+import { Button } from '../components/Button';
+import { ImageField } from '../components/Image';
 //import { reviewApi } from "../util/api";
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 export default class CreateTeam extends React.Component {
   state = {
@@ -63,7 +64,7 @@ export default class CreateTeam extends React.Component {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
       <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
-      <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column',justifyContent: 'center',}} behavior="padding" enabled>
+      <KeyboardAwareScrollView extraScrollHeight={50}>
         <ScrollView contentContainerStyle={formStyle.formContainer}>
           <View style={formStyle.formContainer}>
           <Text style={mainStyle.text}>PHOTO UPLOAD</Text>
@@ -135,12 +136,9 @@ export default class CreateTeam extends React.Component {
             selectionColor='red'
             keyboardAppearance='dark'
             labelTextColor='white'
-            maxLength={300}
-
-          />
-          <ErrorText text={this.state.error} />
-          <View style={mainStyle.container}>
-
+			maxLength={300}
+			/>
+         <View style={mainStyle.container}>
           <Button
             style={formStyle.formButton}
             text="Define Search Area"
@@ -149,7 +147,7 @@ export default class CreateTeam extends React.Component {
           </View>
           </View>
         </ScrollView>
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
       </SafeAreaView>
     );
   }

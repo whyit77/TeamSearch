@@ -8,7 +8,7 @@ import {
   MenuOptions,
   MenuOption,
   MenuTrigger,
-} from 'react-native-popup-menu';
+} from './node_modules/react-native-popup-menu';
 
 export default HeaderPopup = () => (
       <MenuContext style={styles.header}>

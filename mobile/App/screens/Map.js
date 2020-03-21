@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
+import { EmbeddedWebView } from "../components/EmbeddedWebView";
 
 class Map extends React.Component {
   state = {
@@ -114,6 +115,7 @@ class Map extends React.Component {
         />
       </MapView>
     );
+    return <EmbeddedWebView url={"http://localhost:8000/"} />;
   }
 }
 

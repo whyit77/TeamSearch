@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   ScrollView,
   Text,
@@ -6,39 +6,39 @@ import {
   StyleSheet,
   View,
   StatusBar
-} from 'react-native';
-import { TextField, ErrorText } from '../components/Form';
-import { Button } from '../components/Button';
+} from "react-native";
+import { TextField, ErrorText } from "../components/Form";
+import { Button } from "../components/Button";
 import {
-  buttonStyle,
-  mainStyle,
-  exampleText,
-  formStyle,
-  teamListStyle
-} from "../styles/styles";
+	buttonStyle,
+	mainStyle,
+	exampleText,
+	formStyle,
+	teamListStyle,
+} from '../styles/styles';
+
+// import { AuthContext } from "../context/auth-context";
+//////// TODO: LEARN TO DO AUTH TO HAVE LOGGED IN ID //////////////////
+
+const initialState = {
+  username: "",
+  password: "",
+  error: ""
+};
 
 export default class Login extends React.Component {
-  state = {
-    email: "",
-    password: "",
-    error: ""
-  };
-
   // static contextType = AuthContext;
 
-  handleSubmit = () => {
-    // event.preventDefault();
-    const email = this.state.email;
-    const password = this.state.password;
+  state = initialState;
 
-    // if (email.trim().length === 0 || password.trim().length === 0) {
-    //   return;
-    // }
+  handleSubmit = () => {
+    const username = this.state.username;
+    const password = this.state.password;
 
     let requestBody = {
       query: `
-        query Login($email: String!, $password: String!) {
-          login(email: $email, password: $password) {
+        query Login($username: String!, $password: String!) {
+          login(username: $username, password: $password) {
             userId
             token
             tokenExpiration
@@ -46,13 +46,13 @@ export default class Login extends React.Component {
         }
       `,
       variables: {
-        email: email,
+        username: username,
         password: password
       }
     };
 
-    // CHECK IP ADDRESS
-    fetch("http://172.17.57.147:3000/graphql", {
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://172.17.57.223:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -65,59 +65,56 @@ export default class Login extends React.Component {
         if (res.ok) {
           console.log("Okay LOGIN");
           this.props.navigation.navigate("TeamListView");
+          this.setState(initialState);
           return responseJson;
         }
 
-        // if (res.status !== 200 && res.status !== 201) {
-        //   throw new Error(res.error);
-        // }
-
+        this.setState(initialState);
         this.setState({ error: responseJson.errors[0].message });
         throw new Error(responseJson.error);
-
-        // return res.json();
       })
-      .then(resData => {
-        if (resData.data.login.token) {
-          this.context.login(
-            resData.data.login.token,
-            resData.data.login.userId,
-            resData.data.login.tokenExpiration
-          );
-        }
-      })
+      // .then(resData => {
+      //   if (resData.data.login.token) {
+      //     //////////////
+      //     this.context.Login(
+      //       resData.data.login.token,
+      //       resData.data.login.userId,
+      //       resData.data.login.tokenExpiration
+      //     );
+      //   }
+      // })
       .catch(err => {
         console.log(err);
       });
   };
 
-  render() {
-    return (
-      <View style={mainStyle.toplevel}>
-        <View style={formStyle.formContainer}>
-          <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+	render() {
+		return (
+			<View style={mainStyle.toplevel}>
+				<View style={formStyle.formContainer}>
+					<StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
           <ScrollView contentContainerStyle={formStyle.formContainer}>
             <View style={formStyle.formContainer}>
-              <Text style={formStyle.label}>Email</Text>
+              <Text style={formStyle.label}>Username</Text>
               <TextField
-                //label="Email"
-                placeholder="john.doe@example.com"
-                onChangeText={email => this.setState({ email })}
-                value={this.state.email}
+                //label="Username"
+                placeholder="Username"
+                onChangeText={username => this.setState({ username })}
+                value={this.state.username}
                 autoCapitalize="none"
                 style={formStyle.placeholderStyle}
                 color="white"
                 selectionColor="red"
                 keyboardAppearance="dark"
-                keyboardType="email-address"
+                // keyboardType="username"
                 labelTextColor="white"
-                textContentType="emailAddress"
+                // textContentType="username"
               />
               <Text style={formStyle.label}>Password</Text>
               <TextField
                 //label="Password"
-                placeholder="Must be at least 8 characters"
+                placeholder="Password"
                 secureTextEntry
                 onChangeText={password => this.setState({ password })}
                 value={this.state.password}
@@ -149,7 +146,7 @@ export default class Login extends React.Component {
                 <Text style={formStyle.text}>Don't have an account?</Text>
                 <TouchableOpacity
                   onPress={() =>
-                    this.props.navigation.navigate("ComponentsCreation")
+                    this.props.navigation.navigate("CreateAccount")
                   }
                 >
                   <Text style={[formStyle.text, formStyle.link]}>
