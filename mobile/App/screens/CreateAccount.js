@@ -15,6 +15,7 @@ import { TextField, ErrorText } from '../components/Form';
 // import { TextFieldEmail } from "../components/FormEmail";
 import { Button } from '../components/Button';
 import { ImageField } from '../components/Image';
+// import ImagePicker from 'react-native-image-picker';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
@@ -35,7 +36,8 @@ const initialState = {
 	repassword: '',
 	phone: '',
 	phoneNumberFormat: '',
-	desc: '',
+  desc: '',
+  image: '',
 	error: '',
 };
 
@@ -79,8 +81,9 @@ export default class CreateAccount extends React.Component {
 		};
 
 		// CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
-		fetch('http://172.17.57.223:3000/graphql', {
-			method: 'POST',
+		// fetch('http://172.17.57.223:3000/graphql', {
+      fetch("http://192.168.157.2:3000/graphql", {
+        method: 'POST',
 			body: JSON.stringify(requestBody),
 			headers: {
 				'Content-Type': 'application/json',
@@ -158,9 +161,21 @@ export default class CreateAccount extends React.Component {
 			.catch(err => {
 				console.log(err);
 			});
-	};
+  };
+  
+  handleChoosePhoto = () => {
+    const options = {
+      noData: true,
+    };
+    ImagePicker.launchImageLibrary(options, response => {
+      if (response.uri) {
+        this.setState({ photo: response });
+      }
+    });
+  };
 
   render() {
+    const { image } = this.state;
     return (
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
@@ -173,6 +188,19 @@ export default class CreateAccount extends React.Component {
           >
             <View style={mainStyle.toplevel}>
               <Text style={mainStyle.text}>PHOTO UPLOAD</Text>
+              {/* 
+              Test Image Upload
+               */}
+            {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    {photo && (
+                      <Image
+                        source={{ uri: photo.uri }}
+                        style={{ width: 300, height: 300 }}
+                      />
+                    )}
+                    <Button title="Choose Photo" onPress={this.handleChoosePhoto} />
+              </View> */}
+            {/*  */}
               <ImageField
                 imageStyles={{ width: 60, height: 60 }}
                 // source={{

@@ -80,8 +80,9 @@ export default class App extends React.Component {
 		}; // TODO: FIX currently pulls first person in database
 
 		// CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-		fetch('http://172.17.57.223:3000/graphql', {
-			method: 'POST',
+		// fetch('http://172.17.57.223:3000/graphql', {
+		fetch("http://192.168.157.2:3000/graphql", {
+				method: 'POST',
 			body: JSON.stringify(requestBody),
 			headers: {
 				'Content-Type': 'application/json',

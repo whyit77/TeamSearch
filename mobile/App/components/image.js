@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image, Button } from 'react-native';
-import ImagePicker from 'react-native-image-picker';
+// import ImagePicker from 'react-native-image-picker';
 
 
 export const ImageField = ({
