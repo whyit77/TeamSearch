@@ -1,26 +1,7 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Text, View, StyleSheet, Image, Button } from 'react-native';
+import ImagePicker from 'react-native-image-picker';
 
-
-const styles = StyleSheet.create({
-	column: {
-		marginBottom: 10,
-		justifyContent: 'center',
-		alignItems: 'center',
-		paddingVertical: 10,
-	},
-	label: {
-		color: 'white',
-		fontSize: 14,
-		fontWeight: '200',
-		marginBottom: 4,
-	},
-	image: {
-		width: 75,
-		height: 75,
-		resizeMode: 'contain',
-	},
-});
 
 export const ImageField = ({
 	topLabel = '',
@@ -52,3 +33,23 @@ export const ImageField = ({
 		)}
 	</View>
 );
+
+const styles = StyleSheet.create({
+	column: {
+		marginBottom: 10,
+		justifyContent: 'center',
+		alignItems: 'center',
+		paddingVertical: 10,
+	},
+	label: {
+		color: 'white',
+		fontSize: 14,
+		fontWeight: '200',
+		marginBottom: 4,
+	},
+	image: {
+		width: 75,
+		height: 75,
+		resizeMode: 'contain',
+	},
+});
