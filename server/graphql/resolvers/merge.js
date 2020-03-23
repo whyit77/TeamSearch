@@ -34,12 +34,21 @@ const singleEvent = async eventId => {
 	}
 };
 
-const user = async userIds => {
+const users = async userIds => {
 	try {
 		const users = await User.find({ _id: { $in: userIds } });
-    return users.map(user => {
+		return users.map(user => {
 			return transformUser(user);
 		});
+	} catch (err) {
+		throw err;
+	}
+};
+
+const singleUser = async UserId => {
+	try {
+		const user = await User.findById(UserId);
+		return transformUser(user);
 	} catch (err) {
 		throw err;
 	}
@@ -60,7 +69,7 @@ const transformEvent = event => {
 		...event._doc,
 		_id: event.id,
 		date: dateToString(event._doc.date),
-		creator: user.bind(this, event.creator),
+		creator: singleUser.bind(this, event.creator),
 	};
 };
 
@@ -70,8 +79,8 @@ const transformTeam = team => {
 		_id: team.id,
 		createdAt: dateToString(team._doc.createdAt),
 		updatedAt: dateToString(team._doc.updatedAt),
-		creator: user.bind(this, team.creator),
-		members: user.bind(this, team._doc.members),
+		creator: singleUser.bind(this, team.creator),
+		members: users.bind(this, team._doc.members),
 	};
 };
 
@@ -79,7 +88,7 @@ const transformBooking = booking => {
 	return {
 		...booking._doc,
 		_id: booking.id,
-		user: user.bind(this, booking._doc.user),
+		user: singleUser.bind(this, booking._doc.user),
 		event: singleEvent.bind(this, booking._doc.event),
 		createdAt: dateToString(booking._doc.createdAt),
 		updatedAt: dateToString(booking._doc.updatedAt),
