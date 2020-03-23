@@ -16,6 +16,8 @@ import { TextField, ErrorText } from '../components/Form';
 import { Button } from '../components/Button';
 import { ImageField } from '../components/Image';
 
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 import {
 	buttonStyle,
 	mainStyle,

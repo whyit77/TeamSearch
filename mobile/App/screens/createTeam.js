@@ -139,17 +139,34 @@ export default class CreateTeam extends React.Component {
 								maxLength={300}
 							/>
 
-							<Button
-								style={formStyle.formButton}
-								text="Define Search Area"
-								onPress={() =>
-									this.props.navigation.navigate('DefineSearchArea')
-								}
-							/>
-						</View>
-					</ScrollView>
-				</KeyboardAwareScrollView>
-			</SafeAreaView>
-		);
-	}
+          />
+          <Text style={formStyle.label} >Subject Description</Text>
+          <TextField
+            //label="Subject Description"
+            placeholder="What are you looking for?"
+            onChangeText={subjectDesc => this.setState({ subjectDesc })}
+            value={this.state.subjectDesc}
+            autoCapitalize="none"
+            scrollEnabled='true'
+            multiline={true}
+            style={formStyle.placeholderStyle}
+            color='white'
+            selectionColor='red'
+            keyboardAppearance='dark'
+            labelTextColor='white'
+			maxLength={300}
+			/>
+         <View style={mainStyle.container}>
+          <Button
+            style={formStyle.formButton}
+            text="Define Search Area"
+            onPress={() => this.props.navigation.navigate("DefineSearchArea")}
+          />
+          </View>
+          </View>
+        </ScrollView>
+      </KeyboardAwareScrollView>
+      </SafeAreaView>
+    );
+  }
 }
