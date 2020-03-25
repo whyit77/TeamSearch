@@ -52,7 +52,7 @@ class MemberProfile extends React.Component {
               />
             </View>
             <View style={formStyle.formContainer}>
-              <Text style={formStyle.label}>Diplay Name: </Text>
+              <Text style={formStyle.label}>Username: </Text>
               <TextField
                 //label="Team Name"
                 onChangeText={teamName => this.setState({ name })}
@@ -78,7 +78,7 @@ class MemberProfile extends React.Component {
                 labelTextColor="white"
                 editable={false}
               />
-              <Text style={formStyle.label}>User ID: </Text>
+              <Text style={formStyle.label}>Name: </Text>
               <TextField
                 //label="Team Name"
                 onChangeText={teamName => this.setState({ id })}
