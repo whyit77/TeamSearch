@@ -14,7 +14,7 @@ import { TeamMember } from "../components/TeamMember";
 import { mainStyle } from "../styles/styles";
 import { ScrollView } from "react-native-gesture-handler";
 import TeamMemberListAddButton from "../components/TeamMemberListAddButton";
-import Avatar from '../components/Avatar';
+// import Avatar from '../components/Avatar';
 
 
 const data = [

@@ -234,6 +234,7 @@ export default class CreateAccount extends React.Component {
                 placeholder="John"
                 onChangeText={firstName => this.setState({ firstName })}
                 value={this.state.firstName}
+                color='white'
                 autoCapitalize="none"
                 keyboardAppearance="dark"
               />
@@ -244,6 +245,7 @@ export default class CreateAccount extends React.Component {
                 onChangeText={lastName => this.setState({ lastName })}
                 value={this.state.lastName}
                 autoCapitalize="none"
+                color='white'
                 keyboardAppearance="dark"
               />
               <Text style={formStyle.label}>Password</Text>

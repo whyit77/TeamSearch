@@ -34,7 +34,12 @@ app.use((req, res, next) => {
 
 mongoose
 	.connect(
-		`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@localcluster-iyds9.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
+		`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@localcluster-iyds9.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority??authSource=admin`,
+		{ 
+			useNewUrlParser: true,  
+			useUnifiedTopology: true,
+			auth:{authdb:"admin"}
+		},
 	)
 	.then(() => {
 		app.listen(3000);
@@ -45,29 +50,7 @@ mongoose
 
 	////////////////////////////////
 	// Image Upload to server
-	const Storage = multer.diskStorage({
-		destination(req, file, callback) {
-		  callback(null, './images');
-		},
-		filename(req, file, callback) {
-		  callback(null, `${file.fieldname}_${Date.now()}_${file.originalname}`);
-		},
-	  });
-	  
-	  const upload = multer({ storage: Storage });
-	  
-	  app.get('/', (req, res) => {
-		res.status(200).send('You can post to /api/upload.');
-	  });
-	  
-	  app.post('/api/upload', upload.array('photo', 3), (req, res) => {
-		console.log('file', req.files);
-		console.log('body', req.body);
-		res.status(200).json({
-		  message: 'success!',
-		});
-	  });
-	  
-	  app.listen(3000, () => {
-		console.log('App running on http://localhost:3000');
-	  });
+
+	//   app.listen(3000, () => {
+	// 	console.log('App running on http://localhost:3000');
+	//   });
