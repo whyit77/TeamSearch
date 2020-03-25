@@ -106,7 +106,7 @@ export default class TeamList extends Component {
 				<View style={mainStyle.container}>
 					<ScrollView contentContainerStyle={mainStyle.container}>
 						<View style={mainStyle.toplevel}>
-							<TouchableOpacity>
+							<TouchableOpacity onPress={this.handleSubmit()}>
 								<Team
 									name={'TeamSearch'}
 									status={'Active'}
@@ -115,11 +115,11 @@ export default class TeamList extends Component {
 									description={'Small boi'}
 								></Team>
 							</TouchableOpacity>
-							<TouchableOpacity onPress={this.handleSubmit()}>
+							{/* <TouchableOpacity onPress={this.handleSubmit()}>
 								<TeamListCard
 									description={this.state.description}
 								></TeamListCard>
-							</TouchableOpacity>
+							</TouchableOpacity> */}
 						</View>
 					</ScrollView>
 				</View>
