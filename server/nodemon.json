@@ -1,7 +1,8 @@
 {
   "env": {
-    "MONGO_USER": "erinmori26",
+    "MONGO_USER": "Erin1",
     "MONGO_PASSWORD": "<pw>",
+    "MONGO_CLUSTER": "teamsearch1-8sc8z",
     "MONGO_DB": "ts1"
   }
 }
