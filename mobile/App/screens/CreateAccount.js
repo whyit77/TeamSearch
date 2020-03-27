@@ -79,7 +79,7 @@ export default class CreateAccount extends React.Component {
     };
 
     // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.12:3000/graphql", {
+    fetch(`http://${process.env.IP_ADDR}:3000/graphql`, {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {

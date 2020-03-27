@@ -1,8 +1,9 @@
 {
   "env": {
-    "MONGO_USER": "Erin1",
+    "MONGO_USER": "erinmori26",
     "MONGO_PASSWORD": "<pw>",
-    "MONGO_CLUSTER": "teamsearch1-8sc8z",
-    "MONGO_DB": "ts1"
+    "MONGO_CLUSTER": "cluster0-ds4lf",
+    "MONGO_DB": "ts1",
+    "IP_ADDR": "192.168.1.12"
   }
 }
