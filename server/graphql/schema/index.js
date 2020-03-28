@@ -23,6 +23,7 @@ type Team {
   teamName: String!
   searchDescription: String!
   subjectDescription: String!
+  radius: Int!
   code: String!
   creator: User!
   members: [User!]
@@ -60,7 +61,8 @@ input EventInput {
 input TeamInput {
   teamName: String!
   searchDescription: String!
-  subjectDescription: String
+  subjectDescription: String!
+  radius: Int!
 }
 
 input UserInput {

@@ -21,6 +21,7 @@ const initialState = {
   teamName: "",
   searchDescription: "",
   subjectDescription: "",
+  radius: "0",
   // code: "",
   // creator: "",
   error: ""
@@ -33,27 +34,32 @@ export default class CreateTeam extends React.Component {
     const teamName = this.state.teamName;
     const searchDescription = this.state.searchDescription;
     const subjectDescription = this.state.subjectDescription;
+    const radius = parseInt(this.state.radius, 10);
+
+    console.log(radius);
 
     let requestBody = {
       query: `
-          mutation createTeam($teamName: String!, $searchDescription: String!, $subjectDescription: String!) {
-            createTeam(teamInput: {teamName: $teamName, searchDescription: $searchDescription, subjectDescription: $subjectDescription}) {
+          mutation createTeam($teamName: String!, $searchDescription: String!, $subjectDescription: String!, $radius: Int!) {
+            createTeam(teamInput: {teamName: $teamName, searchDescription: $searchDescription, subjectDescription: $subjectDescription, radius: $radius}) {
               _id
               teamName
               searchDescription
               subjectDescription
+              radius
             }
           }
         `,
       variables: {
         teamName: teamName,
         searchDescription: searchDescription,
-        subjectDescription: subjectDescription
+        subjectDescription: subjectDescription,
+        radius: radius
       }
     };
 
     // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
-    fetch(`http://${process.env.IP_ADDR}:3000/graphql`, {
+    fetch("http://192.168.1.12:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -66,44 +72,45 @@ export default class CreateTeam extends React.Component {
         console.log(responseJson);
 
         ////////// VERIFY INPUT ////////////
-        // if (responseJson.data.createUser == null) {
-        //   this.setState({ error: responseJson.errors[0].message });
+        if (responseJson.data.createTeam == null) {
+          this.setState({ error: responseJson.errors[0].message });
 
-        //   // CHECK if fields missing
-        //   if (this.state.error.includes("User validation failed")) {
-        //     this.setState({
-        //       error: "User validation failed: required fields missing."
-        //     });
-        //   }
-        //   // CHECK if user exists
-        //   if (this.state.error.includes("User exists already.")) {
-        //     this.setState(initialState);
-        //     this.setState({ error: "User exists already." });
-        //   }
-        //   // CHECK if passwords match
-        //   if (this.state.error.includes("Passwords do not match!")) {
-        //     this.setState({ password: "", repassword: "" });
-        //   }
-        //   // CHECK password length (>= 8 chars)
-        //   if (
-        //     this.state.error.includes(
-        //       "Password must be at least 8 characters long."
-        //     )
-        //   ) {
-        //     this.setState({ password: "", repassword: "" });
-        //   }
-        //   // CHECK phone number length (10 chars)
-        //   if (this.state.error.includes("Phone number is invalid.")) {
-        //     this.setState({ phone: "" });
-        //   }
+          // CHECK if fields missing
+          if (this.state.error.includes("Team validation failed")) {
+            this.setState({
+              error: "Team not created: required fields missing."
+            });
+          }
+          // // CHECK if radius is empty
+          // if (this.state.radius == "") {
+          //   this.setState({
+          //     error: "Team not created: required fields missing."
+          //   });
+          // }
+          // CHECK if radius is 0
+          // if (radius == 0) {
+          //   this.setState({
+          //     error: "Team not created: radius cannot be 0."
+          //   });
+          // }
 
-        //   console.log(this.state.error);
-        //   return responseJson;
-        // }
+          console.log(this.state.error);
+          return responseJson;
+        }
+
+        // CHECK if radius is 0
+        if (radius == 0) {
+          this.setState({
+            error: "Team not created: radius cannot be 0."
+          });
+
+          console.log(this.state.error);
+          return responseJson;
+        }
 
         if (res.ok) {
           console.log("Okay CREATE");
-          this.props.navigation.navigate("DefineSearchArea");
+          this.props.navigation.navigate("TeamInfo");
           ///// TODO: ADD TEAM ID TO CONTEXT TO KNOW WHAT TEAM WE'RE LOOKING AT /////
           this.setState(initialState);
           return responseJson;
@@ -172,8 +179,8 @@ export default class CreateTeam extends React.Component {
                   this.setState({ searchDescription })
                 }
                 value={this.state.searchDescription}
-                autoCapitalize="none"
-                scrollEnabled="true"
+                autoCapitalize="sentences"
+                scrollEnabled={true}
                 multiline={true}
                 style={formStyle.placeholderStyle}
                 color="white"
@@ -190,8 +197,8 @@ export default class CreateTeam extends React.Component {
                   this.setState({ subjectDescription })
                 }
                 value={this.state.subjectDescription}
-                autoCapitalize="none"
-                scrollEnabled="true"
+                autoCapitalize="sentences"
+                scrollEnabled={true}
                 multiline={true}
                 style={formStyle.placeholderStyle}
                 color="white"
@@ -200,6 +207,21 @@ export default class CreateTeam extends React.Component {
                 labelTextColor="white"
                 maxLength={300}
               />
+              <Text style={formStyle.label}>Search Radius (miles)</Text>
+              <TextField
+                //label="Search Radius"
+                placeholder="Area to cover?"
+                onChangeText={radius => this.setState({ radius })}
+                value={this.state.radius}
+                autoCapitalize="none"
+                style={formStyle.placeholderStyle}
+                color="white"
+                selectionColor="red"
+                keyboardAppearance="dark"
+                labelTextColor="white"
+                keyboardType="phone-pad"
+              />
+              <ErrorText text={this.state.error} />
               <View style={mainStyle.container}>
                 <Button
                   style={formStyle.formButton}

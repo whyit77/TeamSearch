@@ -16,6 +16,10 @@ const teamSchema = new Schema(
       type: String,
       required: true
     },
+    radius: {
+      type: Number,
+      required: true
+    },
     code: {
       type: String,
       required: true
