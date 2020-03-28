@@ -82,8 +82,8 @@ export default class App extends React.Component {
       //       phone
       //     }
       //   }
-      // `
-    }; // TODO: FIX currently pulls first person in database
+      // ` // me query pulls first person in database
+    };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
     fetch("http://192.168.1.12:3000/graphql", {
