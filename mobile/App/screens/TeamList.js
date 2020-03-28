@@ -32,12 +32,12 @@ export default class TeamList extends Component {
 		      query getUser($userId: String!) {
 		        getUser(userId: $userId) {
 		          joinedTeams {
-		            title
+		            teamName
 		            searchDescription
 		            subjectDescription
 		          }
 		          createdTeams {
-		            title
+		            teamName
 		          }
 		        }
 		      }

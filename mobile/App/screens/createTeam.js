@@ -225,7 +225,7 @@ export default class CreateTeam extends React.Component {
               <View style={mainStyle.container}>
                 <Button
                   style={formStyle.formButton}
-                  text="Define Search Area"
+                  text="Create"
                   onPress={this.handleSubmit}
                 />
               </View>

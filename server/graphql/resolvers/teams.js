@@ -19,11 +19,11 @@ module.exports = {
     // if (!req.isAuth) {
     //   throw new Error("Unauthenticated!");
     // }
-
-    req.teamId = "5e7b1daaa2b8f6182851c49e";
+    // TODO: NEED CURRENT TEAM ID ///
+    // req.teamId = "5e7f1397e0c8ce4a247e7cad";
 
     try {
-      const team = await Team.findById(req.teamId);
+      const team = await Team.findById(args.teamId);
 
       console.log(team);
       return transformTeam(team);
@@ -36,6 +36,7 @@ module.exports = {
     // 	throw new Error('Unauthenticated!');
     // }
 
+    // TODO: NEED CURRENT LOGGED IN USER ID ///
     req.userId = "5e7b1daaa2b8f6182851c49e";
     let creator;
     try {
@@ -55,7 +56,11 @@ module.exports = {
       });
 
       const result = await team.save();
+      console.log(team);
+
       let createdTeam = transformTeam(result);
+
+      console.log(createdTeam);
 
       creator.createdTeams.push(team);
       creator.joinedTeams.push(team);

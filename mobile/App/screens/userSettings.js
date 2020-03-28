@@ -181,7 +181,7 @@ export default class App extends React.Component {
               maxLength={40}
             /> */}
               <Text style={mainStyle.smallText}>{this.state.phone}</Text>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              {/* <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Switch
                   style={formStyle.toggle}
                   onValueChange={this.toggleITSwitch}
@@ -190,7 +190,7 @@ export default class App extends React.Component {
                 />
                 <Text style={formStyle.toggleLabel}> View Inactive Teams </Text>
                 {/* <Text>{this.state.switchITValue ? "ON" : "OFF"}</Text> */}
-              </View>
+              {/* </View>
 
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Switch
@@ -201,7 +201,7 @@ export default class App extends React.Component {
                 />
                 <Text style={formStyle.toggleLabel}> Location Tracking </Text>
                 {/* <Text>{this.state.switchLTValue ? 'ON' : 'OFF'}</Text> */}
-              </View>
+              {/* </View>
 
               <TextField
                 onChangeText={changePass => this.setState({ changePass })}
@@ -219,12 +219,12 @@ export default class App extends React.Component {
                 selectionColor="red"
                 keyboardAppearance="dark"
                 color="white"
-              />
-              <View style={mainStyle.container}>
+              /> */}
+              {/* <View style={mainStyle.container}>
                 <TouchableOpacity style={buttonStyle.buttonContainer}>
                   <Text style={buttonStyle.buttonText}>Save</Text>
                 </TouchableOpacity>
-              </View>
+              </View> */}
             </View>
           </ScrollView>
         </KeyboardAwareScrollView>
