@@ -30,8 +30,8 @@ export default class App extends React.Component {
   // static contextType = AuthContext;
 
   state = {
-    switchITValue: false,
-    switchLTValue: false,
+    // switchITValue: false,
+    // switchLTValue: false,
     username: "",
     firstName: "",
     lastName: "",
@@ -42,41 +42,47 @@ export default class App extends React.Component {
     // confirmPass: ""
   };
 
-  toggleITSwitch = value => {
-    this.setState({ switchITValue: value });
-  };
+  // toggleITSwitch = value => {
+  //   this.setState({ switchITValue: value });
+  // };
 
-  toggleLTSwitch = value => {
-    this.setState({ switchLTValue: value });
-  };
+  // toggleLTSwitch = value => {
+  //   this.setState({ switchLTValue: value });
+  // };
 
   componentDidMount() {
-    // const user1 = this.props.navigation.getParams("_id", {});
-    // const user1 = "test2";
+    // TODO: GET CURRENT LOGGED IN USER //
+    const userId = "5e7b1daaa2b8f6182851c49e";
+
     let requestBody = {
-      //   query: `
-      //     query getUser($username: String!) {
-      //       getUser(username: $username) {
-      //         _id
-      //         username
-      //       }
-      //     }`,
-      //   variables: {
-      //     username: user1
-      //   }
       query: `
-        query {
-          me {
-            _id
-            username
-            firstName
-            lastName
-            email
-            desc
-            phone
-          }
-        }
-      `
+          query getUser($userId: String!) {
+            getUser(userId: $userId) {
+              _id
+              username
+              firstName
+              lastName
+              email
+              desc
+              phone
+            }
+          }`,
+      variables: {
+        userId: userId
+      }
+      // query: `
+      //   query {
+      //     me {
+      //       _id
+      //       username
+      //       firstName
+      //       lastName
+      //       email
+      //       desc
+      //       phone
+      //     }
+      //   }
+      // `
     }; // TODO: FIX currently pulls first person in database
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
@@ -96,12 +102,12 @@ export default class App extends React.Component {
         console.log(responseJson);
 
         if (res.ok) {
-          const username = responseJson.data.me.username;
-          const firstName = responseJson.data.me.firstName;
-          const lastName = responseJson.data.me.lastName;
-          const email = responseJson.data.me.email;
-          const desc = responseJson.data.me.desc;
-          const phone = responseJson.data.me.phone;
+          const username = responseJson.data.getUser.username;
+          const firstName = responseJson.data.getUser.firstName;
+          const lastName = responseJson.data.getUser.lastName;
+          const email = responseJson.data.getUser.email;
+          const desc = responseJson.data.getUser.desc;
+          const phone = responseJson.data.getUser.phone;
 
           this.setState({
             username: username,
