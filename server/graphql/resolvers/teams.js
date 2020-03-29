@@ -31,16 +31,18 @@ module.exports = {
       throw err;
     }
   },
+  // FINDS USER BY PASSED IN ID and CREATE TEAM UNDER THEM //
   createTeam: async (args, req) => {
+    console.log("CREATE TEAM");
     // if (!req.isAuth) {
     // 	throw new Error('Unauthenticated!');
     // }
 
     // TODO: NEED CURRENT LOGGED IN USER ID ///
-    req.userId = "5e7b1daaa2b8f6182851c49e";
-    let creator;
+    // req.userId = "5e7b1daaa2b8f6182851c49e";
+    // let creator;
     try {
-      creator = await User.findById(req.userId);
+      const creator = await User.findById(args.userId);
       if (!creator) {
         throw new Error("User not found.");
       }
@@ -51,7 +53,7 @@ module.exports = {
         subjectDescription: args.teamInput.subjectDescription,
         radius: args.teamInput.radius,
         code: randomize("Aa0", 8),
-        creator: req.userId,
+        creator: args.userId,
         members: [creator]
       });
 

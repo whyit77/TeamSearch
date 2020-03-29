@@ -38,10 +38,13 @@ export default class CreateTeam extends React.Component {
 
     console.log(radius);
 
+    // TODO: NEED CURRENT LOGGED IN USER ID ///
+    const userId = "5e7e46af4f99bb52f42369a4";
+
     let requestBody = {
       query: `
-          mutation createTeam($teamName: String!, $searchDescription: String!, $subjectDescription: String!, $radius: Int!) {
-            createTeam(teamInput: {teamName: $teamName, searchDescription: $searchDescription, subjectDescription: $subjectDescription, radius: $radius}) {
+          mutation createTeam($userId: String!, $teamName: String!, $searchDescription: String!, $subjectDescription: String!, $radius: Int!) {
+            createTeam(userId: $userId, teamInput: { teamName: $teamName, searchDescription: $searchDescription, subjectDescription: $subjectDescription, radius: $radius}) {
               _id
               teamName
               searchDescription
@@ -51,6 +54,7 @@ export default class CreateTeam extends React.Component {
           }
         `,
       variables: {
+        userId: userId,
         teamName: teamName,
         searchDescription: searchDescription,
         subjectDescription: subjectDescription,
