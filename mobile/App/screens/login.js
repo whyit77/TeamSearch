@@ -51,9 +51,16 @@ export default class Login extends React.Component {
       }
     };
 
+<<<<<<< Updated upstream
     // CHECK IP ADDRESS ////////////////////////////////////////////////////////////////////////////// 192.168.157.2
     // fetch("http://172.17.57.223:3000/graphql", {
     fetch("http://192.168.157.2:3000/graphql", {
+=======
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    // fetch("http://192.168.1.12:3000/graphql", {
+    fetch("http://192.168.0.6:3000/graphql", {
+
+>>>>>>> Stashed changes
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {

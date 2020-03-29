@@ -80,6 +80,7 @@ export default class CreateAccount extends React.Component {
 			},
 		};
 
+<<<<<<< Updated upstream
 		// CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
 		// fetch('http://172.17.57.223:3000/graphql', {
       fetch("http://192.168.157.2:3000/graphql", {
@@ -91,6 +92,19 @@ export default class CreateAccount extends React.Component {
 		})
 			.then(async res => {
 				const responseJson = await res.json();
+=======
+    // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
+    // fetch("http://192.168.1.12:3000/graphql", {
+    fetch("http://192.168.0.6:3000/graphql", {
+        method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(async res => {
+        const responseJson = await res.json();
+>>>>>>> Stashed changes
 
 				// VALIDATE EMAIL /////////////////////////////////////////////////////////
 				// const isValid = this.validate({
