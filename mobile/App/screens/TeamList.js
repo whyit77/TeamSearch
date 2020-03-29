@@ -15,42 +15,129 @@ import { TeamListCard } from "../components/TeamListCard";
 
 export default class TeamList extends Component {
   state = {
-    name: "",
-    status: "",
-    admin: "",
+    team: "",
+    teamName: "",
+    status: "Active", /////////////
+    creator: "",
     size: "",
-    description: "this is a description",
-    userId: "5e7031dc9c7708107b2bfaa7",
+    subjectDescription: "",
+    // userId: "5e7e46af4f99bb52f42369a4",
     joinedTeams: [],
     createdTeams: [],
     count: 1
   };
 
-  handleSubmit = () => {
+  getUserTeams = () => {
+    const userId = "5e7e46af4f99bb52f42369a4";
+
     let requestBody = {
       query: `
 		      query getUser($userId: String!) {
 		        getUser(userId: $userId) {
 		          joinedTeams {
-		            teamName
-		            searchDescription
-		            subjectDescription
+		            _id
 		          }
 		          createdTeams {
-		            teamName
+                _id
 		          }
 		        }
 		      }
 		    `,
       variables: {
-        userId: this.state.userId
+        userId: userId
       }
+    };
+
+    console.log("fetching...");
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.12:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(async res => {
+        const responseJson = await res.json();
+
+        console.log(responseJson);
+
+        if (res.ok) {
+          console.log("Okay Fetched Teams IDs");
+          const joinedTeams = responseJson.data.getUser.joinedTeams;
+          const createdTeams = responseJson.data.getUser.createdTeams;
+
+          this.setState({
+            joinedTeams: joinedTeams,
+            createdTeams: createdTeams
+          });
+
+          return responseJson;
+        }
+
+        throw new Error(responseJson.error);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  async componentDidMount() {
+    this.getUserTeams();
+    // const userId = "5e7e46af4f99bb52f42369a4";
+    const teamId = this.state.createdTeams[0]._id;
+    console.log("HELJLKJDFLJAOIDF");
+    console.log(this.state.createdTeams);
+
+    let requestBody = {
+      query: `
+        query getTeam($teamId: String!) {
+          getTeam(teamId: $teamId) {
+            _id
+            teamName
+            subjectDescription
+            creator {
+              username
+            }
+
+          }
+        }
+      `,
+      variables: {
+        teamId: teamId
+      }
+
+      // query: `
+      //     query getUser($userId: String!) {
+      //       getUser(userId: $userId) {
+      //         joinedTeams {
+      //           teamName
+      //           searchDescription
+      //           subjectDescription
+      //           creator {
+      //             username
+      //           }
+      //         }
+      //         createdTeams {
+      //           teamName
+      //           searchDescription
+      //           subjectDescription
+      //           creator {
+      //             username
+      //           }
+      //         }
+      //       }
+      //     }
+      //   `,
+      // variables: {
+      //   userId: userId
+      // }
     };
 
     if (this.state.count == 1) {
       console.log("fetching...");
 
-      fetch(`http://${process.env.IP_ADDR}:3000/graphql`, {
+      fetch("http://192.168.1.12:3000/graphql", {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {
@@ -64,11 +151,30 @@ export default class TeamList extends Component {
 
           if (res.ok) {
             console.log("Okay Fetched Teams");
-            // this.setState(initialState);
+
+            const joinedTeams = responseJson.data.getUser.joinedTeams;
+            const createdTeams = responseJson.data.getUser.createdTeams;
+
+            const teamName = responseJson.data.getUser.createdTeams.teamName;
+            const subjectDescription =
+              responseJson.data.getUser.createdTeams.subjectDescription;
+            const creator =
+              responseJson.data.getUser.createdTeams.creator.username;
+
+            const size = "2000";
+
+            this.setState({
+              teamName: teamName,
+              subjectDescription: subjectDescription,
+              creator: creator,
+              size: size,
+              joinedTeams: joinedTeams,
+              createdTeams: createdTeams
+            });
+
             return responseJson;
           }
 
-          // this.setState(initialState);
           this.setState({ error: responseJson.errors[0].message });
           throw new Error(responseJson.error);
         })
@@ -78,7 +184,7 @@ export default class TeamList extends Component {
 
       this.state.count = 2;
     }
-  };
+  }
 
   static navigationOptions = ({ navigation }) => {
     return {
@@ -106,15 +212,15 @@ export default class TeamList extends Component {
         <View style={mainStyle.container}>
           <ScrollView contentContainerStyle={mainStyle.container}>
             <View style={mainStyle.toplevel}>
-              <TouchableOpacity onPress={this.handleSubmit()}>
-                <Team
-                  name={"TeamSearch"}
-                  status={"Active"}
-                  admin={"Dr. Dan"}
-                  size={20}
-                  description={"Small boi"}
-                ></Team>
-              </TouchableOpacity>
+              {/* <TouchableOpacity onPress={this.handleSubmit()}> */}
+              <Team
+                name={this.state.teamName}
+                status={this.state.status}
+                admin={this.state.creator}
+                size={this.state.size}
+                description={this.state.subjectDescription}
+              ></Team>
+              {/* </TouchableOpacity> */}
               {/* <TouchableOpacity onPress={this.handleSubmit()}>
 								<TeamListCard
 									description={this.state.description}
