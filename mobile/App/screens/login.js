@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   ScrollView,
   Text,
@@ -10,12 +10,12 @@ import {
 import { TextField, ErrorText } from "../components/Form";
 import { Button } from "../components/Button";
 import {
-	buttonStyle,
-	mainStyle,
-	exampleText,
-	formStyle,
-	teamListStyle,
-} from '../styles/styles';
+  buttonStyle,
+  mainStyle,
+  exampleText,
+  formStyle,
+  teamListStyle
+} from "../styles/styles";
 
 // import { AuthContext } from "../context/auth-context";
 //////// TODO: LEARN TO DO AUTH TO HAVE LOGGED IN ID //////////////////
@@ -51,16 +51,9 @@ export default class Login extends React.Component {
       }
     };
 
-<<<<<<< Updated upstream
-    // CHECK IP ADDRESS ////////////////////////////////////////////////////////////////////////////// 192.168.157.2
-    // fetch("http://172.17.57.223:3000/graphql", {
-    fetch("http://192.168.157.2:3000/graphql", {
-=======
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
     // fetch("http://192.168.1.12:3000/graphql", {
     fetch("http://192.168.0.6:3000/graphql", {
-
->>>>>>> Stashed changes
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -96,11 +89,11 @@ export default class Login extends React.Component {
       });
   };
 
-	render() {
-		return (
-			<View style={mainStyle.toplevel}>
-				<View style={formStyle.formContainer}>
-					<StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+  render() {
+    return (
+      <View style={mainStyle.toplevel}>
+        <View style={formStyle.formContainer}>
+          <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
           <ScrollView contentContainerStyle={formStyle.formContainer}>
             <View style={formStyle.formContainer}>

@@ -1,70 +1,70 @@
 // App/screens/userSettings.js
 
-import React from 'react';
+import React from "react";
 import {
-	TextInput,
-	Switch,
-	Text,
-	View,
-	StyleSheet,
-	Image,
-	Alert,
-	Button,
-	StatusBar,
-	ScrollView,
-	TouchableOpacity,
-} from 'react-native';
+  TextInput,
+  Switch,
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  Alert,
+  Button,
+  StatusBar,
+  ScrollView,
+  TouchableOpacity
+} from "react-native";
 import {
-	buttonStyle,
-	mainStyle,
-	exampleText,
-	formStyle,
-	teamListStyle,
-} from '../styles/styles';
-import { TextField, ErrorText } from '../components/Form';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+  buttonStyle,
+  mainStyle,
+  exampleText,
+  formStyle,
+  teamListStyle
+} from "../styles/styles";
+import { TextField, ErrorText } from "../components/Form";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 // import { AuthContext } from "../context/auth-context";
 
 export default class App extends React.Component {
-	// static contextType = AuthContext;
+  // static contextType = AuthContext;
 
-	state = {
-		switchITValue: false,
-		switchLTValue: false,
-		username: '',
-		firstName: '',
-		lastName: '',
-		email: '',
-		desc: '',
-		phone: '',
-		// changePass: "",
-		// confirmPass: ""
-	};
+  state = {
+    switchITValue: false,
+    switchLTValue: false,
+    username: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    desc: "",
+    phone: ""
+    // changePass: "",
+    // confirmPass: ""
+  };
 
-	toggleITSwitch = value => {
-		this.setState({ switchITValue: value });
-	};
+  toggleITSwitch = value => {
+    this.setState({ switchITValue: value });
+  };
 
-	toggleLTSwitch = value => {
-		this.setState({ switchLTValue: value });
-	};
+  toggleLTSwitch = value => {
+    this.setState({ switchLTValue: value });
+  };
 
-	componentDidMount() {
-		// const user1 = this.props.navigation.getParams("_id", {});
-		// const user1 = "test2";
-		let requestBody = {
-			//   query: `
-			//     query getUser($username: String!) {
-			//       getUser(username: $username) {
-			//         _id
-			//         username
-			//       }
-			//     }`,
-			//   variables: {
-			//     username: user1
-			//   }
-			query: `
+  componentDidMount() {
+    // const user1 = this.props.navigation.getParams("_id", {});
+    // const user1 = "test2";
+    let requestBody = {
+      //   query: `
+      //     query getUser($username: String!) {
+      //       getUser(username: $username) {
+      //         _id
+      //         username
+      //       }
+      //     }`,
+      //   variables: {
+      //     username: user1
+      //   }
+      query: `
         query {
           me {
             _id
@@ -76,7 +76,6 @@ export default class App extends React.Component {
             phone
           }
         }
-<<<<<<< Updated upstream
       `,
 		}; // TODO: FIX currently pulls first person in database
 
@@ -152,14 +151,12 @@ export default class App extends React.Component {
 					</View>
 					<View>
 						{/* <TextField
-=======
+
       `
     }; // TODO: FIX currently pulls first person in database
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    // fetch("http://192.168.1.12:3000/graphql", {
-    fetch("http://192.168.0.6:3000/graphql", {
-
+    fetch("http://192.168.1.12:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -228,87 +225,87 @@ export default class App extends React.Component {
             </View>
             <View>
               {/* <TextField
->>>>>>> Stashed changes
+
               // onChangeText={username => this.setState({ username })}
               // placeholder="Username"
               value={this.state.username}
               maxLength={40}
             /> */}
-						<Text style={mainStyle.smallText}>{this.state.username}</Text>
-						{/* <TextField
+              <Text style={mainStyle.smallText}>{this.state.username}</Text>
+              {/* <TextField
               onChangeText={name => this.setState({ name })}
               placeholder="Name"
               maxLength={40}
             /> */}
-						<Text style={mainStyle.smallText}>
-							{this.state.firstName} {this.state.lastName}
-						</Text>
-						{/* <TextField
+              <Text style={mainStyle.smallText}>
+                {this.state.firstName} {this.state.lastName}
+              </Text>
+              {/* <TextField
               onChangeText={email => this.setState({ email })}
               placeholder="Email"
               maxLength={40}
             /> */}
-						<Text style={mainStyle.smallText}>{this.state.email}</Text>
-						{/* <TextField
+              <Text style={mainStyle.smallText}>{this.state.email}</Text>
+              {/* <TextField
               onChangeText={cert => this.setState({ cert })}
               placeholder="Certifications/Descriptions"
               maxLength={250}
             /> */}
-						<Text style={mainStyle.smallText}>{this.state.desc}</Text>
-						{/* <TextField
+              <Text style={mainStyle.smallText}>{this.state.desc}</Text>
+              {/* <TextField
               onChangeText={cell => this.setState({ cell })}
               placeholder="Cell #"
               maxLength={40}
             /> */}
-						<Text style={mainStyle.smallText}>{this.state.phone}</Text>
-						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-							<Switch
-								style={formStyle.toggle}
-								onValueChange={this.toggleITSwitch}
-								value={this.state.switchITValue}
-								trackColor={{ true: 'red', false: 'grey' }}
-							/>
-							<Text style={formStyle.toggleLabel}> View Inactive Teams </Text>
-							{/* <Text>{this.state.switchITValue ? "ON" : "OFF"}</Text> */}
-						</View>
+              <Text style={mainStyle.smallText}>{this.state.phone}</Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Switch
+                  style={formStyle.toggle}
+                  onValueChange={this.toggleITSwitch}
+                  value={this.state.switchITValue}
+                  trackColor={{ true: "red", false: "grey" }}
+                />
+                <Text style={formStyle.toggleLabel}> View Inactive Teams </Text>
+                {/* <Text>{this.state.switchITValue ? "ON" : "OFF"}</Text> */}
+              </View>
 
-						<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-							<Switch
-								style={formStyle.toggle}
-								onValueChange={this.toggleLTSwitch}
-								value={this.state.switchLTValue}
-								trackColor={{ true: 'red', false: 'grey' }}
-							/>
-							<Text style={formStyle.toggleLabel}> Location Tracking </Text>
-							{/* <Text>{this.state.switchLTValue ? 'ON' : 'OFF'}</Text> */}
-						</View>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Switch
+                  style={formStyle.toggle}
+                  onValueChange={this.toggleLTSwitch}
+                  value={this.state.switchLTValue}
+                  trackColor={{ true: "red", false: "grey" }}
+                />
+                <Text style={formStyle.toggleLabel}> Location Tracking </Text>
+                {/* <Text>{this.state.switchLTValue ? 'ON' : 'OFF'}</Text> */}
+              </View>
 
-						<TextField
-							onChangeText={changePass => this.setState({ changePass })}
-							placeholder="Change Password"
-							maxLength={40}
-							selectionColor='red'
-							keyboardAppearance='dark'
-							color='white'
-						/>
+              <TextField
+                onChangeText={changePass => this.setState({ changePass })}
+                placeholder="Change Password"
+                maxLength={40}
+                selectionColor="red"
+                keyboardAppearance="dark"
+                color="white"
+              />
 
-						<TextField
-							onChangeText={confirmPass => this.setState({ confirmPass })}
-							placeholder="Confirm Password"
-							maxLength={40}
-							selectionColor='red'
-							keyboardAppearance='dark'
-							color='white'
-						/>
-						<View style={mainStyle.container}>
-							<TouchableOpacity style={buttonStyle.buttonContainer}>
-								<Text style={buttonStyle.buttonText}>Save</Text>
-							</TouchableOpacity>
-						</View>
-					</View>
-				</ScrollView>
-				</KeyboardAwareScrollView>
-			</View>
-		);
-	}
+              <TextField
+                onChangeText={confirmPass => this.setState({ confirmPass })}
+                placeholder="Confirm Password"
+                maxLength={40}
+                selectionColor="red"
+                keyboardAppearance="dark"
+                color="white"
+              />
+              <View style={mainStyle.container}>
+                <TouchableOpacity style={buttonStyle.buttonContainer}>
+                  <Text style={buttonStyle.buttonText}>Save</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ScrollView>
+        </KeyboardAwareScrollView>
+      </View>
+    );
+  }
 }
