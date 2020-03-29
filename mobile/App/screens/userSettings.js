@@ -52,7 +52,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     // TODO: GET CURRENT LOGGED IN USER //
-    const userId = "5e7e46af4f99bb52f42369a4";
+    const userId = "5e8128507fa7512864614452";
 
     let requestBody = {
       query: `

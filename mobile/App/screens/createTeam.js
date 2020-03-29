@@ -39,7 +39,7 @@ export default class CreateTeam extends React.Component {
     console.log(radius);
 
     // TODO: NEED CURRENT LOGGED IN USER ID ///
-    const userId = "5e7e46af4f99bb52f42369a4";
+    const userId = "5e8128507fa7512864614452";
 
     let requestBody = {
       query: `

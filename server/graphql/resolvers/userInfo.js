@@ -1,6 +1,7 @@
 // const Event = require('../../models/event');
 // const Booking = require('../../models/booking');
 const { user } = require("./merge");
+const { transformUser, bindUser } = require("./merge");
 const User = require("../../models/user");
 
 module.exports = {
@@ -14,10 +15,7 @@ module.exports = {
     try {
       const user = await User.findById({ _id: args.userId });
 
-      return {
-        ...user._doc,
-        _id: user.id
-      };
+      return transformUser(user);
     } catch (err) {
       throw err;
     }
