@@ -25,21 +25,21 @@ const teams = async teamIds => {
 	}
 };
 
-const singleEvent = async eventId => {
-	try {
-		const event = await Event.findById(eventId);
-		return transformEvent(event);
-	} catch (err) {
-		throw err;
-	}
-};
-
 const users = async userIds => {
 	try {
 		const users = await User.find({ _id: { $in: userIds } });
 		return users.map(user => {
 			return transformUser(user);
 		});
+	} catch (err) {
+		throw err;
+	}
+};
+
+const singleEvent = async eventId => {
+	try {
+		const event = await Event.findById(eventId);
+		return transformEvent(event);
 	} catch (err) {
 		throw err;
 	}

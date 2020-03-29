@@ -25,7 +25,7 @@ module.exports = {
 		try {
 			const team = await Team.findById(req.teamId);
 
-      console.log(team)
+			console.log(team);
 			return transformTeam(team);
 		} catch (err) {
 			throw err;
@@ -61,6 +61,35 @@ module.exports = {
 			await creator.save();
 
 			return createdTeam;
+		} catch (err) {
+			console.log(err);
+			throw err;
+		}
+	},
+	joinTeam: async (args, req) => {
+		// if (!req.isAuth) {
+		// 	throw new Error('Unauthenticated!');
+		// }
+
+		req.userId = '5e810bca46838b520f986577';
+		try {
+			let user = await User.findById(req.userId);
+			if (!user) {
+				throw new Error('User not found.');
+			}
+
+			let team = await Team.findOne({ code: args.teamCode });
+			if (!team) {
+				throw new Error('Team not found.');
+			}
+
+			team.members.push(user);
+			await team.save();
+
+			user.joinedTeams.push(team);
+			await user.save();
+
+			return transformTeam(team);
 		} catch (err) {
 			console.log(err);
 			throw err;

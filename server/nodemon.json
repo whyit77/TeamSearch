@@ -1,7 +1,8 @@
 {
 	"env": {
-		"MONGO_USER": "wzeimis",
-		"MONGO_PASSWORD": "Flames77",
-		"MONGO_DB": "team-search"
+		"MONGO_USER": "<>",
+		"MONGO_PASSWORD": "<>",
+		"MONGO_DB": "<>",
+		"MONGO_CLUSTER": "<>"
 	}
 }

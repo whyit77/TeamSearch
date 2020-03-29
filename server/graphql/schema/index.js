@@ -78,7 +78,6 @@ type RootQuery {
     events: [Event!]!
     bookings: [Booking!]!
     teams: [Team!]!
-    login2(email: String!, password: String!): AuthData!
     login(username: String!, password: String!): AuthData!
     getUser(userId: String!): User!
     getTeam(teamId: String!): Team!
@@ -91,6 +90,7 @@ type RootMutation {
     createTeam(teamInput: TeamInput): Team
     bookEvent(eventId: ID!): Booking!
     cancelBooking(bookingId: ID!): Event!
+    joinTeam(teamCode: String!): Team
 }
 
 schema {
