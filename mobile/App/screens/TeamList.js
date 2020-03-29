@@ -20,7 +20,7 @@ export default class TeamList extends Component {
     admin: "",
     size: "",
     description: "this is a description",
-    userId: "5e7031dc9c7708107b2bfaa7",
+    userId: "5e7b28d09185c24b94beaa89",
     joinedTeams: [],
     createdTeams: [],
     count: 1
@@ -50,7 +50,7 @@ export default class TeamList extends Component {
     if (this.state.count == 1) {
       console.log("fetching...");
 
-      fetch(`http://${process.env.IP_ADDR}:3000/graphql`, {
+      fetch(`http://192.168.0.6:3000/graphql`, {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {

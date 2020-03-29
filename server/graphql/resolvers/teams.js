@@ -37,7 +37,7 @@ module.exports = {
     // }
 
     // TODO: NEED CURRENT LOGGED IN USER ID ///
-    req.userId = "5e7b1daaa2b8f6182851c49e";
+    req.userId = "5e7b28d09185c24b94beaa89";
     let creator;
     try {
       creator = await User.findById(req.userId);

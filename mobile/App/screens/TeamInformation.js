@@ -37,7 +37,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     // TODO: GET CURRENT TEAM (just made or selected from list) //
-    const teamId = "5e7f2597975c644820d3d66c";
+    const teamId = "5e801af7d887d4159c84a580";
 
     let requestBody = {
       query: `
@@ -60,7 +60,7 @@ export default class App extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.12:3000/graphql", {
+    fetch("http://192.168.0.6:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -110,33 +110,46 @@ export default class App extends React.Component {
           enabled
         >
           <ScrollView contentContainerStyle={formStyle.formContainer}>
-            <View style={formStyle.formContainer}>
-              <Text style={mainStyle.smallText}>{this.state.teamName}</Text>
-              <Text style={mainStyle.smallText}>{this.state.code}</Text>
-              <Text style={mainStyle.smallText}>
-                {this.state.searchDescription}
-              </Text>
-              <Text style={mainStyle.smallText}>
-                {this.state.subjectDescription}
-              </Text>
-              <Text style={mainStyle.smallText}>{this.state.radius}</Text>
-              {/* <Text style={formStyle.label}>Search Description</Text>
-              <TextField placeholder="Description" editable={false} />
-              <Text style={formStyle.label}>Object Description</Text>
-              <TextField placeholder="Object" editable={false} /> */}
+            <View style={formStyle.formContainer, {paddingVertical: 20}}>
+
+              <Text style={formStyle.label}>Team Name: </Text>
+              <TextField editable={false}>
+              <Text style={formStyle.fillInText}>{this.state.teamName}</Text>
+               </TextField>
+               
+              {/* <Text style={formStyle.fillInText}>{this.state.teamName}</Text> */}
+
+              <Text style={formStyle.label}>Code: </Text>
+              {/* <Text style={formStyle.fillInText}>{this.state.code}</Text> */}
+              <TextField editable={false}>
+              <Text style={formStyle.fillInText}>{this.state.code}</Text>
+               </TextField>
+
+              <Text style={formStyle.label}>Search Description: </Text>
+              <TextField editable={false}>
+              <Text style={formStyle.placeholderStyle}>{this.state.searchDescription}</Text>
+               </TextField>
+              {/* <Text style={formStyle.fillInText}>{this.state.searchDescription}</Text> */}
+
+              <Text style={formStyle.label}>Subject: </Text>
+              <TextField editable={false}>
+              <Text style={formStyle.placeholderStyle}>{this.state.subjectDescription}</Text>
+               </TextField>
+              {/* <Text style={formStyle.fillInText}>{this.state.subjectDescription}</Text> */}
+
+              <Text style={formStyle.label}>Search Radius: <Text style={formStyle.fillInText}>{this.state.radius}</Text> miles</Text>
+              
+{/* 
+
+              <Text style={formStyle.label}>Search Description</Text>
+              <TextField placeholder="Description" editable={false}>
+              <Text style={formStyle.fillInText}>{this.state.subjectDescription}</Text>
+               </TextField> */}
+               </View>
+               <View>
+
               <View style={formStyle.buttons}>
-                {/* <TouchableOpacity
-                  style={formStyle.formButton}
-                  onPress={() => this.props.navigation.navigate("Map")}
-                >
-                  <Text style={mainStyle.smallText}>Map</Text>
-                </TouchableOpacity> */}
-                {/* <TouchableOpacity
-              style={formStyle.formButton}
-              onPress={() => navigation.navigate("DataExport")}
-            >
-              <Text style={mainStyle.smallText}>Export Data</Text>
-            </TouchableOpacity> */}
+              
                 <TouchableOpacity
                   style={formStyle.formButton}
                   onPress={() => this.props.navigation.navigate("TeamAlerts")}
