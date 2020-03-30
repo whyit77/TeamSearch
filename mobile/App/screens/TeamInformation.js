@@ -37,7 +37,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     // TODO: GET CURRENT TEAM (just made or selected from list) //
-    const teamId = "5e801af7d887d4159c84a580";
+    const teamId = "5e8128d77fa7512864614453";
 
     let requestBody = {
       query: `
