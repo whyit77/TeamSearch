@@ -78,16 +78,16 @@ export default class CreateAccount extends React.Component {
       }
     };
 
-    // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.12:3000/graphql", {
-      method: "POST",
-      body: JSON.stringify(requestBody),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(async res => {
-        const responseJson = await res.json();
+		// CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
+		fetch('http://<IPv4>:3000/graphql', {
+			method: 'POST',
+			body: JSON.stringify(requestBody),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+			.then(async res => {
+				const responseJson = await res.json();
 
         // VALIDATE EMAIL /////////////////////////////////////////////////////////
         // const isValid = this.validate({

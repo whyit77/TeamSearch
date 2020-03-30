@@ -114,19 +114,19 @@ export default class TeamMemberList extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  text: {
-    color: "black",
-    fontSize: 15,
-    textAlign: "center",
+	container: {
+		flex: 1,
+		backgroundColor: '#fff',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	text: {
+		color: 'black',
+		fontSize: 15,
+		textAlign: 'center',
 
-    fontWeight: "600"
-  }
+		fontWeight: '600',
+	},
 });
 
 

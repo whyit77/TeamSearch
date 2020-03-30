@@ -14,12 +14,29 @@ module.exports = {
 			throw err;
 		}
 	},
+	getTeam: async (args, req) => {
+		console.log('GET TEAM');
+		// if (!req.isAuth) {
+		//   throw new Error("Unauthenticated!");
+		// }
+
+		req.teamId = '5e7036ad802861124f9bc10c';
+
+		try {
+			const team = await Team.findById(req.teamId);
+
+			console.log(team);
+			return transformTeam(team);
+		} catch (err) {
+			throw err;
+		}
+	},
 	createTeam: async (args, req) => {
 		// if (!req.isAuth) {
 		// 	throw new Error('Unauthenticated!');
 		// }
 
-		req.userId = '5e55f703d063a029c394e837';
+		req.userId = '5e7031dc9c7708107b2bfaa7';
 		let creator;
 		try {
 			creator = await User.findById(req.userId);
@@ -29,7 +46,8 @@ module.exports = {
 
 			const team = new Team({
 				title: args.teamInput.title,
-				description: args.teamInput.description,
+				searchDescription: args.teamInput.searchDescription,
+				subjectDescription: args.teamInput.subjectDescription,
 				code: randomize('Aa0', 8),
 				creator: req.userId,
 				members: [creator],
@@ -43,6 +61,35 @@ module.exports = {
 			await creator.save();
 
 			return createdTeam;
+		} catch (err) {
+			console.log(err);
+			throw err;
+		}
+	},
+	joinTeam: async (args, req) => {
+		// if (!req.isAuth) {
+		// 	throw new Error('Unauthenticated!');
+		// }
+
+		req.userId = '5e810bca46838b520f986577';
+		try {
+			let user = await User.findById(req.userId);
+			if (!user) {
+				throw new Error('User not found.');
+			}
+
+			let team = await Team.findOne({ code: args.teamCode });
+			if (!team) {
+				throw new Error('Team not found.');
+			}
+
+			team.members.push(user);
+			await team.save();
+
+			user.joinedTeams.push(team);
+			await user.save();
+
+			return transformTeam(team);
 		} catch (err) {
 			console.log(err);
 			throw err;
