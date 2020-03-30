@@ -74,7 +74,7 @@ export default class TeamMemberList extends Component {
 
   componentDidMount() {
     // TODO: GET CURRENT TEAM (selected from list) //
-    const teamId = "5e8128d77fa7512864614453";
+    const teamId = "5e81944fa0359f3990076177";
 
     let requestBody = {
       query: `

@@ -24,7 +24,8 @@ export default class TeamList extends Component {
     // userId: "5e7e46af4f99bb52f42369a4",
     joinedTeams: [],
     // createdTeams: [],
-    count: 1
+    count: 1,
+    data: []
   };
 
   componentDidMount() {
@@ -76,21 +77,39 @@ export default class TeamList extends Component {
             const joinedTeams = responseJson.data.getUser.joinedTeams;
             // const createdTeams = responseJson.data.getUser.createdTeams;
 
-            const teamName = responseJson.data.getUser.joinedTeams[0].teamName;
+            const teamName = responseJson.data.getUser.joinedTeams[1].teamName;
             const subjectDescription =
-              responseJson.data.getUser.joinedTeams[0].subjectDescription;
+              responseJson.data.getUser.joinedTeams[1].subjectDescription;
             const creator =
-              responseJson.data.getUser.joinedTeams[0].creator.username;
+              responseJson.data.getUser.joinedTeams[1].creator.username;
 
-            const members = responseJson.data.getUser.joinedTeams[0].members;
+            const members = responseJson.data.getUser.joinedTeams[1].members;
             const size = members.length;
+
+            console.log("--------");
+            console.log(joinedTeams);
+
+            const info = [];
+            const row = [];
+            for (let i = 0; i < joinedTeams.length; i++) {
+              row.push(joinedTeams[i].teamName);
+              row.push(joinedTeams[i].creator.username);
+              row.push(joinedTeams[i].subjectDescription);
+              row.push(joinedTeams[i].members);
+              row.push(joinedTeams[i].members.length);
+
+              info.push(row);
+            }
+            console.log("HI");
+            console.log(info);
 
             this.setState({
               teamName: teamName,
               subjectDescription: subjectDescription,
               creator: creator,
               size: size,
-              joinedTeams: joinedTeams
+              joinedTeams: joinedTeams,
+              data: info
               // createdTeams: createdTeams
             });
 
@@ -131,26 +150,55 @@ export default class TeamList extends Component {
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
-        <View style={mainStyle.container}>
-          <ScrollView contentContainerStyle={mainStyle.container}>
-            <View style={mainStyle.toplevel}>
-              {/* <TouchableOpacity onPress={this.handleSubmit()}> */}
-              <Team
+        <FlatList
+          data={this.state.data}
+          renderItem={({ item: rowData }) => {
+            return (
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate("TeamInfo")}
+                // TODO: NEED TO PASS SELECTED TEAM ID TO teamInfo page //
+              >
+                {/* <Text style={mainStyle.text}>{rowData}</Text> */}
+                <Team
+                  name={rowData[0]}
+                  status={this.state.status}
+                  admin={rowData[1]}
+                  size={rowData[4]}
+                  description={rowData[2]}
+                />
+                {/* <Team
                 name={this.state.teamName}
                 status={this.state.status}
                 admin={this.state.creator}
                 size={this.state.size}
                 description={this.state.subjectDescription}
-              ></Team>
-              {/* </TouchableOpacity> */}
-              {/* <TouchableOpacity onPress={this.handleSubmit()}>
+              /> */}
+              </TouchableOpacity>
+            );
+          }}
+          keyExtractor={(item, index) => index}
+        />
+
+        {/* <View style={mainStyle.container}>
+          <ScrollView contentContainerStyle={mainStyle.container}>
+            <View style={mainStyle.toplevel}> */}
+        {/* <TouchableOpacity onPress={this.handleSubmit()}> */}
+        {/* <Team
+                name={this.state.teamName}
+                status={this.state.status}
+                admin={this.state.creator}
+                size={this.state.size}
+                description={this.state.subjectDescription}
+              /> */}
+        {/* </TouchableOpacity> */}
+        {/* <TouchableOpacity onPress={this.handleSubmit()}>
 								<TeamListCard
 									description={this.state.description}
 								></TeamListCard>
 							</TouchableOpacity> */}
-            </View>
+        {/* </View>
           </ScrollView>
-        </View>
+        </View> */}
       </SafeAreaView>
     );
   }
