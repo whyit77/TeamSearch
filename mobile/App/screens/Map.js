@@ -1,9 +1,10 @@
 import React from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import { Dimensions, StyleSheet, View, Animated } from "react-native";
+import MapView, { PROVIDER_GOOGLE, AnimatedRegion } from "react-native-maps";
 import { Heatmap, Marker } from "react-native-maps";
 
-import { area } from "../screens/DefineSearchArea";
+import { createStackNavigator } from "react-navigation-stack";
+import { createAppContainer } from "react-navigation";
 
 const styles = StyleSheet.create({
   map: {
@@ -11,16 +12,30 @@ const styles = StyleSheet.create({
   }
 });
 
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 class Map extends React.Component {
-  state = {
-    initialPosition: {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      initialPosition: {
+        latitude: 40.7143,
+        longitude: -74.0042,
+        latitudeDelta: 0.09,
+        longitudeDelta: 0.035
+      },
       latitude: 40.7143,
       longitude: -74.0042,
-      latitudeDelta: 0.09,
-      longitudeDelta: 0.035
-    },
-    radius: area
-  };
+      markers: []
+    };
+
+    this.handlePress = this.handlePress.bind(this);
+  }
 
   points = [
     { latitude: 40.7828, longitude: -74.0065, weight: 1 },
@@ -66,13 +81,19 @@ class Map extends React.Component {
     { latitude: 41.0232, longitude: -74.0014, weight: 1 }
   ];
 
-  onPress = () => {
-    console.log("Pressed.");
-  };
+  handlePress(e) {
+    this.setState({
+      markers: [
+        ...this.state.markers,
+        {
+          coordinate: e.nativeEvent.coordinate,
+          pin: `$$getRandomInt(50,300)`
+        }
+      ]
+    });
+  }
 
   render() {
-    // console.log(this.state.radius);
-    // let { width } = Dimensions.get("window");
     return (
       <MapView
         provider={PROVIDER_GOOGLE}
@@ -80,6 +101,7 @@ class Map extends React.Component {
         style={styles.map}
         initialRegion={this.state.initialPosition}
         showsUserLocation={true}
+        onPress={this.handlePress}
       >
         <Heatmap
           initialRegion={this.state.initialPosition}
@@ -108,10 +130,20 @@ class Map extends React.Component {
             opacity: 0.3
           }}
         /> */}
-        <Marker
-          coordinate={{ latitude: 40.7143, longitude: -74.0042 }}
-          onPress={this.onPress}
-        />
+
+        {this.state.markers.map((marker, i) => {
+          return (
+            <Marker
+              key={i}
+              title="Pin"
+              description="This is the missing item!"
+              {...marker}
+              onCalloutPress={navigation =>
+                navigation.navigate("PinInformation")
+              }
+            />
+          );
+        })}
       </MapView>
     );
   }
