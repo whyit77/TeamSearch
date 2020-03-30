@@ -60,7 +60,7 @@ export default class App extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.0.6:3000/graphql", {
+    fetch("http://192.168.1.12:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -110,46 +110,51 @@ export default class App extends React.Component {
           enabled
         >
           <ScrollView contentContainerStyle={formStyle.formContainer}>
-            <View style={formStyle.formContainer, {paddingVertical: 20}}>
-
+            <View style={(formStyle.formContainer, { paddingVertical: 20 })}>
               <Text style={formStyle.label}>Team Name: </Text>
               <TextField editable={false}>
-              <Text style={formStyle.fillInText}>{this.state.teamName}</Text>
-               </TextField>
-               
+                <Text style={formStyle.fillInText}>{this.state.teamName}</Text>
+              </TextField>
+
               {/* <Text style={formStyle.fillInText}>{this.state.teamName}</Text> */}
 
               <Text style={formStyle.label}>Code: </Text>
               {/* <Text style={formStyle.fillInText}>{this.state.code}</Text> */}
               <TextField editable={false}>
-              <Text style={formStyle.fillInText}>{this.state.code}</Text>
-               </TextField>
+                <Text style={formStyle.fillInText}>{this.state.code}</Text>
+              </TextField>
 
               <Text style={formStyle.label}>Search Description: </Text>
               <TextField editable={false}>
-              <Text style={formStyle.placeholderStyle}>{this.state.searchDescription}</Text>
-               </TextField>
+                <Text style={formStyle.placeholderStyle}>
+                  {this.state.searchDescription}
+                </Text>
+              </TextField>
               {/* <Text style={formStyle.fillInText}>{this.state.searchDescription}</Text> */}
 
               <Text style={formStyle.label}>Subject: </Text>
               <TextField editable={false}>
-              <Text style={formStyle.placeholderStyle}>{this.state.subjectDescription}</Text>
-               </TextField>
+                <Text style={formStyle.placeholderStyle}>
+                  {this.state.subjectDescription}
+                </Text>
+              </TextField>
               {/* <Text style={formStyle.fillInText}>{this.state.subjectDescription}</Text> */}
 
-              <Text style={formStyle.label}>Search Radius: <Text style={formStyle.fillInText}>{this.state.radius}</Text> miles</Text>
-              
-{/* 
+              <Text style={formStyle.label}>
+                Search Radius:{" "}
+                <Text style={formStyle.fillInText}>{this.state.radius}</Text>{" "}
+                miles
+              </Text>
+
+              {/* 
 
               <Text style={formStyle.label}>Search Description</Text>
               <TextField placeholder="Description" editable={false}>
               <Text style={formStyle.fillInText}>{this.state.subjectDescription}</Text>
                </TextField> */}
-               </View>
-               <View>
-
+            </View>
+            <View>
               <View style={formStyle.buttons}>
-              
                 <TouchableOpacity
                   style={formStyle.formButton}
                   onPress={() => this.props.navigation.navigate("TeamAlerts")}

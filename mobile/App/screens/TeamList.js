@@ -6,7 +6,8 @@ import {
   StyleSheet,
   View,
   SafeAreaView,
-  StatusBar
+  StatusBar,
+  FlatList
 } from "react-native";
 import { Team } from "../components/Team";
 import { mainStyle } from "../styles/styles";
@@ -15,12 +16,11 @@ import { TeamListCard } from "../components/TeamListCard";
 
 export default class TeamList extends Component {
   state = {
-    team: "",
-    teamName: "",
+    // teamName: "",
     status: "Active", /////////////
-    creator: "",
-    size: 0,
-    subjectDescription: "",
+    // creator: "",
+    // size: 0,
+    // subjectDescription: "",
     // userId: "5e7e46af4f99bb52f42369a4",
     joinedTeams: [],
     // createdTeams: [],
@@ -75,40 +75,33 @@ export default class TeamList extends Component {
             console.log("Okay Fetched Teams");
 
             const joinedTeams = responseJson.data.getUser.joinedTeams;
-            // const createdTeams = responseJson.data.getUser.createdTeams;
+            // // const createdTeams = responseJson.data.getUser.createdTeams;
 
-            const teamName = responseJson.data.getUser.joinedTeams[1].teamName;
-            const subjectDescription =
-              responseJson.data.getUser.joinedTeams[1].subjectDescription;
-            const creator =
-              responseJson.data.getUser.joinedTeams[1].creator.username;
+            // const teamName = responseJson.data.getUser.joinedTeams[1].teamName;
+            // const subjectDescription =
+            //   responseJson.data.getUser.joinedTeams[1].subjectDescription;
+            // const creator =
+            //   responseJson.data.getUser.joinedTeams[1].creator.username;
 
-            const members = responseJson.data.getUser.joinedTeams[1].members;
-            const size = members.length;
+            // const members = responseJson.data.getUser.joinedTeams[1].members;
+            // const size = members.length;
 
-            console.log("--------");
-            console.log(joinedTeams);
+            // console.log("--------");
+            // console.log(joinedTeams);
 
             const info = [];
-            const row = [];
             for (let i = 0; i < joinedTeams.length; i++) {
-              row.push(joinedTeams[i].teamName);
-              row.push(joinedTeams[i].creator.username);
-              row.push(joinedTeams[i].subjectDescription);
-              row.push(joinedTeams[i].members);
-              row.push(joinedTeams[i].members.length);
-
-              info.push(row);
+              info.push(joinedTeams[i]);
             }
-            console.log("HI");
-            console.log(info);
+            // console.log("======");
+            // console.log(info);
 
             this.setState({
-              teamName: teamName,
-              subjectDescription: subjectDescription,
-              creator: creator,
-              size: size,
-              joinedTeams: joinedTeams,
+              // teamName: teamName,
+              // subjectDescription: subjectDescription,
+              // creator: creator,
+              // size: size,
+              // joinedTeams: joinedTeams,
               data: info
               // createdTeams: createdTeams
             });
@@ -127,24 +120,24 @@ export default class TeamList extends Component {
     }
   }
 
-  static navigationOptions = ({ navigation }) => {
-    return {
-      headerRight: (
-        <CreateTeamMenuIcon
-          option1="Create Team"
-          option2="Join Team"
-          menuStyle={{
-            marginRight: 40,
-            flexDirection: "row",
-            justifyContent: "flex-end"
-          }}
-          option1Click={() => {
-            navigation.navigate("CreateTeam");
-          }}
-        />
-      )
-    };
-  };
+  // static navigationOptions = ({ navigation }) => {
+  //   return {
+  //     headerRight: (
+  //       <CreateTeamMenuIcon
+  //         option1="Create Team"
+  //         option2="Join Team"
+  //         menuStyle={{
+  //           marginRight: 40,
+  //           flexDirection: "row",
+  //           justifyContent: "flex-end"
+  //         }}
+  //         option1Click={() => {
+  //           navigation.navigate("CreateTeam");
+  //         }}
+  //       />
+  //     )
+  //   };
+  // };
   render() {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
@@ -160,11 +153,11 @@ export default class TeamList extends Component {
               >
                 {/* <Text style={mainStyle.text}>{rowData}</Text> */}
                 <Team
-                  name={rowData[0]}
+                  name={rowData.teamName}
                   status={this.state.status}
-                  admin={rowData[1]}
-                  size={rowData[4]}
-                  description={rowData[2]}
+                  admin={rowData.creator.username}
+                  size={rowData.members.length}
+                  description={rowData.subjectDescription}
                 />
                 {/* <Team
                 name={this.state.teamName}

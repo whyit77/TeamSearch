@@ -63,7 +63,7 @@ export default class CreateTeam extends React.Component {
     };
 
     // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.0.6:3000/graphql", {
+    fetch("http://192.168.1.12:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -159,7 +159,7 @@ export default class CreateTeam extends React.Component {
                 selectionColor="red"
                 keyboardAppearance="dark"
                 labelTextColor="white"
-                autoCapitalize='words'
+                autoCapitalize="words"
               />
               {/* <Text style={formStyle.label} >Team Code: {this.state.code}</Text> */}
               {/* <TextField
