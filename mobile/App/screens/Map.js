@@ -1,9 +1,6 @@
 import React from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
-import { Heatmap, Marker } from "react-native-maps";
-
-import { area } from "../screens/DefineSearchArea";
+import { StyleSheet } from "react-native";
+import MapView, { PROVIDER_GOOGLE, Heatmap, Marker } from "react-native-maps";
 
 const styles = StyleSheet.create({
   map: {
@@ -12,16 +9,30 @@ const styles = StyleSheet.create({
 });
 import { EmbeddedWebView } from "../components/EmbeddedWebView";
 
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 class Map extends React.Component {
-  state = {
-    initialPosition: {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      initialPosition: {
+        latitude: 40.7143,
+        longitude: -74.0042,
+        latitudeDelta: 0.09,
+        longitudeDelta: 0.035
+      },
       latitude: 40.7143,
       longitude: -74.0042,
-      latitudeDelta: 0.09,
-      longitudeDelta: 0.035
-    },
-    radius: area
-  };
+      markers: []
+    };
+
+    this.handlePress = this.handlePress.bind(this);
+  }
 
   points = [
     { latitude: 40.7828, longitude: -74.0065, weight: 1 },
@@ -67,13 +78,19 @@ class Map extends React.Component {
     { latitude: 41.0232, longitude: -74.0014, weight: 1 }
   ];
 
-  onPress = () => {
-    console.log("Pressed.");
-  };
+  handlePress(e) {
+    this.setState({
+      markers: [
+        ...this.state.markers,
+        {
+          coordinate: e.nativeEvent.coordinate,
+          pin: `$$getRandomInt(50,300)`
+        }
+      ]
+    });
+  }
 
   render() {
-    // console.log(this.state.radius);
-    // let { width } = Dimensions.get("window");
     return (
       <MapView
         provider={PROVIDER_GOOGLE}
@@ -81,6 +98,7 @@ class Map extends React.Component {
         style={styles.map}
         initialRegion={this.state.initialPosition}
         showsUserLocation={true}
+        onPress={this.handlePress}
       >
         <Heatmap
           initialRegion={this.state.initialPosition}
@@ -92,27 +110,20 @@ class Map extends React.Component {
             colorMapSize: 200
           }}
         />
-        {/* <View
-          style={{
-            position: "absolute",
-            justifyContent: "center",
-            // Notes: Dimensions must be pulled in from user data
-            // top: -width / 2 + 100,
-            // left: -width / 2 + 50,
-            // right: -width / 2 + 50,
-            // bottom: -width / 2 + 200,
-            backgroundColor: "transparent",
-
-            borderWidth: width / 4,
-            borderRadius: width,
-            borderColor: "red",
-            opacity: 0.3
-          }}
-        /> */}
-        <Marker
-          coordinate={{ latitude: 40.7143, longitude: -74.0042 }}
-          onPress={this.onPress}
-        />
+        {this.state.markers.map((marker, i) => {
+          return (
+            <Marker
+              coordinate={this.state.x}
+              key={i}
+              title="Pin"
+              description="This is the missing item!"
+              {...marker}
+              draggable
+              onDragEnd={e => this.setState({ x: e.nativeEvent.coordinate })}
+              // image={require("../cougar_walk.jpg")}
+            />
+          );
+        })}
       </MapView>
     );
     return <EmbeddedWebView url={"http://localhost:8000/"} />;
