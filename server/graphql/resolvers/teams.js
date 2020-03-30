@@ -39,7 +39,7 @@ module.exports = {
     // }
 
     // TODO: NEED CURRENT LOGGED IN USER ID ///
-    req.userId = "5e7b28d09185c24b94beaa89";
+    req.userId = "5e815389f1088e659c4bddc4";
     let creator;
     try {
       const creator = await User.findById(args.userId);
@@ -54,7 +54,7 @@ module.exports = {
         radius: args.teamInput.radius,
         code: randomize("Aa0", 8),
         creator: args.userId,
-        members: [creator]
+        members: [creator],
       });
 
       const result = await team.save();

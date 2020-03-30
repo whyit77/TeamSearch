@@ -20,15 +20,15 @@ export default class TeamList extends Component {
     status: "Active", /////////////
     creator: "",
     size: "",
-    description: "this is a description",
-    userId: "5e7b28d09185c24b94beaa89",
+    description: "",
+    userId: "5e815389f1088e659c4bddc4",
     joinedTeams: [],
     // createdTeams: [],
     count: 1
   };
 
   // getUserTeams = () => {
-  //   const userId = "5e8128507fa7512864614452";
+  //   const userId = "5e815389f1088e659c4bddc4";
 
   //   let requestBody = {
   //     query: `
@@ -84,7 +84,7 @@ export default class TeamList extends Component {
 
   async componentDidMount() {
     // this.getUserTeams();
-    const userId = "5e8128507fa7512864614452";
+    const userId = "5e815389f1088e659c4bddc4";
     // const teamId = this.state.createdTeams[0]._id;
     // console.log("HELJLKJDFLJAOIDF");
     // console.log(this.state.createdTeams);
@@ -157,7 +157,7 @@ export default class TeamList extends Component {
     if (this.state.count == 1) {
       console.log("fetching...");
 
-      fetch("http://192.168.1.12:3000/graphql", {
+      fetch("http://192.168.0.6:3000/graphql", {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {
@@ -181,8 +181,8 @@ export default class TeamList extends Component {
             const creator =
               responseJson.data.getUser.joinedTeams[0].creator.username;
 
-            const size = "2000";
-
+            const size = "0";
+            
             this.setState({
               teamName: teamName,
               subjectDescription: subjectDescription,
@@ -224,16 +224,26 @@ export default class TeamList extends Component {
       )
     };
   };
+
   render() {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
         <View style={mainStyle.container}>
-          <ScrollView contentContainerStyle={mainStyle.container}>
-            <View style={mainStyle.toplevel}>
+          <ScrollView contentContainerStyle={mainStyle.toplevel}>
+            <View style={mainStyle.container}>
               {/* <TouchableOpacity onPress={this.handleSubmit()}> */}
               <Team
+                nav={() => this.props.navigation.navigate("TeamInformation")}
+                name={this.state.teamName}
+                status={this.state.status}
+                admin={this.state.creator}
+                size={this.state.size}
+                description={this.state.subjectDescription}
+              ></Team>
+              <Team
+                nav={() => this.props.navigation.navigate("TeamInformation")}
                 name={this.state.teamName}
                 status={this.state.status}
                 admin={this.state.creator}
@@ -252,4 +262,28 @@ export default class TeamList extends Component {
       </SafeAreaView>
     );
   }
+}
+
+function team({teams}) {
+  if ((!team)) {
+    return null;
+  }
+  if ((!team.length)) {
+    return <Text>You're not part of any teams! Press the  + to join a team.</Text>
+  }
+  return (
+    <View style={mainStyle.toplevel}>
+      {/* <TouchableOpacity onPress={this.handleSubmit()}> */}
+      {team.map(item => ( 
+        <Team
+            name={this.state.teamName}
+            status={this.state.status}
+            admin={this.state.creator}
+            size={this.state.size}
+            description={this.state.subjectDescription}
+        ></Team>
+      ))}
+      </View> 
+      
+  )
 }

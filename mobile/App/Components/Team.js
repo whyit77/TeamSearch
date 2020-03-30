@@ -4,9 +4,9 @@ import {mainStyle, teamListStyle} from '../styles/styles';
 import Icon from "react-native-vector-icons/Ionicons";
 
 
-export const Team = ({ name, status, admin, size, description }) => (
+export const Team = ({ name, status, admin, size, description , nav}) => (
 
-    <TouchableOpacity style={teamListStyle.teamContainer}>
+    <TouchableOpacity onPress={nav} style={teamListStyle.teamContainer}>
         <View style={teamListStyle.centerContainer}>
         <View style={teamListStyle.container1}>
             <View style={teamListStyle.nameContainer}>
@@ -15,7 +15,7 @@ export const Team = ({ name, status, admin, size, description }) => (
             </View>
             <View style={teamListStyle.statusContainer}>
                 <Text style={teamListStyle.teamLabelText}>Status: </Text>
-                <Text style={teamListStyle.teamInputText}>{status}</Text>
+                <Text style={teamListStyle.activeText}>{status}</Text>
             </View>
         </View>
         <View style={teamListStyle.container2}>
@@ -33,7 +33,8 @@ export const Team = ({ name, status, admin, size, description }) => (
         <View style={teamListStyle.container3}>
             <View style={teamListStyle.descriptionContainer}>
                 <Text style={teamListStyle.teamLabelText}>Description: </Text>
-                <Text style={teamListStyle.teamInputText}>{description}</Text>
+                <Text style={teamListStyle.teamInputText} adjustsFontSizeToFit={true} numberOfLines={1}>{description}</Text>
+                <Text style={teamListStyle.teamLabelText}>...</Text>
 
             </View>
         </View>

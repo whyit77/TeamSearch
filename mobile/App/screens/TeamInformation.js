@@ -37,7 +37,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     // TODO: GET CURRENT TEAM (just made or selected from list) //
-    const teamId = "5e8128d77fa7512864614453";
+    const teamId = "5e815a1ff1088e659c4bddc5";
 
     let requestBody = {
       query: `
@@ -126,13 +126,13 @@ export default class App extends React.Component {
                </TextField>
 
               <Text style={formStyle.label}>Search Description: </Text>
-              <TextField editable={false}>
+              <TextField editable={false} multiline={true}>
               <Text style={formStyle.placeholderStyle}>{this.state.searchDescription}</Text>
                </TextField>
               {/* <Text style={formStyle.fillInText}>{this.state.searchDescription}</Text> */}
 
               <Text style={formStyle.label}>Subject: </Text>
-              <TextField editable={false}>
+              <TextField editable={false} multiline={true}>
               <Text style={formStyle.placeholderStyle}>{this.state.subjectDescription}</Text>
                </TextField>
               {/* <Text style={formStyle.fillInText}>{this.state.subjectDescription}</Text> */}
