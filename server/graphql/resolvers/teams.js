@@ -25,7 +25,7 @@ module.exports = {
     try {
       const team = await Team.findById(args.teamId);
 
-      console.log(team);
+      // console.log(team);
       return transformTeam(team);
     } catch (err) {
       throw err;

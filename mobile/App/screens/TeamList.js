@@ -19,7 +19,7 @@ export default class TeamList extends Component {
     teamName: "",
     status: "Active", /////////////
     creator: "",
-    size: "",
+    size: 0,
     subjectDescription: "",
     // userId: "5e7e46af4f99bb52f42369a4",
     joinedTeams: [],
@@ -27,67 +27,9 @@ export default class TeamList extends Component {
     count: 1
   };
 
-  // getUserTeams = () => {
-  //   const userId = "5e8128507fa7512864614452";
-
-  //   let requestBody = {
-  //     query: `
-  // 	      query getUser($userId: String!) {
-  // 	        getUser(userId: $userId) {
-  // 	          joinedTeams {
-  // 	            _id
-  // 	          }
-  // 	          createdTeams {
-  //               _id
-  // 	          }
-  // 	        }
-  // 	      }
-  // 	    `,
-  //     variables: {
-  //       userId: userId
-  //     }
-  //   };
-
-  //   console.log("fetching...");
-  //   // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-  //   fetch("http://192.168.1.12:3000/graphql", {
-  //     method: "POST",
-  //     body: JSON.stringify(requestBody),
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     }
-  //   })
-  //     .then(async res => {
-  //       const responseJson = await res.json();
-
-  //       console.log(responseJson);
-
-  //       if (res.ok) {
-  //         console.log("Okay Fetched Teams IDs");
-  //         const joinedTeams = responseJson.data.getUser.joinedTeams;
-  //         const createdTeams = responseJson.data.getUser.createdTeams;
-
-  //         this.setState({
-  //           joinedTeams: joinedTeams,
-  //           createdTeams: createdTeams
-  //         });
-
-  //         return responseJson;
-  //       }
-
-  //       throw new Error(responseJson.error);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // };
-
-  async componentDidMount() {
-    // this.getUserTeams();
+  componentDidMount() {
+    // TODO: GET CURRENT LOGGED IN USER //
     const userId = "5e8128507fa7512864614452";
-    // const teamId = this.state.createdTeams[0]._id;
-    // console.log("HELJLKJDFLJAOIDF");
-    // console.log(this.state.createdTeams);
 
     let requestBody = {
       query: `
@@ -101,6 +43,9 @@ export default class TeamList extends Component {
                 creator {
                   username
                 }
+                members {
+                  username
+                }
 		          }
 		        }
 		      }
@@ -109,50 +54,6 @@ export default class TeamList extends Component {
         userId: userId
       }
     };
-    // let requestBody = {
-    //   query: `
-    //     query getTeam($teamId: String!) {
-    //       getTeam(teamId: $teamId) {
-    //         _id
-    //         teamName
-    //         subjectDescription
-    //         creator {
-    //           username
-    //         }
-
-    //       }
-    //     }
-    //   `,
-    //   variables: {
-    //     teamId: teamId
-    //   }
-
-    // query: `
-    //     query getUser($userId: String!) {
-    //       getUser(userId: $userId) {
-    //         joinedTeams {
-    //           teamName
-    //           searchDescription
-    //           subjectDescription
-    //           creator {
-    //             username
-    //           }
-    //         }
-    //         createdTeams {
-    //           teamName
-    //           searchDescription
-    //           subjectDescription
-    //           creator {
-    //             username
-    //           }
-    //         }
-    //       }
-    //     }
-    //   `,
-    // variables: {
-    //   userId: userId
-    // }
-    // };
 
     if (this.state.count == 1) {
       console.log("fetching...");
@@ -181,7 +82,8 @@ export default class TeamList extends Component {
             const creator =
               responseJson.data.getUser.joinedTeams[0].creator.username;
 
-            const size = "2000";
+            const members = responseJson.data.getUser.joinedTeams[0].members;
+            const size = members.length;
 
             this.setState({
               teamName: teamName,
