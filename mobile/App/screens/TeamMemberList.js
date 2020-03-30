@@ -14,6 +14,7 @@ import { TeamMember } from "../components/TeamMember";
 import { mainStyle } from "../styles/styles";
 import { ScrollView } from "react-native-gesture-handler";
 import TeamMemberListAddButton from "../components/TeamMemberListAddButton";
+// import Avatar from '../components/Avatar';
 
 
 const data = [
@@ -83,32 +84,31 @@ export default class TeamMemberList extends Component {
         }}
         keyExtractor={(item, index) => index}
       />
-      {/* <TeamMember nav={() => navigation.navigate("MemberProfile")} avatar={null} initial='JD' fname={'John'} lname={'Doe'} role={'Search'}> </TeamMember>
+      <TeamMember nav={() => navigation.navigate("MemberProfile")} avatar={null} initial='JD' fname={'John'} lname={'Doe'} role={'Search'}> </TeamMember>
       <Text style={styles.text}> Team Member 1 </Text>
       <TouchableOpacity onPress={() => this.props.navigation.navigate("MemberProfile")}>
         <Text style={styles.text}> View Profile </Text>
-      </TouchableOpacity> */}
+      </TouchableOpacity>
+
+      <TeamMember
+            nav={() => navigation.navigate("MemberProfile")}
+            avatar={null}
+            initial="JD"
+            fname={"John"}
+            lname={"Doe"}
+            role={"Search"}
+          >
+            {" "}
+          </TeamMember>
+          <Text style={styles.text}> Team Member 1 </Text>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate("MemberProfile")}
+          >
+            <Text style={styles.text}> View Profile </Text>
+          </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
-      //   <ScrollView>
-      //     <TeamMember
-      //       nav={() => navigation.navigate("MemberProfile")}
-      //       avatar={null}
-      //       initial="JD"
-      //       fname={"John"}
-      //       lname={"Doe"}
-      //       role={"Search"}
-      //     >
-      //       {" "}
-      //     </TeamMember>
-      //     <Text style={styles.text}> Team Member 1 </Text>
-      //     <TouchableOpacity
-      //       onPress={() => this.props.navigation.navigate("MemberProfile")}
-      //     >
-      //       <Text style={styles.text}> View Profile </Text>
-      //     </TouchableOpacity>
-      //   </ScrollView>
-      // </SafeAreaView>
+      
     );
   }
 }

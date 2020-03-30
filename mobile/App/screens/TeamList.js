@@ -20,8 +20,8 @@ export default class TeamList extends Component {
     status: "Active", /////////////
     creator: "",
     size: "",
-    subjectDescription: "",
-    // userId: "5e7e46af4f99bb52f42369a4",
+    description: "this is a description",
+    userId: "5e7b28d09185c24b94beaa89",
     joinedTeams: [],
     // createdTeams: [],
     count: 1
