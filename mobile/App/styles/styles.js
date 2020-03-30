@@ -242,7 +242,6 @@ fillInText: {
   marginBottom: 0,
   marginTop: 10,
   textShadowColor: WHITE,
-  marginLeft: 20,
   padding: 10,
   alignContent: 'center',
   alignItems: 'center',

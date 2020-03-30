@@ -12,7 +12,9 @@ import {
   Button,
   StatusBar,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  Linking, 
+  Platform
 } from "react-native";
 import {
   buttonStyle,
@@ -25,6 +27,7 @@ import { TextField, ErrorText } from "../components/Form";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 // import { AuthContext } from "../context/auth-context";
+
 
 export default class App extends React.Component {
   // static contextType = AuthContext;
@@ -132,6 +135,51 @@ export default class App extends React.Component {
       });
   }
 
+  dialCall = () => {
+
+    let phoneNumber = '';
+
+    if (Platform.OS === 'android') {
+      phoneNumber = 'tel:${1234567890}';
+      phoneNumber = 'sms:${1234567890}';
+
+    }
+    else {
+      // phoneNumber = 'telprompt:${1234567890}';
+      phoneNumber = 'sms:${1234567890}';
+    }
+
+    Linking.openURL('sms:'+ this.state.phone);
+  };
+
+  // messageNumber = () => {
+  //   let phoneNumber ='';
+
+  //   if (Platform.OS === 'android') {
+  //     phoneNumber = 'tel:${1234567890}';
+  //   }
+  //   else {
+  //     phoneNumber = 'telprompt:${1234567890}';
+  //   }
+  //   Linking.openURL(phoneNumber);
+
+  // }
+
+  email = () => {
+
+    let emailAddress = '';
+
+    if (Platform.OS === 'android') {
+      emailAddress = 'tel:${1234567890}';
+    }
+    else {
+      emailAddress = 'telprompt:${1234567890}';
+
+    }
+
+    Linking.openURL(phoneNumber);
+  };
+
   render() {
     return (
       <View style={formStyle.formContainer}>
@@ -154,40 +202,38 @@ export default class App extends React.Component {
               </Text>
             </View>
             <View>
-              {/* <TextField
+              <Text style={formStyle.label}>User Name: </Text>
+              <TextField editable={false}>
+              <Text style={formStyle.fillInText}>{this.state.username}</Text>
+              </TextField>
 
-              // onChangeText={username => this.setState({ username })}
-              // placeholder="Username"
-              value={this.state.username}
-              maxLength={40}
-            /> */}
-              <Text style={mainStyle.smallText}>{this.state.username}</Text>
-              {/* <TextField
-              onChangeText={name => this.setState({ name })}
-              placeholder="Name"
-              maxLength={40}
-            /> */}
-              <Text style={mainStyle.smallText}>
-                {this.state.firstName} {this.state.lastName}
+              <Text style={formStyle.label}>First and Last Names: </Text>
+              <TextField editable={false}>
+              <Text style={formStyle.fillInText}>
+                <Text style={formStyle.fillInText}>
+                  {this.state.firstName} {this.state.lastName}
+                </Text>
               </Text>
-              {/* <TextField
-              onChangeText={email => this.setState({ email })}
-              placeholder="Email"
-              maxLength={40}
-            /> */}
-              <Text style={mainStyle.smallText}>{this.state.email}</Text>
-              {/* <TextField
-              onChangeText={cert => this.setState({ cert })}
-              placeholder="Certifications/Descriptions"
-              maxLength={250}
-            /> */}
-              <Text style={mainStyle.smallText}>{this.state.desc}</Text>
-              {/* <TextField
-              onChangeText={cell => this.setState({ cell })}
-              placeholder="Cell #"
-              maxLength={40}
-            /> */}
-              <Text style={mainStyle.smallText}>{this.state.phone}</Text>
+               </TextField>
+
+               <Text style={formStyle.label}>Description: </Text>
+              <TextField editable={false}>
+              <Text style={formStyle.placeholderStyle}>{this.state.desc}</Text>
+               </TextField>
+
+              <Text style={formStyle.label}>Email: 
+                <Text onPress={() => Linking.openURL('mailto:support@example.com') }
+                title="support@example.com"style={formStyle.placeholderStyle}> {this.state.email}
+                </Text>
+              </Text>
+
+               
+               <Text style={formStyle.label}>Contact Number: 
+               <Text onPress={this.dialCall} activeOpacity={0.7} style={formStyle.placeholderStyle}> {this.state.phone}</Text>
+               </Text>
+              {/* <TextField editable={false}> */}
+              
+               {/* </TextField> */}
               {/* <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Switch
                   style={formStyle.toggle}
