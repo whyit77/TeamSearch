@@ -79,7 +79,10 @@ export default class CreateAccount extends React.Component {
     };
 
     // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.12:3000/graphql", {
+    // fetch("http://192.168.1.12:3000/graphql", {
+    fetch("http://192.168.0.6:3000/graphql", {
+        method: "POST",
+    // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -88,6 +91,7 @@ export default class CreateAccount extends React.Component {
     })
       .then(async res => {
         const responseJson = await res.json();
+
 
         // VALIDATE EMAIL /////////////////////////////////////////////////////////
         // const isValid = this.validate({
@@ -161,6 +165,7 @@ export default class CreateAccount extends React.Component {
   };
 
   render() {
+    const { image } = this.state;
     return (
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
