@@ -172,7 +172,7 @@ export default class CreateAccount extends React.Component {
               style={mainStyle.scrollView}
             >
               <View style={mainStyle.toplevel}>
-                <Text style={mainStyle.text}>PHOTO UPLOAD</Text>
+                {/* <Text style={mainStyle.text}>PHOTO UPLOAD</Text>
                 <ImageField
                   imageStyles={{ width: 60, height: 60 }}
                   // source={{
@@ -184,7 +184,7 @@ export default class CreateAccount extends React.Component {
                     Alert.alert("Navigate to Change Photo Page")
                   }
                   bottomLabelStyles={mainStyle.link}
-                />
+                /> */}
                 <Text style={formStyle.label}>Username</Text>
                 <TextField
                   //label="Username"
