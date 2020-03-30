@@ -35,7 +35,7 @@ class MemberProfile extends React.Component {
 
   componentDidMount() {
     // TODO: GET CURRENTLY SELECTED USER from teamMemberList page//
-    const userId = "5e8128507fa7512864614452";
+    const userId = "5e815389f1088e659c4bddc4";
 
     let requestBody = {
       query: `
@@ -56,7 +56,7 @@ class MemberProfile extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.12:3000/graphql", {
+    fetch("http://192.168.1.14:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {

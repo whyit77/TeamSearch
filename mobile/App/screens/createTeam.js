@@ -63,7 +63,7 @@ export default class CreateTeam extends React.Component {
     };
 
     // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.12:3000/graphql", {
+    fetch("http://192.168.1.14:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -135,8 +135,8 @@ export default class CreateTeam extends React.Component {
         <KeyboardAwareScrollView extraScrollHeight={50}>
           <ScrollView contentContainerStyle={formStyle.formContainer}>
             <View style={formStyle.formContainer}>
-              <Text style={mainStyle.text}>PHOTO UPLOAD</Text>
-              <ImageField
+              {/* <Text style={mainStyle.text}>PHOTO UPLOAD</Text> */}
+              {/* <ImageField
                 imageStyles={{ width: 60, height: 60 }}
                 source={{
                   uri:
@@ -147,10 +147,10 @@ export default class CreateTeam extends React.Component {
                   Alert.alert("Navigate to Change Photo Page")
                 }
                 bottomLabelStyles={mainStyle.link}
-              />
+              /> */}
               <Text style={formStyle.label}>Team Name</Text>
               <TextField
-                //label="Team Name"
+              placeholder={'Name your team'}
                 onChangeText={teamName => this.setState({ teamName })}
                 value={this.state.teamName}
                 autoCapitalize="none"

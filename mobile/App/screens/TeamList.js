@@ -59,7 +59,7 @@ export default class TeamList extends Component {
     if (this.state.count == 1) {
       console.log("fetching...");
 
-      fetch("http://192.168.0.6:3000/graphql", {
+      fetch("http://192.168.1.14:3000/graphql", {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {
@@ -120,24 +120,24 @@ export default class TeamList extends Component {
     }
   }
 
-  // static navigationOptions = ({ navigation }) => {
-  //   return {
-  //     headerRight: (
-  //       <CreateTeamMenuIcon
-  //         option1="Create Team"
-  //         option2="Join Team"
-  //         menuStyle={{
-  //           marginRight: 40,
-  //           flexDirection: "row",
-  //           justifyContent: "flex-end"
-  //         }}
-  //         option1Click={() => {
-  //           navigation.navigate("CreateTeam");
-  //         }}
-  //       />
-  //     )
-  //   };
-  // };
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerRight: (
+        <CreateTeamMenuIcon
+          option1="Create Team"
+          option2="Join Team"
+          menuStyle={{
+            marginRight: 40,
+            flexDirection: "row",
+            justifyContent: "flex-end"
+          }}
+          option1Click={() => {
+            navigation.navigate("CreateTeam");
+          }}
+        />
+      )
+    };
+  };
   render() {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
@@ -148,50 +148,26 @@ export default class TeamList extends Component {
           renderItem={({ item: rowData }) => {
             return (
               <TouchableOpacity
-                onPress={() => this.props.navigation.navigate("TeamInfo")}
+                
                 // TODO: NEED TO PASS SELECTED TEAM ID TO teamInfo page //
               >
                 {/* <Text style={mainStyle.text}>{rowData}</Text> */}
                 <Team
+                 onPress={() => this.props.navigation.navigate("TeamInformation")}
                   name={rowData.teamName}
                   status={this.state.status}
                   admin={rowData.creator.username}
                   size={rowData.members.length}
                   description={rowData.subjectDescription}
                 />
-                {/* <Team
-                name={this.state.teamName}
-                status={this.state.status}
-                admin={this.state.creator}
-                size={this.state.size}
-                description={this.state.subjectDescription}
-              /> */}
+
               </TouchableOpacity>
             );
           }}
           keyExtractor={(item, index) => index}
         />
 
-        {/* <View style={mainStyle.container}>
-          <ScrollView contentContainerStyle={mainStyle.container}>
-            <View style={mainStyle.toplevel}> */}
-        {/* <TouchableOpacity onPress={this.handleSubmit()}> */}
-        {/* <Team
-                name={this.state.teamName}
-                status={this.state.status}
-                admin={this.state.creator}
-                size={this.state.size}
-                description={this.state.subjectDescription}
-              /> */}
-        {/* </TouchableOpacity> */}
-        {/* <TouchableOpacity onPress={this.handleSubmit()}>
-								<TeamListCard
-									description={this.state.description}
-								></TeamListCard>
-							</TouchableOpacity> */}
-        {/* </View>
-          </ScrollView>
-        </View> */}
+        
       </SafeAreaView>
     );
   }

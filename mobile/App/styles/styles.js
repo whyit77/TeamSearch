@@ -370,24 +370,24 @@ const teamListStyle = StyleSheet.create ({
   container3: {
     flexDirection: 'row',
     //flex: 1,
-    justifyContent: 'center',
-    alignItems:'center',   
-    width: screen.width,
-    justifyContent: 'space-between',
-    width: screen.width,
+    // justifyContent: 'center',
+    // alignItems:'center',   
+    width: screen.width-40,
+    // justifyContent: 'space-between',
     marginTop: 5
   },
   descriptionContainer: {
     alignSelf: 'center',
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems:'center',   
-    marginLeft: 20,
+    // justifyContent: 'center',
+    // alignItems:'center',   
+    // marginHorizontal: 100,
     paddingVertical: 5,
     paddingHorizontal: 20,
     backgroundColor: B3,
     borderRadius: 30,
-    width: screen.width-40
+    width: screen.width-40,
+    maxWidth: 400
   }
 
 })
