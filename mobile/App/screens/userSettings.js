@@ -13,7 +13,7 @@ import {
   StatusBar,
   ScrollView,
   TouchableOpacity,
-  Linking, 
+  Linking,
   Platform
 } from "react-native";
 import {
@@ -27,7 +27,6 @@ import { TextField, ErrorText } from "../components/Form";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 // import { AuthContext } from "../context/auth-context";
-
 
 export default class App extends React.Component {
   // static contextType = AuthContext;
@@ -89,7 +88,7 @@ export default class App extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.0.6:3000/graphql", {
+    fetch("http://192.168.1.12:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -136,20 +135,17 @@ export default class App extends React.Component {
   }
 
   dialCall = () => {
+    let phoneNumber = "";
 
-    let phoneNumber = '';
-
-    if (Platform.OS === 'android') {
-      phoneNumber = 'tel:${1234567890}';
-      phoneNumber = 'sms:${1234567890}';
-
-    }
-    else {
+    if (Platform.OS === "android") {
+      phoneNumber = "tel:${1234567890}";
+      phoneNumber = "sms:${1234567890}";
+    } else {
       // phoneNumber = 'telprompt:${1234567890}';
-      phoneNumber = 'sms:${1234567890}';
+      phoneNumber = "sms:${1234567890}";
     }
 
-    Linking.openURL('sms:'+ this.state.phone);
+    Linking.openURL("sms:" + this.state.phone);
   };
 
   // messageNumber = () => {
@@ -166,15 +162,12 @@ export default class App extends React.Component {
   // }
 
   email = () => {
+    let emailAddress = "";
 
-    let emailAddress = '';
-
-    if (Platform.OS === 'android') {
-      emailAddress = 'tel:${1234567890}';
-    }
-    else {
-      emailAddress = 'telprompt:${1234567890}';
-
+    if (Platform.OS === "android") {
+      emailAddress = "tel:${1234567890}";
+    } else {
+      emailAddress = "telprompt:${1234567890}";
     }
 
     Linking.openURL(phoneNumber);
@@ -204,36 +197,51 @@ export default class App extends React.Component {
             <View>
               <Text style={formStyle.label}>User Name: </Text>
               <TextField editable={false}>
-              <Text style={formStyle.fillInText}>{this.state.username}</Text>
+                <Text style={formStyle.fillInText}>{this.state.username}</Text>
               </TextField>
 
               <Text style={formStyle.label}>First and Last Names: </Text>
               <TextField editable={false}>
-              <Text style={formStyle.fillInText}>
                 <Text style={formStyle.fillInText}>
-                  {this.state.firstName} {this.state.lastName}
+                  <Text style={formStyle.fillInText}>
+                    {this.state.firstName} {this.state.lastName}
+                  </Text>
                 </Text>
-              </Text>
-               </TextField>
+              </TextField>
 
-               <Text style={formStyle.label}>Description: </Text>
+              <Text style={formStyle.label}>Description: </Text>
               <TextField editable={false}>
-              <Text style={formStyle.placeholderStyle}>{this.state.desc}</Text>
-               </TextField>
+                <Text style={formStyle.placeholderStyle}>
+                  {this.state.desc}
+                </Text>
+              </TextField>
 
-              <Text style={formStyle.label}>Email: 
-                <Text onPress={() => Linking.openURL('mailto:support@example.com') }
-                title="support@example.com"style={formStyle.placeholderStyle}> {this.state.email}
+              <Text style={formStyle.label}>
+                Email:
+                <Text
+                  onPress={() => Linking.openURL("mailto:support@example.com")}
+                  title="support@example.com"
+                  style={formStyle.placeholderStyle}
+                >
+                  {" "}
+                  {this.state.email}
                 </Text>
               </Text>
 
-               
-               <Text style={formStyle.label}>Contact Number: 
-               <Text onPress={this.dialCall} activeOpacity={0.7} style={formStyle.placeholderStyle}> {this.state.phone}</Text>
-               </Text>
+              <Text style={formStyle.label}>
+                Contact Number:
+                <Text
+                  onPress={this.dialCall}
+                  activeOpacity={0.7}
+                  style={formStyle.placeholderStyle}
+                >
+                  {" "}
+                  {this.state.phone}
+                </Text>
+              </Text>
               {/* <TextField editable={false}> */}
-              
-               {/* </TextField> */}
+
+              {/* </TextField> */}
               {/* <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Switch
                   style={formStyle.toggle}

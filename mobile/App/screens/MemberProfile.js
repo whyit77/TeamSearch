@@ -20,27 +20,102 @@ import {
 import { TextField, ErrorText } from "../components/Form";
 
 import { Avatar } from "react-native-elements";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 class MemberProfile extends React.Component {
   state = {
-    name: "",
     id: "",
-    cell: "",
+    username: "",
+    firstName: "",
+    lastName: "",
     email: "",
-    description: "",
-    error: ""
+    desc: "",
+    phone: ""
   };
+
+  componentDidMount() {
+    // TODO: GET CURRENTLY SELECTED USER from teamMemberList page//
+    const userId = "5e8128507fa7512864614452";
+
+    let requestBody = {
+      query: `
+          query getUser($userId: String!) {
+            getUser(userId: $userId) {
+              _id
+              username
+              firstName
+              lastName
+              email
+              desc
+              phone
+            }
+          }`,
+      variables: {
+        userId: userId
+      }
+    };
+
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.12:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(async res => {
+        // if (res.status !== 200 && res.status !== 201) {
+        //   throw new Error("Failed!");
+        // }
+
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          const id = responseJson.data.getUser._id;
+          const username = responseJson.data.getUser.username;
+          const firstName = responseJson.data.getUser.firstName;
+          const lastName = responseJson.data.getUser.lastName;
+          const email = responseJson.data.getUser.email;
+          const desc = responseJson.data.getUser.desc;
+          const phone = responseJson.data.getUser.phone;
+
+          this.setState({
+            id: id,
+            username: username,
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            desc: desc,
+            phone: phone
+          });
+
+          if (desc == "") {
+            this.setState({ desc: "NONE" });
+          }
+
+          return responseJson;
+        }
+
+        throw new Error(responseJson.error);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   render() {
     return (
       <View style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
-        <KeyboardAvoidingView
+        {/* <KeyboardAvoidingView
           style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
           behavior="padding"
           enabled
-        >
-          <ScrollView contentContainerStyle={mainStyle.toplevel}>
+        > */}
+        <KeyboardAwareScrollView extraScrollHeight={50}>
+          <ScrollView contentContainerStyle={formStyle.formContainer}>
             <View style={mainStyle.container}>
               <Avatar
                 rounded
@@ -53,7 +128,8 @@ class MemberProfile extends React.Component {
             </View>
             <View style={formStyle.formContainer}>
               <Text style={formStyle.label}>Username: </Text>
-              <TextField
+              <Text style={mainStyle.smallText}>{this.state.username}</Text>
+              {/* <TextField
                 //label="Team Name"
                 onChangeText={teamName => this.setState({ name })}
                 value={this.state.teamName}
@@ -64,9 +140,10 @@ class MemberProfile extends React.Component {
                 keyboardAppearance="dark"
                 labelTextColor="white"
                 editable={false}
-              />
+              /> */}
               <Text style={formStyle.label}>User ID: </Text>
-              <TextField
+              <Text style={mainStyle.smallText}>{this.state.id}</Text>
+              {/* <TextField
                 //label="Team Name"
                 onChangeText={teamName => this.setState({ id })}
                 value={this.state.teamName}
@@ -77,9 +154,13 @@ class MemberProfile extends React.Component {
                 keyboardAppearance="dark"
                 labelTextColor="white"
                 editable={false}
-              />
+              /> */}
               <Text style={formStyle.label}>Name: </Text>
-              <TextField
+              <Text style={mainStyle.smallText}>
+                {this.state.firstName}
+                {this.state.lastName}
+              </Text>
+              {/* <TextField
                 //label="Team Name"
                 onChangeText={teamName => this.setState({ id })}
                 value={this.state.teamName}
@@ -90,9 +171,10 @@ class MemberProfile extends React.Component {
                 keyboardAppearance="dark"
                 labelTextColor="white"
                 editable={false}
-              />
+              /> */}
               <Text style={formStyle.label}>Contact Number: </Text>
-              <TextField
+              <Text style={mainStyle.smallText}>{this.state.phone}</Text>
+              {/* <TextField
                 //label="Team Name"
                 onChangeText={teamName => this.setState({ cell })}
                 value={this.state.teamName}
@@ -103,9 +185,10 @@ class MemberProfile extends React.Component {
                 keyboardAppearance="dark"
                 labelTextColor="white"
                 editable={false}
-              />
+              /> */}
               <Text style={formStyle.label}>Email Address: </Text>
-              <TextField
+              <Text style={mainStyle.smallText}>{this.state.email}</Text>
+              {/* <TextField
                 //label="Team Name"
                 onChangeText={teamName => this.setState({ email })}
                 value={this.state.teamName}
@@ -116,9 +199,10 @@ class MemberProfile extends React.Component {
                 keyboardAppearance="dark"
                 labelTextColor="white"
                 editable={false}
-              />
+              /> */}
               <Text style={formStyle.label}>Profile Description</Text>
-              <TextField
+              <Text style={mainStyle.smallText}>{this.state.desc}</Text>
+              {/* <TextField
                 //label="Subject Description"
                 onChangeText={subjectDesc => this.setState({ description })}
                 value={this.state.subjectDesc}
@@ -132,10 +216,11 @@ class MemberProfile extends React.Component {
                 labelTextColor="white"
                 maxLength={300}
                 editable={false}
-              />
+              /> */}
             </View>
           </ScrollView>
-        </KeyboardAvoidingView>
+          {/* </KeyboardAvoidingView> */}
+        </KeyboardAwareScrollView>
       </View>
     );
   }

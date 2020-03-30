@@ -6,7 +6,8 @@ import {
   StyleSheet,
   View,
   SafeAreaView,
-  StatusBar
+  StatusBar,
+  FlatList
 } from "react-native";
 import { Team } from "../components/Team";
 import { mainStyle } from "../styles/styles";
@@ -15,79 +16,21 @@ import { TeamListCard } from "../components/TeamListCard";
 
 export default class TeamList extends Component {
   state = {
-    team: "",
-    teamName: "",
+    // teamName: "",
     status: "Active", /////////////
-    creator: "",
-    size: "",
-    description: "",
-    userId: "5e815389f1088e659c4bddc4",
+    // creator: "",
+    // size: 0,
+    // subjectDescription: "",
+    // userId: "5e7e46af4f99bb52f42369a4",
     joinedTeams: [],
     // createdTeams: [],
-    count: 1
+    count: 1,
+    data: []
   };
 
-  // getUserTeams = () => {
-  //   const userId = "5e815389f1088e659c4bddc4";
-
-  //   let requestBody = {
-  //     query: `
-  // 	      query getUser($userId: String!) {
-  // 	        getUser(userId: $userId) {
-  // 	          joinedTeams {
-  // 	            _id
-  // 	          }
-  // 	          createdTeams {
-  //               _id
-  // 	          }
-  // 	        }
-  // 	      }
-  // 	    `,
-  //     variables: {
-  //       userId: userId
-  //     }
-  //   };
-
-  //   console.log("fetching...");
-  //   // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-  //   fetch("http://192.168.1.12:3000/graphql", {
-  //     method: "POST",
-  //     body: JSON.stringify(requestBody),
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     }
-  //   })
-  //     .then(async res => {
-  //       const responseJson = await res.json();
-
-  //       console.log(responseJson);
-
-  //       if (res.ok) {
-  //         console.log("Okay Fetched Teams IDs");
-  //         const joinedTeams = responseJson.data.getUser.joinedTeams;
-  //         const createdTeams = responseJson.data.getUser.createdTeams;
-
-  //         this.setState({
-  //           joinedTeams: joinedTeams,
-  //           createdTeams: createdTeams
-  //         });
-
-  //         return responseJson;
-  //       }
-
-  //       throw new Error(responseJson.error);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // };
-
-  async componentDidMount() {
-    // this.getUserTeams();
+  componentDidMount() {
+    // TODO: GET CURRENT LOGGED IN USER //
     const userId = "5e815389f1088e659c4bddc4";
-    // const teamId = this.state.createdTeams[0]._id;
-    // console.log("HELJLKJDFLJAOIDF");
-    // console.log(this.state.createdTeams);
 
     let requestBody = {
       query: `
@@ -101,6 +44,9 @@ export default class TeamList extends Component {
                 creator {
                   username
                 }
+                members {
+                  username
+                }
 		          }
 		        }
 		      }
@@ -109,50 +55,6 @@ export default class TeamList extends Component {
         userId: userId
       }
     };
-    // let requestBody = {
-    //   query: `
-    //     query getTeam($teamId: String!) {
-    //       getTeam(teamId: $teamId) {
-    //         _id
-    //         teamName
-    //         subjectDescription
-    //         creator {
-    //           username
-    //         }
-
-    //       }
-    //     }
-    //   `,
-    //   variables: {
-    //     teamId: teamId
-    //   }
-
-    // query: `
-    //     query getUser($userId: String!) {
-    //       getUser(userId: $userId) {
-    //         joinedTeams {
-    //           teamName
-    //           searchDescription
-    //           subjectDescription
-    //           creator {
-    //             username
-    //           }
-    //         }
-    //         createdTeams {
-    //           teamName
-    //           searchDescription
-    //           subjectDescription
-    //           creator {
-    //             username
-    //           }
-    //         }
-    //       }
-    //     }
-    //   `,
-    // variables: {
-    //   userId: userId
-    // }
-    // };
 
     if (this.state.count == 1) {
       console.log("fetching...");
@@ -173,22 +75,34 @@ export default class TeamList extends Component {
             console.log("Okay Fetched Teams");
 
             const joinedTeams = responseJson.data.getUser.joinedTeams;
-            // const createdTeams = responseJson.data.getUser.createdTeams;
+            // // const createdTeams = responseJson.data.getUser.createdTeams;
 
-            const teamName = responseJson.data.getUser.joinedTeams[0].teamName;
-            const subjectDescription =
-              responseJson.data.getUser.joinedTeams[0].subjectDescription;
-            const creator =
-              responseJson.data.getUser.joinedTeams[0].creator.username;
+            // const teamName = responseJson.data.getUser.joinedTeams[1].teamName;
+            // const subjectDescription =
+            //   responseJson.data.getUser.joinedTeams[1].subjectDescription;
+            // const creator =
+            //   responseJson.data.getUser.joinedTeams[1].creator.username;
 
-            const size = "0";
-            
+            // const members = responseJson.data.getUser.joinedTeams[1].members;
+            // const size = members.length;
+
+            // console.log("--------");
+            // console.log(joinedTeams);
+
+            const info = [];
+            for (let i = 0; i < joinedTeams.length; i++) {
+              info.push(joinedTeams[i]);
+            }
+            // console.log("======");
+            // console.log(info);
+
             this.setState({
-              teamName: teamName,
-              subjectDescription: subjectDescription,
-              creator: creator,
-              size: size,
-              joinedTeams: joinedTeams
+              // teamName: teamName,
+              // subjectDescription: subjectDescription,
+              // creator: creator,
+              // size: size,
+              // joinedTeams: joinedTeams,
+              data: info
               // createdTeams: createdTeams
             });
 
@@ -206,59 +120,78 @@ export default class TeamList extends Component {
     }
   }
 
-  static navigationOptions = ({ navigation }) => {
-    return {
-      headerRight: (
-        <CreateTeamMenuIcon
-          option1="Create Team"
-          option2="Join Team"
-          menuStyle={{
-            marginRight: 40,
-            flexDirection: "row",
-            justifyContent: "flex-end"
-          }}
-          option1Click={() => {
-            navigation.navigate("CreateTeam");
-          }}
-        />
-      )
-    };
-  };
-
+  // static navigationOptions = ({ navigation }) => {
+  //   return {
+  //     headerRight: (
+  //       <CreateTeamMenuIcon
+  //         option1="Create Team"
+  //         option2="Join Team"
+  //         menuStyle={{
+  //           marginRight: 40,
+  //           flexDirection: "row",
+  //           justifyContent: "flex-end"
+  //         }}
+  //         option1Click={() => {
+  //           navigation.navigate("CreateTeam");
+  //         }}
+  //       />
+  //     )
+  //   };
+  // };
   render() {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
-        <View style={mainStyle.container}>
-          <ScrollView contentContainerStyle={mainStyle.toplevel}>
-            <View style={mainStyle.container}>
-              {/* <TouchableOpacity onPress={this.handleSubmit()}> */}
-              <Team
-                nav={() => this.props.navigation.navigate("TeamInformation")}
+        <FlatList
+          data={this.state.data}
+          renderItem={({ item: rowData }) => {
+            return (
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate("TeamInfo")}
+                // TODO: NEED TO PASS SELECTED TEAM ID TO teamInfo page //
+              >
+                {/* <Text style={mainStyle.text}>{rowData}</Text> */}
+                <Team
+                  name={rowData.teamName}
+                  status={this.state.status}
+                  admin={rowData.creator.username}
+                  size={rowData.members.length}
+                  description={rowData.subjectDescription}
+                />
+                {/* <Team
                 name={this.state.teamName}
                 status={this.state.status}
                 admin={this.state.creator}
                 size={this.state.size}
                 description={this.state.subjectDescription}
-              ></Team>
-              <Team
-                nav={() => this.props.navigation.navigate("TeamInformation")}
+              /> */}
+              </TouchableOpacity>
+            );
+          }}
+          keyExtractor={(item, index) => index}
+        />
+
+        {/* <View style={mainStyle.container}>
+          <ScrollView contentContainerStyle={mainStyle.container}>
+            <View style={mainStyle.toplevel}> */}
+        {/* <TouchableOpacity onPress={this.handleSubmit()}> */}
+        {/* <Team
                 name={this.state.teamName}
                 status={this.state.status}
                 admin={this.state.creator}
                 size={this.state.size}
                 description={this.state.subjectDescription}
-              ></Team>
-              {/* </TouchableOpacity> */}
-              {/* <TouchableOpacity onPress={this.handleSubmit()}>
+              /> */}
+        {/* </TouchableOpacity> */}
+        {/* <TouchableOpacity onPress={this.handleSubmit()}>
 								<TeamListCard
 									description={this.state.description}
 								></TeamListCard>
 							</TouchableOpacity> */}
-            </View>
+        {/* </View>
           </ScrollView>
-        </View>
+        </View> */}
       </SafeAreaView>
     );
   }
