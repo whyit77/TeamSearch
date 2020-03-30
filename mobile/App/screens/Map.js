@@ -1,10 +1,6 @@
 import React from "react";
-import { Dimensions, StyleSheet, View, Animated } from "react-native";
-import MapView, { PROVIDER_GOOGLE, AnimatedRegion } from "react-native-maps";
-import { Heatmap, Marker } from "react-native-maps";
-
-import { createStackNavigator } from "react-navigation-stack";
-import { createAppContainer } from "react-navigation";
+import { StyleSheet } from "react-native";
+import MapView, { PROVIDER_GOOGLE, Heatmap, Marker } from "react-native-maps";
 
 const styles = StyleSheet.create({
   map: {
@@ -113,34 +109,17 @@ class Map extends React.Component {
             colorMapSize: 200
           }}
         />
-        {/* <View
-          style={{
-            position: "absolute",
-            justifyContent: "center",
-            // Notes: Dimensions must be pulled in from user data
-            // top: -width / 2 + 100,
-            // left: -width / 2 + 50,
-            // right: -width / 2 + 50,
-            // bottom: -width / 2 + 200,
-            backgroundColor: "transparent",
-
-            borderWidth: width / 4,
-            borderRadius: width,
-            borderColor: "red",
-            opacity: 0.3
-          }}
-        /> */}
-
         {this.state.markers.map((marker, i) => {
           return (
             <Marker
+              coordinate={this.state.x}
               key={i}
               title="Pin"
               description="This is the missing item!"
               {...marker}
-              onCalloutPress={navigation =>
-                navigation.navigate("PinInformation")
-              }
+              draggable
+              onDragEnd={e => this.setState({ x: e.nativeEvent.coordinate })}
+              // image={require("../cougar_walk.jpg")}
             />
           );
         })}
