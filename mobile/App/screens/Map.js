@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
+import { EmbeddedWebView } from "../components/EmbeddedWebView";
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -125,6 +126,7 @@ class Map extends React.Component {
         })}
       </MapView>
     );
+    return <EmbeddedWebView url={"http://localhost:8000/"} />;
   }
 }
 

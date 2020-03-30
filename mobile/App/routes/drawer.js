@@ -33,13 +33,13 @@ const RootDrawerNavigator = createDrawerNavigator(
     TeamListView: {
         screen: TeamListStack,
         navigationOptions: {
-            title: 'Team List View'
+            title: 'Team List'
         }
     },
     CreateNewGroup: {
         screen: CreateGroupStack,
         navigationOptions: {
-            title: 'Create New Group'
+            title: 'Create Team'
         }
     },
     TeamInfo: {
