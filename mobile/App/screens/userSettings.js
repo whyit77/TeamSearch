@@ -17,14 +17,14 @@ import {
   Platform
 } from "react-native";
 import {
-  buttonStyle,
-  mainStyle,
-  exampleText,
-  formStyle,
-  teamListStyle
-} from "../styles/styles";
-import { TextField, ErrorText } from "../components/Form";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+	buttonStyle,
+	mainStyle,
+	exampleText,
+	formStyle,
+	teamListStyle,
+} from '../styles/styles';
+import { TextField, ErrorText } from '../components/Form';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 // import { AuthContext } from "../context/auth-context";
 
