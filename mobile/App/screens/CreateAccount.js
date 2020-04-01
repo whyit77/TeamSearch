@@ -12,7 +12,6 @@ import {
 } from "react-native";
 
 import { TextField, ErrorText } from "../components/Form";
-// import { TextFieldEmail } from "../components/FormEmail";
 import { Button } from "../components/Button";
 import { ImageField } from "../components/Image";
 
@@ -34,7 +33,6 @@ const initialState = {
   password: "",
   repassword: "",
   phone: "",
-  phoneNumberFormat: "",
   desc: "",
   error: ""
 };
@@ -78,34 +76,16 @@ export default class CreateAccount extends React.Component {
       }
     };
 
-		// CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
-		fetch('http://<IPv4>:3000/graphql', {
-			method: 'POST',
-			body: JSON.stringify(requestBody),
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		})
-			.then(async res => {
-				const responseJson = await res.json();
-
-        // VALIDATE EMAIL /////////////////////////////////////////////////////////
-        // const isValid = this.validate({
-        //   emailAddress: { email: true }
-        // });
-
-        // if (isValid == false) {
-        //   this.setState({ initialState });
-        //   this.setState({ error: "Email address is invalid." });
-        //   return responseJson;
-        // }
-
-        // this.validate({
-        //   name: {minlength:3, maxlength:7, required: true},
-        //   email: {email: true},
-        //   number: {numbers: true},
-        //   date: {date: 'YYYY-MM-DD'}
-        // });
+    // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
+    fetch("http://<IPv4>:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(async res => {
+        const responseJson = await res.json();
 
         console.log(responseJson);
 
@@ -145,6 +125,7 @@ export default class CreateAccount extends React.Component {
           return responseJson;
         }
 
+        // if input is good, create user
         if (res.ok) {
           console.log("Okay CREATE");
           this.props.navigation.navigate("Login");
@@ -274,27 +255,6 @@ export default class CreateAccount extends React.Component {
                   selectionColor="red"
                   keyboardAppearance="dark"
                   keyboardType="phone-pad"
-                  // value={this.state.phoneNumberFormat}
-                  // onChangeText={phoneNumberFormat => {
-                  //   let phoneNumber = phoneNumberFormat.toString().replace(/\D+/g, "");
-                  //   this.setState({
-                  //     phoneNumberFormat: phoneNumberFormat,
-                  //     phone: phoneNumber
-                  //   });
-                  // }}
-                  // type={"cel-phone"}
-                  // maxLength={
-                  //   this.state.phoneNumberFormat.toString().startsWith("1") ? 18 : 16
-                  // }
-                  // options={
-                  //   this.state.phoneNumber.startsWith("1")
-                  //     ? {
-                  //         dddMask: "9 (999) 999 - "
-                  //       }
-                  //     : {
-                  //         dddMask: "(999) 999 - "
-                  //       }
-                  // }
                 />
                 <Text style={formStyle.label}>Certifications/Description</Text>
                 <TextField

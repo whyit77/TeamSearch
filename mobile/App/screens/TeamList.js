@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   ScrollView,
   Text,
@@ -167,32 +167,27 @@ export default class TeamList extends Component {
           keyExtractor={(item, index) => index}
         />
 
-        
+        {/* <View style={mainStyle.container}>
+          <ScrollView contentContainerStyle={mainStyle.container}>
+            <View style={mainStyle.toplevel}> */}
+        {/* <TouchableOpacity onPress={this.handleSubmit()}> */}
+        {/* <Team
+                name={this.state.teamName}
+                status={this.state.status}
+                admin={this.state.creator}
+                size={this.state.size}
+                description={this.state.subjectDescription}
+              /> */}
+        {/* </TouchableOpacity> */}
+        {/* <TouchableOpacity onPress={this.handleSubmit()}>
+								<TeamListCard
+									description={this.state.description}
+								></TeamListCard>
+							</TouchableOpacity> */}
+        {/* </View>
+          </ScrollView>
+        </View> */}
       </SafeAreaView>
     );
   }
-}
-
-function team({teams}) {
-  if ((!team)) {
-    return null;
-  }
-  if ((!team.length)) {
-    return <Text>You're not part of any teams! Press the  + to join a team.</Text>
-  }
-  return (
-    <View style={mainStyle.toplevel}>
-      {/* <TouchableOpacity onPress={this.handleSubmit()}> */}
-      {team.map(item => ( 
-        <Team
-            name={this.state.teamName}
-            status={this.state.status}
-            admin={this.state.creator}
-            size={this.state.size}
-            description={this.state.subjectDescription}
-        ></Team>
-      ))}
-      </View> 
-      
-  )
 }
