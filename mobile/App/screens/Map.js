@@ -153,7 +153,6 @@ class Map extends React.Component {
     navigator.geolocation.getCurrentPosition(
       position => {
         const location = JSON.stringify(position.coords.latitude) + "," + JSON.stringify(position.coords.longitude);
-        console.log("YEET");
         this.setState({ location, currentLat: position.coords.latitude, currentLong: position.coords.longitude });
       },
       error => Alert.alert(error.message),
