@@ -21,7 +21,7 @@ const initialState = {
   teamName: "",
   searchDescription: "",
   subjectDescription: "",
-  radius: "",
+  radius: 0,
   // code: "",
   // creator: "",
   error: ""
@@ -39,7 +39,7 @@ export default class CreateTeam extends React.Component {
     console.log(radius);
 
     // TODO: NEED CURRENT LOGGED IN USER ID ///
-    const userId = "5e815389f1088e659c4bddc4";
+    const userId = "5e84e63b4cc6a4552005268b";
 
     let requestBody = {
       query: `
@@ -63,7 +63,7 @@ export default class CreateTeam extends React.Component {
     };
 
     // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.14:3000/graphql", {
+    fetch("http://<IPv4>:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -150,7 +150,7 @@ export default class CreateTeam extends React.Component {
               /> */}
               <Text style={formStyle.label}>Team Name</Text>
               <TextField
-              placeholder={'Name your team'}
+                placeholder={"Name your team"}
                 onChangeText={teamName => this.setState({ teamName })}
                 value={this.state.teamName}
                 autoCapitalize="none"

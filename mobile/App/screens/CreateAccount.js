@@ -33,7 +33,7 @@ const initialState = {
   password: "",
   repassword: "",
   phone: "",
-  desc: "",
+  description: "",
   error: ""
 };
 
@@ -48,14 +48,14 @@ export default class CreateAccount extends React.Component {
     const firstName = this.state.firstName;
     const lastName = this.state.lastName;
     const phone = this.state.phone;
-    const desc = this.state.desc;
+    const description = this.state.description;
 
     let requestBody = {
       query: `
           mutation CreateUser($username: String!, $email: String!, $firstName: String!, $lastName: String!, 
-                  $password: String!, $repassword: String!, $phone: String!, $desc: String) {
+                  $password: String!, $repassword: String!, $phone: String!, $description: String) {
             createUser(userInput: {username: $username, email: $email, firstName: $firstName, lastName: $lastName, 
-                    password: $password, repassword: $repassword, phone: $phone, desc: $desc}) {
+                    password: $password, repassword: $repassword, phone: $phone, description: $description}) {
               _id
               username
               email
@@ -72,7 +72,7 @@ export default class CreateAccount extends React.Component {
         password: password,
         repassword: repassword,
         phone: phone,
-        desc: desc
+        description: description
       }
     };
 

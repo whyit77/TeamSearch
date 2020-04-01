@@ -39,7 +39,7 @@ type User {
   lastName: String!
   password: String!
   phone: String!
-  desc: String
+  description: String
   joinedTeams: [Team!]
   createdTeams: [Team!]
   createdEvents: [Event!]

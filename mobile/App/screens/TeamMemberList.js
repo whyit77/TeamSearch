@@ -75,7 +75,7 @@ export default class TeamMemberList extends Component {
 
   componentDidMount() {
     // TODO: GET CURRENT TEAM (selected from list) //
-    const teamId = "5e81944fa0359f3990076177";
+    const teamId = "5e84e6ea4cc6a4552005268c";
 
     let requestBody = {
       query: `
@@ -94,7 +94,7 @@ export default class TeamMemberList extends Component {
 
     console.log("fetching...");
 
-    fetch("http://192.168.1.14:3000/graphql", {
+    fetch("http://<IPv4>:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {

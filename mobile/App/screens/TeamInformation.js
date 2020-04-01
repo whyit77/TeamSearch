@@ -37,7 +37,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     // TODO: GET CURRENT TEAM (just made or selected from list) //
-    const teamId = "5e815a1ff1088e659c4bddc5";
+    const teamId = "5e84e6ea4cc6a4552005268c";
 
     let requestBody = {
       query: `
@@ -60,7 +60,7 @@ export default class App extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.14:3000/graphql", {
+    fetch("http://<IPv4>:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -126,14 +126,18 @@ export default class App extends React.Component {
 
               <Text style={formStyle.label}>Search Description: </Text>
               <TextField editable={false} multiline={true}>
-              <Text style={formStyle.placeholderStyle}>{this.state.searchDescription}</Text>
-               </TextField>
+                <Text style={formStyle.placeholderStyle}>
+                  {this.state.searchDescription}
+                </Text>
+              </TextField>
               {/* <Text style={formStyle.fillInText}>{this.state.searchDescription}</Text> */}
 
               <Text style={formStyle.label}>Subject: </Text>
               <TextField editable={false} multiline={true}>
-              <Text style={formStyle.placeholderStyle}>{this.state.subjectDescription}</Text>
-               </TextField>
+                <Text style={formStyle.placeholderStyle}>
+                  {this.state.subjectDescription}
+                </Text>
+              </TextField>
               {/* <Text style={formStyle.fillInText}>{this.state.subjectDescription}</Text> */}
 
               <Text style={formStyle.label}>

@@ -29,13 +29,13 @@ class MemberProfile extends React.Component {
     firstName: "",
     lastName: "",
     email: "",
-    desc: "",
+    description: "",
     phone: ""
   };
 
   componentDidMount() {
     // TODO: GET CURRENTLY SELECTED USER from teamMemberList page//
-    const userId = "5e815389f1088e659c4bddc4";
+    const userId = "5e84e63b4cc6a4552005268b";
 
     let requestBody = {
       query: `
@@ -46,7 +46,7 @@ class MemberProfile extends React.Component {
               firstName
               lastName
               email
-              desc
+              description
               phone
             }
           }`,
@@ -56,7 +56,7 @@ class MemberProfile extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.14:3000/graphql", {
+    fetch("http://<IPv4>:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -77,7 +77,7 @@ class MemberProfile extends React.Component {
           const firstName = responseJson.data.getUser.firstName;
           const lastName = responseJson.data.getUser.lastName;
           const email = responseJson.data.getUser.email;
-          const desc = responseJson.data.getUser.desc;
+          const description = responseJson.data.getUser.description;
           const phone = responseJson.data.getUser.phone;
 
           this.setState({
@@ -86,12 +86,12 @@ class MemberProfile extends React.Component {
             firstName: firstName,
             lastName: lastName,
             email: email,
-            desc: desc,
+            description: description,
             phone: phone
           });
 
-          if (desc == "") {
-            this.setState({ desc: "NONE" });
+          if (description == "") {
+            this.setState({ description: "NONE" });
           }
 
           return responseJson;
@@ -201,7 +201,7 @@ class MemberProfile extends React.Component {
                 editable={false}
               /> */}
               <Text style={formStyle.label}>Profile Description</Text>
-              <Text style={mainStyle.smallText}>{this.state.desc}</Text>
+              <Text style={mainStyle.smallText}>{this.state.description}</Text>
               {/* <TextField
                 //label="Subject Description"
                 onChangeText={subjectDesc => this.setState({ description })}

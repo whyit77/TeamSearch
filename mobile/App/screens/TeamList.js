@@ -30,7 +30,7 @@ export default class TeamList extends Component {
 
   componentDidMount() {
     // TODO: GET CURRENT LOGGED IN USER //
-    const userId = "5e815389f1088e659c4bddc4";
+    const userId = "5e84e63b4cc6a4552005268b";
 
     let requestBody = {
       query: `
@@ -59,7 +59,7 @@ export default class TeamList extends Component {
     if (this.state.count == 1) {
       console.log("fetching...");
 
-      fetch("http://192.168.1.14:3000/graphql", {
+      fetch("http://<IPv4>:3000/graphql", {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {
@@ -148,19 +148,18 @@ export default class TeamList extends Component {
           renderItem={({ item: rowData }) => {
             return (
               <TouchableOpacity
-                
-                // TODO: NEED TO PASS SELECTED TEAM ID TO teamInfo page //
+
+              // TODO: NEED TO PASS SELECTED TEAM ID TO teamInfo page //
               >
                 {/* <Text style={mainStyle.text}>{rowData}</Text> */}
                 <Team
-                 onPress={() => this.props.navigation.navigate("TeamInformation")}
+                  onPress={() => this.props.navigation.navigate("TeamInfo")}
                   name={rowData.teamName}
                   status={this.state.status}
                   admin={rowData.creator.username}
                   size={rowData.members.length}
                   description={rowData.subjectDescription}
                 />
-
               </TouchableOpacity>
             );
           }}

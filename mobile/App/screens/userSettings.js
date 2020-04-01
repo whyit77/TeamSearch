@@ -17,14 +17,14 @@ import {
   Platform
 } from "react-native";
 import {
-	buttonStyle,
-	mainStyle,
-	exampleText,
-	formStyle,
-	teamListStyle,
-} from '../styles/styles';
-import { TextField, ErrorText } from '../components/Form';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+  buttonStyle,
+  mainStyle,
+  exampleText,
+  formStyle,
+  teamListStyle
+} from "../styles/styles";
+import { TextField, ErrorText } from "../components/Form";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 // import { AuthContext } from "../context/auth-context";
 
@@ -38,7 +38,7 @@ export default class App extends React.Component {
     firstName: "",
     lastName: "",
     email: "",
-    desc: "",
+    description: "",
     phone: ""
     // changePass: "",
     // confirmPass: ""
@@ -54,7 +54,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     // TODO: GET CURRENT LOGGED IN USER //
-    const userId = "5e815389f1088e659c4bddc4";
+    const userId = "5e84e63b4cc6a4552005268b";
 
     let requestBody = {
       query: `
@@ -65,7 +65,7 @@ export default class App extends React.Component {
               firstName
               lastName
               email
-              desc
+              description
               phone
             }
           }`,
@@ -88,7 +88,7 @@ export default class App extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.14:3000/graphql", {
+    fetch("http://<IPv4>:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -108,7 +108,7 @@ export default class App extends React.Component {
           const firstName = responseJson.data.getUser.firstName;
           const lastName = responseJson.data.getUser.lastName;
           const email = responseJson.data.getUser.email;
-          const desc = responseJson.data.getUser.desc;
+          const description = responseJson.data.getUser.description;
           const phone = responseJson.data.getUser.phone;
 
           this.setState({
@@ -116,12 +116,12 @@ export default class App extends React.Component {
             firstName: firstName,
             lastName: lastName,
             email: email,
-            desc: desc,
+            description: description,
             phone: phone
           });
 
-          if (desc == "") {
-            this.setState({ desc: "NONE" });
+          if (description == "") {
+            this.setState({ description: "NONE" });
           }
 
           return responseJson;
@@ -212,7 +212,7 @@ export default class App extends React.Component {
               <Text style={formStyle.label}>Description: </Text>
               <TextField editable={false}>
                 <Text style={formStyle.placeholderStyle}>
-                  {this.state.desc}
+                  {this.state.description}
                 </Text>
               </TextField>
 
