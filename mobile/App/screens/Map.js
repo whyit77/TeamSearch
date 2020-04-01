@@ -1,7 +1,9 @@
-import React from "react";
+import React, { Component } from 'react';
 import { Dimensions, StyleSheet, View } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Heatmap, Marker } from "react-native-maps";
+
+import { Alert, Text, TouchableOpacity } from 'react-native';
 
 import { area } from "../screens/DefineSearchArea";
 
@@ -12,16 +14,70 @@ const styles = StyleSheet.create({
 });
 import { EmbeddedWebView } from "../components/EmbeddedWebView";
 
+
+
 class Map extends React.Component {
+
   state = {
+
     initialPosition: {
       latitude: 40.7143,
       longitude: -74.0042,
       latitudeDelta: 0.09,
-      longitudeDelta: 0.035
+      longitudeDelta: 0.035,
+
+      mapRegion: null,
+      lastLat: null,
+      lastLong: null,
+
+
+
     },
-    radius: area
+    radius: area,
+
+    currentLocation: null,
+    currentLat: 0,
+    currentLong: 0
   };
+
+  componentDidMount() {
+    this.watchID = navigator.geolocation.watchPosition((position) => {
+      // Create the object to update this.state.mapRegion through the onRegionChange function
+      let region = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        latitudeDelta: 0.00922 * 1.5,
+        longitudeDelta: 0.00421 * 1.5
+      }
+      this.onRegionChange(region, region.latitude, region.longitude);
+    });
+  }
+
+  onRegionChange(region, lastLat, lastLong) {
+    this.setState({
+      mapRegion: region,
+      // If there are no new values set use the the current ones
+      lastLat: lastLat || this.state.lastLat,
+      lastLong: lastLong || this.state.lastLong
+    });
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
+  }
+
+  onMapPress(e) {
+    console.log(e.nativeEvent.coordinate.longitude);
+    let region = {
+      latitude: e.nativeEvent.coordinate.latitude,
+      longitude: e.nativeEvent.coordinate.longitude,
+      latitudeDelta: 0.00922 * 1.5,
+      longitudeDelta: 0.00421 * 1.5
+    }
+    this.onRegionChange(region, region.latitude, region.longitude);
+  }
+
+
 
   points = [
     { latitude: 40.7828, longitude: -74.0065, weight: 1 },
@@ -67,23 +123,73 @@ class Map extends React.Component {
     { latitude: 41.0232, longitude: -74.0014, weight: 1 }
   ];
 
+
   onPress = () => {
     console.log("Pressed.");
+  };
+
+  findCoordinates = () => {
+
+    console.log("Finding Coordinates");
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const location = JSON.stringify(position.coords.latitude) + "," + JSON.stringify(position.coords.longitude);
+
+        this.setState({ location });
+      },
+      error => Alert.alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+
+
+
+
   };
 
   render() {
     // console.log(this.state.radius);
     // let { width } = Dimensions.get("window");
+
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const location = JSON.stringify(position.coords.latitude) + "," + JSON.stringify(position.coords.longitude);
+        console.log("YEET");
+        this.setState({ location, currentLat: position.coords.latitude, currentLong: position.coords.longitude });
+      },
+      error => Alert.alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+
+    // var lTest = this.state.currentLat;
+    // var lTest2 = this.state.currentLong;
+
+    console.log("Current Lat: " + this.state.currentLat);
+    console.log("Current Long: " + this.state.currentLong);
+    //console.log("LOCATION: " + this.state.location);
+
+
     return (
+
+
+
       <MapView
         provider={PROVIDER_GOOGLE}
         ref={map => (this._map = map)}
         style={styles.map}
-        initialRegion={this.state.initialPosition}
         showsUserLocation={true}
+        followUserLocation={true}
+        initialRegion={{
+          latitude: this.state.currentLat,
+          longitude: this.state.currentLong,
+          latitudeDelta: 1,
+          longitudeDelta: 1,
+        }}
+
       >
+
+
         <Heatmap
-          initialRegion={this.state.initialPosition}
+          initialRegion={this.state.initialPosition2}
           points={this.points}
           radius={40}
           gradient={{
@@ -109,12 +215,22 @@ class Map extends React.Component {
             opacity: 0.3
           }}
         /> */}
+
+        <TouchableOpacity onPress={this.findCoordinates}>
+          <Text style={styles.welcome}>Find My Coords?</Text>
+          <Text>Location: {this.state.location}</Text>
+        </TouchableOpacity>
+
+
         <Marker
           coordinate={{ latitude: 40.7143, longitude: -74.0042 }}
           onPress={this.onPress}
         />
       </MapView>
+
     );
+
+
     return <EmbeddedWebView url={"http://localhost:8000/"} />;
   }
 }
