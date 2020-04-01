@@ -120,24 +120,24 @@ export default class TeamList extends Component {
     }
   }
 
-  // static navigationOptions = ({ navigation }) => {
-  //   return {
-  //     headerRight: (
-  //       <CreateTeamMenuIcon
-  //         option1="Create Team"
-  //         option2="Join Team"
-  //         menuStyle={{
-  //           marginRight: 40,
-  //           flexDirection: "row",
-  //           justifyContent: "flex-end"
-  //         }}
-  //         option1Click={() => {
-  //           navigation.navigate("CreateTeam");
-  //         }}
-  //       />
-  //     )
-  //   };
-  // };
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerRight: (
+        <CreateTeamMenuIcon
+          option1="Create Team"
+          option2="Join Team"
+          menuStyle={{
+            marginRight: 40,
+            flexDirection: "row",
+            justifyContent: "flex-end"
+          }}
+          option1Click={() => {
+            navigation.navigate("CreateTeam");
+          }}
+        />
+      )
+    };
+  };
   render() {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
