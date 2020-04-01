@@ -36,28 +36,6 @@ const users = async userIds => {
   }
 };
 
-const teams = async teamIds => {
-  try {
-    const teams = await Team.find({ _id: { $in: teamIds } });
-    return teams.map(team => {
-      return transformTeam(team);
-    });
-  } catch (err) {
-    throw err;
-  }
-};
-
-const users = async userIds => {
-  try {
-    const users = await User.find({ _id: { $in: userIds } });
-    return users.map(user => {
-      return transformUser(user);
-    });
-  } catch (err) {
-    throw err;
-  }
-};
-
 const singleEvent = async eventId => {
   try {
     const event = await Event.findById(eventId);
@@ -74,16 +52,6 @@ const singleUser = async UserId => {
   } catch (err) {
     throw err;
   }
-};
-
-const transformUser = user => {
-  return {
-    ...user._doc,
-    _id: user.id,
-    createdEvents: events.bind(this, user._doc.createdEvents),
-    joinedTeams: teams.bind(this, user._doc.joinedTeams),
-    createdTeams: teams.bind(this, user._doc.createdTeams)
-  };
 };
 
 const transformUser = user => {
