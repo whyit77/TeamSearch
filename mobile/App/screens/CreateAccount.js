@@ -142,6 +142,7 @@ export default class CreateAccount extends React.Component {
   };
 
   render() {
+    const { image } = this.state;
     return (
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />

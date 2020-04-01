@@ -21,43 +21,151 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ({ navigation }) => (
-  <SafeAreaView style={mainStyle.toplevel}>
-    <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+// export default ({ navigation }) => (
 
-    <KeyboardAvoidingView
-      style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
-      behavior="padding"
-      enabled
-    >
-      <ScrollView contentContainerStyle={formStyle.formContainer}>
-        <View style={formStyle.formContainer}>
-          <Text style={formStyle.label}>Search Description</Text>
-          <TextField placeholder="Description" editable={false} />
-          <Text style={formStyle.label}>Object Description</Text>
-          <TextField placeholder="Object" editable={false} />
-          <View style={formStyle.buttons}>
-            <TouchableOpacity
-              style={formStyle.formButton}
-              onPress={() => navigation.navigate("Map")}
-            >
-              <Text style={mainStyle.smallText}>Map</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={formStyle.formButton}
-              onPress={() => navigation.navigate("DataExport")}
-            >
-              <Text style={mainStyle.smallText}>Export Data</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={formStyle.formButton}
-              onPress={() => navigation.navigate("TeamAlerts")}
-            >
-              <Text style={mainStyle.smallText}>Alerts</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
-  </SafeAreaView>
-);
+export default class App extends React.Component {
+  // static contextType = AuthContext;
+
+  state = {
+    teamName: "",
+    searchDescription: "",
+    subjectDescription: "",
+    radius: "",
+    code: "",
+    creator: ""
+  };
+
+  componentDidMount() {
+    // TODO: GET CURRENT TEAM (just made or selected from list) //
+    const teamId = "5e8128d77fa7512864614453";
+
+    let requestBody = {
+      query: `
+          query getTeam($teamId: String!) {
+            getTeam(teamId: $teamId) {
+              _id
+              teamName
+              code
+              searchDescription
+              subjectDescription
+              radius
+              creator {
+                username
+              }
+            }
+          }`,
+      variables: {
+        teamId: teamId
+      }
+    };
+
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.12:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(async res => {
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          const teamName = responseJson.data.getTeam.teamName;
+          const searchDescription = responseJson.data.getTeam.searchDescription;
+          const subjectDescription =
+            responseJson.data.getTeam.subjectDescription;
+          const radius = responseJson.data.getTeam.radius;
+          const code = responseJson.data.getTeam.code;
+          const creator = responseJson.data.getTeam.creator;
+
+          this.setState({
+            teamName: teamName,
+            searchDescription: searchDescription,
+            subjectDescription: subjectDescription,
+            radius: radius,
+            code: code,
+            creator: creator
+          });
+
+          return responseJson;
+        }
+
+        throw new Error(responseJson.error);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  render() {
+    return (
+      <SafeAreaView style={mainStyle.toplevel}>
+        <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+
+        <KeyboardAvoidingView
+          style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}
+          behavior="padding"
+          enabled
+        >
+          <ScrollView contentContainerStyle={formStyle.formContainer}>
+            <View style={(formStyle.formContainer, { paddingVertical: 20 })}>
+              <Text style={formStyle.label}>Team Name: </Text>
+              <TextField editable={false}>
+                <Text style={formStyle.fillInText}>{this.state.teamName}</Text>
+              </TextField>
+
+              {/* <Text style={formStyle.fillInText}>{this.state.teamName}</Text> */}
+
+              <Text style={formStyle.label}>Code: </Text>
+              {/* <Text style={formStyle.fillInText}>{this.state.code}</Text> */}
+              <TextField editable={false}>
+                <Text style={formStyle.fillInText}>{this.state.code}</Text>
+              </TextField>
+
+              <Text style={formStyle.label}>Search Description: </Text>
+              <TextField editable={false}>
+                <Text style={formStyle.placeholderStyle}>
+                  {this.state.searchDescription}
+                </Text>
+              </TextField>
+              {/* <Text style={formStyle.fillInText}>{this.state.searchDescription}</Text> */}
+
+              <Text style={formStyle.label}>Subject: </Text>
+              <TextField editable={false}>
+                <Text style={formStyle.placeholderStyle}>
+                  {this.state.subjectDescription}
+                </Text>
+              </TextField>
+              {/* <Text style={formStyle.fillInText}>{this.state.subjectDescription}</Text> */}
+
+              <Text style={formStyle.label}>
+                Search Radius:{" "}
+                <Text style={formStyle.fillInText}>{this.state.radius}</Text>{" "}
+                miles
+              </Text>
+
+              {/* 
+
+              <Text style={formStyle.label}>Search Description</Text>
+              <TextField placeholder="Description" editable={false}>
+              <Text style={formStyle.fillInText}>{this.state.subjectDescription}</Text>
+               </TextField> */}
+            </View>
+            <View>
+              <View style={formStyle.buttons}>
+                <TouchableOpacity
+                  style={formStyle.formButton}
+                  onPress={() => this.props.navigation.navigate("TeamAlerts")}
+                >
+                  <Text style={mainStyle.smallText}>Alerts</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    );
+  }
+}

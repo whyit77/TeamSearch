@@ -234,6 +234,21 @@ picker: {
   //width: 200, 
   //height: 200, 
   marginTop: -30
+},
+fillInText: {
+  color: WHITE,
+  fontSize: 23,
+  fontWeight: "600",
+  marginBottom: 0,
+  marginTop: 10,
+  textShadowColor: WHITE,
+  padding: 10,
+  alignContent: 'center',
+  alignItems: 'center',
+  justifyContent: 'center',
+  textAlign: "center",
+
+
 }
 
 })

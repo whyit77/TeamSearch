@@ -12,7 +12,9 @@ import {
   Button,
   StatusBar,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  Linking,
+  Platform
 } from "react-native";
 import {
 	buttonStyle,
@@ -30,8 +32,8 @@ export default class App extends React.Component {
   // static contextType = AuthContext;
 
   state = {
-    switchITValue: false,
-    switchLTValue: false,
+    // switchITValue: false,
+    // switchLTValue: false,
     username: "",
     firstName: "",
     lastName: "",
@@ -42,42 +44,48 @@ export default class App extends React.Component {
     // confirmPass: ""
   };
 
-  toggleITSwitch = value => {
-    this.setState({ switchITValue: value });
-  };
+  // toggleITSwitch = value => {
+  //   this.setState({ switchITValue: value });
+  // };
 
-  toggleLTSwitch = value => {
-    this.setState({ switchLTValue: value });
-  };
+  // toggleLTSwitch = value => {
+  //   this.setState({ switchLTValue: value });
+  // };
 
   componentDidMount() {
-    // const user1 = this.props.navigation.getParams("_id", {});
-    // const user1 = "test2";
+    // TODO: GET CURRENT LOGGED IN USER //
+    const userId = "5e8128507fa7512864614452";
+
     let requestBody = {
-      //   query: `
-      //     query getUser($username: String!) {
-      //       getUser(username: $username) {
-      //         _id
-      //         username
-      //       }
-      //     }`,
-      //   variables: {
-      //     username: user1
-      //   }
       query: `
-        query {
-          me {
-            _id
-            username
-            firstName
-            lastName
-            email
-            desc
-            phone
-          }
-        }
-      `
-    }; // TODO: FIX currently pulls first person in database
+          query getUser($userId: String!) {
+            getUser(userId: $userId) {
+              _id
+              username
+              firstName
+              lastName
+              email
+              desc
+              phone
+            }
+          }`,
+      variables: {
+        userId: userId
+      }
+      // query: `
+      //   query {
+      //     me {
+      //       _id
+      //       username
+      //       firstName
+      //       lastName
+      //       email
+      //       desc
+      //       phone
+      //     }
+      //   }
+      // ` // me query pulls first person in database
+    };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
     fetch("http://192.168.1.12:3000/graphql", {
@@ -96,12 +104,12 @@ export default class App extends React.Component {
         console.log(responseJson);
 
         if (res.ok) {
-          const username = responseJson.data.me.username;
-          const firstName = responseJson.data.me.firstName;
-          const lastName = responseJson.data.me.lastName;
-          const email = responseJson.data.me.email;
-          const desc = responseJson.data.me.desc;
-          const phone = responseJson.data.me.phone;
+          const username = responseJson.data.getUser.username;
+          const firstName = responseJson.data.getUser.firstName;
+          const lastName = responseJson.data.getUser.lastName;
+          const email = responseJson.data.getUser.email;
+          const desc = responseJson.data.getUser.desc;
+          const phone = responseJson.data.getUser.phone;
 
           this.setState({
             username: username,
@@ -126,6 +134,45 @@ export default class App extends React.Component {
       });
   }
 
+  dialCall = () => {
+    let phoneNumber = "";
+
+    if (Platform.OS === "android") {
+      phoneNumber = "tel:${1234567890}";
+      phoneNumber = "sms:${1234567890}";
+    } else {
+      // phoneNumber = 'telprompt:${1234567890}';
+      phoneNumber = "sms:${1234567890}";
+    }
+
+    Linking.openURL("sms:" + this.state.phone);
+  };
+
+  // messageNumber = () => {
+  //   let phoneNumber ='';
+
+  //   if (Platform.OS === 'android') {
+  //     phoneNumber = 'tel:${1234567890}';
+  //   }
+  //   else {
+  //     phoneNumber = 'telprompt:${1234567890}';
+  //   }
+  //   Linking.openURL(phoneNumber);
+
+  // }
+
+  email = () => {
+    let emailAddress = "";
+
+    if (Platform.OS === "android") {
+      emailAddress = "tel:${1234567890}";
+    } else {
+      emailAddress = "telprompt:${1234567890}";
+    }
+
+    Linking.openURL(phoneNumber);
+  };
+
   render() {
     return (
       <View style={formStyle.formContainer}>
@@ -148,40 +195,54 @@ export default class App extends React.Component {
               </Text>
             </View>
             <View>
-              {/* <TextField
-              // onChangeText={username => this.setState({ username })}
-              // placeholder="Username"
-              value={this.state.username}
-              maxLength={40}
-            /> */}
-              <Text style={mainStyle.smallText}>{this.state.username}</Text>
-              {/* <TextField
-              onChangeText={name => this.setState({ name })}
-              placeholder="Name"
-              maxLength={40}
-            /> */}
-              <Text style={mainStyle.smallText}>
-                {this.state.firstName} {this.state.lastName}
+              <Text style={formStyle.label}>User Name: </Text>
+              <TextField editable={false}>
+                <Text style={formStyle.fillInText}>{this.state.username}</Text>
+              </TextField>
+
+              <Text style={formStyle.label}>First and Last Names: </Text>
+              <TextField editable={false}>
+                <Text style={formStyle.fillInText}>
+                  <Text style={formStyle.fillInText}>
+                    {this.state.firstName} {this.state.lastName}
+                  </Text>
+                </Text>
+              </TextField>
+
+              <Text style={formStyle.label}>Description: </Text>
+              <TextField editable={false}>
+                <Text style={formStyle.placeholderStyle}>
+                  {this.state.desc}
+                </Text>
+              </TextField>
+
+              <Text style={formStyle.label}>
+                Email:
+                <Text
+                  onPress={() => Linking.openURL("mailto:support@example.com")}
+                  title="support@example.com"
+                  style={formStyle.placeholderStyle}
+                >
+                  {" "}
+                  {this.state.email}
+                </Text>
               </Text>
-              {/* <TextField
-              onChangeText={email => this.setState({ email })}
-              placeholder="Email"
-              maxLength={40}
-            /> */}
-              <Text style={mainStyle.smallText}>{this.state.email}</Text>
-              {/* <TextField
-              onChangeText={cert => this.setState({ cert })}
-              placeholder="Certifications/Descriptions"
-              maxLength={250}
-            /> */}
-              <Text style={mainStyle.smallText}>{this.state.desc}</Text>
-              {/* <TextField
-              onChangeText={cell => this.setState({ cell })}
-              placeholder="Cell #"
-              maxLength={40}
-            /> */}
-              <Text style={mainStyle.smallText}>{this.state.phone}</Text>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+
+              <Text style={formStyle.label}>
+                Contact Number:
+                <Text
+                  onPress={this.dialCall}
+                  activeOpacity={0.7}
+                  style={formStyle.placeholderStyle}
+                >
+                  {" "}
+                  {this.state.phone}
+                </Text>
+              </Text>
+              {/* <TextField editable={false}> */}
+
+              {/* </TextField> */}
+              {/* <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Switch
                   style={formStyle.toggle}
                   onValueChange={this.toggleITSwitch}
@@ -190,7 +251,7 @@ export default class App extends React.Component {
                 />
                 <Text style={formStyle.toggleLabel}> View Inactive Teams </Text>
                 {/* <Text>{this.state.switchITValue ? "ON" : "OFF"}</Text> */}
-              </View>
+              {/* </View>
 
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Switch
@@ -201,7 +262,7 @@ export default class App extends React.Component {
                 />
                 <Text style={formStyle.toggleLabel}> Location Tracking </Text>
                 {/* <Text>{this.state.switchLTValue ? 'ON' : 'OFF'}</Text> */}
-              </View>
+              {/* </View>
 
               <TextField
                 onChangeText={changePass => this.setState({ changePass })}
@@ -219,12 +280,12 @@ export default class App extends React.Component {
                 selectionColor="red"
                 keyboardAppearance="dark"
                 color="white"
-              />
-              <View style={mainStyle.container}>
+              /> */}
+              {/* <View style={mainStyle.container}>
                 <TouchableOpacity style={buttonStyle.buttonContainer}>
                   <Text style={buttonStyle.buttonText}>Save</Text>
                 </TouchableOpacity>
-              </View>
+              </View> */}
             </View>
           </ScrollView>
         </KeyboardAwareScrollView>

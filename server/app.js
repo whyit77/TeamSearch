@@ -32,7 +32,7 @@ app.use((req, res, next) => {
   next();
 });
 
-//////// CHANGE CONNECT URL FOR THE DB YOU ARE USING //////////
+//////// CHANGE CONNECT URL (in nodemon.json) FOR THE DB YOU ARE USING //////////
 mongoose
 	.connect(
 		`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`

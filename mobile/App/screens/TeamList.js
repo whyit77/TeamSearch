@@ -1,129 +1,198 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
-	ScrollView,
-	Text,
-	TouchableOpacity,
-	StyleSheet,
-	View,
-	SafeAreaView,
-	StatusBar,
-} from 'react-native';
-import { Team } from '../components/Team';
-import { mainStyle } from '../styles/styles';
-import CreateTeamMenuIcon from '../components/CreateTeamMenuIcon';
-import { TeamListCard } from '../components/TeamListCard';
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  View,
+  SafeAreaView,
+  StatusBar,
+  FlatList
+} from "react-native";
+import { Team } from "../components/Team";
+import { mainStyle } from "../styles/styles";
+import CreateTeamMenuIcon from "../components/CreateTeamMenuIcon";
+import { TeamListCard } from "../components/TeamListCard";
 
 export default class TeamList extends Component {
-	state = {
-		name: '',
-		status: '',
-		admin: '',
-		size: '',
-		description: 'this is a description',
-		userId: '5e7031dc9c7708107b2bfaa7',
-		joinedTeams: [],
-		createdTeams: [],
-		count: 1,
-	};
+  state = {
+    // teamName: "",
+    status: "Active", /////////////
+    // creator: "",
+    // size: 0,
+    // subjectDescription: "",
+    // userId: "5e7e46af4f99bb52f42369a4",
+    joinedTeams: [],
+    // createdTeams: [],
+    count: 1,
+    data: []
+  };
 
-	handleSubmit = () => {
-		let requestBody = {
-			query: `
+  componentDidMount() {
+    // TODO: GET CURRENT LOGGED IN USER //
+    const userId = "5e8128507fa7512864614452";
+
+    let requestBody = {
+      query: `
 		      query getUser($userId: String!) {
 		        getUser(userId: $userId) {
+              username
 		          joinedTeams {
-		            title
-		            searchDescription
-		            subjectDescription
-		          }
-		          createdTeams {
-		            title
+                _id
+                teamName
+                subjectDescription
+                creator {
+                  username
+                }
+                members {
+                  username
+                }
 		          }
 		        }
 		      }
 		    `,
-			variables: {
-				userId: this.state.userId,
-			},
-		};
+      variables: {
+        userId: userId
+      }
+    };
 
-		if (this.state.count == 1) {
-			console.log('fetching...');
+    if (this.state.count == 1) {
+      console.log("fetching...");
 
-			fetch('http://<IPv4>:3000/graphql', {
-				method: 'POST',
-				body: JSON.stringify(requestBody),
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			})
-				.then(async res => {
-					const responseJson = await res.json();
+      fetch("http://192.168.1.12:3000/graphql", {
+        method: "POST",
+        body: JSON.stringify(requestBody),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(async res => {
+          const responseJson = await res.json();
 
-					console.log(responseJson);
+          console.log(responseJson);
 
-					if (res.ok) {
-						console.log('Okay Fetched Teams');
-						// this.setState(initialState);
-						return responseJson;
-					}
+          if (res.ok) {
+            console.log("Okay Fetched Teams");
 
-					// this.setState(initialState);
-					this.setState({ error: responseJson.errors[0].message });
-					throw new Error(responseJson.error);
-				})
-				.catch(err => {
-					console.log(err);
-				});
+            const joinedTeams = responseJson.data.getUser.joinedTeams;
+            // // const createdTeams = responseJson.data.getUser.createdTeams;
 
-			this.state.count = 2;
-		}
-	};
+            // const teamName = responseJson.data.getUser.joinedTeams[1].teamName;
+            // const subjectDescription =
+            //   responseJson.data.getUser.joinedTeams[1].subjectDescription;
+            // const creator =
+            //   responseJson.data.getUser.joinedTeams[1].creator.username;
 
-	static navigationOptions = ({ navigation }) => {
-		return {
-			headerRight: (
-				<CreateTeamMenuIcon
-					option1="Create Team"
-					option2="Join Team"
-					menuStyle={{
-						marginRight: 40,
-						flexDirection: 'row',
-						justifyContent: 'flex-end',
-					}}
-					option1Click={() => {
-						navigation.navigate('CreateTeam');
-					}}
-				/>
-			),
-		};
-	};
-	render() {
-		return (
-			<SafeAreaView style={mainStyle.toplevel}>
-				<StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+            // const members = responseJson.data.getUser.joinedTeams[1].members;
+            // const size = members.length;
 
-				<View style={mainStyle.container}>
-					<ScrollView contentContainerStyle={mainStyle.container}>
-						<View style={mainStyle.toplevel}>
-							<TouchableOpacity onPress={this.handleSubmit()}>
-								<Team
-									name={'TeamSearch'}
-									status={'Active'}
-									admin={'Dr. Dan'}
-									size={20}
-									description={'Small boi'}
-								></Team>
-							</TouchableOpacity>
-							{/* <TouchableOpacity onPress={this.handleSubmit()}>
+            // console.log("--------");
+            // console.log(joinedTeams);
+
+            const info = [];
+            for (let i = 0; i < joinedTeams.length; i++) {
+              info.push(joinedTeams[i]);
+            }
+            // console.log("======");
+            // console.log(info);
+
+            this.setState({
+              // teamName: teamName,
+              // subjectDescription: subjectDescription,
+              // creator: creator,
+              // size: size,
+              // joinedTeams: joinedTeams,
+              data: info
+              // createdTeams: createdTeams
+            });
+
+            return responseJson;
+          }
+
+          this.setState({ error: responseJson.errors[0].message });
+          throw new Error(responseJson.error);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+
+      this.state.count = 2;
+    }
+  }
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerRight: (
+        <CreateTeamMenuIcon
+          option1="Create Team"
+          option2="Join Team"
+          menuStyle={{
+            marginRight: 40,
+            flexDirection: "row",
+            justifyContent: "flex-end"
+          }}
+          option1Click={() => {
+            navigation.navigate("CreateTeam");
+          }}
+        />
+      )
+    };
+  };
+  render() {
+    return (
+      <SafeAreaView style={mainStyle.toplevel}>
+        <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+
+        <FlatList
+          data={this.state.data}
+          renderItem={({ item: rowData }) => {
+            return (
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate("TeamInfo")}
+                // TODO: NEED TO PASS SELECTED TEAM ID TO teamInfo page //
+              >
+                {/* <Text style={mainStyle.text}>{rowData}</Text> */}
+                <Team
+                  name={rowData.teamName}
+                  status={this.state.status}
+                  admin={rowData.creator.username}
+                  size={rowData.members.length}
+                  description={rowData.subjectDescription}
+                />
+                {/* <Team
+                name={this.state.teamName}
+                status={this.state.status}
+                admin={this.state.creator}
+                size={this.state.size}
+                description={this.state.subjectDescription}
+              /> */}
+              </TouchableOpacity>
+            );
+          }}
+          keyExtractor={(item, index) => index}
+        />
+
+        {/* <View style={mainStyle.container}>
+          <ScrollView contentContainerStyle={mainStyle.container}>
+            <View style={mainStyle.toplevel}> */}
+        {/* <TouchableOpacity onPress={this.handleSubmit()}> */}
+        {/* <Team
+                name={this.state.teamName}
+                status={this.state.status}
+                admin={this.state.creator}
+                size={this.state.size}
+                description={this.state.subjectDescription}
+              /> */}
+        {/* </TouchableOpacity> */}
+        {/* <TouchableOpacity onPress={this.handleSubmit()}>
 								<TeamListCard
 									description={this.state.description}
 								></TeamListCard>
 							</TouchableOpacity> */}
-						</View>
-					</ScrollView>
-				</View>
-			</SafeAreaView>
-		);
-	}
+        {/* </View>
+          </ScrollView>
+        </View> */}
+      </SafeAreaView>
+    );
+  }
 }
