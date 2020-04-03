@@ -1,4 +1,4 @@
-// App/Components/Alert.js
+// App/components/Alert.js
 
 import React from "react";
 import { View, StyleSheet, Dimensions, Image } from "react-native";

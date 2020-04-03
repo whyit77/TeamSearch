@@ -4,6 +4,10 @@ import Menu, { MenuItem } from 'react-native-material-menu';
 import { MaterialIcons } from '@expo/vector-icons';
 import DialogInput from 'react-native-dialog-input-custom';
 
+import {
+    B1, B2, B3
+  } from "../styles/styles";
+
 export default class CreateTeamMenuIcon extends Component {
     
     _menu = null;
@@ -43,21 +47,22 @@ export default class CreateTeamMenuIcon extends Component {
                 dialogIsVisible={this.state.dialogIsVisible}
                 closeDialogInput={() => this.setState({ dialogIsVisible: false })}
                 submitInput={(textValue) => console.warn(textValue)}
+
                 outerContainerStyle={{ backgroundColor: 'rgba(0,0,0, 0.75)' }}
-                containerStyle={{ backgroundColor: 'rgba(255,0,0, 0.2)'}}
+                containerStyle={{ backgroundColor: B3, borderColor: '#590900', borderWidth: 5}}
                 titleStyle={{ color: 'white' }}
                 title="Join a Team"
                 subTitleStyle={{ color: 'white' }}
                 subtitle="Please enter the team code"
-                placeholderInput="Team Code"
-                placeholderTextColor="gray"
-                textInputStyle={{ borderColor: 'black', borderWidth: 2 }}
+                placeholderInput=" Team Code"
+                placeholderTextColor="grey"
+                textInputStyle={{ borderColor: 'black', borderWidth: 1, marginBottom: 20}}
                 secureTextEntry={false}
                 buttonsStyle={{ borderColor: 'white' }}
-                textCancelStyle={{ color: 'white' }}
+                textCancelStyle={{ color: 'white', marginVertical: 3}}
                 submitTextStyle={{ color: 'white'}}
-                cancelButtonText="CANCEL"
-                submitButtonText="OK"
+                cancelButtonText="Cancel"
+                submitButtonText="Join"
                 />
             </View>
             </Menu>

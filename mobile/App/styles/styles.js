@@ -23,9 +23,9 @@ const mainStyle = StyleSheet.create({
     // marginTop: 20,
     alignContent: 'center',
     backgroundColor: B1,
-    height: screen.height*1.5,
+    // height: screen.height*1.5,
     paddingVertical: 20,
-    paddingBottom: 100
+    // paddingBottom: 100
 
 
   },
@@ -75,7 +75,7 @@ const mainStyle = StyleSheet.create({
   },
   scrollView: {
     // paddingVertical: 10,
-    height: screen.height*4,
+    // height: screen.height*4,
     flex: 4
   },
 
@@ -116,10 +116,10 @@ const formStyle = StyleSheet.create({
     //justifyContent: 'center',
     //alignItems:'center',
     backgroundColor: B1,
-    height: screen.height*5,
+    // height: screen.height*5,
     //borderRadius: 30,
     // paddingBottom: 10,
-    marginBottom: 10, 
+    // marginBottom: 10, 
     //  paddingBottom: 100,
   },
 
@@ -234,6 +234,21 @@ picker: {
   //width: 200, 
   //height: 200, 
   marginTop: -30
+},
+fillInText: {
+  color: WHITE,
+  fontSize: 23,
+  fontWeight: "600",
+  marginBottom: 0,
+  marginTop: 10,
+  textShadowColor: WHITE,
+  padding: 10,
+  alignContent: 'center',
+  alignItems: 'center',
+  justifyContent: 'center',
+  textAlign: "center",
+
+
 }
 
 })
@@ -260,13 +275,27 @@ const teamListStyle = StyleSheet.create ({
   },
   teamLabelText: {
     color: WHITE,
-    fontSize: 18,
-    fontWeight: "400",
+    fontSize: 15,
+    fontWeight: "300",
     marginBottom: 7,
     marginTop: 10,
   },
   teamInputText: {
     color: WHITE,
+    fontSize: 18,
+    fontWeight: "600",
+    marginBottom: 7,
+    marginTop: 10,
+  },
+  activeText: {
+    color: 'lime',
+    fontSize: 18,
+    fontWeight: "600",
+    marginBottom: 7,
+    marginTop: 10,
+  },
+  inactiveText: {
+    color: RED,
     fontSize: 18,
     fontWeight: "600",
     marginBottom: 7,
@@ -289,7 +318,7 @@ const teamListStyle = StyleSheet.create ({
       alignItems:'center',   
       marginLeft: 20,
       paddingVertical: 5,
-      paddingHorizontal: 20,
+      // paddingHorizontal: 20,
       backgroundColor: B3,
       borderRadius: 30,
       width: screen.width/2
@@ -299,7 +328,7 @@ const teamListStyle = StyleSheet.create ({
     justifyContent: 'center',
     alignItems:'center',  
     paddingVertical: 5,
-    paddingHorizontal: 5,
+    // paddingHorizontal: 5,
     marginRight: 20,
     backgroundColor: B3,
     borderRadius: 30,
@@ -322,7 +351,7 @@ const teamListStyle = StyleSheet.create ({
     alignItems:'center',   
     marginLeft: 20,
     paddingVertical: 5,
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
     backgroundColor: B3,
     borderRadius: 30,
     width: screen.width/2
@@ -341,24 +370,24 @@ const teamListStyle = StyleSheet.create ({
   container3: {
     flexDirection: 'row',
     //flex: 1,
-    justifyContent: 'center',
-    alignItems:'center',   
-    width: screen.width,
-    justifyContent: 'space-between',
-    width: screen.width,
+    // justifyContent: 'center',
+    // alignItems:'center',   
+    width: screen.width-40,
+    // justifyContent: 'space-between',
     marginTop: 5
   },
   descriptionContainer: {
     alignSelf: 'center',
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems:'center',   
-    marginLeft: 20,
+    // justifyContent: 'center',
+    // alignItems:'center',   
+    // marginHorizontal: 100,
     paddingVertical: 5,
     paddingHorizontal: 20,
     backgroundColor: B3,
     borderRadius: 30,
-    width: screen.width-40
+    width: screen.width-40,
+    maxWidth: 400
   }
 
 })

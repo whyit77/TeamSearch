@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 export default React.createContext({
-    token: null,
-    userId: null,
-    login: (token, userId, tokenExpiration) => {},
-    logout: () => {}
+  token: null,
+  userId: null,
+  Login: (token, userId, tokenExpiration) => {},
+  logout: () => {}
 });
