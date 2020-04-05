@@ -1,4 +1,4 @@
-const { buildSchema } = require("graphql");
+const { buildSchema } = require('graphql');
 
 module.exports = buildSchema(`
 type Booking {
@@ -23,7 +23,7 @@ type Team {
   teamName: String!
   searchDescription: String!
   subjectDescription: String!
-  radius: Int!
+  radius: Int
   code: String!
   creator: User!
   members: [User!]
@@ -62,7 +62,7 @@ input TeamInput {
   teamName: String!
   searchDescription: String!
   subjectDescription: String!
-  radius: Int!
+  radius: Int
 }
 
 input UserInput {
@@ -93,6 +93,7 @@ type RootMutation {
     bookEvent(eventId: ID!): Booking!
     cancelBooking(bookingId: ID!): Event!
     joinTeam(teamCode: String!): Team
+    addUserToTeam(username: String!, teamId: String!): Team
 }
 
 schema {
