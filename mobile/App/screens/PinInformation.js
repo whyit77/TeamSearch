@@ -12,7 +12,7 @@ import {
   Button,
   StatusBar,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 
 import {
@@ -20,32 +20,32 @@ import {
   mainStyle,
   exampleText,
   formStyle,
-  teamListStyle
+  teamListStyle,
 } from "../styles/styles";
 import { TextField, ErrorText } from "../components/Form";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center"
+    alignItems: "center",
   },
-  underline: { textDecorationLine: "underline" }
+  underline: { textDecorationLine: "underline" },
 });
 
-export default class App extends React.Component {
+class PinInformation extends React.Component {
   state = {
     switchITValue: false,
     switchLTValue: false,
     name: "",
     location: "",
-    descr: ""
+    descr: "",
   };
 
-  toggleITSwitch = value => {
+  toggleITSwitch = (value) => {
     this.setState({ switchITValue: value });
   };
 
-  toggleLTSwitch = value => {
+  toggleLTSwitch = (value) => {
     this.setState({ switchLTValue: value });
   };
 
@@ -60,12 +60,12 @@ export default class App extends React.Component {
               style={{ width: 100, height: 100 }}
               source={{
                 uri:
-                  "https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png"
+                  "https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png",
               }}
             />
           </View>
           <TextField
-            onChangeText={location => this.setState({ location })}
+            onChangeText={(location) => this.setState({ location })}
             placeholder="Name of pin"
             maxLength={40}
           />
@@ -73,12 +73,17 @@ export default class App extends React.Component {
           <Text style={formStyle.label}> Pinned By: (Name) </Text>
 
           <TextField
-            onChangeText={descr => this.setState({ descr })}
+            onChangeText={(descr) => this.setState({ descr })}
             placeholder="Description of pin:"
             maxLength={250}
           />
           <View style={mainStyle.container}>
-            <TouchableOpacity style={buttonStyle.buttonContainer}>
+            <TouchableOpacity
+              style={buttonStyle.buttonContainer}
+              onPress={({ name, location, descr }) =>
+                this.props.navigation.navigate("Map")
+              }
+            >
               <Text style={buttonStyle.buttonText}>Apply</Text>
             </TouchableOpacity>
           </View>
@@ -87,3 +92,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default PinInformation;

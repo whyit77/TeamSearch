@@ -1,13 +1,19 @@
 import React from "react";
-import { StyleSheet } from "react-native";
-import MapView, { PROVIDER_GOOGLE, Heatmap, Marker } from "react-native-maps";
+import { StyleSheet, Text, View } from "react-native";
+import MapView, {
+  PROVIDER_GOOGLE,
+  Heatmap,
+  Marker,
+  Callout,
+} from "react-native-maps";
+
+import { name, location, descr } from "../screens/PinInformation";
 
 const styles = StyleSheet.create({
   map: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });
-import { EmbeddedWebView } from "../components/EmbeddedWebView";
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -24,11 +30,11 @@ class Map extends React.Component {
         latitude: 40.7143,
         longitude: -74.0042,
         latitudeDelta: 0.09,
-        longitudeDelta: 0.035
+        longitudeDelta: 0.035,
       },
       latitude: 40.7143,
       longitude: -74.0042,
-      markers: []
+      markers: [],
     };
 
     this.handlePress = this.handlePress.bind(this);
@@ -75,7 +81,7 @@ class Map extends React.Component {
     { latitude: 41.094, longitude: -74.0068, weight: 1 },
     { latitude: 41.0874, longitude: -74.0052, weight: 1 },
     { latitude: 41.0824, longitude: -74.0024, weight: 1 },
-    { latitude: 41.0232, longitude: -74.0014, weight: 1 }
+    { latitude: 41.0232, longitude: -74.0014, weight: 1 },
   ];
 
   handlePress(e) {
@@ -84,9 +90,9 @@ class Map extends React.Component {
         ...this.state.markers,
         {
           coordinate: e.nativeEvent.coordinate,
-          pin: `$$getRandomInt(50,300)`
-        }
-      ]
+          pin: `$$getRandomInt(50,300)`,
+        },
+      ],
     });
   }
 
@@ -94,7 +100,7 @@ class Map extends React.Component {
     return (
       <MapView
         provider={PROVIDER_GOOGLE}
-        ref={map => (this._map = map)}
+        ref={(map) => (this._map = map)}
         style={styles.map}
         initialRegion={this.state.initialPosition}
         showsUserLocation={true}
@@ -107,26 +113,38 @@ class Map extends React.Component {
           gradient={{
             colors: ["black", "purple", "red", "yellow", "white"],
             startPoints: [0.01, 0.04, 0.1, 0.45, 0.5],
-            colorMapSize: 200
+            colorMapSize: 200,
           }}
         />
-        {this.state.markers.map((marker, i) => {
+        {this.state.markers.map((marker, i, navigation) => {
           return (
             <Marker
-              coordinate={this.state.x}
+              coordinate={(this.state.latitude, this.state.longitude)}
               key={i}
-              title="Pin"
-              description="This is the missing item!"
+              // title="Pin"
+              // description="This is the missing item!"
               {...marker}
               draggable
-              onDragEnd={e => this.setState({ x: e.nativeEvent.coordinate })}
+              onDragEnd={(e) => this.setState({ x: e.nativeEvent.coordinate })}
+              // onPress={() => {
+              //   this.props.navigation.navigate("PinInformation");
+              // }}
               // image={require("../cougar_walk.jpg")}
-            />
+            >
+              <Callout
+                onPress={({ name, location, descr }) => {
+                  this.props.navigation.navigate("PinInformation");
+                }}
+              >
+                <View>
+                  <Text> {this.name} </Text>
+                </View>
+              </Callout>
+            </Marker>
           );
         })}
       </MapView>
     );
-    return <EmbeddedWebView url={"http://localhost:8000/"} />;
   }
 }
 
