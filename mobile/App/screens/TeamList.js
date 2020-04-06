@@ -30,7 +30,7 @@ export default class TeamList extends Component {
 
   componentDidMount() {
     // TODO: GET CURRENT LOGGED IN USER //
-    const userId = "5e84e63b4cc6a4552005268b";
+    const userId = "5e815389f1088e659c4bddc4";
 
     let requestBody = {
       query: `
@@ -59,7 +59,7 @@ export default class TeamList extends Component {
     if (this.state.count == 1) {
       console.log("fetching...");
 
-      fetch("http://<IPv4>:3000/graphql", {
+      fetch("http://192.168.0.13:3000/graphql", {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {

@@ -37,7 +37,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     // TODO: GET CURRENT TEAM (just made or selected from list) //
-    const teamId = "5e84e6ea4cc6a4552005268c";
+    const teamId = "5e815a1ff1088e659c4bddc5";
 
     let requestBody = {
       query: `
@@ -60,7 +60,7 @@ export default class App extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://<IPv4>:3000/graphql", {
+    fetch("http://192.168.0.13:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
