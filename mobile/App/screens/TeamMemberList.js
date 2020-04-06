@@ -8,13 +8,13 @@ import {
   FlatList
 } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
-import { Card } from "react-native-elements";
+import { Card, Avatar } from "react-native-elements";
 
 import { TeamMember } from "../components/TeamMember";
-import { mainStyle } from "../styles/styles";
+import { mainStyle, B3, B2, B1 } from "../styles/styles";
 import { ScrollView } from "react-native-gesture-handler";
 import TeamMemberListAddButton from "../components/TeamMemberListAddButton";
-// import Avatar from '../components/Avatar';
+import Icon from "react-native-vector-icons/Ionicons";
 
 const styles = StyleSheet.create({
   container: {
@@ -32,41 +32,9 @@ const styles = StyleSheet.create({
   }
 });
 
-const data = [
-  {
-    imageUrl: "http://via.placeholder.com/160x160",
-    title: "something"
-  },
-  {
-    imageUrl: "http://via.placeholder.com/160x160",
-    title: "something two"
-  },
-  {
-    imageUrl: "http://via.placeholder.com/160x160",
-    title: "something three"
-  },
-  {
-    imageUrl: "http://via.placeholder.com/160x160",
-    title: "something four"
-  },
-  {
-    imageUrl: "http://via.placeholder.com/160x160",
-    title: "something five"
-  },
-  {
-    imageUrl: "http://via.placeholder.com/160x160",
-    title: "something six"
-  }
-];
-
 // Necessary to extract how many team members are currently in a team and then make rows for all members
 export default class TeamMemberList extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     data: data
-  //   };
-  // }
+
 
   state = {
     data: [],
@@ -94,7 +62,7 @@ export default class TeamMemberList extends Component {
 
     console.log("fetching...");
 
-    fetch("http://192.168.0.13:3000/graphql", {
+    fetch("http://192.168.1.14:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -137,16 +105,18 @@ export default class TeamMemberList extends Component {
     return {
       headerRight: <TeamMemberListAddButton />
     };
+    
   };
+  
 
   render() {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
-        {/* <ScrollView> */}
         <FlatList
           data={this.state.data}
+          numColumns ={2}
           renderItem={({ item: rowData }) => {
             return (
               <TouchableOpacity
@@ -154,88 +124,32 @@ export default class TeamMemberList extends Component {
                 // TODO: NEED TO PASS SELECTED MEMBER ID TO memberProfile page //
               >
                 {/* <Text style={mainStyle.text}>{rowData}</Text> */}
-                <Card
+                <Card 
                   title={rowData}
-                  image={{ url: "http://via.placeholder.com/160x160" }}
-                  containerStyle={{ padding: 0, width: 160 }}
-                />
-                {/* <Text style={{ marginBottom: 10 }}>hello</Text>
-                </Card> */}
+                  titleStyle={{alignItems: 'flex-start', marginTop: 10, color: 'white'}}
+                  // image={{ url: "http://via.placeholder.com/160x160" }}
+                  containerStyle={{ padding: 0, width: 155, backgroundColor: B3, borderRadius: 30,borderWidth: 0, borderColor: B1}}
+                  >
+                  <Avatar
+                    overlayContainerStyle={{backgroundColor: B2, borderBottomEndRadius: 25, borderBottomStartRadius: 25}}
+                    size="xlarge"
+                    title={rowData[0]}
+                    containerStyle={{ marginTop: -17, width: 155}}
+                  />
+                </Card>
+        {/* <TeamMember nav={() => navigation.navigate("MemberProfile")} avatar={null} initial='JD' fname={'John'} lname={'Doe'} role={'Search'}> </TeamMember> */}
+
               </TouchableOpacity>
             );
           }}
           keyExtractor={(item, index) => index}
         />
-        {/* <TeamMember nav={() => navigation.navigate("MemberProfile")} avatar={null} initial='JD' fname={'John'} lname={'Doe'} role={'Search'}> </TeamMember>
-      <Text style={styles.text}> Team Member 1 </Text>
+      {/* <Text style={styles.text}> Team Member 1 </Text>
       <TouchableOpacity onPress={() => this.props.navigation.navigate("MemberProfile")}>
         <Text style={styles.text}> View Profile </Text>
       </TouchableOpacity> */}
-        {/* </ScrollView> */}
+ 
       </SafeAreaView>
-      //   <ScrollView>
-      //     <TeamMember
-      //       nav={() => navigation.navigate("MemberProfile")}
-      //       avatar={null}
-      //       initial="JD"
-      //       fname={"John"}
-      //       lname={"Doe"}
-      //       role={"Search"}
-      //     >
-      //       {" "}
-      //     </TeamMember>
-      //     <Text style={styles.text}> Team Member 1 </Text>
-      //     <TouchableOpacity
-      //       onPress={() => this.props.navigation.navigate("MemberProfile")}
-      //     >
-      //       <Text style={styles.text}> View Profile </Text>
-      //     </TouchableOpacity>
-      //   </ScrollView>
-      // </SafeAreaView>
-      //   <ScrollView>
-      //   <FlatList
-      //     data={this.state.data}
-      //     renderItem={({ item: rowData }) => {
-      //       return (
-      //         <TouchableOpacity onPress={() => this.props.navigation.navigate("MemberProfile")}>
-      //         <Card
-      //           title={null}
-      //           image={{ url: "http://via.placeholder.com/160x160" }}
-      //           containerStyle={{ padding: 0, width: 160 }}
-      //         >
-      //           <Text style={{ marginBottom: 10 }}>
-      //             hello
-      //           </Text>
-      //         </Card>
-      //         </TouchableOpacity>
-      //       );
-      //     }}
-      //     keyExtractor={(item, index) => index}
-      //   />
-      //   <TeamMember nav={() => navigation.navigate("MemberProfile")} avatar={null} initial='JD' fname={'John'} lname={'Doe'} role={'Search'}> </TeamMember>
-      //   <Text style={styles.text}> Team Member 1 </Text>
-      //   <TouchableOpacity onPress={() => this.props.navigation.navigate("MemberProfile")}>
-      //     <Text style={styles.text}> View Profile </Text>
-      //   </TouchableOpacity>
-
-      //   <TeamMember
-      //         nav={() => navigation.navigate("MemberProfile")}
-      //         avatar={null}
-      //         initial="JD"
-      //         fname={"John"}
-      //         lname={"Doe"}
-      //         role={"Search"}
-      //       >
-      //         {" "}
-      //       </TeamMember>
-      //       <Text style={styles.text}> Team Member 1 </Text>
-      //       <TouchableOpacity
-      //         onPress={() => this.props.navigation.navigate("MemberProfile")}
-      //       >
-      //         <Text style={styles.text}> View Profile </Text>
-      //       </TouchableOpacity>
-      //   </ScrollView>
-      // </SafeAreaView>
     );
   }
 }

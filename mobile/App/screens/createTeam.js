@@ -63,7 +63,7 @@ export default class CreateTeam extends React.Component {
     };
 
     // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.0.13:3000/graphql", {
+    fetch("http://192.168.1.14:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {

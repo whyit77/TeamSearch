@@ -59,7 +59,7 @@ export default class TeamList extends Component {
     if (this.state.count == 1) {
       console.log("fetching...");
 
-      fetch("http://192.168.0.13:3000/graphql", {
+      fetch("http://192.168.1.14:3000/graphql", {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {
