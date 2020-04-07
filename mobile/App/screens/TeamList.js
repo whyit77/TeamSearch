@@ -7,7 +7,7 @@ import {
   View,
   SafeAreaView,
   StatusBar,
-  FlatList
+  FlatList,
 } from "react-native";
 import { Team } from "../components/Team";
 import { mainStyle } from "../styles/styles";
@@ -25,12 +25,12 @@ export default class TeamList extends Component {
     joinedTeams: [],
     // createdTeams: [],
     count: 1,
-    data: []
+    data: [],
   };
 
   componentDidMount() {
     // TODO: GET CURRENT LOGGED IN USER //
-    const userId = "5e84e63b4cc6a4552005268b";
+    const userId = "5e8128507fa7512864614452";
 
     let requestBody = {
       query: `
@@ -52,21 +52,21 @@ export default class TeamList extends Component {
 		      }
 		    `,
       variables: {
-        userId: userId
-      }
+        userId: userId,
+      },
     };
 
     if (this.state.count == 1) {
       console.log("fetching...");
 
-      fetch("http://<IPv4>:3000/graphql", {
+      fetch("http://192.168.1.11:3000/graphql", {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       })
-        .then(async res => {
+        .then(async (res) => {
           const responseJson = await res.json();
 
           console.log(responseJson);
@@ -102,7 +102,7 @@ export default class TeamList extends Component {
               // creator: creator,
               // size: size,
               // joinedTeams: joinedTeams,
-              data: info
+              data: info,
               // createdTeams: createdTeams
             });
 
@@ -112,7 +112,7 @@ export default class TeamList extends Component {
           this.setState({ error: responseJson.errors[0].message });
           throw new Error(responseJson.error);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
 
@@ -129,13 +129,13 @@ export default class TeamList extends Component {
           menuStyle={{
             marginRight: 40,
             flexDirection: "row",
-            justifyContent: "flex-end"
+            justifyContent: "flex-end",
           }}
           option1Click={() => {
             navigation.navigate("CreateTeam");
           }}
         />
-      )
+      ),
     };
   };
   render() {

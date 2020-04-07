@@ -5,7 +5,7 @@ import {
   View,
   TouchableOpacity,
   StatusBar,
-  FlatList
+  FlatList,
 } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 import { Card } from "react-native-elements";
@@ -21,42 +21,42 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   text: {
     color: "black",
     fontSize: 15,
     textAlign: "center",
 
-    fontWeight: "600"
-  }
+    fontWeight: "600",
+  },
 });
 
 const data = [
   {
     imageUrl: "http://via.placeholder.com/160x160",
-    title: "something"
+    title: "something",
   },
   {
     imageUrl: "http://via.placeholder.com/160x160",
-    title: "something two"
+    title: "something two",
   },
   {
     imageUrl: "http://via.placeholder.com/160x160",
-    title: "something three"
+    title: "something three",
   },
   {
     imageUrl: "http://via.placeholder.com/160x160",
-    title: "something four"
+    title: "something four",
   },
   {
     imageUrl: "http://via.placeholder.com/160x160",
-    title: "something five"
+    title: "something five",
   },
   {
     imageUrl: "http://via.placeholder.com/160x160",
-    title: "something six"
-  }
+    title: "something six",
+  },
 ];
 
 // Necessary to extract how many team members are currently in a team and then make rows for all members
@@ -70,12 +70,14 @@ export default class TeamMemberList extends Component {
 
   state = {
     data: [],
-    username: ""
+    username: "",
+    firstName: "",
+    lastName: "",
   };
 
   componentDidMount() {
     // TODO: GET CURRENT TEAM (selected from list) //
-    const teamId = "5e84e6ea4cc6a4552005268c";
+    const teamId = "5e8128d77fa7512864614453";
 
     let requestBody = {
       query: `
@@ -84,24 +86,26 @@ export default class TeamMemberList extends Component {
           _id
           members {
             username
+            firstName
+            lastName
           }
         }
       }`,
       variables: {
-        teamId: teamId
-      }
+        teamId: teamId,
+      },
     };
 
     console.log("fetching...");
 
-    fetch("http://<IPv4>:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(async res => {
+      .then(async (res) => {
         const responseJson = await res.json();
 
         console.log(responseJson);
@@ -110,16 +114,22 @@ export default class TeamMemberList extends Component {
           console.log("Okay Fetched Team");
 
           const members = responseJson.data.getTeam.members;
+          // const first = responseJson.data.getTeam.firstName;
+          // const last = responseJson.data.getTeam.lastName;
           console.log(members);
 
           const names = [];
+          // const first = [];
+          // const last = [];
           for (let i = 0; i < members.length; i++) {
-            names.push(members[i].username);
+            names.push(members[i]);
+            // first.push(members[i].firstName);
+            // last.push(members[i].lastName);
           }
           console.log(names);
 
           this.setState({
-            data: names
+            data: names,
           });
 
           return responseJson;
@@ -128,14 +138,14 @@ export default class TeamMemberList extends Component {
         this.setState({ error: responseJson.errors[0].message });
         throw new Error(responseJson.error);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
 
   static navigationOptions = ({ navigation }) => {
     return {
-      headerRight: <TeamMemberListAddButton />
+      headerRight: <TeamMemberListAddButton />,
     };
   };
 
@@ -155,12 +165,14 @@ export default class TeamMemberList extends Component {
               >
                 {/* <Text style={mainStyle.text}>{rowData}</Text> */}
                 <Card
-                  title={rowData}
+                  title={rowData.username}
                   image={{ url: "http://via.placeholder.com/160x160" }}
                   containerStyle={{ padding: 0, width: 160 }}
-                />
-                {/* <Text style={{ marginBottom: 10 }}>hello</Text>
-                </Card> */}
+                >
+                  <Text style={{ marginBottom: 10 }}>
+                    {rowData.firstName} {rowData.lastName}
+                  </Text>
+                </Card>
               </TouchableOpacity>
             );
           }}

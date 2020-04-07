@@ -93,6 +93,7 @@ type RootMutation {
     bookEvent(eventId: ID!): Booking!
     cancelBooking(bookingId: ID!): Event!
     joinTeam(teamCode: String!): Team
+    addUserToTeam(username: String!, teamId: String!): Team
 }
 
 schema {

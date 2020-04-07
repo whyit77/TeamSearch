@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   View,
-  StatusBar
+  StatusBar,
 } from "react-native";
 import { TextField, ErrorText } from "../components/Form";
 import { Button } from "../components/Button";
@@ -14,7 +14,7 @@ import {
   mainStyle,
   exampleText,
   formStyle,
-  teamListStyle
+  teamListStyle,
 } from "../styles/styles";
 
 // import { AuthContext } from "../context/auth-context";
@@ -23,7 +23,7 @@ import {
 const initialState = {
   username: "",
   password: "",
-  error: ""
+  error: "",
 };
 
 export default class Login extends React.Component {
@@ -47,19 +47,19 @@ export default class Login extends React.Component {
       `,
       variables: {
         username: username,
-        password: password
-      }
+        password: password,
+      },
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://<IPv4>:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(async res => {
+      .then(async (res) => {
         const responseJson = await res.json();
 
         if (res.ok) {
@@ -83,7 +83,7 @@ export default class Login extends React.Component {
       //     );
       //   }
       // })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -100,7 +100,7 @@ export default class Login extends React.Component {
               <TextField
                 //label="Username"
                 placeholder="Username"
-                onChangeText={username => this.setState({ username })}
+                onChangeText={(username) => this.setState({ username })}
                 value={this.state.username}
                 autoCapitalize="none"
                 style={formStyle.placeholderStyle}
@@ -116,7 +116,7 @@ export default class Login extends React.Component {
                 //label="Password"
                 placeholder="Password"
                 secureTextEntry
-                onChangeText={password => this.setState({ password })}
+                onChangeText={(password) => this.setState({ password })}
                 value={this.state.password}
                 autoCapitalize="none"
                 style={formStyle.placeholderStyle}

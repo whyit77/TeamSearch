@@ -8,7 +8,7 @@ import {
   KeyboardAvoidingView,
   SafeAreaView,
   StatusBar,
-  Alert
+  Alert,
 } from "react-native";
 import { mainStyle, formStyle } from "../styles/styles";
 import { TextField, ErrorText } from "../components/Form";
@@ -24,7 +24,7 @@ const initialState = {
   radius: 0,
   // code: "",
   // creator: "",
-  error: ""
+  error: "",
 };
 
 export default class CreateTeam extends React.Component {
@@ -39,7 +39,7 @@ export default class CreateTeam extends React.Component {
     console.log(radius);
 
     // TODO: NEED CURRENT LOGGED IN USER ID ///
-    const userId = "5e84e63b4cc6a4552005268b";
+    const userId = "5e8128507fa7512864614452";
 
     let requestBody = {
       query: `
@@ -58,19 +58,19 @@ export default class CreateTeam extends React.Component {
         teamName: teamName,
         searchDescription: searchDescription,
         subjectDescription: subjectDescription,
-        radius: radius
-      }
+        radius: radius,
+      },
     };
 
     // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
-    fetch("http://<IPv4>:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(async res => {
+      .then(async (res) => {
         const responseJson = await res.json();
 
         console.log(responseJson);
@@ -82,7 +82,7 @@ export default class CreateTeam extends React.Component {
           // CHECK if fields missing
           if (this.state.error.includes("Team validation failed")) {
             this.setState({
-              error: "Team not created: required fields missing."
+              error: "Team not created: required fields missing.",
             });
           }
           // // CHECK if radius is empty
@@ -105,7 +105,7 @@ export default class CreateTeam extends React.Component {
         // CHECK if radius is 0
         if (radius == 0) {
           this.setState({
-            error: "Team not created: radius cannot be 0."
+            error: "Team not created: radius cannot be 0.",
           });
 
           console.log(this.state.error);
@@ -123,7 +123,7 @@ export default class CreateTeam extends React.Component {
         this.setState(initialState);
         throw new Error(responseJson.error);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -151,7 +151,7 @@ export default class CreateTeam extends React.Component {
               <Text style={formStyle.label}>Team Name</Text>
               <TextField
                 placeholder={"Name your team"}
-                onChangeText={teamName => this.setState({ teamName })}
+                onChangeText={(teamName) => this.setState({ teamName })}
                 value={this.state.teamName}
                 autoCapitalize="none"
                 style={formStyle.placeholderStyle}
@@ -180,7 +180,7 @@ export default class CreateTeam extends React.Component {
               <TextField
                 //label="Search Description"
                 placeholder="What is the situation?"
-                onChangeText={searchDescription =>
+                onChangeText={(searchDescription) =>
                   this.setState({ searchDescription })
                 }
                 value={this.state.searchDescription}
@@ -198,7 +198,7 @@ export default class CreateTeam extends React.Component {
               <TextField
                 //label="Subject Description"
                 placeholder="What are you looking for?"
-                onChangeText={subjectDescription =>
+                onChangeText={(subjectDescription) =>
                   this.setState({ subjectDescription })
                 }
                 value={this.state.subjectDescription}
@@ -216,7 +216,7 @@ export default class CreateTeam extends React.Component {
               <TextField
                 //label="Search Radius"
                 placeholder="Area to cover?"
-                onChangeText={radius => this.setState({ radius })}
+                onChangeText={(radius) => this.setState({ radius })}
                 value={this.state.radius}
                 autoCapitalize="none"
                 style={formStyle.placeholderStyle}

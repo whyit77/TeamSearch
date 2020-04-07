@@ -7,7 +7,7 @@ module.exports = {
   teams: async () => {
     try {
       const teams = await Team.find();
-      return teams.map(team => {
+      return teams.map((team) => {
         return transformTeam(team);
       });
     } catch (err) {
@@ -102,5 +102,37 @@ module.exports = {
       console.log(err);
       throw err;
     }
-  }
+  },
+  addUserToTeam: async (args, req) => {
+    // if (!req.isAuth) {
+    // 	throw new Error('Unauthenticated!');
+    // }
+
+    /////////////////////////////////////////////
+    args.username = "whyit2";
+    args.teamId = "5e891ee7be2c6d8e45403855";
+
+    try {
+      let user = await User.findOne({ username: args.username });
+      if (!user) {
+        throw new Error("User not found.");
+      }
+
+      let team = await Team.findById(args.teamId);
+      if (!team) {
+        throw new Error("Team not found.");
+      }
+
+      team.members.push(user);
+      await team.save();
+
+      user.joinedTeams.push(team);
+      await user.save();
+
+      return transformTeam(team);
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  },
 };
