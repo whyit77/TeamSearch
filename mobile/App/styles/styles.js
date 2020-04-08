@@ -24,7 +24,7 @@ const mainStyle = StyleSheet.create({
     alignContent: 'center',
     backgroundColor: B1,
     // height: screen.height*1.5,
-    paddingVertical: 20,
+    // paddingVertical: 20,
     // paddingBottom: 100
 
 

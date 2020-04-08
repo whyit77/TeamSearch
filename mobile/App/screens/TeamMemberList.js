@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 import { Card, Avatar } from "react-native-elements";
-
+import {YellowBox} from 'react-native';
 import { TeamMember } from "../components/TeamMember";
 import { mainStyle, B3, B2, B1 } from "../styles/styles";
 import { ScrollView } from "react-native-gesture-handler";
@@ -61,6 +61,7 @@ export default class TeamMemberList extends Component {
     };
 
     console.log("fetching...");
+    console.disableYellowBox = true;
 
     fetch("http://192.168.1.14:3000/graphql", {
       method: "POST",

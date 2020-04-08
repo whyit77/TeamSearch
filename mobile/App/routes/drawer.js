@@ -14,22 +14,25 @@ import React, { Component } from 'react';
 
 const RootDrawerNavigator = createDrawerNavigator(
     {
-    Login: {
-        screen: LoginStack,
-    },
-    ResetPassword: {
-        screen: ResetPasswordStack,
-        navigationOptions: {
-            title: 'Reset Password'
+    // Login: {
+    //     screen: LoginStack,
+    //     navigationOptions: {
+    //         title: 'Login'
+    //     }
+    // },
+    // ResetPassword: {
+    //     screen: ResetPasswordStack,
+    //     navigationOptions: {
+    //         title: 'Reset Password'
             
-        }
-    },
-    FirstTimeUserCreation: {
-        screen: FirstTimeUserCreationStack,
-        navigationOptions: {
-            title: 'Create Account'
-        }
-    },
+    //     }
+    // },
+    // FirstTimeUserCreation: {
+    //     screen: FirstTimeUserCreationStack,
+    //     navigationOptions: {
+    //         title: 'Create Account'
+    //     }
+    // },
     TeamListView: {
         screen: TeamListStack,
         navigationOptions: {
@@ -69,7 +72,7 @@ const RootDrawerNavigator = createDrawerNavigator(
     Settings: {
         screen: SettingsStack,
         navigationOptions: {
-            title: 'Settings'
+            title: 'User Profile'
         }
     }
     },

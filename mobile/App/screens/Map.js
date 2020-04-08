@@ -98,7 +98,8 @@ class Map extends React.Component {
         style={styles.map}
         initialRegion={this.state.initialPosition}
         showsUserLocation={true}
-        onPress={this.handlePress}
+        onLongPress={this.handlePress}
+        showsMyLocationButton={true}
       >
         <Heatmap
           initialRegion={this.state.initialPosition}
