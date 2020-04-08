@@ -65,7 +65,7 @@ class PinInformation extends React.Component {
             />
           </View>
           <TextField
-            onChangeText={(location) => this.setState({ location })}
+            value={(location) => this.setState({ location })}
             placeholder="Name of pin"
             maxLength={40}
           />
@@ -80,9 +80,7 @@ class PinInformation extends React.Component {
           <View style={mainStyle.container}>
             <TouchableOpacity
               style={buttonStyle.buttonContainer}
-              onPress={({ name, location, descr }) =>
-                this.props.navigation.navigate("Map")
-              }
+              onPress={() => this.props.navigation.navigate("Map")}
             >
               <Text style={buttonStyle.buttonText}>Apply</Text>
             </TouchableOpacity>

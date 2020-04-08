@@ -35,6 +35,9 @@ class Map extends React.Component {
       latitude: 40.7143,
       longitude: -74.0042,
       markers: [],
+      pinName: name,
+      pinLocation: location,
+      pinDescription: descr,
     };
 
     this.handlePress = this.handlePress.bind(this);
@@ -126,18 +129,16 @@ class Map extends React.Component {
               {...marker}
               draggable
               onDragEnd={(e) => this.setState({ x: e.nativeEvent.coordinate })}
-              // onPress={() => {
-              //   this.props.navigation.navigate("PinInformation");
-              // }}
               // image={require("../cougar_walk.jpg")}
             >
               <Callout
-                onPress={({ name, location, descr }) => {
+                onPress={() => {
                   this.props.navigation.navigate("PinInformation");
                 }}
               >
                 <View>
-                  <Text> {this.name} </Text>
+                  <Text> {this.state.latitude} </Text>
+                  <Text>{this.state.pinLocation} </Text>
                 </View>
               </Callout>
             </Marker>

@@ -13,30 +13,31 @@ const styles = StyleSheet.create({
     color: "#4A4A4A",
     fontSize: 18,
     fontWeight: "600",
-    marginBottom: 7
+    marginBottom: 7,
   },
   textfield: {
     fontSize: 18,
     fontWeight: "400",
     color: "#828282",
-    marginBottom: 4
+    marginBottom: 4,
   },
   errorText: {
     color: "red",
     fontSize: 16,
     marginTop: 5,
     marginBottom: 15,
-    marginHorizontal: 20
-  }
+    marginHorizontal: 20,
+  },
 });
 
-export const TextField = ({ label, ...props }) => (
+export const TextField = ({ label, information, ...props }) => (
   <View style={styles.row}>
     <Text style={styles.label}>{label}</Text>
     <TextInput
       style={styles.textfield}
       placeholderTextColor="#828282"
       {...props}
+      value={information}
     />
   </View>
 );
