@@ -1,5 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  Console,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import MapView, {
   PROVIDER_GOOGLE,
   Heatmap,
@@ -21,6 +28,22 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+let currentLat = 0;
+let currentLong = 0;
+
+navigator.geolocation.getCurrentPosition(
+  (position) => {
+    const location =
+      JSON.stringify(position.coords.latitude) +
+      "," +
+      JSON.stringify(position.coords.longitude);
+    currentLat = position.coords.latitude;
+    currentLong = position.coords.longitude;
+  },
+  (error) => Alert.alert(error.message),
+  { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+);
+
 class Map extends React.Component {
   constructor(props) {
     super(props);
@@ -31,6 +54,10 @@ class Map extends React.Component {
         longitude: -74.0042,
         latitudeDelta: 0.09,
         longitudeDelta: 0.035,
+
+        mapRegion: null,
+        lastLat: null,
+        lastLong: null,
       },
       latitude: 40.7143,
       longitude: -74.0042,
@@ -38,6 +65,9 @@ class Map extends React.Component {
       pinName: name,
       pinLocation: location,
       pinDescription: descr,
+      currentLocation: null,
+      currentLat: 0,
+      currentLong: 0,
     };
 
     this.handlePress = this.handlePress.bind(this);
@@ -100,17 +130,55 @@ class Map extends React.Component {
   }
 
   render() {
+    tempticket = [];
+    // var lTest = this.state.currentLat;
+    // var lTest2 = this.state.currentLong;
+    //console.log("LOCATION: " + this.state.location);
+
+    // Current Location: 34.127371, -117.712627
+    // latitude: 40.7828, -74.0065,
+
+    const midX = (currentLat + this.points[0].latitude) / 2;
+    const deltaX = this.points[0].latitude - currentLat;
+
+    const midY = (currentLong + this.points[0].longitude) / 2;
+    const deltaY = this.points[0].longitude - currentLong;
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const location =
+          JSON.stringify(position.coords.latitude) +
+          "," +
+          JSON.stringify(position.coords.longitude);
+        currentLat = position.coords.latitude;
+        currentLong = position.coords.longitude;
+        this.tempticket.push({
+          latitude: 70,
+          longitude: -120.707661,
+          weight: 1,
+        });
+      },
+      (error) => Alert.alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+
     return (
       <MapView
         provider={PROVIDER_GOOGLE}
         ref={(map) => (this._map = map)}
         style={styles.map}
-        initialRegion={this.state.initialPosition}
         showsUserLocation={true}
         onPress={this.handlePress}
+        followUserLocation={true}
+        initialRegion={{
+          latitude: midX,
+          longitude: midY,
+          latitudeDelta: deltaX,
+          longitudeDelta: deltaY,
+        }}
       >
         <Heatmap
-          initialRegion={this.state.initialPosition}
+          initialRegion={this.state.initialPosition2}
           points={this.points}
           radius={40}
           gradient={{
@@ -126,6 +194,7 @@ class Map extends React.Component {
               key={i}
               // title="Pin"
               // description="This is the missing item!"
+              onPress={this.onPress}
               {...marker}
               draggable
               onDragEnd={(e) => this.setState({ x: e.nativeEvent.coordinate })}
