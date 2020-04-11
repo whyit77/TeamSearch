@@ -1,6 +1,8 @@
 import { createStackNavigator } from "react-navigation-stack";
 import TeamListView from "../screens/TeamList";
 import CreateTeam from "../screens/CreateTeam";
+import TeamInfo from "../screens/TeamInformation";
+import TeamInfoStack from "./teamInfoStack";
 import Header from "../components/Header";
 import React from "react";
 
@@ -15,10 +17,34 @@ const screens = {
   },
   CreateTeam: {
     screen: CreateTeam,
-    navigationOptions: () => {
+    navigationOptions: ({ navigation }) => {
       return {
-        headerTitle: "Create Team",
-        headerTintColor: "white"
+        headerTitle: () => (
+          <Header navigation={navigation} title="Create Team" />
+        )
+      };
+    }
+    // navigationOptions: () => {
+    //   return {
+    //     headerTitle: "Create Team",
+    //     headerTintColor: "white"
+    //   };
+    // }
+  },
+  // TeamInfo: {
+  //   screen: TeamInfo,
+  //   navigationOptions: () => {
+  //     return {
+  //       headerTitle: "Team Info",
+  //       headerTintColor: "white"
+  //     };
+  //   }
+  // }
+  TeamInfo: {
+    screen: TeamInfo,
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerTitle: () => <Header navigation={navigation} title="Team Info" />
       };
     }
   }

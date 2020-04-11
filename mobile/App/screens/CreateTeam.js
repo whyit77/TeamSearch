@@ -8,7 +8,7 @@ import {
   KeyboardAvoidingView,
   SafeAreaView,
   StatusBar,
-  Alert,
+  Alert
 } from "react-native";
 import { mainStyle, formStyle } from "../styles/styles";
 import { TextField, ErrorText } from "../components/Form";
@@ -18,17 +18,19 @@ import { ImageField } from "../components/Image";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const initialState = {
+  teamId: "",
   teamName: "",
   searchDescription: "",
   subjectDescription: "",
   radius: 0,
-  // code: "",
-  // creator: "",
-  error: "",
+  error: ""
 };
 
 export default class CreateTeam extends React.Component {
-  state = initialState;
+  constructor(props) {
+    super(props);
+    this.state = initialState;
+  }
 
   handleSubmit = () => {
     const teamName = this.state.teamName;
@@ -36,10 +38,8 @@ export default class CreateTeam extends React.Component {
     const subjectDescription = this.state.subjectDescription;
     const radius = parseInt(this.state.radius, 10);
 
-    console.log(radius);
-
     // TODO: NEED CURRENT LOGGED IN USER ID ///
-    const userId = "5e8128507fa7512864614452";
+    const userId = "5e914c8d4d7ca83308289294";
 
     let requestBody = {
       query: `
@@ -58,8 +58,8 @@ export default class CreateTeam extends React.Component {
         teamName: teamName,
         searchDescription: searchDescription,
         subjectDescription: subjectDescription,
-        radius: radius,
-      },
+        radius: radius
+      }
     };
 
     // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
@@ -67,13 +67,14 @@ export default class CreateTeam extends React.Component {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     })
-      .then(async (res) => {
+      .then(async res => {
         const responseJson = await res.json();
 
         console.log(responseJson);
+        console.log(responseJson.data.createTeam._id);
 
         ////////// VERIFY INPUT ////////////
         if (responseJson.data.createTeam == null) {
@@ -82,21 +83,9 @@ export default class CreateTeam extends React.Component {
           // CHECK if fields missing
           if (this.state.error.includes("Team validation failed")) {
             this.setState({
-              error: "Team not created: required fields missing.",
+              error: "Team not created: required fields missing."
             });
           }
-          // // CHECK if radius is empty
-          // if (this.state.radius == "") {
-          //   this.setState({
-          //     error: "Team not created: required fields missing."
-          //   });
-          // }
-          // CHECK if radius is 0
-          // if (radius == 0) {
-          //   this.setState({
-          //     error: "Team not created: radius cannot be 0."
-          //   });
-          // }
 
           console.log(this.state.error);
           return responseJson;
@@ -105,7 +94,7 @@ export default class CreateTeam extends React.Component {
         // CHECK if radius is 0
         if (radius == 0) {
           this.setState({
-            error: "Team not created: radius cannot be 0.",
+            error: "Team not created: radius cannot be 0."
           });
 
           console.log(this.state.error);
@@ -114,7 +103,9 @@ export default class CreateTeam extends React.Component {
 
         if (res.ok) {
           console.log("Okay CREATE");
-          this.props.navigation.navigate("TeamInfo");
+          this.props.navigation.navigate("TeamInfo", {
+            teamId: responseJson.data.createTeam._id
+          });
           ///// TODO: ADD TEAM ID TO CONTEXT TO KNOW WHAT TEAM WE'RE LOOKING AT /////
           this.setState(initialState);
           return responseJson;
@@ -123,7 +114,7 @@ export default class CreateTeam extends React.Component {
         this.setState(initialState);
         throw new Error(responseJson.error);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -151,7 +142,7 @@ export default class CreateTeam extends React.Component {
               <Text style={formStyle.label}>Team Name</Text>
               <TextField
                 placeholder={"Name your team"}
-                onChangeText={(teamName) => this.setState({ teamName })}
+                onChangeText={teamName => this.setState({ teamName })}
                 value={this.state.teamName}
                 autoCapitalize="none"
                 style={formStyle.placeholderStyle}
@@ -180,7 +171,7 @@ export default class CreateTeam extends React.Component {
               <TextField
                 //label="Search Description"
                 placeholder="What is the situation?"
-                onChangeText={(searchDescription) =>
+                onChangeText={searchDescription =>
                   this.setState({ searchDescription })
                 }
                 value={this.state.searchDescription}
@@ -198,7 +189,7 @@ export default class CreateTeam extends React.Component {
               <TextField
                 //label="Subject Description"
                 placeholder="What are you looking for?"
-                onChangeText={(subjectDescription) =>
+                onChangeText={subjectDescription =>
                   this.setState({ subjectDescription })
                 }
                 value={this.state.subjectDescription}
@@ -216,7 +207,7 @@ export default class CreateTeam extends React.Component {
               <TextField
                 //label="Search Radius"
                 placeholder="Area to cover?"
-                onChangeText={(radius) => this.setState({ radius })}
+                onChangeText={radius => this.setState({ radius })}
                 value={this.state.radius}
                 autoCapitalize="none"
                 style={formStyle.placeholderStyle}

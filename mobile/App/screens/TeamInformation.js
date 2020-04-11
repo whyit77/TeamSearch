@@ -6,7 +6,7 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   ScrollView,
-  StatusBar,
+  StatusBar
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { TextField } from "../components/Form";
@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     alignItems: "center",
-    justifyContent: "center",
-  },
+    justifyContent: "center"
+  }
 });
 
 // export default ({ navigation }) => (
@@ -26,18 +26,24 @@ const styles = StyleSheet.create({
 export default class App extends React.Component {
   // static contextType = AuthContext;
 
-  state = {
-    teamName: "",
-    searchDescription: "",
-    subjectDescription: "",
-    radius: "",
-    code: "",
-    creator: "",
-  };
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
+    this.state = {
+      teamId: this.props.navigation.getParam("teamId"),
+      teamName: "",
+      searchDescription: "",
+      subjectDescription: "",
+      radius: "",
+      code: "",
+      creator: ""
+    };
+  }
+
+  fetchTeam() {
     // TODO: GET CURRENT TEAM (just made or selected from list) //
-    const teamId = "5e8128d77fa7512864614453";
+    // const teamId = "5e8128d77fa7512864614453";
+    const teamId = this.state.teamId;
 
     let requestBody = {
       query: `
@@ -55,8 +61,8 @@ export default class App extends React.Component {
             }
           }`,
       variables: {
-        teamId: teamId,
-      },
+        teamId: teamId
+      }
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
@@ -64,10 +70,10 @@ export default class App extends React.Component {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     })
-      .then(async (res) => {
+      .then(async res => {
         const responseJson = await res.json();
         console.log(responseJson);
 
@@ -86,7 +92,7 @@ export default class App extends React.Component {
             subjectDescription: subjectDescription,
             radius: radius,
             code: code,
-            creator: creator,
+            creator: creator
           });
 
           return responseJson;
@@ -94,9 +100,22 @@ export default class App extends React.Component {
 
         throw new Error(responseJson.error);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
+  }
+
+  componentDidMount() {
+    this.fetchTeam();
+    console.log("mount");
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.teamId !== this.state.teamId) {
+      console.log("UPDATING...");
+      this.fetchTeam();
+    }
+    this.props.navigation.getParam("refresh");
   }
 
   render() {

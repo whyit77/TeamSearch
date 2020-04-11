@@ -7,30 +7,37 @@ import {
   View,
   SafeAreaView,
   StatusBar,
-  FlatList,
+  FlatList
 } from "react-native";
 import { Team } from "../components/Team";
 import { mainStyle } from "../styles/styles";
 import CreateTeamMenuIcon from "../components/CreateTeamMenuIcon";
 import { TeamListCard } from "../components/TeamListCard";
 
-export default class TeamList extends Component {
-  state = {
-    // teamName: "",
-    status: "Active", /////////////
-    // creator: "",
-    // size: 0,
-    // subjectDescription: "",
-    // userId: "5e7e46af4f99bb52f42369a4",
-    joinedTeams: [],
-    // createdTeams: [],
-    count: 1,
-    data: [],
-  };
+// import { NavigationEvents } from "react-navigation";
 
-  componentDidMount() {
+export default class TeamList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      // teamName: "",
+      status: "Active", /////////////
+      // creator: "",
+      // size: 0,
+      // subjectDescription: "",
+      // userId: "5e7e46af4f99bb52f42369a4",
+      joinedTeams: [],
+      // createdTeams: [],
+      teamId: "",
+      count: 1,
+      data: []
+    };
+  }
+
+  fetchUserTeams() {
     // TODO: GET CURRENT LOGGED IN USER //
-    const userId = "5e8128507fa7512864614452";
+    const userId = "5e914c8d4d7ca83308289294";
 
     let requestBody = {
       query: `
@@ -52,8 +59,8 @@ export default class TeamList extends Component {
 		      }
 		    `,
       variables: {
-        userId: userId,
-      },
+        userId: userId
+      }
     };
 
     if (this.state.count == 1) {
@@ -63,10 +70,10 @@ export default class TeamList extends Component {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {
-          "Content-Type": "application/json",
-        },
+          "Content-Type": "application/json"
+        }
       })
-        .then(async (res) => {
+        .then(async res => {
           const responseJson = await res.json();
 
           console.log(responseJson);
@@ -75,6 +82,7 @@ export default class TeamList extends Component {
             console.log("Okay Fetched Teams");
 
             const joinedTeams = responseJson.data.getUser.joinedTeams;
+            // const teamId = responseJson.data.getUser.joinedTeams
             // // const createdTeams = responseJson.data.getUser.createdTeams;
 
             // const teamName = responseJson.data.getUser.joinedTeams[1].teamName;
@@ -93,8 +101,11 @@ export default class TeamList extends Component {
             for (let i = 0; i < joinedTeams.length; i++) {
               info.push(joinedTeams[i]);
             }
-            // console.log("======");
-            // console.log(info);
+
+            // if the user is not in any teams
+            // if (joinedTeams.length == 0) {
+            //   info.push()
+            // }
 
             this.setState({
               // teamName: teamName,
@@ -102,7 +113,8 @@ export default class TeamList extends Component {
               // creator: creator,
               // size: size,
               // joinedTeams: joinedTeams,
-              data: info,
+              data: info
+              // teamId:
               // createdTeams: createdTeams
             });
 
@@ -112,12 +124,49 @@ export default class TeamList extends Component {
           this.setState({ error: responseJson.errors[0].message });
           throw new Error(responseJson.error);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
 
       this.state.count = 2;
     }
+  }
+
+  componentDidMount() {
+    //Here is the Trick
+    // const { navigation } = this.props;
+    this.fetchUserTeams();
+    console.log("MOUNTED");
+    //Adding an event listner on focus
+    //So whenever the screen will have focus it will set the state to zero
+    // this.props.navigation.addListener("didfocus", () => {
+    //   this.fetchUserTeams();
+    //   console.log("LISTENING");
+    // });
+  }
+
+  // componentWillUnmount() {
+  //   // Remove the event listener before removing the screen from the stack
+  //   this.focusListener.remove();
+  // }
+
+  // componentDidMount() {
+  //   this.fetchUserTeams();
+  //   console.log("MOUNTED");
+  // }
+
+  componentDidUpdate(prevProps, prevState) {
+    // if (prevState.data !== this.state.data) {
+    //   console.log("UPDATING...");
+    //   this.fetchUserTeams();
+    // }
+    this.fetchUserTeams();
+    console.log("upd");
+    // const isFocused = this.navigation.isFocused();
+    // if (prevState.isFocused !== this.props.isFocused) {
+    //   console.log("UPDATING...");
+    //   this.fetchUserTeams();
+    // }
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -129,42 +178,56 @@ export default class TeamList extends Component {
           menuStyle={{
             marginRight: 40,
             flexDirection: "row",
-            justifyContent: "flex-end",
+            justifyContent: "flex-end"
           }}
           option1Click={() => {
             navigation.navigate("CreateTeam");
           }}
         />
-      ),
+      )
     };
   };
+
   render() {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
-
-        <FlatList
-          data={this.state.data}
-          renderItem={({ item: rowData }) => {
-            return (
-              <TouchableOpacity
-
-              // TODO: NEED TO PASS SELECTED TEAM ID TO teamInfo page //
-              >
-                {/* <Text style={mainStyle.text}>{rowData}</Text> */}
-                <Team
-                  onPress={() => this.props.navigation.navigate("TeamInfo")}
-                  name={rowData.teamName}
-                  status={this.state.status}
-                  admin={rowData.creator.username}
-                  size={rowData.members.length}
-                  description={rowData.subjectDescription}
-                />
-              </TouchableOpacity>
-            );
-          }}
-          keyExtractor={(item, index) => index}
-        />
+        {/* <NavigationEvents
+          onWillFocus={() => console.log("will focus")}
+          onDidFocus={() => this.fetchUserTeams()}
+        /> */}
+        {this.state.data.length != 0 ? (
+          <FlatList
+            data={this.state.data}
+            renderItem={({ item: rowData }) => {
+              return (
+                <TouchableOpacity>
+                  <Team
+                    // onPress={() =>
+                    //   this.props.navigation.navigate("TeamInfo", {
+                    //     teamId: rowData._id
+                    //   })
+                    // }
+                    onPress={() =>
+                      this.props.navigation.navigate("TeamInfo", {
+                        teamId: rowData._id,
+                        refresh: this.fetchUserTeams()
+                      })
+                    }
+                    name={rowData.teamName}
+                    status={this.state.status}
+                    admin={rowData.creator.username}
+                    size={rowData.members.length}
+                    description={rowData.subjectDescription}
+                  />
+                </TouchableOpacity>
+              );
+            }}
+            keyExtractor={(item, index) => index}
+          />
+        ) : (
+          <Text style={mainStyle.bigText}>NOT IN ANY TEAMS</Text>
+        )}
 
         {/* <View style={mainStyle.container}>
           <ScrollView contentContainerStyle={mainStyle.container}>

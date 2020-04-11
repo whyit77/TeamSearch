@@ -37,9 +37,6 @@ module.exports = {
     // if (!req.isAuth) {
     // 	throw new Error('Unauthenticated!');
     // }
-
-    // TODO: NEED CURRENT LOGGED IN USER ID ///
-    req.userId = "5e815389f1088e659c4bddc4";
     let creator;
     try {
       const creator = await User.findById(args.userId);
@@ -62,7 +59,7 @@ module.exports = {
 
       let createdTeam = transformTeam(result);
 
-      console.log(createdTeam);
+      // console.log(createdTeam);
 
       creator.createdTeams.push(team);
       creator.joinedTeams.push(team);
