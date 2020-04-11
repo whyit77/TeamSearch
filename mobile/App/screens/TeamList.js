@@ -14,7 +14,7 @@ import { mainStyle } from "../styles/styles";
 import CreateTeamMenuIcon from "../components/CreateTeamMenuIcon";
 import { TeamListCard } from "../components/TeamListCard";
 
-// import { NavigationEvents } from "react-navigation";
+import { NavigationEvents } from "react-navigation";
 
 export default class TeamList extends Component {
   constructor(props) {
@@ -139,10 +139,13 @@ export default class TeamList extends Component {
     console.log("MOUNTED");
     //Adding an event listner on focus
     //So whenever the screen will have focus it will set the state to zero
-    // this.props.navigation.addListener("didfocus", () => {
-    //   this.fetchUserTeams();
-    //   console.log("LISTENING");
-    // });
+    // this.props.navigation.addListener(
+    //   this.props.navigation.getParam("focused"),
+    //   () => {
+    //     this.fetchUserTeams();
+    //     console.log("LISTENING");
+    //   }
+    // );
   }
 
   // componentWillUnmount() {
@@ -162,16 +165,16 @@ export default class TeamList extends Component {
     // }
     this.fetchUserTeams();
     console.log("upd");
-    // const isFocused = this.navigation.isFocused();
-    // if (prevState.isFocused !== this.props.isFocused) {
-    //   console.log("UPDATING...");
-    //   this.fetchUserTeams();
-    // }
+    const isFocused = this.props.navigation.isFocused();
+    if (isFocused) {
+      console.log("UPDATING...");
+      this.fetchUserTeams();
+    }
   }
 
   static navigationOptions = ({ navigation }) => {
     return {
-      headerRight: (
+      headerRight: () => (
         <CreateTeamMenuIcon
           option1="Create Team"
           option2="Join Team"
@@ -192,10 +195,6 @@ export default class TeamList extends Component {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
-        {/* <NavigationEvents
-          onWillFocus={() => console.log("will focus")}
-          onDidFocus={() => this.fetchUserTeams()}
-        /> */}
         {this.state.data.length != 0 ? (
           <FlatList
             data={this.state.data}

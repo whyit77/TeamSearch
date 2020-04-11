@@ -5,7 +5,7 @@ import {
   View,
   TouchableOpacity,
   StatusBar,
-  FlatList,
+  FlatList
 } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 import { Card } from "react-native-elements";
@@ -21,42 +21,42 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   text: {
     color: "black",
     fontSize: 15,
     textAlign: "center",
 
-    fontWeight: "600",
-  },
+    fontWeight: "600"
+  }
 });
 
 const data = [
   {
     imageUrl: "http://via.placeholder.com/160x160",
-    title: "something",
+    title: "something"
   },
   {
     imageUrl: "http://via.placeholder.com/160x160",
-    title: "something two",
+    title: "something two"
   },
   {
     imageUrl: "http://via.placeholder.com/160x160",
-    title: "something three",
+    title: "something three"
   },
   {
     imageUrl: "http://via.placeholder.com/160x160",
-    title: "something four",
+    title: "something four"
   },
   {
     imageUrl: "http://via.placeholder.com/160x160",
-    title: "something five",
+    title: "something five"
   },
   {
     imageUrl: "http://via.placeholder.com/160x160",
-    title: "something six",
-  },
+    title: "something six"
+  }
 ];
 
 // Necessary to extract how many team members are currently in a team and then make rows for all members
@@ -72,12 +72,12 @@ export default class TeamMemberList extends Component {
     data: [],
     username: "",
     firstName: "",
-    lastName: "",
+    lastName: ""
   };
 
   componentDidMount() {
     // TODO: GET CURRENT TEAM (selected from list) //
-    const teamId = "5e8128d77fa7512864614453";
+    const teamId = "5e9189523778984ecc120f3c";
 
     let requestBody = {
       query: `
@@ -92,8 +92,8 @@ export default class TeamMemberList extends Component {
         }
       }`,
       variables: {
-        teamId: teamId,
-      },
+        teamId: teamId
+      }
     };
 
     console.log("fetching...");
@@ -102,10 +102,10 @@ export default class TeamMemberList extends Component {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     })
-      .then(async (res) => {
+      .then(async res => {
         const responseJson = await res.json();
 
         console.log(responseJson);
@@ -129,7 +129,7 @@ export default class TeamMemberList extends Component {
           console.log(names);
 
           this.setState({
-            data: names,
+            data: names
           });
 
           return responseJson;
@@ -138,14 +138,14 @@ export default class TeamMemberList extends Component {
         this.setState({ error: responseJson.errors[0].message });
         throw new Error(responseJson.error);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
 
   static navigationOptions = ({ navigation }) => {
     return {
-      headerRight: <TeamMemberListAddButton />,
+      headerRight: <TeamMemberListAddButton />
     };
   };
 
