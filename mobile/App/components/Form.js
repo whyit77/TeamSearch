@@ -30,13 +30,14 @@ const styles = StyleSheet.create({
   }
 });
 
-export const TextField = ({ label, ...props }) => (
+export const TextField = ({ label, information, ...props }) => (
   <View style={styles.row}>
     <Text style={styles.label}>{label}</Text>
     <TextInput
       style={styles.textfield}
       placeholderTextColor="#828282"
       {...props}
+      value={information}
     />
   </View>
 );

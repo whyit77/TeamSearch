@@ -59,7 +59,7 @@ export default class TeamList extends Component {
     if (this.state.count == 1) {
       console.log("fetching...");
 
-      fetch("http://192.168.1.14:3000/graphql", {
+      fetch("http://192.168.1.9:3000/graphql", {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {
@@ -70,6 +70,8 @@ export default class TeamList extends Component {
           const responseJson = await res.json();
 
           console.log(responseJson);
+          console.disableYellowBox = true;
+
 
           if (res.ok) {
             console.log("Okay Fetched Teams");

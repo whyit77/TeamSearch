@@ -56,13 +56,13 @@ export default class App extends React.Component {
 
         <ScrollView contentContainerStyle={formStyle.formContainer}>
           <View style={mainStyle.container}>
-            <Image
+            {/* <Image
               style={{ width: 100, height: 100 }}
               source={{
                 uri:
                   "https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png"
               }}
-            />
+            /> */}
           </View>
           <TextField
             onChangeText={location => this.setState({ location })}

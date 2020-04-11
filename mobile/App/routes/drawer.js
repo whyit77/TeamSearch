@@ -14,12 +14,12 @@ import React, { Component } from 'react';
 
 const RootDrawerNavigator = createDrawerNavigator(
     {
-    // Login: {
-    //     screen: LoginStack,
-    //     navigationOptions: {
-    //         title: 'Login'
-    //     }
-    // },
+    Login: {
+        screen: LoginStack,
+        navigationOptions: {
+            title: 'Sign Out'
+        }
+    },
     // ResetPassword: {
     //     screen: ResetPasswordStack,
     //     navigationOptions: {
