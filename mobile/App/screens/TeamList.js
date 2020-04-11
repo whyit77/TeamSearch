@@ -35,7 +35,7 @@ export default class TeamList extends Component {
     };
   }
 
-  fetchUserTeams() {
+  async fetchUserTeams() {
     // TODO: GET CURRENT LOGGED IN USER //
     const userId = "5e914c8d4d7ca83308289294";
 
@@ -137,6 +137,11 @@ export default class TeamList extends Component {
     // const { navigation } = this.props;
     this.fetchUserTeams();
     console.log("MOUNTED");
+    const isFocused = this.props.navigation.isFocused();
+    if (isFocused) {
+      console.log("mount 2...");
+      this.fetchUserTeams();
+    }
     //Adding an event listner on focus
     //So whenever the screen will have focus it will set the state to zero
     // this.props.navigation.addListener(
@@ -185,6 +190,11 @@ export default class TeamList extends Component {
           }}
           option1Click={() => {
             navigation.navigate("CreateTeam");
+          }}
+          option2Click={team => {
+            navigation.navigate("TeamInfo", {
+              teamId: team
+            });
           }}
         />
       )

@@ -110,13 +110,19 @@ export default class App extends React.Component {
     console.log("mount");
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.teamId !== this.state.teamId) {
-      console.log("UPDATING...");
-      this.fetchTeam();
-    }
+  componentWillUnmount() {
+    console.log("unmount");
     this.props.navigation.getParam("refresh");
   }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.teamId !== this.state.teamId) {
+  //     console.log("UPDATING...");
+  //     this.fetchTeam();
+  //   }
+  //   console.log("update");
+  //   this.props.navigation.getParam("refresh");
+  // }
 
   render() {
     return (

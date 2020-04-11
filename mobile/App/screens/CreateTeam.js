@@ -74,7 +74,7 @@ export default class CreateTeam extends React.Component {
         const responseJson = await res.json();
 
         console.log(responseJson);
-        console.log(responseJson.data.createTeam._id);
+        // console.log(responseJson.data.createTeam._id);
 
         ////////// VERIFY INPUT ////////////
         if (responseJson.data.createTeam == null) {

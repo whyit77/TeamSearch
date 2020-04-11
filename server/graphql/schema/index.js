@@ -105,7 +105,7 @@ type RootMutation {
     createTeam(userId: String!, teamInput: TeamInput): Team
     bookEvent(eventId: ID!): Booking!
     cancelBooking(bookingId: ID!): Event!
-    joinTeam(teamCode: String!): Team
+    joinTeam(userId: String!, teamCode: String!): Team
     addUserToTeam(username: String!, teamId: String!): Team
     createAlert(userId: String!, teamId: String!, alertInput: AlertInput): Alert
 }

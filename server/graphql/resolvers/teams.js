@@ -88,6 +88,7 @@ module.exports = {
         throw new Error("Team not found.");
       }
 
+      // TODO: CHECK IF USER IS ALREADY IN TEAM //
       team.members.push(user);
       await team.save();
 
