@@ -14,21 +14,28 @@ import { mainStyle } from "../styles/styles";
 import CreateTeamMenuIcon from "../components/CreateTeamMenuIcon";
 import { TeamListCard } from "../components/TeamListCard";
 
-export default class TeamList extends Component {
-  state = {
-    // teamName: "",
-    status: "Active", /////////////
-    // creator: "",
-    // size: 0,
-    // subjectDescription: "",
-    // userId: "5e7e46af4f99bb52f42369a4",
-    joinedTeams: [],
-    // createdTeams: [],
-    count: 1,
-    data: []
-  };
+import { NavigationEvents } from "react-navigation";
 
-  componentDidMount() {
+export default class TeamList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      // teamName: "",
+      status: "Active", /////////////
+      // creator: "",
+      // size: 0,
+      // subjectDescription: "",
+      // userId: "5e7e46af4f99bb52f42369a4",
+      joinedTeams: [],
+      // createdTeams: [],
+      teamId: "",
+      count: 1,
+      data: []
+    };
+  }
+
+  async fetchUserTeams() {
     // TODO: GET CURRENT LOGGED IN USER //
     const userId = "5e815389f1088e659c4bddc4";
 
@@ -77,6 +84,7 @@ export default class TeamList extends Component {
             console.log("Okay Fetched Teams");
 
             const joinedTeams = responseJson.data.getUser.joinedTeams;
+            // const teamId = responseJson.data.getUser.joinedTeams
             // // const createdTeams = responseJson.data.getUser.createdTeams;
 
             // const teamName = responseJson.data.getUser.joinedTeams[1].teamName;
@@ -95,8 +103,11 @@ export default class TeamList extends Component {
             for (let i = 0; i < joinedTeams.length; i++) {
               info.push(joinedTeams[i]);
             }
-            // console.log("======");
-            // console.log(info);
+
+            // if the user is not in any teams
+            // if (joinedTeams.length == 0) {
+            //   info.push()
+            // }
 
             this.setState({
               // teamName: teamName,
@@ -105,6 +116,7 @@ export default class TeamList extends Component {
               // size: size,
               // joinedTeams: joinedTeams,
               data: info
+              // teamId:
               // createdTeams: createdTeams
             });
 
@@ -122,9 +134,54 @@ export default class TeamList extends Component {
     }
   }
 
+  componentDidMount() {
+    //Here is the Trick
+    // const { navigation } = this.props;
+    this.fetchUserTeams();
+    console.log("MOUNTED");
+    const isFocused = this.props.navigation.isFocused();
+    if (isFocused) {
+      console.log("mount 2...");
+      this.fetchUserTeams();
+    }
+    //Adding an event listner on focus
+    //So whenever the screen will have focus it will set the state to zero
+    // this.props.navigation.addListener(
+    //   this.props.navigation.getParam("focused"),
+    //   () => {
+    //     this.fetchUserTeams();
+    //     console.log("LISTENING");
+    //   }
+    // );
+  }
+
+  // componentWillUnmount() {
+  //   // Remove the event listener before removing the screen from the stack
+  //   this.focusListener.remove();
+  // }
+
+  // componentDidMount() {
+  //   this.fetchUserTeams();
+  //   console.log("MOUNTED");
+  // }
+
+  componentDidUpdate(prevProps, prevState) {
+    // if (prevState.data !== this.state.data) {
+    //   console.log("UPDATING...");
+    //   this.fetchUserTeams();
+    // }
+    this.fetchUserTeams();
+    console.log("upd");
+    const isFocused = this.props.navigation.isFocused();
+    if (isFocused) {
+      console.log("UPDATING...");
+      this.fetchUserTeams();
+    }
+  }
+
   static navigationOptions = ({ navigation }) => {
     return {
-      headerRight: (
+      headerRight: () => (
         <CreateTeamMenuIcon
           option1="Create Team"
           option2="Join Team"
@@ -136,37 +193,52 @@ export default class TeamList extends Component {
           option1Click={() => {
             navigation.navigate("CreateTeam");
           }}
+          option2Click={team => {
+            navigation.navigate("TeamInfo", {
+              teamId: team
+            });
+          }}
         />
       )
     };
   };
+
   render() {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
-
-        <FlatList
-          data={this.state.data}
-          renderItem={({ item: rowData }) => {
-            return (
-              <TouchableOpacity
-
-              // TODO: NEED TO PASS SELECTED TEAM ID TO teamInfo page //
-              >
-                {/* <Text style={mainStyle.text}>{rowData}</Text> */}
-                <Team
-                  onPress={() => this.props.navigation.navigate("TeamInfo")}
-                  name={rowData.teamName}
-                  status={this.state.status}
-                  admin={rowData.creator.username}
-                  size={rowData.members.length}
-                  description={rowData.subjectDescription}
-                />
-              </TouchableOpacity>
-            );
-          }}
-          keyExtractor={(item, index) => index}
-        />
+        {this.state.data.length != 0 ? (
+          <FlatList
+            data={this.state.data}
+            renderItem={({ item: rowData }) => {
+              return (
+                <TouchableOpacity>
+                  <Team
+                    // onPress={() =>
+                    //   this.props.navigation.navigate("TeamInfo", {
+                    //     teamId: rowData._id
+                    //   })
+                    // }
+                    onPress={() =>
+                      this.props.navigation.navigate("TeamInfo", {
+                        teamId: rowData._id,
+                        refresh: this.fetchUserTeams()
+                      })
+                    }
+                    name={rowData.teamName}
+                    status={this.state.status}
+                    admin={rowData.creator.username}
+                    size={rowData.members.length}
+                    description={rowData.subjectDescription}
+                  />
+                </TouchableOpacity>
+              );
+            }}
+            keyExtractor={(item, index) => index}
+          />
+        ) : (
+          <Text style={mainStyle.bigText}>NOT IN ANY TEAMS</Text>
+        )}
 
         {/* <View style={mainStyle.container}>
           <ScrollView contentContainerStyle={mainStyle.container}>

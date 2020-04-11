@@ -18,6 +18,13 @@ type Event {
   creator: User!
 }
 
+type Alert {
+  _id: ID!
+  creator: User!
+  urgency: String!
+  message: String!
+}
+
 type Team {
   _id: ID!
   teamName: String!
@@ -27,6 +34,7 @@ type Team {
   code: String!
   creator: User!
   members: [User!]
+  alerts: [Alert]
   createdAt: String!
   updatedAt: String!
 }
@@ -65,6 +73,11 @@ input TeamInput {
   radius: Int!
 }
 
+input AlertInput {
+  urgency: String!
+  message: String!
+}
+
 input UserInput {
   username: String!
   email: String!
@@ -92,7 +105,9 @@ type RootMutation {
     createTeam(userId: String!, teamInput: TeamInput): Team
     bookEvent(eventId: ID!): Booking!
     cancelBooking(bookingId: ID!): Event!
-    joinTeam(teamCode: String!): Team
+    joinTeam(userId: String!, teamCode: String!): Team
+    addUserToTeam(username: String!, teamId: String!): Team
+    createAlert(userId: String!, teamId: String!, alertInput: AlertInput): Alert
 }
 
 schema {

@@ -38,7 +38,9 @@ export default class TeamMemberList extends Component {
 
   state = {
     data: [],
-    username: ""
+    username: "",
+    firstName: "",
+    lastName: ""
   };
 
   componentDidMount() {
@@ -52,6 +54,8 @@ export default class TeamMemberList extends Component {
           _id
           members {
             username
+            firstName
+            lastName
           }
         }
       }`,
@@ -79,11 +83,17 @@ export default class TeamMemberList extends Component {
           console.log("Okay Fetched Team");
 
           const members = responseJson.data.getTeam.members;
+          // const first = responseJson.data.getTeam.firstName;
+          // const last = responseJson.data.getTeam.lastName;
           console.log(members);
 
           const names = [];
+          // const first = [];
+          // const last = [];
           for (let i = 0; i < members.length; i++) {
-            names.push(members[i].username);
+            names.push(members[i]);
+            // first.push(members[i].firstName);
+            // last.push(members[i].lastName);
           }
           console.log(names);
 
@@ -137,9 +147,21 @@ export default class TeamMemberList extends Component {
                     title={rowData[0]}
                     containerStyle={{ marginTop: -17, width: 155}}
                   />
+                  <Text style={{ marginBottom: 10 }}>
+                    {rowData.firstName} {rowData.lastName}
+                  </Text>
                 </Card>
         {/* <TeamMember nav={() => navigation.navigate("MemberProfile")} avatar={null} initial='JD' fname={'John'} lname={'Doe'} role={'Search'}> </TeamMember> */}
 
+                {/* <Card
+                  title={rowData.username}
+                  image={{ url: "http://via.placeholder.com/160x160" }}
+                  containerStyle={{ padding: 0, width: 160 }}
+                >
+                  <Text style={{ marginBottom: 10 }}>
+                    {rowData.firstName} {rowData.lastName}
+                  </Text>
+                </Card> */}
               </TouchableOpacity>
             );
           }}

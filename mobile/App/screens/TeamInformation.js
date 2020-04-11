@@ -26,16 +26,21 @@ const styles = StyleSheet.create({
 export default class App extends React.Component {
   // static contextType = AuthContext;
 
-  state = {
-    teamName: "",
-    searchDescription: "",
-    subjectDescription: "",
-    radius: "",
-    code: "",
-    creator: ""
-  };
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
+    this.state = {
+      teamId: this.props.navigation.getParam("teamId"),
+      teamName: "",
+      searchDescription: "",
+      subjectDescription: "",
+      radius: "",
+      code: "",
+      creator: ""
+    };
+  }
+
+  fetchTeam() {
     // TODO: GET CURRENT TEAM (just made or selected from list) //
     const teamId = "5e815a1ff1088e659c4bddc5";
 
@@ -98,6 +103,25 @@ export default class App extends React.Component {
         console.log(err);
       });
   }
+
+  componentDidMount() {
+    this.fetchTeam();
+    console.log("mount");
+  }
+
+  componentWillUnmount() {
+    console.log("unmount");
+    this.props.navigation.getParam("refresh");
+  }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.teamId !== this.state.teamId) {
+  //     console.log("UPDATING...");
+  //     this.fetchTeam();
+  //   }
+  //   console.log("update");
+  //   this.props.navigation.getParam("refresh");
+  // }
 
   render() {
     return (

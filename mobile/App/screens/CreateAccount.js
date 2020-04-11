@@ -8,7 +8,7 @@ import {
   KeyboardAvoidingView,
   SafeAreaView,
   StatusBar,
-  Alert
+  Alert,
 } from "react-native";
 
 import { TextField, ErrorText } from "../components/Form";
@@ -22,7 +22,7 @@ import {
   mainStyle,
   exampleText,
   formStyle,
-  teamListStyle
+  teamListStyle,
 } from "../styles/styles";
 
 const initialState = {
@@ -34,7 +34,7 @@ const initialState = {
   repassword: "",
   phone: "",
   description: "",
-  error: ""
+  error: "",
 };
 
 export default class CreateAccount extends React.Component {
@@ -72,8 +72,8 @@ export default class CreateAccount extends React.Component {
         password: password,
         repassword: repassword,
         phone: phone,
-        description: description
-      }
+        description: description,
+      },
     };
 
     // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
@@ -81,10 +81,10 @@ export default class CreateAccount extends React.Component {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(async res => {
+      .then(async (res) => {
         const responseJson = await res.json();
 
         console.log(responseJson);
@@ -96,7 +96,7 @@ export default class CreateAccount extends React.Component {
           // CHECK if fields missing
           if (this.state.error.includes("User validation failed")) {
             this.setState({
-              error: "User validation failed: required fields missing."
+              error: "User validation failed: required fields missing.",
             });
           }
           // CHECK if user exists
@@ -136,7 +136,7 @@ export default class CreateAccount extends React.Component {
         this.setState(initialState);
         throw new Error(responseJson.error);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -170,7 +170,7 @@ export default class CreateAccount extends React.Component {
                 <TextField
                   //label="Username"
                   placeholder="Username"
-                  onChangeText={username => this.setState({ username })}
+                  onChangeText={(username) => this.setState({ username })}
                   value={this.state.username}
                   autoCapitalize="none"
                   style={formStyle.placeholderStyle}
@@ -183,7 +183,7 @@ export default class CreateAccount extends React.Component {
                 <TextField
                   //label="Email"
                   placeholder="john.doe@example.com"
-                  onChangeText={email => this.setState({ email })}
+                  onChangeText={(email) => this.setState({ email })}
                   value={this.state.email}
                   autoCapitalize="none"
                   style={formStyle.placeholderStyle}
@@ -198,7 +198,7 @@ export default class CreateAccount extends React.Component {
                 <TextField
                   // label="First Name"
                   placeholder="John"
-                  onChangeText={firstName => this.setState({ firstName })}
+                  onChangeText={(firstName) => this.setState({ firstName })}
                   value={this.state.firstName}
                   autoCapitalize="words"
                   style={formStyle.placeholderStyle}
@@ -211,7 +211,7 @@ export default class CreateAccount extends React.Component {
                 <TextField
                   //label="Last Name"
                   placeholder="Doe"
-                  onChangeText={lastName => this.setState({ lastName })}
+                  onChangeText={(lastName) => this.setState({ lastName })}
                   value={this.state.lastName}
                   autoCapitalize="words"
                   style={formStyle.placeholderStyle}
@@ -224,7 +224,7 @@ export default class CreateAccount extends React.Component {
                 <TextField
                   //label="Password"
                   secureTextEntry
-                  onChangeText={password => this.setState({ password })}
+                  onChangeText={(password) => this.setState({ password })}
                   value={this.state.password}
                   autoCapitalize="none"
                   style={formStyle.placeholderStyle}
@@ -236,7 +236,7 @@ export default class CreateAccount extends React.Component {
                 <TextField
                   //label="Confirm Password"
                   secureTextEntry
-                  onChangeText={repassword => this.setState({ repassword })}
+                  onChangeText={(repassword) => this.setState({ repassword })}
                   value={this.state.repassword}
                   autoCapitalize="none"
                   style={formStyle.placeholderStyle}
@@ -248,7 +248,7 @@ export default class CreateAccount extends React.Component {
                 <TextField
                   //label="Phone Number"
                   placeholder="(000)000-0000"
-                  onChangeText={phone => this.setState({ phone })}
+                  onChangeText={(phone) => this.setState({ phone })}
                   value={this.state.phone}
                   style={formStyle.placeholderStyle}
                   color="white"
@@ -260,7 +260,7 @@ export default class CreateAccount extends React.Component {
                 <TextField
                   //label="Certifications/Description"
                   placeholder="CPR certified, own a trained search hound, etc..."
-                  onChangeText={desc => this.setState({ desc })}
+                  onChangeText={(desc) => this.setState({ desc })}
                   value={this.state.desc}
                   autoCapitalize="none"
                   style={formStyle.placeholderStyle}

@@ -6,7 +6,7 @@ import {
   StyleSheet,
   View,
   KeyboardAvoidingView,
-  StatusBar
+  StatusBar,
 } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 
@@ -15,7 +15,7 @@ import {
   mainStyle,
   exampleText,
   formStyle,
-  teamListStyle
+  teamListStyle,
 } from "../styles/styles";
 import { TextField, ErrorText } from "../components/Form";
 
@@ -30,7 +30,7 @@ class MemberProfile extends React.Component {
     lastName: "",
     email: "",
     description: "",
-    phone: ""
+    phone: "",
   };
 
   componentDidMount() {
@@ -51,8 +51,8 @@ class MemberProfile extends React.Component {
             }
           }`,
       variables: {
-        userId: userId
-      }
+        userId: userId,
+      },
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
@@ -60,10 +60,10 @@ class MemberProfile extends React.Component {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(async res => {
+      .then(async (res) => {
         // if (res.status !== 200 && res.status !== 201) {
         //   throw new Error("Failed!");
         // }
@@ -87,7 +87,7 @@ class MemberProfile extends React.Component {
             lastName: lastName,
             email: email,
             description: description,
-            phone: phone
+            phone: phone,
           });
 
           if (description == "") {
@@ -99,7 +99,7 @@ class MemberProfile extends React.Component {
 
         throw new Error(responseJson.error);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }

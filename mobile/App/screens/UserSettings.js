@@ -13,7 +13,7 @@ import {
   StatusBar,
   ScrollView,
   TouchableOpacity,
-  Linking, 
+  Linking,
   Platform
 } from "react-native";
 import {
