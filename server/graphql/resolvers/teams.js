@@ -107,8 +107,8 @@ module.exports = {
     // }
 
     /////////////////////////////////////////////
-    args.username = "whyit2";
-    args.teamId = "5e891ee7be2c6d8e45403855";
+    // args.username = "whyit2";
+    // args.teamId = "5e891ee7be2c6d8e45403855";
 
     try {
       let user = await User.findOne({ username: args.username });

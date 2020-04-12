@@ -163,18 +163,22 @@ export default class TeamList extends Component {
   //   console.log("MOUNTED");
   // }
 
-  componentDidUpdate(prevProps, prevState) {
-    // if (prevState.data !== this.state.data) {
-    //   console.log("UPDATING...");
-    //   this.fetchUserTeams();
-    // }
-    this.fetchUserTeams();
-    console.log("upd");
-    const isFocused = this.props.navigation.isFocused();
-    if (isFocused) {
-      console.log("UPDATING...");
-      this.fetchUserTeams();
-    }
+  // componentDidUpdate(prevProps, prevState) {
+  //   // if (prevState.data !== this.state.data) {
+  //   //   console.log("UPDATING...");
+  //   //   this.fetchUserTeams();
+  //   // }
+  //   this.fetchUserTeams();
+  //   console.log("upd");
+  //   const isFocused = this.props.navigation.isFocused();
+  //   if (isFocused) {
+  //     console.log("UPDATING...");
+  //     this.fetchUserTeams();
+  //   }
+  // }
+
+  componentWillUnmount() {
+    console.log("unm");
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -219,8 +223,8 @@ export default class TeamList extends Component {
                     // }
                     onPress={() =>
                       this.props.navigation.navigate("TeamInfo", {
-                        teamId: rowData._id,
-                        refresh: this.fetchUserTeams()
+                        teamId: rowData._id
+                        // refresh: this.fetchUserTeams()
                       })
                     }
                     name={rowData.teamName}

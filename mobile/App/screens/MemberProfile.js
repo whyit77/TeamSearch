@@ -6,7 +6,7 @@ import {
   StyleSheet,
   View,
   KeyboardAvoidingView,
-  StatusBar,
+  StatusBar
 } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 
@@ -15,7 +15,7 @@ import {
   mainStyle,
   exampleText,
   formStyle,
-  teamListStyle,
+  teamListStyle
 } from "../styles/styles";
 import { TextField, ErrorText } from "../components/Form";
 
@@ -30,12 +30,13 @@ class MemberProfile extends React.Component {
     lastName: "",
     email: "",
     description: "",
-    phone: "",
+    phone: ""
   };
 
   componentDidMount() {
-    // TODO: GET CURRENTLY SELECTED USER from teamMemberList page//
-    const userId = "5e8128507fa7512864614452";
+    // TODO: GET CURRENTLY SELECTED USER from teamMemberList page// DONE
+    // const userId = "5e8128507fa7512864614452";
+    const userId = this.props.navigation.getParam("memberId");
 
     let requestBody = {
       query: `
@@ -51,8 +52,8 @@ class MemberProfile extends React.Component {
             }
           }`,
       variables: {
-        userId: userId,
-      },
+        userId: userId
+      }
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
@@ -60,10 +61,10 @@ class MemberProfile extends React.Component {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     })
-      .then(async (res) => {
+      .then(async res => {
         // if (res.status !== 200 && res.status !== 201) {
         //   throw new Error("Failed!");
         // }
@@ -77,7 +78,10 @@ class MemberProfile extends React.Component {
           const firstName = responseJson.data.getUser.firstName;
           const lastName = responseJson.data.getUser.lastName;
           const email = responseJson.data.getUser.email;
-          const description = responseJson.data.getUser.description;
+          const description =
+            responseJson.data.getUser.description == ""
+              ? "NONE"
+              : responseJson.data.getUser.description;
           const phone = responseJson.data.getUser.phone;
 
           this.setState({
@@ -87,7 +91,7 @@ class MemberProfile extends React.Component {
             lastName: lastName,
             email: email,
             description: description,
-            phone: phone,
+            phone: phone
           });
 
           if (description == "") {
@@ -99,7 +103,7 @@ class MemberProfile extends React.Component {
 
         throw new Error(responseJson.error);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
