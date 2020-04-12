@@ -3,6 +3,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const pinSchema = new Schema({
+  creator: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  },
   title: {
     type: String,
     required: true
