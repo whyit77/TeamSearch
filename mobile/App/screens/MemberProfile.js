@@ -151,7 +151,7 @@ class MemberProfile extends React.Component {
               />
             </View>
 
-            <Text style={formStyle.label}>User ID: <Text 
+            <Text style={formStyle.label}>ID: <Text 
                     style={formStyle.placeholderStyle} 
                     onPress={this.writeToClipboard} 
                   >
