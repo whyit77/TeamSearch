@@ -12,7 +12,7 @@ import {
   Button,
   StatusBar,
   ScrollView,
-  TouchableOpacity,
+  TouchableOpacity
 } from "react-native";
 
 import {
@@ -20,16 +20,16 @@ import {
   mainStyle,
   exampleText,
   formStyle,
-  teamListStyle,
+  teamListStyle
 } from "../styles/styles";
 import { TextField, ErrorText } from "../components/Form";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    alignItems: "center"
   },
-  underline: { textDecorationLine: "underline" },
+  underline: { textDecorationLine: "underline" }
 });
 
 class PinInformation extends React.Component {
@@ -38,17 +38,17 @@ class PinInformation extends React.Component {
     this.state = {
       switchITValue: false,
       switchLTValue: false,
-      name: "",
-      location: "",
-      descr: "",
+      user: "",
+      pinLocation: "",
+      pinDescription: ""
     };
   }
 
-  toggleITSwitch = (value) => {
+  toggleITSwitch = value => {
     this.setState({ switchITValue: value });
   };
 
-  toggleLTSwitch = (value) => {
+  toggleLTSwitch = value => {
     this.setState({ switchLTValue: value });
   };
 
@@ -63,12 +63,12 @@ class PinInformation extends React.Component {
               style={{ width: 100, height: 100 }}
               source={{
                 uri:
-                  "https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png",
+                  "https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png"
               }}
             />
           </View>
           <TextField
-            onChangeText={(x) => this.setState({ location: x })}
+            onChangeText={location => this.setState({ pinLocation: location })}
             placeholder="Name of pin"
             maxLength={40}
           />
@@ -76,7 +76,9 @@ class PinInformation extends React.Component {
           <Text style={formStyle.label}> Pinned By: (Name) </Text>
 
           <TextField
-            onChangeText={(descr) => this.setState({ descr })}
+            onChangeText={description =>
+              this.setState({ pinDescription: description })
+            }
             placeholder="Description of pin:"
             maxLength={250}
           />
