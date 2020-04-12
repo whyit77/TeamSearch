@@ -148,30 +148,6 @@ export default class App extends React.Component {
     Linking.openURL("sms:" + this.state.phone);
   };
 
-  // messageNumber = () => {
-  //   let phoneNumber ='';
-
-  //   if (Platform.OS === 'android') {
-  //     phoneNumber = 'tel:${1234567890}';
-  //   }
-  //   else {
-  //     phoneNumber = 'telprompt:${1234567890}';
-  //   }
-  //   Linking.openURL(phoneNumber);
-
-  // }
-
-  email = () => {
-    let emailAddress = "";
-
-    if (Platform.OS === "android") {
-      emailAddress = "tel:${1234567890}";
-    } else {
-      emailAddress = "telprompt:${1234567890}";
-    }
-
-    Linking.openURL(phoneNumber);
-  };
 
   render() {
     return (
@@ -239,53 +215,6 @@ export default class App extends React.Component {
                   {this.state.phone}
                 </Text>
               </Text>
-              {/* <TextField editable={false}> */}
-
-              {/* </TextField> */}
-              {/* <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Switch
-                  style={formStyle.toggle}
-                  onValueChange={this.toggleITSwitch}
-                  value={this.state.switchITValue}
-                  trackColor={{ true: "red", false: "grey" }}
-                />
-                <Text style={formStyle.toggleLabel}> View Inactive Teams </Text>
-                {/* <Text>{this.state.switchITValue ? "ON" : "OFF"}</Text> */}
-              {/* </View>
-
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Switch
-                  style={formStyle.toggle}
-                  onValueChange={this.toggleLTSwitch}
-                  value={this.state.switchLTValue}
-                  trackColor={{ true: "red", false: "grey" }}
-                />
-                <Text style={formStyle.toggleLabel}> Location Tracking </Text>
-                {/* <Text>{this.state.switchLTValue ? 'ON' : 'OFF'}</Text> */}
-              {/* </View>
-
-              <TextField
-                onChangeText={changePass => this.setState({ changePass })}
-                placeholder="Change Password"
-                maxLength={40}
-                selectionColor="red"
-                keyboardAppearance="dark"
-                color="white"
-              />
-
-              <TextField
-                onChangeText={confirmPass => this.setState({ confirmPass })}
-                placeholder="Confirm Password"
-                maxLength={40}
-                selectionColor="red"
-                keyboardAppearance="dark"
-                color="white"
-              /> */}
-              {/* <View style={mainStyle.container}>
-                <TouchableOpacity style={buttonStyle.buttonContainer}>
-                  <Text style={buttonStyle.buttonText}>Save</Text>
-                </TouchableOpacity>
-              </View> */}
             </View>
           </ScrollView>
         </KeyboardAwareScrollView>

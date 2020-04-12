@@ -237,7 +237,7 @@ export default class TeamList extends Component {
             keyExtractor={(item, index) => index}
           />
         ) : (
-          <Text style={mainStyle.bigText}>NOT IN ANY TEAMS</Text>
+          <Text style={mainStyle.bigText}>No Teams to Display</Text>
         )}
 
         {/* <View style={mainStyle.container}>

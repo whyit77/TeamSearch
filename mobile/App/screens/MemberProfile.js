@@ -7,6 +7,10 @@ import {
   View,
   KeyboardAvoidingView,
   StatusBar,
+  Clipboard,
+  Alert,
+  Linking,
+  Platform
 } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 
@@ -31,6 +35,7 @@ class MemberProfile extends React.Component {
     email: "",
     description: "",
     phone: "",
+    clipboardContent: ""
   };
 
   componentDidMount() {
@@ -103,6 +108,24 @@ class MemberProfile extends React.Component {
         console.log(err);
       });
   }
+  writeToClipboard = async () => {
+    await Clipboard.setString(this.state.id);
+    Alert.alert("Copied", 'User ID Copied');
+  };
+  
+  dialCall = () => {
+    let phoneNumber = "";
+
+    if (Platform.OS === "android") {
+      phoneNumber = "tel:${1234567890}";
+      phoneNumber = "sms:${1234567890}";
+    } else {
+      // phoneNumber = 'telprompt:${1234567890}';
+      phoneNumber = "sms:${1234567890}";
+    }
+
+    Linking.openURL("sms:" + this.state.phone);
+  };
 
   render() {
     return (
@@ -120,106 +143,80 @@ class MemberProfile extends React.Component {
               <Avatar
                 rounded
                 icon={{ name: "user", type: "font-awesome" }}
+                title={this.state.firstName[0] + this.state.lastName[0]}
                 onPress={() => console.log("Works!")}
                 activeOpacity={0.7}
                 containerStyle={{ margin: 10, size: 60 }}
                 size={150}
               />
             </View>
+
+            <Text style={formStyle.label}>User ID: <Text 
+                    style={formStyle.placeholderStyle} 
+                    onPress={this.writeToClipboard} 
+                  >
+                    {this.state.id}
+                  </Text>
+                  </Text>
+
+              {/* <TextField editable={false}>
+                  <Text 
+                    style={formStyle.placeholderStyle} 
+                    onPress={console.log("yes")} 
+                  >
+                    {this.state.id}
+                  </Text>
+              </TextField> */}
+
+
+            <Text style={formStyle.label}>Name: </Text>          
+              <TextField editable={false}>
+                  <Text style={formStyle.fillInText}>
+                    {this.state.firstName} {this.state.lastName}
+                  </Text>
+              </TextField>
+
             <View style={formStyle.formContainer}>
               <Text style={formStyle.label}>Username: </Text>
-              <Text style={mainStyle.smallText}>{this.state.username}</Text>
-              {/* <TextField
-                //label="Team Name"
-                onChangeText={teamName => this.setState({ name })}
-                value={this.state.teamName}
-                autoCapitalize="none"
-                style={formStyle.placeholderStyle}
-                color="white"
-                selectionColor="red"
-                keyboardAppearance="dark"
-                labelTextColor="white"
-                editable={false}
-              /> */}
-              <Text style={formStyle.label}>User ID: </Text>
-              <Text style={mainStyle.smallText}>{this.state.id}</Text>
-              {/* <TextField
-                //label="Team Name"
-                onChangeText={teamName => this.setState({ id })}
-                value={this.state.teamName}
-                autoCapitalize="none"
-                style={formStyle.placeholderStyle}
-                color="white"
-                selectionColor="red"
-                keyboardAppearance="dark"
-                labelTextColor="white"
-                editable={false}
-              /> */}
-              <Text style={formStyle.label}>Name: </Text>
-              <Text style={mainStyle.smallText}>
-                {this.state.firstName}
-                {this.state.lastName}
+              <TextField editable={false}>
+                  <Text style={formStyle.fillInText}>
+                    {this.state.username}
+                  </Text>
+              </TextField> 
+
+              <Text style={formStyle.label}>
+                Contact Number:
+                <Text
+                  onPress={this.dialCall}
+                  activeOpacity={0.7}
+                  style={formStyle.placeholderStyle}
+                >
+                  {" "}
+                  {this.state.phone}
+                </Text>
               </Text>
-              {/* <TextField
-                //label="Team Name"
-                onChangeText={teamName => this.setState({ id })}
-                value={this.state.teamName}
-                autoCapitalize="none"
-                style={formStyle.placeholderStyle}
-                color="white"
-                selectionColor="red"
-                keyboardAppearance="dark"
-                labelTextColor="white"
-                editable={false}
-              /> */}
-              <Text style={formStyle.label}>Contact Number: </Text>
-              <Text style={mainStyle.smallText}>{this.state.phone}</Text>
-              {/* <TextField
-                //label="Team Name"
-                onChangeText={teamName => this.setState({ cell })}
-                value={this.state.teamName}
-                autoCapitalize="none"
-                style={formStyle.placeholderStyle}
-                color="white"
-                selectionColor="red"
-                keyboardAppearance="dark"
-                labelTextColor="white"
-                editable={false}
-              /> */}
-              <Text style={formStyle.label}>Email Address: </Text>
-              <Text style={mainStyle.smallText}>{this.state.email}</Text>
-              {/* <TextField
-                //label="Team Name"
-                onChangeText={teamName => this.setState({ email })}
-                value={this.state.teamName}
-                autoCapitalize="none"
-                style={formStyle.placeholderStyle}
-                color="white"
-                selectionColor="red"
-                keyboardAppearance="dark"
-                labelTextColor="white"
-                editable={false}
-              /> */}
+
+              <Text style={formStyle.label}>
+                Email:
+                <Text
+                  onPress={() => Linking.openURL("mailto:support@example.com")}
+                  title="support@example.com"
+                  style={formStyle.placeholderStyle}
+                >
+                  {" "}
+                  {this.state.email}
+                </Text>
+              </Text>
+
               <Text style={formStyle.label}>Profile Description</Text>
               <Text style={mainStyle.smallText}>{this.state.description}</Text>
-              {/* <TextField
-                //label="Subject Description"
-                onChangeText={subjectDesc => this.setState({ description })}
-                value={this.state.subjectDesc}
-                autoCapitalize="none"
-                scrollEnabled="true"
-                multiline={true}
-                style={formStyle.placeholderStyle}
-                color="white"
-                selectionColor="red"
-                keyboardAppearance="dark"
-                labelTextColor="white"
-                maxLength={300}
-                editable={false}
-              /> */}
+              <TextField editable={false} multiline={true}>
+                  <Text style={formStyle.fillInText}>
+                    {this.state.description}
+                  </Text>
+              </TextField>
             </View>
           </ScrollView>
-          {/* </KeyboardAvoidingView> */}
         </KeyboardAwareScrollView>
       </View>
     );

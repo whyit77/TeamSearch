@@ -134,34 +134,29 @@ export default class TeamMemberList extends Component {
                 onPress={() => this.props.navigation.navigate("MemberProfile")}
                 // TODO: NEED TO PASS SELECTED MEMBER ID TO memberProfile page //
               >
-                {/* <Text style={mainStyle.text}>{rowData}</Text> */}
-                <Card 
-                  title={rowData}
+                <Card
+                  title={rowData.firstName + " " + rowData.lastName}
                   titleStyle={{alignItems: 'flex-start', marginTop: 10, color: 'white'}}
+
                   // image={{ url: "http://via.placeholder.com/160x160" }}
-                  containerStyle={{ padding: 0, width: 155, backgroundColor: B3, borderRadius: 30,borderWidth: 0, borderColor: B1}}
-                  >
+                  containerStyle={{ 
+                    padding: 0, 
+                    width: 160,
+                    height: 160, 
+                    backgroundColor: B3, 
+                    borderRadius: 30,
+                    borderWidth: 0, 
+                    borderColor: B1
+                  }}                
+                >
                   <Avatar
                     overlayContainerStyle={{backgroundColor: B2, borderBottomEndRadius: 25, borderBottomStartRadius: 25}}
                     size="xlarge"
-                    title={rowData[0]}
-                    containerStyle={{ marginTop: -17, width: 155}}
+                    title={rowData.firstName[0] + rowData.lastName[0]}
+                    containerStyle={{ marginTop: -17, width: 160}}
+                    titleStyle={{ color: "#5e5e5e"}}
                   />
-                  <Text style={{ marginBottom: 10 }}>
-                    {rowData.firstName} {rowData.lastName}
-                  </Text>
                 </Card>
-        {/* <TeamMember nav={() => navigation.navigate("MemberProfile")} avatar={null} initial='JD' fname={'John'} lname={'Doe'} role={'Search'}> </TeamMember> */}
-
-                {/* <Card
-                  title={rowData.username}
-                  image={{ url: "http://via.placeholder.com/160x160" }}
-                  containerStyle={{ padding: 0, width: 160 }}
-                >
-                  <Text style={{ marginBottom: 10 }}>
-                    {rowData.firstName} {rowData.lastName}
-                  </Text>
-                </Card> */}
               </TouchableOpacity>
             );
           }}
