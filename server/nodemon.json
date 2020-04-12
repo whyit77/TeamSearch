@@ -1,8 +1,15 @@
 {
   "env": {
+<<<<<<< HEAD
     "MONGO_USER": "rclee15",
     "MONGO_PASSWORD": "zxcv7890",
     "MONGO_CLUSTER": "cluster0-fgo27",
     "MONGO_DB": "ts1"
+=======
+    "MONGO_USER": "kcohen",
+    "MONGO_PASSWORD": "a5fpxvyp",
+    "MONGO_DB": "ts1",
+    "MONGO_CLUSTER": "teamsearch-bovbs"
+>>>>>>> sprint7/feature/kcohen/mapEdits
   }
 }

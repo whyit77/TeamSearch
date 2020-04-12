@@ -52,7 +52,11 @@ export default class Login extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD:mobile/App/screens/login.js
     fetch("http://192.168.1.8:3000/graphql", {
+=======
+    fetch("http://108.184.184.186:3000/graphql", {
+>>>>>>> sprint7/feature/kcohen/mapEdits:mobile/App/screens/Login.js
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -109,7 +113,7 @@ export default class Login extends React.Component {
                 keyboardAppearance="dark"
                 // keyboardType="username"
                 labelTextColor="white"
-                // textContentType="username"
+              // textContentType="username"
               />
               <Text style={formStyle.label}>Password</Text>
               <TextField

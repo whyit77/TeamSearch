@@ -63,7 +63,11 @@ export default class CreateTeam extends React.Component {
     };
 
     // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD:mobile/App/screens/createTeam.js
     fetch("http://192.168.1.8:3000/graphql", {
+=======
+    fetch("http://108.184.184.186:3000/graphql", {
+>>>>>>> sprint7/feature/kcohen/mapEdits:mobile/App/screens/CreateTeam.js
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {

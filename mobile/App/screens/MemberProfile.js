@@ -56,7 +56,11 @@ class MemberProfile extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
     fetch("http://192.168.1.8:3000/graphql", {
+=======
+    fetch("http://108.184.184.186:3000/graphql", {
+>>>>>>> sprint7/feature/kcohen/mapEdits
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {

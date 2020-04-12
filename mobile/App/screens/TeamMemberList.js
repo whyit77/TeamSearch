@@ -94,7 +94,7 @@ export default class TeamMemberList extends Component {
 
     console.log("fetching...");
 
-    fetch("http://<IPv4>:3000/graphql", {
+    fetch("http://108.184.184.186:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -151,7 +151,7 @@ export default class TeamMemberList extends Component {
             return (
               <TouchableOpacity
                 onPress={() => this.props.navigation.navigate("MemberProfile")}
-                // TODO: NEED TO PASS SELECTED MEMBER ID TO memberProfile page //
+              // TODO: NEED TO PASS SELECTED MEMBER ID TO memberProfile page //
               >
                 {/* <Text style={mainStyle.text}>{rowData}</Text> */}
                 <Card
