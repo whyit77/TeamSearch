@@ -13,7 +13,7 @@ import {
   StatusBar,
   ScrollView,
   TouchableOpacity,
-  Linking, 
+  Linking,
   Platform
 } from "react-native";
 import {
@@ -88,7 +88,7 @@ export default class App extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://<IPv4>:3000/graphql", {
+    fetch("http://108.184.184.186:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {

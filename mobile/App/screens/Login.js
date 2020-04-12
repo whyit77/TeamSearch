@@ -52,7 +52,7 @@ export default class Login extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://<IPv4>:3000/graphql", {
+    fetch("http://108.184.184.186:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -109,7 +109,7 @@ export default class Login extends React.Component {
                 keyboardAppearance="dark"
                 // keyboardType="username"
                 labelTextColor="white"
-                // textContentType="username"
+              // textContentType="username"
               />
               <Text style={formStyle.label}>Password</Text>
               <TextField
