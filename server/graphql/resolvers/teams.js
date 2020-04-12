@@ -7,7 +7,7 @@ module.exports = {
   teams: async () => {
     try {
       const teams = await Team.find();
-      return teams.map(team => {
+      return teams.map((team) => {
         return transformTeam(team);
       });
     } catch (err) {
@@ -102,5 +102,5 @@ module.exports = {
       console.log(err);
       throw err;
     }
-  }
+  },
 };

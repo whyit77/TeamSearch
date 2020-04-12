@@ -39,7 +39,7 @@ export default class CreateTeam extends React.Component {
     console.log(radius);
 
     // TODO: NEED CURRENT LOGGED IN USER ID ///
-    const userId = "5e84e63b4cc6a4552005268b";
+    const userId = "admin";
 
     let requestBody = {
       query: `
@@ -63,7 +63,7 @@ export default class CreateTeam extends React.Component {
     };
 
     // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
-    fetch("http://<IPv4>:3000/graphql", {
+    fetch("http://192.168.1.8:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {

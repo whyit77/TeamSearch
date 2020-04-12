@@ -1,8 +1,8 @@
 {
   "env": {
-    "MONGO_USER": "<>",
-    "MONGO_PASSWORD": "<>",
-    "MONGO_DB": "<>",
-    "MONGO_CLUSTER": "<>"
+    "MONGO_USER": "rclee15",
+    "MONGO_PASSWORD": "zxcv7890",
+    "MONGO_CLUSTER": "cluster0-fgo27",
+    "MONGO_DB": "ts1"
   }
 }

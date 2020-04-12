@@ -33,13 +33,16 @@ const styles = StyleSheet.create({
 });
 
 class PinInformation extends React.Component {
-  state = {
-    switchITValue: false,
-    switchLTValue: false,
-    name: "",
-    location: "",
-    descr: "",
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      switchITValue: false,
+      switchLTValue: false,
+      name: "",
+      location: "",
+      descr: "",
+    };
+  }
 
   toggleITSwitch = (value) => {
     this.setState({ switchITValue: value });
@@ -65,7 +68,7 @@ class PinInformation extends React.Component {
             />
           </View>
           <TextField
-            value={(location) => this.setState({ location })}
+            onChangeText={(x) => this.setState({ location: x })}
             placeholder="Name of pin"
             maxLength={40}
           />

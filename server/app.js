@@ -18,7 +18,7 @@ app.use(
   graphqlHttp({
     schema: graphQlSchema,
     rootValue: graphQlResolvers,
-    graphiql: true
+    graphiql: true,
   })
 );
 
@@ -34,12 +34,12 @@ app.use((req, res, next) => {
 
 //////// CHANGE CONNECT URL (in nodemon.json) FOR THE DB YOU ARE USING //////////
 mongoose
-	.connect(
-		`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
-	)
-	.then(() => {
-		app.listen(3000);
-	})
-	.catch(err => {
-		console.log(err);
-	});
+  .connect(
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
+  )
+  .then(() => {
+    app.listen(3000);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
