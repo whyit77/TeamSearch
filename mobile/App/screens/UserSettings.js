@@ -54,7 +54,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     // TODO: GET CURRENT LOGGED IN USER //
-    const userId = "5e84e63b4cc6a4552005268b";
+    const userId = "5e9281a3845d9821d3d42eea";
 
     let requestBody = {
       query: `
@@ -88,7 +88,7 @@ export default class App extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://108.184.184.186:3000/graphql", {
+    fetch("http://192.168.1.7:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {

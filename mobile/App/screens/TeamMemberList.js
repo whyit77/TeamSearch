@@ -94,7 +94,7 @@ export default class TeamMemberList extends Component {
 
     console.log("fetching...");
 
-    fetch("http://108.184.184.186:3000/graphql", {
+    fetch("http://192.168.1.7:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
