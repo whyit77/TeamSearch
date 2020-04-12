@@ -137,11 +137,11 @@ export default class TeamList extends Component {
     // const { navigation } = this.props;
     this.fetchUserTeams();
     console.log("MOUNTED");
-    const isFocused = this.props.navigation.isFocused();
-    if (isFocused) {
-      console.log("mount 2...");
-      this.fetchUserTeams();
-    }
+    // const isFocused = this.props.navigation.isFocused();
+    // if (isFocused) {
+    //   console.log("mount 2...");
+    //   this.fetchUserTeams();
+    // }
     //Adding an event listner on focus
     //So whenever the screen will have focus it will set the state to zero
     // this.props.navigation.addListener(

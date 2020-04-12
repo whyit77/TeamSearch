@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   View,
-  StatusBar,
+  StatusBar
 } from "react-native";
 import { TextField, ErrorText } from "../components/Form";
 import { Button } from "../components/Button";
@@ -14,22 +14,26 @@ import {
   mainStyle,
   exampleText,
   formStyle,
-  teamListStyle,
+  teamListStyle
 } from "../styles/styles";
 
 // import { AuthContext } from "../context/auth-context";
 //////// TODO: LEARN TO DO AUTH TO HAVE LOGGED IN ID //////////////////
 
 const initialState = {
+  userId: "",
   username: "",
   password: "",
-  error: "",
+  error: ""
 };
 
 export default class Login extends React.Component {
   // static contextType = AuthContext;
 
-  state = initialState;
+  constructor(props) {
+    super(props);
+    this.state = initialState;
+  }
 
   handleSubmit = () => {
     const username = this.state.username;
@@ -47,8 +51,8 @@ export default class Login extends React.Component {
       `,
       variables: {
         username: username,
-        password: password,
-      },
+        password: password
+      }
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
@@ -56,16 +60,19 @@ export default class Login extends React.Component {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     })
-      .then(async (res) => {
+      .then(async res => {
         const responseJson = await res.json();
+        console.log(responseJson);
 
         if (res.ok) {
           console.log("Okay LOGIN");
-          this.props.navigation.navigate("TeamListView");
-          this.setState(initialState);
+          this.setState({ userId: responseJson.data.login.userId });
+          // this.props.navigation.navigate("TeamListView");
+          // this.setState(initialState);
+          this.setUser(); // set user in db for future auth
           return responseJson;
         }
 
@@ -83,10 +90,61 @@ export default class Login extends React.Component {
       //     );
       //   }
       // })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
+
+  /////////////////////////////////////////////////////
+  setUser = () => {
+    const userId = this.state.userId;
+    const username = this.state.username;
+
+    let requestBody = {
+      query: `
+        mutation setUser($userId: String!, $username: String!) {
+          setUser(userId: $userId, username: $username) {
+            userId
+            username
+          }
+        }
+      `,
+      variables: {
+        userId: userId,
+        username: username
+      }
+    };
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.11:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(async res => {
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          console.log("Okay CURRENT");
+          this.props.navigation.navigate("TeamListView");
+          this.setState(initialState);
+          return responseJson;
+        }
+
+        this.setState(initialState);
+        this.setState({ error: responseJson.errors[0].message });
+        throw new Error(responseJson.error);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  componentDidMount() {
+    console.log("mount");
+  }
 
   render() {
     return (
@@ -100,7 +158,7 @@ export default class Login extends React.Component {
               <TextField
                 //label="Username"
                 placeholder="Username"
-                onChangeText={(username) => this.setState({ username })}
+                onChangeText={username => this.setState({ username })}
                 value={this.state.username}
                 autoCapitalize="none"
                 style={formStyle.placeholderStyle}
@@ -116,7 +174,7 @@ export default class Login extends React.Component {
                 //label="Password"
                 placeholder="Password"
                 secureTextEntry
-                onChangeText={(password) => this.setState({ password })}
+                onChangeText={password => this.setState({ password })}
                 value={this.state.password}
                 autoCapitalize="none"
                 style={formStyle.placeholderStyle}

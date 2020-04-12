@@ -25,24 +25,29 @@ import {
 } from "../styles/styles";
 import { TextField, ErrorText } from "../components/Form";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+// import Button from "../components/Button";
 
 // import { AuthContext } from "../context/auth-context";
 
 export default class App extends React.Component {
   // static contextType = AuthContext;
 
-  state = {
-    // switchITValue: false,
-    // switchLTValue: false,
-    username: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    description: "",
-    phone: ""
-    // changePass: "",
-    // confirmPass: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      // switchITValue: false,
+      // switchLTValue: false,
+      userId: "",
+      username: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      description: "",
+      phone: ""
+      // changePass: "",
+      // confirmPass: ""
+    };
+  }
 
   // toggleITSwitch = value => {
   //   this.setState({ switchITValue: value });
@@ -52,7 +57,61 @@ export default class App extends React.Component {
   //   this.setState({ switchLTValue: value });
   // };
 
-  componentDidMount() {
+  logout = () => {
+    const username = this.state.username;
+    console.log(username);
+
+    let requestBody = {
+      query: `
+        mutation logout($username: String!) {
+          logout(username: $username) {
+            username
+          }
+        }
+      `,
+      variables: {
+        username: username
+      }
+    };
+
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.11:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(async res => {
+        const responseJson = await res.json();
+        console.log("logging out");
+        console.log(responseJson);
+
+        if (res.ok) {
+          console.log("Okay LOGOUT");
+          this.props.navigation.navigate("Login");
+          return responseJson;
+        }
+
+        // this.setState({ error: responseJson.errors[0].message });
+        throw new Error(responseJson.error);
+      })
+      // .then(resData => {
+      //   if (resData.data.login.token) {
+      //     //////////////
+      //     this.context.Login(
+      //       resData.data.login.token,
+      //       resData.data.login.userId,
+      //       resData.data.login.tokenExpiration
+      //     );
+      //   }
+      // })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  fetchUser() {
     // TODO: GET CURRENT LOGGED IN USER //
     const userId = "5e914c8d4d7ca83308289294";
 
@@ -104,6 +163,7 @@ export default class App extends React.Component {
         console.log(responseJson);
 
         if (res.ok) {
+          const userId = responseJson.data.getUser._id;
           const username = responseJson.data.getUser.username;
           const firstName = responseJson.data.getUser.firstName;
           const lastName = responseJson.data.getUser.lastName;
@@ -112,6 +172,7 @@ export default class App extends React.Component {
           const phone = responseJson.data.getUser.phone;
 
           this.setState({
+            userId: userId,
             username: username,
             firstName: firstName,
             lastName: lastName,
@@ -132,6 +193,10 @@ export default class App extends React.Component {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  componentDidMount() {
+    this.fetchUser();
   }
 
   dialCall = () => {
@@ -239,6 +304,11 @@ export default class App extends React.Component {
                   {this.state.phone}
                 </Text>
               </Text>
+              <Button
+                style={formStyle.formButton}
+                title="LOGOUT (temp)"
+                onPress={() => this.logout()}
+              />
               {/* <TextField editable={false}> */}
 
               {/* </TextField> */}

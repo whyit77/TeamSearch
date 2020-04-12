@@ -37,7 +37,7 @@ module.exports = {
     // if (!req.isAuth) {
     // 	throw new Error('Unauthenticated!');
     // }
-    let creator;
+    // let creator;
     try {
       const creator = await User.findById(args.userId);
       if (!creator) {
