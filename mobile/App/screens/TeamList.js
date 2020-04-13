@@ -139,11 +139,11 @@ export default class TeamList extends Component {
     // const { navigation } = this.props;
     this.fetchUserTeams();
     console.log("MOUNTED");
-    const isFocused = this.props.navigation.isFocused();
-    if (isFocused) {
-      console.log("mount 2...");
-      this.fetchUserTeams();
-    }
+    // const isFocused = this.props.navigation.isFocused();
+    // if (isFocused) {
+    //   console.log("mount 2...");
+    //   this.fetchUserTeams();
+    // }
     //Adding an event listner on focus
     //So whenever the screen will have focus it will set the state to zero
     // this.props.navigation.addListener(
@@ -165,18 +165,22 @@ export default class TeamList extends Component {
   //   console.log("MOUNTED");
   // }
 
-  componentDidUpdate(prevProps, prevState) {
-    // if (prevState.data !== this.state.data) {
-    //   console.log("UPDATING...");
-    //   this.fetchUserTeams();
-    // }
-    this.fetchUserTeams();
-    console.log("upd");
-    const isFocused = this.props.navigation.isFocused();
-    if (isFocused) {
-      console.log("UPDATING...");
-      this.fetchUserTeams();
-    }
+  // componentDidUpdate(prevProps, prevState) {
+  //   // if (prevState.data !== this.state.data) {
+  //   //   console.log("UPDATING...");
+  //   //   this.fetchUserTeams();
+  //   // }
+  //   this.fetchUserTeams();
+  //   console.log("upd");
+  //   const isFocused = this.props.navigation.isFocused();
+  //   if (isFocused) {
+  //     console.log("UPDATING...");
+  //     this.fetchUserTeams();
+  //   }
+  // }
+
+  componentWillUnmount() {
+    console.log("unm");
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -221,8 +225,8 @@ export default class TeamList extends Component {
                     // }
                     onPress={() =>
                       this.props.navigation.navigate("TeamInfo", {
-                        teamId: rowData._id,
-                        refresh: this.fetchUserTeams()
+                        teamId: rowData._id
+                        // refresh: this.fetchUserTeams()
                       })
                     }
                     name={rowData.teamName}

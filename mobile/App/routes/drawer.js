@@ -11,6 +11,60 @@ import MapViewStack from "./mapViewStack";
 import TeamAlertsStack from "./teamAlertsStack";
 import SettingsStack from "./settingsStack";
 import React, { Component } from "react";
+import logout from "../components/logout";
+import Alert from "react-native";
+
+// const logout = () => {
+//   const username = "test3";
+
+//   let requestBody = {
+//     query: `
+//         query logout($username: String!) {
+//           logout(username: $username) {
+
+//           }
+//         }
+//       `,
+//     variables: {
+//       username: username
+//     }
+//   };
+
+//   // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+//   fetch("http://192.168.1.11:3000/graphql", {
+//     method: "POST",
+//     body: JSON.stringify(requestBody),
+//     headers: {
+//       "Content-Type": "application/json"
+//     }
+//   })
+//     .then(async res => {
+//       const responseJson = await res.json();
+//       console.log(responseJson);
+
+//       if (res.ok) {
+//         console.log("Okay LOGOUT");
+//         this.props.navigation.navigate("Login");
+//         return responseJson;
+//       }
+
+//       // this.setState({ error: responseJson.errors[0].message });
+//       throw new Error(responseJson.error);
+//     })
+//     // .then(resData => {
+//     //   if (resData.data.login.token) {
+//     //     //////////////
+//     //     this.context.Login(
+//     //       resData.data.login.token,
+//     //       resData.data.login.userId,
+//     //       resData.data.login.tokenExpiration
+//     //     );
+//     //   }
+//     // })
+//     .catch(err => {
+//       console.log(err);
+//     });
+// };
 
 const RootDrawerNavigator = createDrawerNavigator(
   {
@@ -78,6 +132,15 @@ const RootDrawerNavigator = createDrawerNavigator(
         title: "Settings"
       }
     }
+    // Logout: {
+    //   // screen: logout,
+    //   contentOptions: {
+    //     onItemPress: () => Alert.alert("LOGOUT?")
+    //   },
+    //   navigationOptions: {
+    //     title: "Logout"
+    //   }
+    // }
   },
   {
     drawerBackgroundColor: "#292929",

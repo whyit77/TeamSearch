@@ -12,6 +12,9 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { TextField } from "../components/Form";
 import { mainStyle, formStyle } from "../styles/styles";
 
+import { StackActions } from "@react-navigation/native";
+import { NavigationActions } from "react-navigation";
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -111,7 +114,12 @@ export default class App extends React.Component {
 
   componentWillUnmount() {
     console.log("unmount");
-    this.props.navigation.getParam("refresh");
+    // const resetAction = NavigationActions.reset({
+    //   index: 0,
+    //   actions: [NavigationActions.navigate({ routeName: "TeamList" })]
+    // });
+    // this.props.navigation.dispatch(resetAction);
+    // this.props.navigation.getParam("refresh");
   }
 
   // componentDidUpdate(prevProps, prevState) {

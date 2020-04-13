@@ -109,11 +109,9 @@ export default class CreateTeamMenuIcon extends Component {
   option1Click = () => {
     this._menu.hide();
     this.props.option1Click();
-    console.log("op1");
   };
   option2Click = () => {
     this.setState({ dialogIsVisible: true });
-    console.log("op2");
   };
   render() {
     return (
@@ -154,7 +152,7 @@ export default class CreateTeamMenuIcon extends Component {
               textInputStyle={{
                 color: "black",
                 borderColor: "black",
-                borderWidth: 1,
+                borderWidth: 2,
                 marginBottom: 20
               }}
               autoCapitalize={false}

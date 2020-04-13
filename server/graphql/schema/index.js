@@ -59,6 +59,12 @@ type AuthData {
   tokenExpiration: Int!
 }
 
+type Current {
+  userId: String!
+  username: String!
+  teamId: String!
+}
+
 input EventInput {
   title: String!
   description: String!
@@ -108,6 +114,8 @@ type RootMutation {
     joinTeam(userId: String!, teamCode: String!): Team
     addUserToTeam(username: String!, teamId: String!): Team
     createAlert(userId: String!, teamId: String!, alertInput: AlertInput): Alert
+    setUser(userId: String!, username: String!): Current
+    logout(username: String!): Current
 }
 
 schema {

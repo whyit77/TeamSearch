@@ -15,6 +15,8 @@ import { mainStyle, B3, B2, B1 } from "../styles/styles";
 import { ScrollView } from "react-native-gesture-handler";
 import TeamMemberListAddButton from "../components/TeamMemberListAddButton";
 import Icon from "react-native-vector-icons/Ionicons";
+import { NavigationEvents } from "react-navigation";
+// import Avatar from '../components/Avatar';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,27 +34,66 @@ const styles = StyleSheet.create({
   }
 });
 
+// const data = [
+//   {
+//     imageUrl: "http://via.placeholder.com/160x160",
+//     title: "something"
+//   },
+//   {
+//     imageUrl: "http://via.placeholder.com/160x160",
+//     title: "something two"
+//   },
+//   {
+//     imageUrl: "http://via.placeholder.com/160x160",
+//     title: "something three"
+//   },
+//   {
+//     imageUrl: "http://via.placeholder.com/160x160",
+//     title: "something four"
+//   },
+//   {
+//     imageUrl: "http://via.placeholder.com/160x160",
+//     title: "something five"
+//   },
+//   {
+//     imageUrl: "http://via.placeholder.com/160x160",
+//     title: "something six"
+//   }
+// ];
+
 // Necessary to extract how many team members are currently in a team and then make rows for all members
 export default class TeamMemberList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [],
+      teamId: "",
+      teamName: ""
+    };
+  }
 
-
-  state = {
-    data: [],
-    username: "",
-    firstName: "",
-    lastName: ""
-  };
-
-  componentDidMount() {
+  fetchTeamMember() {
     // TODO: GET CURRENT TEAM (selected from list) //
-    const teamId = "5e815a1ff1088e659c4bddc5";
+    let teamId = "5e9189523778984ecc120f3c";
+    if (this.props.navigation.getParam("teamId") != null) {
+      teamId = this.props.navigation.getParam("teamId");
+    }
+    console.log(teamId);
+    // const teamId =
+    //   this.props.navigation.getParam("teamId") == ""
+    //     ? "5e9189523778984ecc120f3c"
+    //     : this.props.navigation.getParam("teamId");
+
+    this.setState({ teamId: teamId });
 
     let requestBody = {
       query: `
       query getTeam($teamId: String!) {
         getTeam(teamId: $teamId) {
           _id
+          teamName
           members {
+            _id
             username
             firstName
             lastName
@@ -82,14 +123,11 @@ export default class TeamMemberList extends Component {
         if (res.ok) {
           console.log("Okay Fetched Team");
 
+          const teamName = responseJson.data.getTeam.teamName;
           const members = responseJson.data.getTeam.members;
-          // const first = responseJson.data.getTeam.firstName;
-          // const last = responseJson.data.getTeam.lastName;
           console.log(members);
 
           const names = [];
-          // const first = [];
-          // const last = [];
           for (let i = 0; i < members.length; i++) {
             names.push(members[i]);
             // first.push(members[i].firstName);
@@ -98,7 +136,8 @@ export default class TeamMemberList extends Component {
           console.log(names);
 
           this.setState({
-            data: names
+            data: names,
+            teamName: teamName
           });
 
           return responseJson;
@@ -112,9 +151,23 @@ export default class TeamMemberList extends Component {
       });
   }
 
+  componentDidMount() {
+    console.log("MOUnt");
+    this.fetchTeamMember();
+  }
+
   static navigationOptions = ({ navigation }) => {
+    // const t = this.state.teamId;
+
     return {
-      headerRight: <TeamMemberListAddButton />
+      headerRight: () => (
+        <TeamMemberListAddButton
+          // teamId={"5e9189523778984ecc120f3c"}
+          option1Click={team =>
+            navigation.navigate("TeamMemberList", { teamId: team })
+          }
+        />
+      )
     };
     
   };
@@ -124,6 +177,9 @@ export default class TeamMemberList extends Component {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+        <View style={mainStyle.container}>
+          <Text style={mainStyle.bigText}>{this.state.teamName}</Text>
+        </View>
 
         <FlatList
           data={this.state.data}
@@ -131,7 +187,11 @@ export default class TeamMemberList extends Component {
           renderItem={({ item: rowData }) => {
             return (
               <TouchableOpacity
-                onPress={() => this.props.navigation.navigate("MemberProfile")}
+                onPress={() =>
+                  this.props.navigation.navigate("MemberProfile", {
+                    memberId: rowData._id
+                  })
+                }
                 // TODO: NEED TO PASS SELECTED MEMBER ID TO memberProfile page //
               >
                 <Card
