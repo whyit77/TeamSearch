@@ -151,7 +151,7 @@ class Map extends React.Component {
     );
 
     //  TODO: Update Heatmap
-    Alert.alert("Adding/Updating Pins and Heatmap\n" + "Lat:" + currentLat + "\n" + "Long:" + currentLong);
+    Alert.alert("TODO: Adding/Updating Pins and Heatmap\n" + "Lat:" + currentLat + "\n" + "Long:" + currentLong);
 
   }
 
