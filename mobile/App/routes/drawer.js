@@ -31,7 +31,7 @@ import Alert from "react-native";
 //   };
 
 //   // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-//   fetch("http://192.168.1.11:3000/graphql", {
+//   fetch("http://192.168.1.14:3000/graphql", {
 //     method: "POST",
 //     body: JSON.stringify(requestBody),
 //     headers: {
@@ -68,25 +68,25 @@ import Alert from "react-native";
 
 const RootDrawerNavigator = createDrawerNavigator(
   {
-    // Login: {
-    //     screen: LoginStack,
-    //     navigationOptions: {
-    //         title: 'Sign Out'
-    //     }
-    // },
-    // ResetPassword: {
-    //     screen: ResetPasswordStack,
-    //     navigationOptions: {
-    //         title: 'Reset Password'
+    Login: {
+        screen: LoginStack,
+        navigationOptions: {
+            title: 'Sign Out'
+        }
+    },
+    ResetPassword: {
+        screen: ResetPasswordStack,
+        navigationOptions: {
+            title: 'Reset Password'
             
-    //     }
-    // },
-    // FirstTimeUserCreation: {
-    //     screen: FirstTimeUserCreationStack,
-    //     navigationOptions: {
-    //         title: 'Create Account'
-    //     }
-    // },
+        }
+    },
+    FirstTimeUserCreation: {
+        screen: FirstTimeUserCreationStack,
+        navigationOptions: {
+            title: 'Create Account'
+        }
+    },
     TeamListView: {
       screen: TeamListStack,
       navigationOptions: {
