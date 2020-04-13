@@ -5,26 +5,6 @@ const { transformPin, bindUser } = require("./merge");
 const randomize = require("randomatic");
 
 module.exports = {
-  getPins: async (args, req) => {
-    console.log("GET Pins");
-    // if (!req.isAuth) {
-    //   throw new Error("Unauthenticated!");
-    // }
-    // TODO: NEED CURRENT TEAM ID ///
-    // req.teamId = "5e7f1397e0c8ce4a247e7cad";
-
-    try {
-      const team = await Team.findById(args.teamId);
-
-      // console.log(team);
-      return team.pins.map(pin => {
-        return transformPin(pin);
-      });
-    } catch (err) {
-      throw err;
-    }
-  },
-  // FINDS USER BY PASSED IN ID and CREATE TEAM UNDER THEM //
   createPin: async (args, req) => {
     console.log("CREATE PIN");
     // if (!req.isAuth) {
