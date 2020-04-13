@@ -24,16 +24,13 @@ module.exports = {
 
   // FINDS FIRST USER IN DB // FOR CURRENT ONLY //
   me: async () => {
-    // if (!req.isAuth) {
-    //   throw new Error("Unauthenticated!");
-    // }
-    // console.log(args);
-
     try {
-      const user = await Current.findOne();
+      const curr = await Current.findOne();
       console.log("ME");
 
-      return transformUser(user);
+      return { ...curr._doc };
+
+      // return transformUser(user);
       // return { ...user._doc, _id: user.id };
     } catch (err) {
       throw err;

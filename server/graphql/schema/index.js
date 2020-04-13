@@ -102,7 +102,7 @@ type RootQuery {
     login(username: String!, password: String!): AuthData!
     getUser(userId: String!): User!
     getTeam(teamId: String!): Team!
-    me: User!
+    me: Current!
 }
 
 type RootMutation {
@@ -114,7 +114,8 @@ type RootMutation {
     joinTeam(userId: String!, teamCode: String!): Team
     addUserToTeam(username: String!, teamId: String!): Team
     createAlert(userId: String!, teamId: String!, alertInput: AlertInput): Alert
-    setUser(userId: String!, username: String!): Current
+    setUser(userId: String!, username: String!): Current!
+    setTeam(userId: String!, teamId: String!): Current!
     logout(username: String!): Current
 }
 

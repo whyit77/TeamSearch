@@ -18,10 +18,53 @@ export default class TeamMemberListAddButton extends Component {
     };
   }
 
+  async fetchCurrentTeam() {
+    let requestBody = {
+      query: `
+        query {
+          me {
+            userId
+            username
+            teamId
+          }
+        }
+      ` // me query pulls first person in database
+    };
+
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.11:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(async res => {
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          // set currently selected team in state
+          const teamId = responseJson.data.me.teamId;
+
+          this.setState({
+            teamId: teamId
+          });
+
+          return responseJson;
+        }
+
+        throw new Error(responseJson.error);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   fetchAddMember(username) {
     console.log(username);
-    // const teamId = this.props.teamId; // teamID passed from TeamMemberList
-    const teamId = "5e9189523778984ecc120f3c";
+    const teamId = this.state.teamId;
+    // const teamId = "5e9189523778984ecc120f3c";
     console.log(teamId);
     this.setState({ username: username, teamId: teamId });
 
@@ -90,11 +133,10 @@ export default class TeamMemberListAddButton extends Component {
 
   // TODO: ONLY CREATOR CAN ADD MEMBERS???? //
 
-  //   componentDidMount() {
-  //     // TODO: GET LOGGED IN USER ID //
-  //     const username = "test3";
-  //     this.setState({ username: username });
-  //   }
+  componentDidMount() {
+    this.fetchCurrentTeam();
+    console.log("mount");
+  }
 
   option1Click = () => {
     this.setState({ dialogIsVisible: true });

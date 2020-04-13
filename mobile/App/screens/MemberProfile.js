@@ -34,8 +34,6 @@ class MemberProfile extends React.Component {
   };
 
   componentDidMount() {
-    // TODO: GET CURRENTLY SELECTED USER from teamMemberList page// DONE
-    // const userId = "5e8128507fa7512864614452";
     const userId = this.props.navigation.getParam("memberId");
 
     let requestBody = {

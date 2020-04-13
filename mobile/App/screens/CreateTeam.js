@@ -18,6 +18,7 @@ import { ImageField } from "../components/Image";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const initialState = {
+  userId: "",
   teamId: "",
   teamName: "",
   searchDescription: "",
@@ -32,14 +33,104 @@ export default class CreateTeam extends React.Component {
     this.state = initialState;
   }
 
+  async fetchCurrentUser() {
+    console.log("fetchCurrentUser");
+
+    let requestBody = {
+      query: `
+        query {
+          me {
+            userId
+            username
+          }
+        }
+      ` // me query pulls first person in database
+    };
+
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.11:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(async res => {
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          // set current logged in user in state
+          const userId = responseJson.data.me.userId;
+
+          this.setState({
+            userId: userId
+          });
+
+          return responseJson;
+        }
+
+        throw new Error(responseJson.error);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  // set currently selected team
+  setTeam = teamId => {
+    const userId = this.state.userId;
+
+    let requestBody = {
+      query: `
+        mutation setTeam($userId: String!, $teamId: String!) {
+          setTeam(userId: $userId, teamId: $teamId) {
+            userId
+            username
+            teamId
+          }
+        }
+      `,
+      variables: {
+        userId: userId,
+        teamId: teamId
+      }
+    };
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.11:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(async res => {
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          console.log("Okay CURRENT TEAM");
+          this.props.navigation.navigate("TeamInfo");
+          this.setState(initialState);
+          return responseJson;
+        }
+
+        this.setState({ error: responseJson.errors[0].message });
+        throw new Error(responseJson.error);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   handleSubmit = () => {
+    const userId = this.state.userId;
     const teamName = this.state.teamName;
     const searchDescription = this.state.searchDescription;
     const subjectDescription = this.state.subjectDescription;
     const radius = parseInt(this.state.radius, 10);
 
-    // TODO: NEED CURRENT LOGGED IN USER ID ///
-    const userId = "5e914c8d4d7ca83308289294";
+    // const userId = "5e914c8d4d7ca83308289294";
 
     let requestBody = {
       query: `
@@ -74,7 +165,6 @@ export default class CreateTeam extends React.Component {
         const responseJson = await res.json();
 
         console.log(responseJson);
-        // console.log(responseJson.data.createTeam._id);
 
         ////////// VERIFY INPUT ////////////
         if (responseJson.data.createTeam == null) {
@@ -103,11 +193,12 @@ export default class CreateTeam extends React.Component {
 
         if (res.ok) {
           console.log("Okay CREATE");
-          this.props.navigation.navigate("TeamInfo", {
-            teamId: responseJson.data.createTeam._id
-          });
-          ///// TODO: ADD TEAM ID TO CONTEXT TO KNOW WHAT TEAM WE'RE LOOKING AT /////
-          this.setState(initialState);
+          // this.props.navigation.navigate("TeamInfo", {
+          //   teamId: responseJson.data.createTeam._id
+          // });
+          this.setState({ teamId: responseJson.data.createTeam._id });
+          this.setTeam(this.state.teamId); // set current team ID
+          // this.setState(initialState);
           return responseJson;
         }
 
@@ -118,6 +209,11 @@ export default class CreateTeam extends React.Component {
         console.log(err);
       });
   };
+
+  componentDidMount() {
+    this.fetchCurrentUser();
+    console.log("mount");
+  }
 
   render() {
     return (
@@ -222,7 +318,7 @@ export default class CreateTeam extends React.Component {
                 <Button
                   style={formStyle.formButton}
                   text="Create"
-                  onPress={this.handleSubmit}
+                  onPress={() => this.handleSubmit()}
                 />
               </View>
             </View>

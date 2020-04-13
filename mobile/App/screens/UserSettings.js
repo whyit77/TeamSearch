@@ -111,9 +111,53 @@ export default class App extends React.Component {
       });
   };
 
+  async fetchCurrentUser() {
+    console.log("fetchCurrentUser");
+
+    let requestBody = {
+      query: `
+        query {
+          me {
+            userId
+            username
+          }
+        }
+      ` // me query pulls first person in database
+    };
+
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.11:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(async res => {
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          // set current logged in user in state
+          const userId = responseJson.data.me.userId;
+
+          this.setState({
+            userId: userId
+          });
+
+          return responseJson;
+        }
+
+        throw new Error(responseJson.error);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   fetchUser() {
-    // TODO: GET CURRENT LOGGED IN USER //
-    const userId = "5e914c8d4d7ca83308289294";
+    // const userId = "5e914c8d4d7ca83308289294";
+    const userId = this.state.userId;
 
     let requestBody = {
       query: `
@@ -131,19 +175,6 @@ export default class App extends React.Component {
       variables: {
         userId: userId
       }
-      // query: `
-      //   query {
-      //     me {
-      //       _id
-      //       username
-      //       firstName
-      //       lastName
-      //       email
-      //       desc
-      //       phone
-      //     }
-      //   }
-      // ` // me query pulls first person in database
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
@@ -163,7 +194,7 @@ export default class App extends React.Component {
         console.log(responseJson);
 
         if (res.ok) {
-          const userId = responseJson.data.getUser._id;
+          // const userId = responseJson.data.getUser._id;
           const username = responseJson.data.getUser.username;
           const firstName = responseJson.data.getUser.firstName;
           const lastName = responseJson.data.getUser.lastName;
@@ -172,7 +203,7 @@ export default class App extends React.Component {
           const phone = responseJson.data.getUser.phone;
 
           this.setState({
-            userId: userId,
+            // userId: userId,
             username: username,
             firstName: firstName,
             lastName: lastName,
@@ -196,7 +227,15 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchUser();
+    this.fetchCurrentUser();
+    console.log("mount");
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.userId !== this.state.userId) {
+      console.log("UPDATING...");
+      this.fetchUser(); // populate logged in user info
+    }
   }
 
   dialCall = () => {

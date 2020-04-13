@@ -33,7 +33,8 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-      teamId: this.props.navigation.getParam("teamId"),
+      // teamId: this.props.navigation.getParam("teamId"),
+      teamId: "",
       teamName: "",
       searchDescription: "",
       subjectDescription: "",
@@ -43,8 +44,55 @@ export default class App extends React.Component {
     };
   }
 
+  async fetchCurrentTeam() {
+    let requestBody = {
+      query: `
+        query {
+          me {
+            userId
+            username
+            teamId
+          }
+        }
+      ` // me query pulls first person in database
+    };
+
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.11:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(async res => {
+        // if (res.status !== 200 && res.status !== 201) {
+        //   throw new Error("Failed!");
+        // }
+
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          // set currently selected team in state
+          const teamId = responseJson.data.me.teamId;
+
+          this.setState({
+            teamId: teamId
+          });
+
+          return responseJson;
+        }
+
+        throw new Error(responseJson.error);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   fetchTeam() {
-    // TODO: GET CURRENT TEAM (just made or selected from list) //
+    // TODO: GET CURRENT TEAM (just made or selected from list) // done
     // const teamId = "5e8128d77fa7512864614453";
     const teamId = this.state.teamId;
 
@@ -109,8 +157,13 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchTeam();
+    this.fetchCurrentTeam(); // get currently selected team
     console.log("mount");
+    // const isFocused = this.props.navigation.isFocused();
+    // if (isFocused) {
+    //   console.log("mount 2...");
+    //   this.fetchCurrentTeam();
+    // }
   }
 
   componentWillUnmount() {
@@ -123,14 +176,14 @@ export default class App extends React.Component {
     // this.props.navigation.getParam("refresh");
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.teamId !== this.state.teamId) {
-  //     console.log("UPDATING...");
-  //     this.fetchTeam();
-  //   }
-  //   console.log("update");
-  //   this.props.navigation.getParam("refresh");
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.teamId !== this.state.teamId) {
+      console.log("UPDATING...");
+      this.fetchTeam();
+    }
+    // this.fetchTeam();
+    // console.log("update");
+  }
 
   render() {
     return (

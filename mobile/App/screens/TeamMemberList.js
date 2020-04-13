@@ -33,33 +33,6 @@ const styles = StyleSheet.create({
   }
 });
 
-// const data = [
-//   {
-//     imageUrl: "http://via.placeholder.com/160x160",
-//     title: "something"
-//   },
-//   {
-//     imageUrl: "http://via.placeholder.com/160x160",
-//     title: "something two"
-//   },
-//   {
-//     imageUrl: "http://via.placeholder.com/160x160",
-//     title: "something three"
-//   },
-//   {
-//     imageUrl: "http://via.placeholder.com/160x160",
-//     title: "something four"
-//   },
-//   {
-//     imageUrl: "http://via.placeholder.com/160x160",
-//     title: "something five"
-//   },
-//   {
-//     imageUrl: "http://via.placeholder.com/160x160",
-//     title: "something six"
-//   }
-// ];
-
 // Necessary to extract how many team members are currently in a team and then make rows for all members
 export default class TeamMemberList extends Component {
   constructor(props) {
@@ -71,17 +44,55 @@ export default class TeamMemberList extends Component {
     };
   }
 
+  async fetchCurrentTeam() {
+    let requestBody = {
+      query: `
+        query {
+          me {
+            userId
+            username
+            teamId
+          }
+        }
+      ` // me query pulls first person in database
+    };
+
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.11:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(async res => {
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          // set currently selected team in state
+          const teamId = responseJson.data.me.teamId;
+
+          this.setState({
+            teamId: teamId
+          });
+
+          return responseJson;
+        }
+
+        throw new Error(responseJson.error);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   fetchTeamMember() {
-    // TODO: GET CURRENT TEAM (selected from list) //
-    let teamId = "5e9189523778984ecc120f3c";
-    if (this.props.navigation.getParam("teamId") != null) {
-      teamId = this.props.navigation.getParam("teamId");
-    }
+    const teamId = this.state.teamId;
+    // if (this.props.navigation.getParam("teamId") != null) {
+    //   teamId = this.props.navigation.getParam("teamId");
+    // }
     console.log(teamId);
-    // const teamId =
-    //   this.props.navigation.getParam("teamId") == ""
-    //     ? "5e9189523778984ecc120f3c"
-    //     : this.props.navigation.getParam("teamId");
 
     this.setState({ teamId: teamId });
 
@@ -150,8 +161,15 @@ export default class TeamMemberList extends Component {
   }
 
   componentDidMount() {
-    console.log("MOUnt");
-    this.fetchTeamMember();
+    console.log("Mount");
+    this.fetchCurrentTeam();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.teamId !== this.state.teamId) {
+      console.log("UPDATING...");
+      this.fetchTeamMember();
+    }
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -160,7 +178,7 @@ export default class TeamMemberList extends Component {
     return {
       headerRight: () => (
         <TeamMemberListAddButton
-          // teamId={"5e9189523778984ecc120f3c"}
+          // teamId={"5e9189523778984ecc120f3c"} ////////////////////////////
           option1Click={team =>
             navigation.navigate("TeamMemberList", { teamId: team })
           }
@@ -188,9 +206,7 @@ export default class TeamMemberList extends Component {
                     memberId: rowData._id
                   })
                 }
-                // TODO: NEED TO PASS SELECTED MEMBER ID TO memberProfile page //
               >
-                {/* <Text style={mainStyle.text}>{rowData}</Text> */}
                 <Card
                   title={rowData.username}
                   image={{ url: "http://via.placeholder.com/160x160" }}

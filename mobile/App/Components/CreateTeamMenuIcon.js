@@ -20,6 +20,95 @@ export default class CreateTeamMenuIcon extends Component {
     };
   }
 
+  async fetchCurrentUser() {
+    console.log("fetchCurrentUser");
+
+    let requestBody = {
+      query: `
+        query {
+          me {
+            userId
+            username
+          }
+        }
+      ` // me query pulls first person in database
+    };
+
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.11:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(async res => {
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          // set current logged in user in state
+          const userId = responseJson.data.me.userId;
+
+          this.setState({
+            userId: userId
+          });
+
+          return responseJson;
+        }
+
+        throw new Error(responseJson.error);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  // set currently selected team
+  setTeam = teamId => {
+    const userId = this.state.userId;
+
+    let requestBody = {
+      query: `
+        mutation setTeam($userId: String!, $teamId: String!) {
+          setTeam(userId: $userId, teamId: $teamId) {
+            userId
+            username
+            teamId
+          }
+        }
+      `,
+      variables: {
+        userId: userId,
+        teamId: teamId
+      }
+    };
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.11:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(async res => {
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          console.log("Okay CURRENT TEAM");
+          this.props.option2Click(); // nav to team info screen
+          return responseJson;
+        }
+
+        this.setState({ error: responseJson.errors[0].message });
+        throw new Error(responseJson.error);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   fetchJoinTeam(teamCode) {
     console.log(teamCode);
     const userId = this.state.userId;
@@ -78,7 +167,8 @@ export default class CreateTeamMenuIcon extends Component {
           console.log("JOINED");
           console.log(this.state.code);
           this._menu.hide();
-          this.props.option2Click(this.state.teamId);
+          // this.props.option2Click(this.state.teamId);
+          this.setTeam(teamId); // set as current team
 
           return responseJson;
         }
@@ -92,8 +182,10 @@ export default class CreateTeamMenuIcon extends Component {
 
   componentDidMount() {
     // TODO: GET LOGGED IN USER ID //
-    const userId = "5e914c8d4d7ca83308289294";
-    this.setState({ userId: userId });
+    // const userId = "5e914c8d4d7ca83308289294";
+    // this.setState({ userId: userId });
+    this.fetchCurrentUser();
+    console.log("mount");
   }
 
   _menu = null;
