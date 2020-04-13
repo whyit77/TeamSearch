@@ -1,6 +1,7 @@
 const Event = require("../../models/event");
 const Team = require("../../models/team");
 const User = require("../../models/user");
+const Alert = require("../../models/alert");
 const { dateToString } = require("../../helpers/date");
 
 const events = async eventIds => {
@@ -30,6 +31,17 @@ const users = async userIds => {
     const users = await User.find({ _id: { $in: userIds } });
     return users.map(user => {
       return transformUser(user);
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+const alerts = async alertIds => {
+  try {
+    const alerts = await Alert.find({ _id: { $in: alertIds } });
+    return alerts.map(alert => {
+      return transformAlert(alert);
     });
   } catch (err) {
     throw err;
@@ -80,7 +92,16 @@ const transformTeam = team => {
     createdAt: dateToString(team._doc.createdAt),
     updatedAt: dateToString(team._doc.updatedAt),
     creator: singleUser.bind(this, team.creator),
-    members: users.bind(this, team._doc.members)
+    members: users.bind(this, team._doc.members),
+    alerts: alerts.bind(this, team._doc.alerts)
+  };
+};
+
+const transformAlert = alert => {
+  return {
+    ...alert._doc,
+    _id: alert.id,
+    creator: singleUser.bind(this, alert.creator),
   };
 };
 
@@ -99,6 +120,7 @@ exports.transformEvent = transformEvent;
 exports.transformBooking = transformBooking;
 exports.transformTeam = transformTeam;
 exports.transformUser = transformUser;
+exports.transformAlert = transformAlert;
 
 // exports.user = user;
 // exports.events = events;
