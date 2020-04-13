@@ -33,23 +33,10 @@ const styles = StyleSheet.create({
 });
 
 class PinInformation extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      switchITValue: false,
-      switchLTValue: false,
-      user: "",
-      pinLocation: "",
-      pinDescription: ""
-    };
-  }
-
-  toggleITSwitch = value => {
-    this.setState({ switchITValue: value });
-  };
-
-  toggleLTSwitch = value => {
-    this.setState({ switchLTValue: value });
+  state = {
+    name: "",
+    pinLoc: "",
+    description: ""
   };
 
   render() {
@@ -68,7 +55,8 @@ class PinInformation extends React.Component {
             />
           </View>
           <TextField
-            onChangeText={location => this.setState({ pinLocation: location })}
+            value={this.state.location}
+            onChangeText={location => this.setState({ location })}
             placeholder="Name of pin"
             maxLength={40}
           />
@@ -76,16 +64,18 @@ class PinInformation extends React.Component {
           <Text style={formStyle.label}> Pinned By: (Name) </Text>
 
           <TextField
-            onChangeText={description =>
-              this.setState({ pinDescription: description })
-            }
+            onChangeText={description => this.setState({ description })}
             placeholder="Description of pin:"
             maxLength={250}
           />
           <View style={mainStyle.container}>
             <TouchableOpacity
               style={buttonStyle.buttonContainer}
-              onPress={() => this.props.navigation.navigate("Map")}
+              onPress={() =>
+                this.props.navigation.navigate("Map", {
+                  location: "Test"
+                })
+              }
             >
               <Text style={buttonStyle.buttonText}>Apply</Text>
             </TouchableOpacity>

@@ -14,7 +14,7 @@ import MapView, {
   Callout
 } from "react-native-maps";
 
-import { name, location, descr } from "../screens/PinInformation";
+import { location } from "../screens/PinInformation";
 
 const styles = StyleSheet.create({
   map: {
@@ -32,6 +32,7 @@ function getRandomInt(min, max) {
 let currentLat = 0;
 let currentLong = 0;
 let currentLocation = 0;
+
 let pinLat = 0;
 let pinLong = 0;
 let pinLocation = 0;
@@ -65,50 +66,13 @@ class Map extends React.Component {
         lastLong: null
       },
 
-      markers: [],
-      pinName: name,
-      pinLocation: location,
-      pinDescription: descr
+      markers: []
+      // pinName: name,
+      // pinLocation: location,
+      // pinDescription: descr
     };
 
     this.handlePress = this.handlePress.bind(this);
-  }
-
-  componentDidMount() {
-    this.watchID = navigator.geolocation.watchPosition(position => {
-      // Create the object to update this.state.mapRegion through the onRegionChange function
-      let region = {
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-        latitudeDelta: 0.00922 * 1.5,
-        longitudeDelta: 0.00421 * 1.5
-      };
-      this.onRegionChange(region, region.latitude, region.longitude);
-    });
-  }
-
-  onRegionChange(region, lastLat, lastLong) {
-    this.setState({
-      mapRegion: region,
-      // If there are no new values set use the the current ones
-      lastLat: lastLat || this.state.lastLat,
-      lastLong: lastLong || this.state.lastLong
-    });
-  }
-
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
-  }
-
-  onMapPress(e) {
-    console.log(e.nativeEvent.coordinate.longitude);
-    let region = {
-      latitude: e.nativeEvent.coordinate.latitude,
-      longitude: e.nativeEvent.coordinate.longitude,
-      latitudeDelta: 0.00922 * 1.5,
-      longitudeDelta: 0.00421 * 1.5
-    };
-    this.onRegionChange(region, region.latitude, region.longitude);
   }
 
   points = [
@@ -155,12 +119,11 @@ class Map extends React.Component {
     { latitude: 41.0232, longitude: -74.0014, weight: 1 }
   ];
 
-  handlePress(e) {
-    this.pinLat = e.nativeEvent.coordinate.latitude;
-    this.pinLong = e.nativeEvent.coordinate.longitude;
-    this.pinLocation = this.pinLat + "," + this.pinLong;
-    console.log(this.pinLocation);
+  componentDidMount() {
+    this.interval = setInterval(() => this.sendCurrentData(), 30000); // sends the current position automatically every 30 seconds
+  }
 
+  handlePress(e) {
     this.setState({
       markers: [
         ...this.state.markers,
@@ -172,7 +135,27 @@ class Map extends React.Component {
     });
   }
 
-  tempticket = [];
+  sendCurrentData() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        currentLat = position.coords.latitude;
+        currentLong = position.coords.longitude;
+        currentLocation = currentLat + "," + currentLong;
+      },
+      error => Alert.alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+
+    //  TODO: Update Heatmap
+    Alert.alert(
+      "Adding/Updating Pins and Heatmap\n" +
+        "Lat:" +
+        currentLat +
+        "\n" +
+        "Long:" +
+        currentLong
+    );
+  }
 
   render() {
     const midX = (currentLat + this.points[0].latitude) / 2;
@@ -181,19 +164,13 @@ class Map extends React.Component {
     const midY = (currentLong + this.points[0].longitude) / 2;
     const deltaY = this.points[0].longitude - currentLong;
 
+    const loc = this.props.navigation.getParam("location", location);
+
     navigator.geolocation.getCurrentPosition(
       position => {
-        const location =
-          JSON.stringify(position.coords.latitude) +
-          "," +
-          JSON.stringify(position.coords.longitude);
         currentLat = position.coords.latitude;
         currentLong = position.coords.longitude;
-        this.tempticket.push({
-          latitude: 70,
-          longitude: -120.707661,
-          weight: 1
-        });
+        currentLocation = currentLat + "," + currentLong;
       },
       error => Alert.alert(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
@@ -214,8 +191,14 @@ class Map extends React.Component {
           longitudeDelta: deltaY
         }}
       >
+        <TouchableOpacity onPress={this.getCurrentPosition}>
+          <Text style={{ height: 100, width: 400 }}>
+            Initial Position: {currentLocation}
+          </Text>
+        </TouchableOpacity>
+
         <Heatmap
-          initialRegion={this.state.initialPosition2}
+          initialRegion={this.state.initialPosition}
           points={this.points}
           radius={40}
           gradient={{
@@ -227,11 +210,14 @@ class Map extends React.Component {
         {this.state.markers.map((marker, i, navigation) => {
           return (
             <Marker
-              coordinate={{ latitude: currentLat, longitude: currentLong }}
+              coordinate={(this.state.latitude, this.state.longitude)}
               key={i}
+              // title="Pin"
+              // description="This is the missing item!"
+              onPress={this.onPress}
               {...marker}
               draggable
-              onDragEnd={e => this.setState({ x: e.nativeEvent.coordinate })}
+              onDragEnd={e => console.log(e.nativeEvent.coordinate)}
               // image={require("../cougar_walk.jpg")}
             >
               <Callout
@@ -240,7 +226,7 @@ class Map extends React.Component {
                 }}
               >
                 <View>
-                  <Text>{this.pinLocation} </Text>
+                  <Text> {loc} </Text>
                 </View>
               </Callout>
             </Marker>
