@@ -31,8 +31,10 @@ function getRandomInt(min, max) {
 // These are the values that we are looking at pushing to the database
 let currentLat = 0; let currentLong = 0;
 let currentLocation = 0;
+
 let pinLat = 0; let pinLong = 0;
 let pinLocation = 0;
+
 
 navigator.geolocation.getCurrentPosition(
   (position) => {
@@ -117,13 +119,12 @@ class Map extends React.Component {
   ];
 
 
+  componentDidMount() {
+
+    this.interval = setInterval(() => this.sendCurrentData(), 30000); // sends the current position automatically every 30 seconds
+  }
 
   handlePress(e) {
-
-    this.pinLat = e.nativeEvent.coordinate.latitude;
-    this.pinLong = e.nativeEvent.coordinate.longitude;
-    this.pinLocation = this.pinLat + "," + this.pinLong;
-    console.log(this.pinLocation)
 
     this.setState({
       markers: [
@@ -136,6 +137,24 @@ class Map extends React.Component {
     });
   }
 
+  sendCurrentData() {
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+
+        currentLat = position.coords.latitude;
+        currentLong = position.coords.longitude;
+        currentLocation = currentLat + "," + currentLong
+      },
+      (error) => Alert.alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+
+    //  TODO: Update Heatmap
+    Alert.alert("Adding/Updating Pins and Heatmap\n" + "Lat:" + currentLat + "\n" + "Long:" + currentLong);
+
+  }
+
   render() {
 
     const midX = (currentLat + this.points[0].latitude) / 2;
@@ -146,18 +165,16 @@ class Map extends React.Component {
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        const location =
-          JSON.stringify(position.coords.latitude) +
-          "," +
-          JSON.stringify(position.coords.longitude);
         currentLat = position.coords.latitude;
         currentLong = position.coords.longitude;
+        currentLocation = currentLat + "," + currentLong;
       },
       (error) => Alert.alert(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     );
 
     return (
+
       <MapView
         provider={PROVIDER_GOOGLE}
         ref={(map) => (this._map = map)}
@@ -172,8 +189,14 @@ class Map extends React.Component {
           longitudeDelta: deltaY,
         }}
       >
+
+        <TouchableOpacity onPress={this.getCurrentPosition}>
+          <Text style={{ height: 100, width: 400 }} > Initial Position: {currentLocation}</Text>
+        </TouchableOpacity>
+
+
         <Heatmap
-          initialRegion={this.state.initialPosition2}
+          initialRegion={this.state.initialPosition}
           points={this.points}
           radius={40}
           gradient={{
