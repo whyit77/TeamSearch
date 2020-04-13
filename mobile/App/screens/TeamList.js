@@ -240,10 +240,6 @@ export default class TeamList extends Component {
     // }
   }
 
-  componentWillUnmount() {
-    console.log("unm");
-  }
-
   static navigationOptions = ({ navigation }) => {
     return {
       headerRight: () => (
