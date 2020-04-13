@@ -1,6 +1,7 @@
 const Event = require("../../models/event");
 const Team = require("../../models/team");
 const User = require("../../models/user");
+const Pin = require("../../models/pin");
 const { dateToString } = require("../../helpers/date");
 
 const events = async eventIds => {
@@ -30,6 +31,17 @@ const users = async userIds => {
     const users = await User.find({ _id: { $in: userIds } });
     return users.map(user => {
       return transformUser(user);
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+const pins = async pinIds => {
+  try {
+    const pins = await Pin.find({ _id: { $in: pinIds } });
+    return pins.map(pin => {
+      return transformPin(pin);
     });
   } catch (err) {
     throw err;
@@ -80,7 +92,18 @@ const transformTeam = team => {
     createdAt: dateToString(team._doc.createdAt),
     updatedAt: dateToString(team._doc.updatedAt),
     creator: singleUser.bind(this, team.creator),
-    members: users.bind(this, team._doc.members)
+    members: users.bind(this, team._doc.members),
+    pins: pins.bind(this, team._doc.pins)
+  };
+};
+
+const transformPin = pin => {
+  return {
+    ...pin._doc,
+    _id: pin.id,
+    createdAt: dateToString(pin._doc.createdAt),
+    updatedAt: dateToString(pin._doc.updatedAt),
+    creator: singleUser.bind(this, pin.creator),
   };
 };
 
@@ -99,6 +122,7 @@ exports.transformEvent = transformEvent;
 exports.transformBooking = transformBooking;
 exports.transformTeam = transformTeam;
 exports.transformUser = transformUser;
+exports.transformPin = transformPin;
 
 // exports.user = user;
 // exports.events = events;

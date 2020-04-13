@@ -33,6 +33,12 @@ const teamSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: "User"
       }
+    ],
+    pins: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Pin"
+      }
     ]
   },
   { timestamps: true }

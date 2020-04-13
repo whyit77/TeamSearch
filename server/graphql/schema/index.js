@@ -27,6 +27,7 @@ type Team {
   code: String!
   creator: User!
   members: [User!]
+  pins: [Pin!]
   createdAt: String!
   updatedAt: String!
 }
@@ -43,6 +44,15 @@ type User {
   joinedTeams: [Team!]
   createdTeams: [Team!]
   createdEvents: [Event!]
+}
+
+type Pin {
+  _id: ID!
+  title: String!
+  description: String!
+  latitude: Float!
+  longitude: Float!
+  creator: User!
 }
 
 type AuthData {
@@ -63,6 +73,13 @@ input TeamInput {
   searchDescription: String!
   subjectDescription: String!
   radius: Int!
+}
+
+input PinInput {
+  title: String!
+  description: String!
+  latitude: Float!
+  longitude: Float!
 }
 
 input UserInput {
@@ -93,6 +110,7 @@ type RootMutation {
     bookEvent(eventId: ID!): Booking!
     cancelBooking(bookingId: ID!): Event!
     joinTeam(teamCode: String!): Team
+    createPin(pinInput: PinInput): Pin
 }
 
 schema {
