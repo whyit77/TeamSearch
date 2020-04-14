@@ -45,6 +45,12 @@ const teamSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: "Pin"
       }
+    ],
+    alerts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Alert"
+      }
     ]
   },
   { timestamps: true }
