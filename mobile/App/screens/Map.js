@@ -150,7 +150,7 @@ class Map extends React.Component {
   async componentDidMount() {
 
     this.getCurrentLocation();
-    this.interval = setInterval(() => this.sendCurrentData(), 10000); // sends the current position automatically every 30 seconds
+    this.interval = setInterval(() => this.sendCurrentData(), 30000); // sends the current position automatically every 30 seconds
 
     const { coordinate } = await this.state;
 
