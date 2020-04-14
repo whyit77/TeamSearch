@@ -10,7 +10,6 @@ import TeamMemberListStack from "./teamMemberListStack";
 import MapViewStack from "./mapViewStack";
 import TeamAlertsStack from "./teamAlertsStack";
 import SettingsStack from "./settingsStack";
-import React, { Component } from "react";
 import logout from "../components/logout";
 import Alert from "react-native";
 import PinInformationStack from "./pinInformationStack";

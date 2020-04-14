@@ -1,12 +1,12 @@
 import React from "react";
-import { StyleSheet, 
+import { 
+  StyleSheet, 
   View, 
   Text, 
   TouchableOpacity, 
   Platform,
   Alert,
   Console,
-  StyleSheet, 
 } from "react-native";
 import MapView, { 
   PROVIDER_GOOGLE, 
@@ -150,7 +150,7 @@ class Map extends React.Component {
   async componentDidMount() {
 
     this.getCurrentLocation();
-    this.interval = setInterval(() => this.sendCurrentData(), 30000); // sends the current position automatically every 30 seconds
+    this.interval = setInterval(() => this.sendCurrentData(), 10000); // sends the current position automatically every 30 seconds
 
     const { coordinate } = await this.state;
 
@@ -158,12 +158,13 @@ class Map extends React.Component {
       position => {
         const { routeCoordinates, distanceTravelled } = this.state;
         const { latitude, longitude } = position.coords;
-
+        // const weight = 1;
         console.log("lat: " + latitude);
 
         const newCoordinate = {
           latitude,
-          longitude
+          longitude,
+          // weight
         };
         
         console.log("Current Location: " + newCoordinate.latitude)
@@ -277,14 +278,14 @@ class Map extends React.Component {
     );
 
     //  TODO: Update Heatmap
-    Alert.alert(
-      "Adding/Updating Pins and Heatmap\n" +
-        "Lat:" +
-        currentLat +
-        "\n" +
-        "Long:" +
-        currentLong
-    );
+    // Alert.alert(
+    //   "Adding/Updating Pins and Heatmap\n" +
+    //     "Lat:" +
+    //     currentLat +
+    //     "\n" +
+    //     "Long:" +
+    //     currentLong
+    // );
   }
 
   render() {
@@ -327,7 +328,7 @@ class Map extends React.Component {
         onLongPress={this.handlePress}
         showsMyLocationButton={true}
       >
-        <Polyline coordinates={this.state.routeCoordinates} strokeWidth={5} />
+        <Polyline coordinates={this.state.routeCoordinates} strokeWidth={0} />
           <Marker.Animated
             ref={marker => {
               this.marker = marker;
@@ -343,7 +344,8 @@ class Map extends React.Component {
 
         <Heatmap
           initialRegion={this.state.initialPosition}
-          points={this.points}
+          // points={this.points}
+          points={this.state.routeCoordinates}
           radius={40}
           gradient={{
             colors: ["black", "purple", "red", "yellow", "white"],
