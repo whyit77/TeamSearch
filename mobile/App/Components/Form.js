@@ -13,21 +13,21 @@ const styles = StyleSheet.create({
     color: "#4A4A4A",
     fontSize: 18,
     fontWeight: "600",
-    marginBottom: 7
+    marginBottom: 7,
   },
   textfield: {
     fontSize: 18,
     fontWeight: "400",
     color: "#828282",
-    marginBottom: 4
+    marginBottom: 4,
   },
   errorText: {
     color: "red",
     fontSize: 16,
     marginTop: 5,
     marginBottom: 15,
-    marginHorizontal: 20
-  }
+    marginHorizontal: 20,
+  },
 });
 
 export const TextField = ({ label, information, ...props }) => (

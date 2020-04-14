@@ -4,7 +4,9 @@ import { StyleSheet,
   Text, 
   TouchableOpacity, 
   Platform,
-  PermissionsAndroid, 
+  Alert,
+  Console,
+  StyleSheet, 
 } from "react-native";
 import MapView, { 
   PROVIDER_GOOGLE, 
@@ -12,15 +14,17 @@ import MapView, {
   Marker,
   Polyline,
   AnimatedRegion, 
+  Callout
 } from "react-native-maps";
 import haversine from "haversine";
+import { EmbeddedWebView } from "../components/EmbeddedWebView";
+import { location } from "../screens/PinInformation";
+
 
 const LATITUDE_DELTA = 0.009;
 const LONGITUDE_DELTA = 0.009;
 const LATITUDE = 37.78825;
 const LONGITUDE = -122.4324;
-
-import { EmbeddedWebView } from "../components/EmbeddedWebView";
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -28,7 +32,27 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
- 
+// These are the values that we are looking at pushing to the database
+let currentLat = 0;
+let currentLong = 0;
+let currentLocation = 0;
+
+let pinLat = 0;
+let pinLong = 0;
+let pinLocation = 0;
+
+navigator.geolocation.getCurrentPosition(
+  position => {
+    currentLocation =
+      JSON.stringify(position.coords.latitude) +
+      "," +
+      JSON.stringify(position.coords.longitude);
+    currentLat = position.coords.latitude;
+    currentLong = position.coords.longitude;
+  },
+  error => Alert.alert(error.message),
+  { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+);
 
 class Map extends React.Component {
   constructor(props) {
@@ -56,10 +80,24 @@ class Map extends React.Component {
         latitude: LATITUDE,
         longitude: LONGITUDE,
         latitudeDelta: 0,
-        longitudeDelta: 0
-      },
+        longitudeDelta: 0,
+      // },
       
 
+        // latitude: 40.7143,
+        // longitude: -74.0042,
+        // latitudeDelta: 0.09,
+        // longitudeDelta: 0.035,
+
+        mapRegion: null,
+        lastLat: null,
+        lastLong: null
+      },
+
+      markers: []
+      // pinName: name,
+      // pinLocation: location,
+      // pinDescription: descr
     };
 
     this.handlePress = this.handlePress.bind(this);
@@ -112,6 +150,7 @@ class Map extends React.Component {
   async componentDidMount() {
 
     this.getCurrentLocation();
+    this.interval = setInterval(() => this.sendCurrentData(), 30000); // sends the current position automatically every 30 seconds
 
     const { coordinate } = await this.state;
 
@@ -226,8 +265,47 @@ class Map extends React.Component {
     });
   }
 
-  
+  sendCurrentData() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        currentLat = position.coords.latitude;
+        currentLong = position.coords.longitude;
+        currentLocation = currentLat + "," + currentLong;
+      },
+      error => Alert.alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+
+    //  TODO: Update Heatmap
+    Alert.alert(
+      "Adding/Updating Pins and Heatmap\n" +
+        "Lat:" +
+        currentLat +
+        "\n" +
+        "Long:" +
+        currentLong
+    );
+  }
+
   render() {
+    const midX = (currentLat + this.points[0].latitude) / 2;
+    const deltaX = this.points[0].latitude - currentLat;
+
+    const midY = (currentLong + this.points[0].longitude) / 2;
+    const deltaY = this.points[0].longitude - currentLong;
+
+    const loc = this.props.navigation.getParam("location", location);
+
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        currentLat = position.coords.latitude;
+        currentLong = position.coords.longitude;
+        currentLocation = currentLat + "," + currentLong;
+      },
+      error => Alert.alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+
     return (
       <View style={styles.container}>
 
@@ -235,7 +313,13 @@ class Map extends React.Component {
         provider={PROVIDER_GOOGLE}
         ref={map => (this._map = map)}
         style={styles.map}
-        initialRegion={this.state.initialRegion}
+        // initialRegion={this.state.initialRegion}
+        initialRegion={{
+          latitude: midX,
+          longitude: midY,
+          latitudeDelta: deltaX,
+          longitudeDelta: deltaY
+        }}
         showsUserLocation
         followsUserLocation
         loadingEnabled
@@ -251,6 +335,11 @@ class Map extends React.Component {
             coordinate={this.state.coordinate}
           />
           
+        <TouchableOpacity onPress={this.getCurrentPosition}>
+          <Text style={{ height: 100, width: 400 }}>
+            Initial Position: {currentLocation}
+          </Text>
+        </TouchableOpacity>
 
         <Heatmap
           initialRegion={this.state.initialPosition}
@@ -262,18 +351,29 @@ class Map extends React.Component {
             colorMapSize: 200
           }}
         />
-        {this.state.markers.map((marker, i) => {
+        {this.state.markers.map((marker, i, navigation) => {
           return (
             <Marker
-              coordinate={this.state.x}
+              coordinate={(this.state.latitude, this.state.longitude)}
               key={i}
-              title="Pin"
-              description="This is the missing item!"
+              // title="Pin"
+              // description="This is the missing item!"
+              onPress={this.onPress}
               {...marker}
               draggable
-              onDragEnd={e => this.setState({ x: e.nativeEvent.coordinate })}
+              onDragEnd={e => console.log(e.nativeEvent.coordinate)}
               // image={require("../cougar_walk.jpg")}
-            />
+            >
+              <Callout
+                onPress={() => {
+                  this.props.navigation.navigate("PinInformation");
+                }}
+              >
+                <View>
+                  <Text> {loc} </Text>
+                </View>
+              </Callout>
+            </Marker>
           );
         })}
       </MapView>
@@ -288,7 +388,6 @@ class Map extends React.Component {
       </View>
 
     );
-    return <EmbeddedWebView url={"http://localhost:8000/"} />;
   }
 }
 

@@ -19,7 +19,7 @@ import {
   mainStyle,
   exampleText,
   formStyle,
-  teamListStyle
+  teamListStyle,
 } from "../styles/styles";
 import { TextField, ErrorText } from "../components/Form";
 
@@ -58,19 +58,20 @@ class MemberProfile extends React.Component {
             }
           }`,
       variables: {
-        userId: userId
-      }
+        userId: userId,
+      },
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
     fetch("http://192.168.1.14:3000/graphql", {
+
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(async res => {
+      .then(async (res) => {
         // if (res.status !== 200 && res.status !== 201) {
         //   throw new Error("Failed!");
         // }
@@ -97,7 +98,7 @@ class MemberProfile extends React.Component {
             lastName: lastName,
             email: email,
             description: description,
-            phone: phone
+            phone: phone,
           });
 
           if (description == "") {
@@ -109,7 +110,7 @@ class MemberProfile extends React.Component {
 
         throw new Error(responseJson.error);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }

@@ -13,58 +13,8 @@ import SettingsStack from "./settingsStack";
 import React, { Component } from "react";
 import logout from "../components/logout";
 import Alert from "react-native";
-
-// const logout = () => {
-//   const username = "test3";
-
-//   let requestBody = {
-//     query: `
-//         query logout($username: String!) {
-//           logout(username: $username) {
-
-//           }
-//         }
-//       `,
-//     variables: {
-//       username: username
-//     }
-//   };
-
-//   // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-//   fetch("http://192.168.1.14:3000/graphql", {
-//     method: "POST",
-//     body: JSON.stringify(requestBody),
-//     headers: {
-//       "Content-Type": "application/json"
-//     }
-//   })
-//     .then(async res => {
-//       const responseJson = await res.json();
-//       console.log(responseJson);
-
-//       if (res.ok) {
-//         console.log("Okay LOGOUT");
-//         this.props.navigation.navigate("Login");
-//         return responseJson;
-//       }
-
-//       // this.setState({ error: responseJson.errors[0].message });
-//       throw new Error(responseJson.error);
-//     })
-//     // .then(resData => {
-//     //   if (resData.data.login.token) {
-//     //     //////////////
-//     //     this.context.Login(
-//     //       resData.data.login.token,
-//     //       resData.data.login.userId,
-//     //       resData.data.login.tokenExpiration
-//     //     );
-//     //   }
-//     // })
-//     .catch(err => {
-//       console.log(err);
-//     });
-// };
+import PinInformationStack from "./pinInformationStack";
+import React, { Component } from "react";
 
 const RootDrawerNavigator = createDrawerNavigator(
   {
@@ -75,72 +25,65 @@ const RootDrawerNavigator = createDrawerNavigator(
         }
     },
     ResetPassword: {
-        screen: ResetPasswordStack,
-        navigationOptions: {
-            title: 'Reset Password'
-            
-        }
+      screen: ResetPasswordStack,
+      navigationOptions: {
+        title: "Reset Password",
+      },
     },
     FirstTimeUserCreation: {
-        screen: FirstTimeUserCreationStack,
-        navigationOptions: {
-            title: 'Create Account'
-        }
+      screen: FirstTimeUserCreationStack,
+      navigationOptions: {
+        title: "Create Account",
+      },
     },
     TeamListView: {
       screen: TeamListStack,
       navigationOptions: {
-        title: "Team List"
-      }
-      //   contentOptions: {
-      //     onItemPress: () => console.log("test")
-      //   }
+        title: "Team List",
+      },
     },
     CreateNewGroup: {
       screen: CreateGroupStack,
       navigationOptions: {
-        title: "Create Team"
-      }
+        title: "Create Team",
+      },
     },
     TeamInfo: {
       screen: TeamInfoStack,
       navigationOptions: {
-        title: "Team Info"
-      }
+        title: "Team Info",
+      },
     },
     TeamMemberList: {
       screen: TeamMemberListStack,
       navigationOptions: {
-        title: "Team Member List"
-      }
+        title: "Team Member List",
+      },
     },
     MapView: {
       screen: MapViewStack,
       navigationOptions: {
-        title: "Heatmap"
-      }
+        title: "Heatmap",
+      },
+    },
+    PinInformation: {
+      screen: PinInformationStack,
+      navigationOptions: {
+        title: "Pin Information",
+      },
     },
     TeamAlerts: {
       screen: TeamAlertsStack,
       navigationOptions: {
-        title: "Team Alerts"
-      }
+        title: "Team Alerts",
+      },
     },
     Settings: {
       screen: SettingsStack,
       navigationOptions: {
-        title: "Settings"
-      }
-    }
-    // Logout: {
-    //   // screen: logout,
-    //   contentOptions: {
-    //     onItemPress: () => Alert.alert("LOGOUT?")
-    //   },
-    //   navigationOptions: {
-    //     title: "Logout"
-    //   }
-    // }
+        title: "Settings",
+      },
+    },
   },
   {
     drawerBackgroundColor: "#292929",
@@ -148,8 +91,8 @@ const RootDrawerNavigator = createDrawerNavigator(
       activeTintColor: "red",
       activeBackgroundColor: "#3d3d3d",
       inactiveTintColor: "white",
-      inactiveBackgroundColor: "#292929"
-    }
+      inactiveBackgroundColor: "#292929",
+    },
   }
 );
 

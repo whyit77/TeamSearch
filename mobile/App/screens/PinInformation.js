@@ -32,21 +32,11 @@ const styles = StyleSheet.create({
   underline: { textDecorationLine: "underline" }
 });
 
-export default class App extends React.Component {
+class PinInformation extends React.Component {
   state = {
-    switchITValue: false,
-    switchLTValue: false,
     name: "",
-    location: "",
-    descr: ""
-  };
-
-  toggleITSwitch = value => {
-    this.setState({ switchITValue: value });
-  };
-
-  toggleLTSwitch = value => {
-    this.setState({ switchLTValue: value });
+    pinLoc: "",
+    description: ""
   };
 
   render() {
@@ -65,6 +55,7 @@ export default class App extends React.Component {
             /> */}
           </View>
           <TextField
+            value={this.state.location}
             onChangeText={location => this.setState({ location })}
             placeholder="Name of pin"
             maxLength={40}
@@ -73,12 +64,19 @@ export default class App extends React.Component {
           <Text style={formStyle.label}> Pinned By: (Name) </Text>
 
           <TextField
-            onChangeText={descr => this.setState({ descr })}
+            onChangeText={description => this.setState({ description })}
             placeholder="Description of pin:"
             maxLength={250}
           />
           <View style={mainStyle.container}>
-            <TouchableOpacity style={buttonStyle.buttonContainer}>
+            <TouchableOpacity
+              style={buttonStyle.buttonContainer}
+              onPress={() =>
+                this.props.navigation.navigate("Map", {
+                  location: "Test"
+                })
+              }
+            >
               <Text style={buttonStyle.buttonText}>Apply</Text>
             </TouchableOpacity>
           </View>
@@ -87,3 +85,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default PinInformation;

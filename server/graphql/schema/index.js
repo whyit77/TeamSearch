@@ -35,6 +35,7 @@ type Team {
   creator: User!
   members: [User!]
   alerts: [Alert]
+  pins: [Pin!]
   createdAt: String!
   updatedAt: String!
 }
@@ -51,6 +52,15 @@ type User {
   joinedTeams: [Team!]
   createdTeams: [Team!]
   createdEvents: [Event!]
+}
+
+type Pin {
+  _id: ID!
+  title: String!
+  description: String!
+  latitude: Float!
+  longitude: Float!
+  creator: User!
 }
 
 type AuthData {
@@ -82,6 +92,13 @@ input TeamInput {
 input AlertInput {
   urgency: String!
   message: String!
+}
+
+input PinInput {
+  title: String!
+  description: String!
+  latitude: Float!
+  longitude: Float!
 }
 
 input UserInput {
@@ -116,6 +133,8 @@ type RootMutation {
     createAlert(userId: String!, teamId: String!, alertInput: AlertInput): Alert
     setUser(userId: String!, username: String!): Current
     logout(username: String!): Current
+    createPin(pinInput: PinInput): Pin
+
 }
 
 schema {
