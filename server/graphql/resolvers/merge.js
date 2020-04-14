@@ -37,10 +37,10 @@ const users = async (userIds) => {
   }
 };
 
-const alerts = async (alertIds) => {
+const alerts = async alertIds => {
   try {
     const alerts = await Alert.find({ _id: { $in: alertIds } });
-    return alerts.map((alert) => {
+    return alerts.map(alert => {
       return transformAlert(alert);
     });
   } catch (err) {
@@ -48,11 +48,7 @@ const alerts = async (alertIds) => {
   }
 };
 
-const singleEvent = async (eventId) => {
-  try {
-    const event = await Event.findById(eventId);
     return transformEvent(event);
-  } catch (err) {
     throw err;
   }
 };
@@ -93,11 +89,11 @@ const transformTeam = (team) => {
     updatedAt: dateToString(team._doc.updatedAt),
     creator: singleUser.bind(this, team.creator),
     members: users.bind(this, team._doc.members),
-    alerts: alerts.bind(this, team._doc.alerts),
+    alerts: alerts.bind(this, team._doc.alerts)
   };
 };
 
-const transformAlert = (alert) => {
+const transformAlert = alert => {
   return {
     ...alert._doc,
     _id: alert.id,

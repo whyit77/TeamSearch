@@ -1,6 +1,7 @@
 const Team = require("../../models/team");
 const User = require("../../models/user");
-const { transformTeam, bindUser } = require("./merge");
+const Alert = require("../../models/alert");
+const { transformTeam, bindUser, transformAlert } = require("./merge");
 const randomize = require("randomatic");
 
 module.exports = {
@@ -133,6 +134,37 @@ module.exports = {
       throw err;
     }
   },
+  addUserToTeam: async (args, req) => {
+    // if (!req.isAuth) {
+    // 	throw new Error('Unauthenticated!');
+    // }
+
+    args.username = "whyit2";
+    args.teamId = "5e891ee7be2c6d8e45403855";
+
+    try {
+      let user = await User.findOne({ username: args.username });
+      if (!user) {
+        throw new Error("User not found.");
+      }
+
+      let team = await Team.findById(args.teamId);
+      if (!team) {
+        throw new Error("Team not found.");
+      }
+
+      team.members.push(user);
+      await team.save();
+
+      user.joinedTeams.push(team);
+      await user.save();
+
+      return transformTeam(team);
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  },
   createAlert: async (args, req) => {
     // if (!req.isAuth) {
     // 	throw new Error('Unauthenticated!');
@@ -159,7 +191,7 @@ module.exports = {
       const alert = new Alert({
         creator: args.userId,
         urgency: args.alertInput.urgency,
-        message: args.alertInput.message,
+        message: args.alertInput.message
       });
       console.log(alert);
 
@@ -176,5 +208,5 @@ module.exports = {
       console.log(err);
       throw err;
     }
-  },
+  }
 };

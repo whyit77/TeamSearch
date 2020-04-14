@@ -1,10 +1,12 @@
 import React from "react";
-import { StyleSheet, 
+import { 
+  StyleSheet, 
   View, 
   Text, 
   TouchableOpacity, 
   Platform,
-  PermissionsAndroid, 
+  Console,
+  Alert
 } from "react-native";
 import MapView, { 
   PROVIDER_GOOGLE, 
@@ -13,6 +15,8 @@ import MapView, {
   Polyline,
   AnimatedRegion, 
 } from "react-native-maps";
+import { area } from "../screens/DefineSearchArea";
+import { EmbeddedWebView } from "../components/EmbeddedWebView";
 import haversine from "haversine";
 
 const LATITUDE_DELTA = 0.009;
@@ -20,13 +24,21 @@ const LONGITUDE_DELTA = 0.009;
 const LATITUDE = 37.78825;
 const LONGITUDE = -122.4324;
 
-import { EmbeddedWebView } from "../components/EmbeddedWebView";
 
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min;
-}
+let currentLat = 0;
+let currentLong = 0;
+
+navigator.geolocation.getCurrentPosition(
+  position => {
+    const location = JSON.stringify(position.coords.latitude) + "," + JSON.stringify(position.coords.longitude);
+    currentLat = position.coords.latitude;
+    currentLong = position.coords.longitude;
+
+  },
+  error => Alert.alert(error.message),
+  { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+);
+
 
  
 
@@ -58,12 +70,65 @@ class Map extends React.Component {
         latitudeDelta: 0,
         longitudeDelta: 0
       },
-      
+      radius: area,
+
+      currentLocation: null,
+      currentLat: 0,
+      currentLong: 0,
+
+      mapRegion: null,
+      lastLat: null,
+      lastLong: null,
 
     };
-
-    this.handlePress = this.handlePress.bind(this);
   }
+
+
+
+  onRegionChange(region, lastLat, lastLong) {
+    this.setState({
+      mapRegion: region,
+      // If there are no new values set use the the current ones
+      lastLat: lastLat || this.state.lastLat,
+      lastLong: lastLong || this.state.lastLong
+    });
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
+  }
+
+  onMapPress(e) {
+    console.log(e.nativeEvent.coordinate.longitude);
+    let region = {
+      latitude: e.nativeEvent.coordinate.latitude,
+      longitude: e.nativeEvent.coordinate.longitude,
+      latitudeDelta: 0.00922 * 1.5,
+      longitudeDelta: 0.00421 * 1.5
+    }
+    this.onRegionChange(region, region.latitude, region.longitude);
+  }
+
+
+  onPress = () => {
+    console.log("Pressed.");
+  };
+
+  findCoordinates = () => {
+
+    console.log("Finding Coordinates");
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const location = JSON.stringify(position.coords.latitude) + "," + JSON.stringify(position.coords.longitude);
+        currentLat = position.coords.latitude;
+        currentLong = position.coords.longitude;
+        this.setState({ location });
+      },
+      error => Alert.alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+
+  };
 
   points = [
     { latitude: 40.7828, longitude: -74.0065, weight: 1 },
@@ -158,6 +223,17 @@ class Map extends React.Component {
         distanceFilter: 0
       }
     );
+
+    this.watchID = navigator.geolocation.watchPosition((position) => {
+      // Create the object to update this.state.mapRegion through the onRegionChange function
+      let region = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        latitudeDelta: 0.00922 * 1.5,
+        longitudeDelta: 0.00421 * 1.5
+      }
+      this.onRegionChange(region, region.latitude, region.longitude);
+    });
   }
 
   // FUNCTION: Getting a user's current location for
@@ -225,9 +301,42 @@ class Map extends React.Component {
       ]
     });
   }
+  tempticket = [];
 
   
   render() {
+
+    // console.log(this.state.radius);
+    // let { width } = Dimensions.get("window");
+
+    // var lTest = this.state.currentLat;
+    // var lTest2 = this.state.currentLong;
+    //console.log("LOCATION: " + this.state.location);
+
+
+    // Current Location: 34.127371, -117.712627
+    // latitude: 40.7828, -74.0065,
+
+    const midX = (currentLat + this.points[0].latitude) / 2;
+    const deltaX = ((this.points[0].latitude) - currentLat);
+
+    const midY = (currentLong + this.points[0].longitude) / 2;
+    const deltaY = (this.points[0].longitude - currentLong);
+
+
+
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const location = JSON.stringify(position.coords.latitude) + "," + JSON.stringify(position.coords.longitude);
+        currentLat = position.coords.latitude;
+        currentLong = position.coords.longitude;
+        this.tempticket.push({ latitude: 70, longitude: -120.707661, weight: 1 });
+
+      },
+      error => Alert.alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+
     return (
       <View style={styles.container}>
 
@@ -235,7 +344,13 @@ class Map extends React.Component {
         provider={PROVIDER_GOOGLE}
         ref={map => (this._map = map)}
         style={styles.map}
-        initialRegion={this.state.initialRegion}
+        // initialRegion={this.state.initialRegion}
+        initialRegion={{
+          latitude: midX,
+          longitude: midY,
+          latitudeDelta: deltaX,
+          longitudeDelta: deltaY
+        }}
         showsUserLocation
         followsUserLocation
         loadingEnabled
@@ -253,7 +368,7 @@ class Map extends React.Component {
           
 
         <Heatmap
-          initialRegion={this.state.initialPosition}
+          initialRegion={this.state.initialPosition2}
           points={this.points}
           radius={40}
           gradient={{
@@ -262,20 +377,11 @@ class Map extends React.Component {
             colorMapSize: 200
           }}
         />
-        {this.state.markers.map((marker, i) => {
-          return (
-            <Marker
-              coordinate={this.state.x}
-              key={i}
-              title="Pin"
-              description="This is the missing item!"
-              {...marker}
-              draggable
-              onDragEnd={e => this.setState({ x: e.nativeEvent.coordinate })}
-              // image={require("../cougar_walk.jpg")}
-            />
-          );
-        })}
+
+        <Marker
+          coordinate={{ latitude: 40.7143, longitude: -74.0042 }}
+          onPress={this.onPress}
+        />
       </MapView>
       <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={this.getCurrentLocation} style={[styles.bubble, styles.button]}>
@@ -288,7 +394,7 @@ class Map extends React.Component {
       </View>
 
     );
-    return <EmbeddedWebView url={"http://localhost:8000/"} />;
+
   }
 }
 

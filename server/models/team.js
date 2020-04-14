@@ -18,7 +18,7 @@ const teamSchema = new Schema(
     },
     radius: {
       type: Number,
-      required: true,
+      required: false
     },
     code: {
       type: String,
@@ -31,15 +31,15 @@ const teamSchema = new Schema(
     members: [
       {
         type: Schema.Types.ObjectId,
-        ref: "User",
-      },
+        ref: "User"
+      }
     ],
     alerts: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Alert",
-      },
-    ],
+        ref: "Alert"
+      }
+    ]
   },
   { timestamps: true }
 );
