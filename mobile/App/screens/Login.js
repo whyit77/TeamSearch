@@ -61,8 +61,8 @@ export default class Login extends React.Component {
 
 
 
-    // CHECK IP ADDRESS ////////////////////////////////////////////////////////////////////////////// 192.168.1.14
-    fetch("http://192.168.1.14:3000/graphql", {
+    // CHECK IP ADDRESS ////////////////////////////////////////////////////////////////////////////// 192.168.1.9
+    fetch("http://192.168.1.9:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -121,7 +121,7 @@ export default class Login extends React.Component {
       }
     };
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.14:3000/graphql", {
+    fetch("http://192.168.1.9:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
