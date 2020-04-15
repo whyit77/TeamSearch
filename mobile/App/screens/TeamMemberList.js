@@ -8,12 +8,13 @@ import {
   FlatList
 } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
-import { Card } from "react-native-elements";
-
+import { Card, Avatar } from "react-native-elements";
+import {YellowBox} from 'react-native';
 import { TeamMember } from "../components/TeamMember";
-import { mainStyle } from "../styles/styles";
+import { mainStyle, B3, B2, B1 } from "../styles/styles";
 import { ScrollView } from "react-native-gesture-handler";
 import TeamMemberListAddButton from "../components/TeamMemberListAddButton";
+import Icon from "react-native-vector-icons/Ionicons";
 import { NavigationEvents } from "react-navigation";
 // import Avatar from '../components/Avatar';
 
@@ -116,8 +117,9 @@ export default class TeamMemberList extends Component {
     };
 
     console.log("fetching...");
+    console.disableYellowBox = true;
 
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.9:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -185,7 +187,9 @@ export default class TeamMemberList extends Component {
         />
       )
     };
+    
   };
+  
 
   render() {
     return (
@@ -195,9 +199,9 @@ export default class TeamMemberList extends Component {
           <Text style={mainStyle.bigText}>{this.state.teamName}</Text>
         </View>
 
-        {/* <ScrollView> */}
         <FlatList
           data={this.state.data}
+          numColumns ={2}
           renderItem={({ item: rowData }) => {
             return (
               <TouchableOpacity
@@ -208,89 +212,39 @@ export default class TeamMemberList extends Component {
                 }
               >
                 <Card
-                  title={rowData.username}
-                  image={{ url: "http://via.placeholder.com/160x160" }}
-                  containerStyle={{ padding: 0, width: 160 }}
+                  title={rowData.firstName + " " + rowData.lastName}
+                  titleStyle={{alignItems: 'flex-start', marginTop: 10, color: 'white'}}
+
+                  // image={{ url: "http://via.placeholder.com/160x160" }}
+                  containerStyle={{ 
+                    padding: 0, 
+                    width: 160,
+                    height: 160, 
+                    backgroundColor: B3, 
+                    borderRadius: 30,
+                    borderWidth: 0, 
+                    borderColor: B1
+                  }}                
                 >
-                  <Text style={{ marginBottom: 10 }}>
-                    {rowData.firstName} {rowData.lastName}
-                  </Text>
+                  <Avatar
+                    overlayContainerStyle={{backgroundColor: B2, borderBottomEndRadius: 25, borderBottomStartRadius: 25}}
+                    size="xlarge"
+                    title={rowData.firstName[0] + rowData.lastName[0]}
+                    containerStyle={{ marginTop: -17, width: 160}}
+                    titleStyle={{ color: "#5e5e5e"}}
+                  />
                 </Card>
               </TouchableOpacity>
             );
           }}
           keyExtractor={(item, index) => index}
         />
-        {/* <TeamMember nav={() => navigation.navigate("MemberProfile")} avatar={null} initial='JD' fname={'John'} lname={'Doe'} role={'Search'}> </TeamMember>
-      <Text style={styles.text}> Team Member 1 </Text>
+      {/* <Text style={styles.text}> Team Member 1 </Text>
       <TouchableOpacity onPress={() => this.props.navigation.navigate("MemberProfile")}>
         <Text style={styles.text}> View Profile </Text>
       </TouchableOpacity> */}
-        {/* </ScrollView> */}
+ 
       </SafeAreaView>
-      //   <ScrollView>
-      //     <TeamMember
-      //       nav={() => navigation.navigate("MemberProfile")}
-      //       avatar={null}
-      //       initial="JD"
-      //       fname={"John"}
-      //       lname={"Doe"}
-      //       role={"Search"}
-      //     >
-      //       {" "}
-      //     </TeamMember>
-      //     <Text style={styles.text}> Team Member 1 </Text>
-      //     <TouchableOpacity
-      //       onPress={() => this.props.navigation.navigate("MemberProfile")}
-      //     >
-      //       <Text style={styles.text}> View Profile </Text>
-      //     </TouchableOpacity>
-      //   </ScrollView>
-      // </SafeAreaView>
-      //   <ScrollView>
-      //   <FlatList
-      //     data={this.state.data}
-      //     renderItem={({ item: rowData }) => {
-      //       return (
-      //         <TouchableOpacity onPress={() => this.props.navigation.navigate("MemberProfile")}>
-      //         <Card
-      //           title={null}
-      //           image={{ url: "http://via.placeholder.com/160x160" }}
-      //           containerStyle={{ padding: 0, width: 160 }}
-      //         >
-      //           <Text style={{ marginBottom: 10 }}>
-      //             hello
-      //           </Text>
-      //         </Card>
-      //         </TouchableOpacity>
-      //       );
-      //     }}
-      //     keyExtractor={(item, index) => index}
-      //   />
-      //   <TeamMember nav={() => navigation.navigate("MemberProfile")} avatar={null} initial='JD' fname={'John'} lname={'Doe'} role={'Search'}> </TeamMember>
-      //   <Text style={styles.text}> Team Member 1 </Text>
-      //   <TouchableOpacity onPress={() => this.props.navigation.navigate("MemberProfile")}>
-      //     <Text style={styles.text}> View Profile </Text>
-      //   </TouchableOpacity>
-
-      //   <TeamMember
-      //         nav={() => navigation.navigate("MemberProfile")}
-      //         avatar={null}
-      //         initial="JD"
-      //         fname={"John"}
-      //         lname={"Doe"}
-      //         role={"Search"}
-      //       >
-      //         {" "}
-      //       </TeamMember>
-      //       <Text style={styles.text}> Team Member 1 </Text>
-      //       <TouchableOpacity
-      //         onPress={() => this.props.navigation.navigate("MemberProfile")}
-      //       >
-      //         <Text style={styles.text}> View Profile </Text>
-      //       </TouchableOpacity>
-      //   </ScrollView>
-      // </SafeAreaView>
     );
   }
 }

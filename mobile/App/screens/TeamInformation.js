@@ -6,7 +6,7 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   ScrollView,
-  StatusBar
+  StatusBar,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { TextField } from "../components/Form";
@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 });
 
 // export default ({ navigation }) => (
@@ -40,7 +40,7 @@ export default class App extends React.Component {
       subjectDescription: "",
       radius: "",
       code: "",
-      creator: ""
+      creator: "",
     };
   }
 
@@ -54,7 +54,7 @@ export default class App extends React.Component {
             teamId
           }
         }
-      ` // me query pulls first person in database
+      `, // me query pulls first person in database
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
@@ -62,10 +62,10 @@ export default class App extends React.Component {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(async res => {
+      .then(async (res) => {
         // if (res.status !== 200 && res.status !== 201) {
         //   throw new Error("Failed!");
         // }
@@ -78,7 +78,7 @@ export default class App extends React.Component {
           const teamId = responseJson.data.me.teamId;
 
           this.setState({
-            teamId: teamId
+            teamId: teamId,
           });
 
           return responseJson;
@@ -86,7 +86,7 @@ export default class App extends React.Component {
 
         throw new Error(responseJson.error);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -112,19 +112,19 @@ export default class App extends React.Component {
             }
           }`,
       variables: {
-        teamId: teamId
-      }
+        teamId: teamId,
+      },
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.9:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(async res => {
+      .then(async (res) => {
         const responseJson = await res.json();
         console.log(responseJson);
 
@@ -143,7 +143,7 @@ export default class App extends React.Component {
             subjectDescription: subjectDescription,
             radius: radius,
             code: code,
-            creator: creator
+            creator: creator,
           });
 
           return responseJson;
@@ -151,7 +151,7 @@ export default class App extends React.Component {
 
         throw new Error(responseJson.error);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }

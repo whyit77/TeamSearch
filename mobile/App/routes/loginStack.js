@@ -8,9 +8,10 @@ import TeamList from "../screens/TeamList";
 const screens = {
   Login: {
     screen: Login,
-    navigationOptions: ({ navigation }) => {
+    navigationOptions: () => {
       return {
-        headerTitle: () => <Header navigation={navigation} title="Login" />
+        headerTitle: "Login",
+        headerTintColor: "white"
       };
     }
   },

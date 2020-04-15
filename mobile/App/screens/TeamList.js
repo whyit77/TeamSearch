@@ -7,7 +7,7 @@ import {
   View,
   SafeAreaView,
   StatusBar,
-  FlatList
+  FlatList,
 } from "react-native";
 import { Team } from "../components/Team";
 import { mainStyle } from "../styles/styles";
@@ -27,7 +27,7 @@ export default class TeamList extends Component {
       // createdTeams: [],
       teamId: "",
       count: 1,
-      data: []
+      data: [],
     };
   }
 
@@ -42,7 +42,7 @@ export default class TeamList extends Component {
             username
           }
         }
-      ` // me query pulls first person in database
+      `, // me query pulls first person in database
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
@@ -50,10 +50,10 @@ export default class TeamList extends Component {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(async res => {
+      .then(async (res) => {
         const responseJson = await res.json();
         console.log(responseJson);
 
@@ -62,7 +62,7 @@ export default class TeamList extends Component {
           const userId = responseJson.data.me.userId;
 
           this.setState({
-            userId: userId
+            userId: userId,
           });
 
           return responseJson;
@@ -70,13 +70,13 @@ export default class TeamList extends Component {
 
         throw new Error(responseJson.error);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
 
   // set currently selected team
-  setTeam = teamId => {
+  setTeam = (teamId) => {
     const userId = this.state.userId;
 
     let requestBody = {
@@ -91,18 +91,18 @@ export default class TeamList extends Component {
       `,
       variables: {
         userId: userId,
-        teamId: teamId
-      }
+        teamId: teamId,
+      },
     };
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
     fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(async res => {
+      .then(async (res) => {
         const responseJson = await res.json();
         console.log(responseJson);
 
@@ -115,7 +115,7 @@ export default class TeamList extends Component {
         this.setState({ error: responseJson.errors[0].message });
         throw new Error(responseJson.error);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -144,24 +144,25 @@ export default class TeamList extends Component {
 		      }
 		    `,
       variables: {
-        userId: userId
-      }
+        userId: userId,
+      },
     };
 
     if (this.state.count == 1) {
       console.log("fetching...");
 
-      fetch("http://192.168.1.11:3000/graphql", {
+      fetch("http://192.168.1.9:3000/graphql", {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       })
-        .then(async res => {
+        .then(async (res) => {
           const responseJson = await res.json();
 
           console.log(responseJson);
+          console.disableYellowBox = true;
 
           if (res.ok) {
             console.log("Okay Fetched Teams");
@@ -174,7 +175,7 @@ export default class TeamList extends Component {
             }
 
             this.setState({
-              data: info
+              data: info,
             });
 
             return responseJson;
@@ -183,7 +184,7 @@ export default class TeamList extends Component {
           this.setState({ error: responseJson.errors[0].message });
           throw new Error(responseJson.error);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
 
@@ -249,7 +250,7 @@ export default class TeamList extends Component {
           menuStyle={{
             marginRight: 40,
             flexDirection: "row",
-            justifyContent: "flex-end"
+            justifyContent: "flex-end",
           }}
           option1Click={() => {
             navigation.navigate("CreateTeam");
@@ -263,7 +264,7 @@ export default class TeamList extends Component {
           //   });
           // }}
         />
-      )
+      ),
     };
   };
 
@@ -291,7 +292,7 @@ export default class TeamList extends Component {
             keyExtractor={(item, index) => index}
           />
         ) : (
-          <Text style={mainStyle.bigText}>NOT IN ANY TEAMS</Text>
+          <Text style={mainStyle.bigText}>No Teams to Display</Text>
         )}
       </SafeAreaView>
     );
