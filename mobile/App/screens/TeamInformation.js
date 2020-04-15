@@ -12,6 +12,9 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { TextField } from "../components/Form";
 import { mainStyle, formStyle } from "../styles/styles";
 
+import { StackActions } from "@react-navigation/native";
+import { NavigationActions } from "react-navigation";
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -26,18 +29,23 @@ const styles = StyleSheet.create({
 export default class App extends React.Component {
   // static contextType = AuthContext;
 
-  state = {
-    teamName: "",
-    searchDescription: "",
-    subjectDescription: "",
-    radius: "",
-    code: "",
-    creator: ""
-  };
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
+    this.state = {
+      teamId: this.props.navigation.getParam("teamId"),
+      teamName: "",
+      searchDescription: "",
+      subjectDescription: "",
+      radius: "",
+      code: "",
+      creator: ""
+    };
+  }
+
+  fetchTeam() {
     // TODO: GET CURRENT TEAM (just made or selected from list) //
-    const teamId = "5e84e6ea4cc6a4552005268c";
+    const teamId = "5e815a1ff1088e659c4bddc5";
 
     let requestBody = {
       query: `
@@ -60,7 +68,7 @@ export default class App extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://<IPv4>:3000/graphql", {
+    fetch("http://192.168.1.9:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -98,6 +106,30 @@ export default class App extends React.Component {
         console.log(err);
       });
   }
+
+  componentDidMount() {
+    this.fetchTeam();
+    console.log("mount");
+  }
+
+  componentWillUnmount() {
+    console.log("unmount");
+    // const resetAction = NavigationActions.reset({
+    //   index: 0,
+    //   actions: [NavigationActions.navigate({ routeName: "TeamList" })]
+    // });
+    // this.props.navigation.dispatch(resetAction);
+    // this.props.navigation.getParam("refresh");
+  }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.teamId !== this.state.teamId) {
+  //     console.log("UPDATING...");
+  //     this.fetchTeam();
+  //   }
+  //   console.log("update");
+  //   this.props.navigation.getParam("refresh");
+  // }
 
   render() {
     return (

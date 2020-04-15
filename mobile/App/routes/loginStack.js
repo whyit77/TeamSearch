@@ -8,9 +8,10 @@ import ResetPW from "../screens/ResetPassword";
 const screens = {
   Login: {
     screen: Login,
-    navigationOptions: ({ navigation }) => {
+    navigationOptions: () => {
       return {
-        headerTitle: () => <Header navigation={navigation} title="Login" />
+        headerTitle: "Login",
+        headerTintColor: "white"
       };
     }
   },

@@ -8,7 +8,7 @@ const screens = {
     screen: UserSettings,
     navigationOptions: ({ navigation }) => {
       return {
-        headerTitle: () => <Header navigation={navigation} title="Settings" />
+        headerTitle: () => <Header navigation={navigation} title="User Profile" />
       };
     }
   }

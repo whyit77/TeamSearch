@@ -13,7 +13,7 @@ import {
   StatusBar,
   ScrollView,
   TouchableOpacity,
-  Linking, 
+  Linking,
   Platform
 } from "react-native";
 import {
@@ -25,24 +25,29 @@ import {
 } from "../styles/styles";
 import { TextField, ErrorText } from "../components/Form";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+// import Button from "../components/Button";
 
 // import { AuthContext } from "../context/auth-context";
 
 export default class App extends React.Component {
   // static contextType = AuthContext;
 
-  state = {
-    // switchITValue: false,
-    // switchLTValue: false,
-    username: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    description: "",
-    phone: ""
-    // changePass: "",
-    // confirmPass: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      // switchITValue: false,
+      // switchLTValue: false,
+      userId: "",
+      username: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      description: "",
+      phone: ""
+      // changePass: "",
+      // confirmPass: ""
+    };
+  }
 
   // toggleITSwitch = value => {
   //   this.setState({ switchITValue: value });
@@ -52,9 +57,63 @@ export default class App extends React.Component {
   //   this.setState({ switchLTValue: value });
   // };
 
-  componentDidMount() {
+  logout = () => {
+    const username = this.state.username;
+    console.log(username);
+
+    let requestBody = {
+      query: `
+        mutation logout($username: String!) {
+          logout(username: $username) {
+            username
+          }
+        }
+      `,
+      variables: {
+        username: username
+      }
+    };
+
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.9:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(async res => {
+        const responseJson = await res.json();
+        console.log("logging out");
+        console.log(responseJson);
+
+        if (res.ok) {
+          console.log("Okay LOGOUT");
+          this.props.navigation.navigate("Login");
+          return responseJson;
+        }
+
+        // this.setState({ error: responseJson.errors[0].message });
+        throw new Error(responseJson.error);
+      })
+      // .then(resData => {
+      //   if (resData.data.login.token) {
+      //     //////////////
+      //     this.context.Login(
+      //       resData.data.login.token,
+      //       resData.data.login.userId,
+      //       resData.data.login.tokenExpiration
+      //     );
+      //   }
+      // })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  fetchUser() {
     // TODO: GET CURRENT LOGGED IN USER //
-    const userId = "5e84e63b4cc6a4552005268b";
+    const userId = "5e815389f1088e659c4bddc4";
 
     let requestBody = {
       query: `
@@ -88,7 +147,7 @@ export default class App extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://<IPv4>:3000/graphql", {
+    fetch("http://192.168.1.9:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -104,6 +163,7 @@ export default class App extends React.Component {
         console.log(responseJson);
 
         if (res.ok) {
+          const userId = responseJson.data.getUser._id;
           const username = responseJson.data.getUser.username;
           const firstName = responseJson.data.getUser.firstName;
           const lastName = responseJson.data.getUser.lastName;
@@ -112,6 +172,7 @@ export default class App extends React.Component {
           const phone = responseJson.data.getUser.phone;
 
           this.setState({
+            userId: userId,
             username: username,
             firstName: firstName,
             lastName: lastName,
@@ -134,6 +195,10 @@ export default class App extends React.Component {
       });
   }
 
+  componentDidMount() {
+    this.fetchUser();
+  }
+
   dialCall = () => {
     let phoneNumber = "";
 
@@ -148,30 +213,6 @@ export default class App extends React.Component {
     Linking.openURL("sms:" + this.state.phone);
   };
 
-  // messageNumber = () => {
-  //   let phoneNumber ='';
-
-  //   if (Platform.OS === 'android') {
-  //     phoneNumber = 'tel:${1234567890}';
-  //   }
-  //   else {
-  //     phoneNumber = 'telprompt:${1234567890}';
-  //   }
-  //   Linking.openURL(phoneNumber);
-
-  // }
-
-  email = () => {
-    let emailAddress = "";
-
-    if (Platform.OS === "android") {
-      emailAddress = "tel:${1234567890}";
-    } else {
-      emailAddress = "telprompt:${1234567890}";
-    }
-
-    Linking.openURL(phoneNumber);
-  };
 
   render() {
     return (
@@ -239,53 +280,11 @@ export default class App extends React.Component {
                   {this.state.phone}
                 </Text>
               </Text>
-              {/* <TextField editable={false}> */}
-
-              {/* </TextField> */}
-              {/* <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Switch
-                  style={formStyle.toggle}
-                  onValueChange={this.toggleITSwitch}
-                  value={this.state.switchITValue}
-                  trackColor={{ true: "red", false: "grey" }}
-                />
-                <Text style={formStyle.toggleLabel}> View Inactive Teams </Text>
-                {/* <Text>{this.state.switchITValue ? "ON" : "OFF"}</Text> */}
-              {/* </View>
-
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Switch
-                  style={formStyle.toggle}
-                  onValueChange={this.toggleLTSwitch}
-                  value={this.state.switchLTValue}
-                  trackColor={{ true: "red", false: "grey" }}
-                />
-                <Text style={formStyle.toggleLabel}> Location Tracking </Text>
-                {/* <Text>{this.state.switchLTValue ? 'ON' : 'OFF'}</Text> */}
-              {/* </View>
-
-              <TextField
-                onChangeText={changePass => this.setState({ changePass })}
-                placeholder="Change Password"
-                maxLength={40}
-                selectionColor="red"
-                keyboardAppearance="dark"
-                color="white"
+              <Button
+                style={formStyle.formButton}
+                title="LOGOUT (temp)"
+                onPress={() => this.logout()}
               />
-
-              <TextField
-                onChangeText={confirmPass => this.setState({ confirmPass })}
-                placeholder="Confirm Password"
-                maxLength={40}
-                selectionColor="red"
-                keyboardAppearance="dark"
-                color="white"
-              /> */}
-              {/* <View style={mainStyle.container}>
-                <TouchableOpacity style={buttonStyle.buttonContainer}>
-                  <Text style={buttonStyle.buttonText}>Save</Text>
-                </TouchableOpacity>
-              </View> */}
             </View>
           </ScrollView>
         </KeyboardAwareScrollView>

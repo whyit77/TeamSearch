@@ -39,19 +39,27 @@ module.exports = buildSchema(`
     updatedAt: String!
   }
 
-  type User {
-    _id: ID!
-    username: String!
-    email: String!
-    firstName: String!
-    lastName: String!
-    password: String!
-    phone: String!
-    description: String
-    joinedTeams: [Team!]
-    createdTeams: [Team!]
-    createdEvents: [Event!]
-  }
+type Alert {
+  _id: ID!
+  creator: User!
+  urgency: String!
+  message: String!
+}
+
+type Team {
+  _id: ID!
+  teamName: String!
+  searchDescription: String!
+  subjectDescription: String!
+  radius: Int!
+  code: String!
+  creator: User!
+  members: [User!]
+  alerts: [Alert]
+  pins: [Pin!]
+  createdAt: String!
+  updatedAt: String!
+}
 
   type AuthData {
     userId: ID!
@@ -59,35 +67,61 @@ module.exports = buildSchema(`
     tokenExpiration: Int!
   }
 
-  input EventInput {
-    title: String!
-    description: String!
-    price: Float!
-    date: String!
-  }
+type Pin {
+  _id: ID!
+  title: String!
+  description: String!
+  latitude: Float!
+  longitude: Float!
+  creator: User!
+}
 
-  input TeamInput {
-    teamName: String!
-    searchDescription: String!
-    subjectDescription: String!
-    radius: Int
-  }
+type AuthData {
+  userId: ID!
+  token: String!
+  tokenExpiration: Int!
+}
+
+type Current {
+  userId: String!
+  username: String!
+  teamId: String!
+}
+
+input EventInput {
+  title: String!
+  description: String!
+  price: Float!
+  date: String!
+}
 
   input AlertInput {
     urgency: String!
     message: String!
   }
 
-  input UserInput {
-    username: String!
-    email: String!
-    firstName: String!
-    lastName: String!
-    password: String!
-    repassword: String!
-    phone: String!
-    description: String
-  }
+input AlertInput {
+  urgency: String!
+  message: String!
+}
+
+input PinInput {
+  title: String!
+  description: String!
+  latitude: Float!
+  longitude: Float!
+}
+
+input UserInput {
+  username: String!
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+  repassword: String!
+  phone: String!
+  description: String
+}
 
   type RootQuery {
       events: [Event!]!
@@ -99,16 +133,19 @@ module.exports = buildSchema(`
       me: User!
   }
 
-  type RootMutation {
-      createEvent(eventInput: EventInput): Event
-      createUser(userInput: UserInput): User
-      createTeam(userId: String!, teamInput: TeamInput): Team
-      bookEvent(eventId: ID!): Booking!
-      cancelBooking(bookingId: ID!): Event!
-      joinTeam(teamCode: String!): Team
-      addUserToTeam(username: String!, teamId: String!): Team
-      createAlert(userId: String!, teamId: String!, alertInput: AlertInput): Alert
-  }
+type RootMutation {
+    createEvent(eventInput: EventInput): Event
+    createUser(userInput: UserInput): User
+    createTeam(userId: String!, teamInput: TeamInput): Team
+    bookEvent(eventId: ID!): Booking!
+    cancelBooking(bookingId: ID!): Event!
+    addUserToTeam(username: String!, teamId: String!): Team
+    createAlert(userId: String!, teamId: String!, alertInput: AlertInput): Alert
+    setUser(userId: String!, username: String!): Current
+    logout(username: String!): Current
+    joinTeam(teamCode: String!): Team
+    createPin(pinInput: PinInput): Pin
+}
 
   schema {
       query: RootQuery

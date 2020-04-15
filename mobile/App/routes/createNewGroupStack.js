@@ -1,6 +1,7 @@
 import { createStackNavigator } from "react-navigation-stack";
 import CreateNewGroup from "../screens/CreateTeam";
 import DefineSearchArea from "../screens/DefineSearchArea";
+import TeamInfo from "../screens/TeamInformation";
 import Header from "../components/Header";
 import React from "react";
 
@@ -12,6 +13,14 @@ const screens = {
         headerTitle: () => (
           <Header navigation={navigation} title="Create New Team" />
         )
+      };
+    }
+  },
+  TeamInfo: {
+    screen: TeamInfo,
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerTitle: () => <Header navigation={navigation} title="Team Info" />
       };
     }
   },
