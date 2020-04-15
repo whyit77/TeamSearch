@@ -10,7 +10,7 @@ import {
   Clipboard,
   Alert,
   Linking,
-  Platform
+  Platform,
 } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 
@@ -35,13 +35,10 @@ class MemberProfile extends React.Component {
     email: "",
     description: "",
     phone: "",
-    clipboardContent: ""
+    clipboardContent: "",
   };
 
-
   componentDidMount() {
-    // TODO: GET CURRENTLY SELECTED USER from teamMemberList page// DONE
-    // const userId = "5e8128507fa7512864614452";
     const userId = this.props.navigation.getParam("memberId");
 
     let requestBody = {
@@ -63,8 +60,7 @@ class MemberProfile extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.9:3000/graphql", {
-
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -116,9 +112,9 @@ class MemberProfile extends React.Component {
   }
   writeToClipboard = async () => {
     await Clipboard.setString(this.state.id);
-    Alert.alert("Copied", 'User ID Copied');
+    Alert.alert("Copied", "User ID Copied");
   };
-  
+
   dialCall = () => {
     let phoneNumber = "";
 
@@ -157,15 +153,17 @@ class MemberProfile extends React.Component {
               />
             </View>
 
-            <Text style={formStyle.label}>ID: <Text 
-                    style={formStyle.placeholderStyle} 
-                    onPress={this.writeToClipboard} 
-                  >
-                    {this.state.id}
-                  </Text>
-                  </Text>
+            <Text style={formStyle.label}>
+              ID:{" "}
+              <Text
+                style={formStyle.placeholderStyle}
+                onPress={this.writeToClipboard}
+              >
+                {this.state.id}
+              </Text>
+            </Text>
 
-              {/* <TextField editable={false}>
+            {/* <TextField editable={false}>
                   <Text 
                     style={formStyle.placeholderStyle} 
                     onPress={console.log("yes")} 
@@ -174,21 +172,18 @@ class MemberProfile extends React.Component {
                   </Text>
               </TextField> */}
 
-
-            <Text style={formStyle.label}>Name: </Text>          
-              <TextField editable={false}>
-                  <Text style={formStyle.fillInText}>
-                    {this.state.firstName} {this.state.lastName}
-                  </Text>
-              </TextField>
+            <Text style={formStyle.label}>Name: </Text>
+            <TextField editable={false}>
+              <Text style={formStyle.fillInText}>
+                {this.state.firstName} {this.state.lastName}
+              </Text>
+            </TextField>
 
             <View style={formStyle.formContainer}>
               <Text style={formStyle.label}>Username: </Text>
               <TextField editable={false}>
-                  <Text style={formStyle.fillInText}>
-                    {this.state.username}
-                  </Text>
-              </TextField> 
+                <Text style={formStyle.fillInText}>{this.state.username}</Text>
+              </TextField>
 
               <Text style={formStyle.label}>
                 Contact Number:
@@ -217,9 +212,9 @@ class MemberProfile extends React.Component {
               <Text style={formStyle.label}>Profile Description</Text>
               <Text style={mainStyle.smallText}>{this.state.description}</Text>
               <TextField editable={false} multiline={true}>
-                  <Text style={formStyle.fillInText}>
-                    {this.state.description}
-                  </Text>
+                <Text style={formStyle.fillInText}>
+                  {this.state.description}
+                </Text>
               </TextField>
             </View>
           </ScrollView>

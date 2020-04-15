@@ -14,14 +14,57 @@ export default class TeamMemberListAddButton extends Component {
       code: "",
       creator: "",
       error: "",
-      dialogIsVisible: false
+      dialogIsVisible: false,
     };
+  }
+
+  async fetchCurrentTeam() {
+    let requestBody = {
+      query: `
+        query {
+          me {
+            userId
+            username
+            teamId
+          }
+        }
+      `, // me query pulls first person in database
+    };
+
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.11:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(async (res) => {
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          // set currently selected team in state
+          const teamId = responseJson.data.me.teamId;
+
+          this.setState({
+            teamId: teamId,
+          });
+
+          return responseJson;
+        }
+
+        throw new Error(responseJson.error);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   fetchAddMember(username) {
     console.log(username);
-    // const teamId = this.props.teamId; // teamID passed from TeamMemberList
-    const teamId = "5e9189523778984ecc120f3c";
+    const teamId = this.state.teamId;
+    // const teamId = "5e9189523778984ecc120f3c";
     console.log(teamId);
     this.setState({ username: username, teamId: teamId });
 
@@ -38,26 +81,26 @@ export default class TeamMemberListAddButton extends Component {
               }`,
       variables: {
         username: username,
-        teamId: teamId
-      }
+        teamId: teamId,
+      },
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.9:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(async res => {
+      .then(async (res) => {
         const responseJson = await res.json();
         console.log(responseJson);
 
         if (responseJson.data.addUserToTeam == null) {
           this.setState({
             error: responseJson.errors[0].message,
-            dialogIsVisible: true // re-show dialog box if error
+            dialogIsVisible: true, // re-show dialog box if error
           });
 
           console.log(this.state.error);
@@ -72,7 +115,7 @@ export default class TeamMemberListAddButton extends Component {
 
           this.setState({
             code: code,
-            creator: creator
+            creator: creator,
           });
 
           console.log("ADDED");
@@ -83,18 +126,17 @@ export default class TeamMemberListAddButton extends Component {
 
         throw new Error(responseJson.error);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
 
   // TODO: ONLY CREATOR CAN ADD MEMBERS???? //
 
-  //   componentDidMount() {
-  //     // TODO: GET LOGGED IN USER ID //
-  //     const username = "test3";
-  //     this.setState({ username: username });
-  //   }
+  componentDidMount() {
+    this.fetchCurrentTeam();
+    console.log("mount");
+  }
 
   option1Click = () => {
     this.setState({ dialogIsVisible: true });
@@ -110,7 +152,7 @@ export default class TeamMemberListAddButton extends Component {
           <DialogInput
             dialogIsVisible={this.state.dialogIsVisible}
             closeDialogInput={() => this.setState({ dialogIsVisible: false })}
-            submitInput={textValue => this.fetchAddMember(textValue)}
+            submitInput={(textValue) => this.fetchAddMember(textValue)}
             outerContainerStyle={{ backgroundColor: "rgba(0,0,0, 0.75)" }}
             containerStyle={{ backgroundColor: "rgba(255,0,0, 0.2)" }}
             titleStyle={{ color: "white" }}
@@ -125,7 +167,7 @@ export default class TeamMemberListAddButton extends Component {
               color: "black",
               borderColor: "black",
               borderWidth: 2,
-              marginBottom: 20
+              marginBottom: 20,
             }}
             secureTextEntry={false}
             buttonsStyle={{ borderColor: "white" }}
@@ -145,6 +187,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F5FCFF"
-  }
+    backgroundColor: "#F5FCFF",
+  },
 });

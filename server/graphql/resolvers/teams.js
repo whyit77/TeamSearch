@@ -1,6 +1,7 @@
 const Team = require("../../models/team");
 const User = require("../../models/user");
 const Alert = require("../../models/alert");
+const Current = require("../../models/current");
 const { transformTeam, bindUser, transformAlert } = require("./merge");
 const randomize = require("randomatic");
 
@@ -107,10 +108,6 @@ module.exports = {
     // 	throw new Error('Unauthenticated!');
     // }
 
-    /////////////////////////////////////////////
-    // args.username = "whyit2";
-    // args.teamId = "5e891ee7be2c6d8e45403855";
-
     try {
       let user = await User.findOne({ username: args.username });
       if (!user) {
@@ -135,6 +132,7 @@ module.exports = {
     }
   },
   createAlert: async (args, req) => {
+    //////////////////////////////////// TODO /////////////////////////////
     // if (!req.isAuth) {
     // 	throw new Error('Unauthenticated!');
     // }
@@ -173,6 +171,26 @@ module.exports = {
       await team.save();
 
       return createdAlert;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  },
+  // FOR HOLDING CURRENT SELECTED TEAM IN USER DATA // ////////////////////////////////////
+  setTeam: async (args, req) => {
+    console.log("ADD TO TEAM CURRENT");
+
+    try {
+      const curr = await Current.findOneAndUpdate({ userId: args.userId });
+      if (!curr) {
+        throw new Error("User not found.");
+      }
+
+      curr.teamId = args.teamId;
+      const result = await curr.save();
+      console.log(curr);
+
+      return curr;
     } catch (err) {
       console.log(err);
       throw err;

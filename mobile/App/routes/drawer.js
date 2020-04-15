@@ -10,7 +10,6 @@ import TeamMemberListStack from "./teamMemberListStack";
 import MapViewStack from "./mapViewStack";
 import TeamAlertsStack from "./teamAlertsStack";
 import SettingsStack from "./settingsStack";
-import logout from "../components/logout";
 import Alert from "react-native";
 import PinInformationStack from "./pinInformationStack";
 import React, { Component } from "react";
@@ -18,10 +17,10 @@ import React, { Component } from "react";
 const RootDrawerNavigator = createDrawerNavigator(
   {
     Login: {
-        screen: LoginStack,
-        navigationOptions: {
-            title: 'Sign Out'
-        }
+      screen: LoginStack,
+      navigationOptions: {
+        title: "Sign Out",
+      },
     },
     ResetPassword: {
       screen: ResetPasswordStack,

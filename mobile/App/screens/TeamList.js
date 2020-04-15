@@ -21,23 +21,108 @@ export default class TeamList extends Component {
     super(props);
 
     this.state = {
-      // teamName: "",
       status: "Active", /////////////
-      // creator: "",
-      // size: 0,
-      // subjectDescription: "",
-      // userId: "5e7e46af4f99bb52f42369a4",
+      userId: "",
       joinedTeams: [],
       // createdTeams: [],
       teamId: "",
       count: 1,
-      data: []
+      data: [],
     };
   }
 
+  async fetchCurrentUser() {
+    console.log("fetchCurrentUser");
+
+    let requestBody = {
+      query: `
+        query {
+          me {
+            userId
+            username
+          }
+        }
+      `, // me query pulls first person in database
+    };
+
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.11:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(async (res) => {
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          // set current logged in user in state
+          const userId = responseJson.data.me.userId;
+
+          this.setState({
+            userId: userId,
+          });
+
+          return responseJson;
+        }
+
+        throw new Error(responseJson.error);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // set currently selected team
+  setTeam = (teamId) => {
+    const userId = this.state.userId;
+
+    let requestBody = {
+      query: `
+        mutation setTeam($userId: String!, $teamId: String!) {
+          setTeam(userId: $userId, teamId: $teamId) {
+            userId
+            username
+            teamId
+          }
+        }
+      `,
+      variables: {
+        userId: userId,
+        teamId: teamId,
+      },
+    };
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.11:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(async (res) => {
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          console.log("Okay CURRENT TEAM");
+          this.props.navigation.navigate("TeamInfo");
+          return responseJson;
+        }
+
+        this.setState({ error: responseJson.errors[0].message });
+        throw new Error(responseJson.error);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   async fetchUserTeams() {
-    // TODO: GET CURRENT LOGGED IN USER //
-    const userId = "5e815389f1088e659c4bddc4";
+    const userId = this.state.userId;
+    console.log("fetchUserTeams");
 
     let requestBody = {
       query: `
@@ -66,7 +151,7 @@ export default class TeamList extends Component {
     if (this.state.count == 1) {
       console.log("fetching...");
 
-      fetch("http://192.168.1.9:3000/graphql", {
+      fetch("http://192.168.1.11:3000/graphql", {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {
@@ -79,45 +164,18 @@ export default class TeamList extends Component {
           console.log(responseJson);
           console.disableYellowBox = true;
 
-
           if (res.ok) {
             console.log("Okay Fetched Teams");
 
             const joinedTeams = responseJson.data.getUser.joinedTeams;
-            // const teamId = responseJson.data.getUser.joinedTeams
-            // // const createdTeams = responseJson.data.getUser.createdTeams;
-
-            // const teamName = responseJson.data.getUser.joinedTeams[1].teamName;
-            // const subjectDescription =
-            //   responseJson.data.getUser.joinedTeams[1].subjectDescription;
-            // const creator =
-            //   responseJson.data.getUser.joinedTeams[1].creator.username;
-
-            // const members = responseJson.data.getUser.joinedTeams[1].members;
-            // const size = members.length;
-
-            // console.log("--------");
-            // console.log(joinedTeams);
 
             const info = [];
             for (let i = 0; i < joinedTeams.length; i++) {
               info.push(joinedTeams[i]);
             }
 
-            // if the user is not in any teams
-            // if (joinedTeams.length == 0) {
-            //   info.push()
-            // }
-
             this.setState({
-              // teamName: teamName,
-              // subjectDescription: subjectDescription,
-              // creator: creator,
-              // size: size,
-              // joinedTeams: joinedTeams,
-              data: info
-              // teamId:
-              // createdTeams: createdTeams
+              data: info,
             });
 
             return responseJson;
@@ -135,9 +193,8 @@ export default class TeamList extends Component {
   }
 
   componentDidMount() {
-    //Here is the Trick
-    // const { navigation } = this.props;
-    this.fetchUserTeams();
+    this.fetchCurrentUser(); // get logged in user
+    // this.fetchUserTeams(); // populate team list
     console.log("MOUNTED");
     // const isFocused = this.props.navigation.isFocused();
     // if (isFocused) {
@@ -155,32 +212,33 @@ export default class TeamList extends Component {
     // );
   }
 
-  // componentWillUnmount() {
-  //   // Remove the event listener before removing the screen from the stack
-  //   this.focusListener.remove();
-  // }
+  componentWillUnmount() {
+    // Remove the event listener before removing the screen from the stack
+    // this.focusListener.remove();
+    console.log("unm");
+  }
 
   // componentDidMount() {
   //   this.fetchUserTeams();
   //   console.log("MOUNTED");
   // }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   // if (prevState.data !== this.state.data) {
-  //   //   console.log("UPDATING...");
-  //   //   this.fetchUserTeams();
-  //   // }
-  //   this.fetchUserTeams();
-  //   console.log("upd");
-  //   const isFocused = this.props.navigation.isFocused();
-  //   if (isFocused) {
-  //     console.log("UPDATING...");
-  //     this.fetchUserTeams();
-  //   }
-  // }
-
-  componentWillUnmount() {
-    console.log("unm");
+  componentDidUpdate(prevProps, prevState) {
+    // if (prevState.data !== this.state.data) {
+    console.log("UPDATING...");
+    this.fetchUserTeams(); // populate team list
+    // }
+    // if (prevState.data !== this.state.data) {
+    //   console.log("UPDATING...");
+    //   this.fetchUserTeams();
+    // }
+    // this.fetchUserTeams();
+    // console.log("upd");
+    // const isFocused = this.props.navigation.isFocused();
+    // if (isFocused) {
+    //   console.log("UPDATING...");
+    //   this.fetchUserTeams();
+    // }
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -197,11 +255,14 @@ export default class TeamList extends Component {
           option1Click={() => {
             navigation.navigate("CreateTeam");
           }}
-          option2Click={team => {
-            navigation.navigate("TeamInfo", {
-              teamId: team
-            });
+          option2Click={() => {
+            navigation.navigate("TeamInfo");
           }}
+          // option2Click={(team) => {
+          //   navigation.navigate("TeamInfo", {
+          //     teamId: team
+          //   });
+          // }}
         />
       ),
     };
@@ -218,17 +279,7 @@ export default class TeamList extends Component {
               return (
                 <TouchableOpacity>
                   <Team
-                    // onPress={() =>
-                    //   this.props.navigation.navigate("TeamInfo", {
-                    //     teamId: rowData._id
-                    //   })
-                    // }
-                    onPress={() =>
-                      this.props.navigation.navigate("TeamInfo", {
-                        teamId: rowData._id
-                        // refresh: this.fetchUserTeams()
-                      })
-                    }
+                    onPress={() => this.setTeam(rowData._id)}
                     name={rowData.teamName}
                     status={this.state.status}
                     admin={rowData.creator.username}
@@ -243,27 +294,6 @@ export default class TeamList extends Component {
         ) : (
           <Text style={mainStyle.bigText}>No Teams to Display</Text>
         )}
-
-        {/* <View style={mainStyle.container}>
-          <ScrollView contentContainerStyle={mainStyle.container}>
-            <View style={mainStyle.toplevel}> */}
-        {/* <TouchableOpacity onPress={this.handleSubmit()}> */}
-        {/* <Team
-                name={this.state.teamName}
-                status={this.state.status}
-                admin={this.state.creator}
-                size={this.state.size}
-                description={this.state.subjectDescription}
-              /> */}
-        {/* </TouchableOpacity> */}
-        {/* <TouchableOpacity onPress={this.handleSubmit()}>
-								<TeamListCard
-									description={this.state.description}
-								></TeamListCard>
-							</TouchableOpacity> */}
-        {/* </View>
-          </ScrollView>
-        </View> */}
       </SafeAreaView>
     );
   }

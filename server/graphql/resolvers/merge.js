@@ -49,10 +49,10 @@ const alerts = async (alertIds) => {
   }
 };
 
-const pins = async pinIds => {
+const pins = async (pinIds) => {
   try {
     const pins = await Pin.find({ _id: { $in: pinIds } });
-    return pins.map(pin => {
+    return pins.map((pin) => {
       return transformPin(pin);
     });
   } catch (err) {
@@ -60,7 +60,7 @@ const pins = async pinIds => {
   }
 };
 
-const singleEvent = async eventId => {
+const singleEvent = async (eventId) => {
   try {
     const event = await Event.findById(eventId);
     return transformEvent(event);
@@ -118,7 +118,7 @@ const transformAlert = (alert) => {
   };
 };
 
-const transformPin = pin => {
+const transformPin = (pin) => {
   return {
     ...pin._doc,
     _id: pin.id,

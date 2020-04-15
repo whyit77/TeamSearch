@@ -1,8 +1,8 @@
 import { createStackNavigator } from "react-navigation-stack";
 import TeamInfo from "../screens/TeamInformation";
-import DataExport from "../screens/DataExport";
+// import DataExport from "../screens/DataExport";
 import TeamAlerts from "../screens/TeamAlerts";
-import HeatMap from "../screens/Map";
+// import HeatMap from "../screens/Map";
 import Header from "../components/Header";
 import React from "react";
 
@@ -15,24 +15,24 @@ const screens = {
       };
     }
   },
-  Map: {
-    screen: HeatMap,
-    navigationOptions: () => {
-      return {
-        headerTitle: "Map",
-        headerTintColor: "white"
-      };
-    }
-  },
-  DataExport: {
-    screen: DataExport,
-    navigationOptions: () => {
-      return {
-        headerTitle: "Export Data",
-        headerTintColor: "white"
-      };
-    }
-  },
+  // Map: {
+  //   screen: HeatMap,
+  //   navigationOptions: () => {
+  //     return {
+  //       headerTitle: "Map",
+  //       headerTintColor: "white"
+  //     };
+  //   }
+  // },
+  // DataExport: {
+  //   screen: DataExport,
+  //   navigationOptions: () => {
+  //     return {
+  //       headerTitle: "Export Data",
+  //       headerTintColor: "white"
+  //     };
+  //   }
+  // },
   TeamAlerts: {
     screen: TeamAlerts,
     navigationOptions: () => {

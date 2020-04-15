@@ -19,8 +19,6 @@ import {
 
 import { NetworkInfo } from "react-native-network-info";
 
-
-
 //////// TODO: LEARN TO DO AUTH TO HAVE LOGGED IN ID //////////////////
 
 const initialState = {
@@ -29,7 +27,6 @@ const initialState = {
   password: "",
   error: "",
 };
-
 
 export default class Login extends React.Component {
   // static contextType = AuthContext;
@@ -59,11 +56,8 @@ export default class Login extends React.Component {
       },
     };
 
-
-
     // CHECK IP ADDRESS ////////////////////////////////////////////////////////////////////////////// 192.168.1.9
-    fetch("http://192.168.1.9:3000/graphql", {
-
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -118,18 +112,18 @@ export default class Login extends React.Component {
       `,
       variables: {
         userId: userId,
-        username: username
-      }
+        username: username,
+      },
     };
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.9:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(async res => {
+      .then(async (res) => {
         const responseJson = await res.json();
         console.log(responseJson);
 
@@ -144,7 +138,7 @@ export default class Login extends React.Component {
         this.setState({ error: responseJson.errors[0].message });
         throw new Error(responseJson.error);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -174,7 +168,7 @@ export default class Login extends React.Component {
                 keyboardAppearance="dark"
                 // keyboardType="username"
                 labelTextColor="white"
-              // textContentType="username"
+                // textContentType="username"
               />
               <Text style={formStyle.label}>Password</Text>
               <TextField

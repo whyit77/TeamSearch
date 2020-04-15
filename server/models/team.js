@@ -43,15 +43,15 @@ const teamSchema = new Schema(
     pins: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Pin"
-      }
+        ref: "Pin",
+      },
     ],
     alerts: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Alert"
-      }
-    ]
+        ref: "Alert",
+      },
+    ],
   },
   { timestamps: true }
 );

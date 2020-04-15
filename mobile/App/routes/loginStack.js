@@ -3,7 +3,7 @@ import Login from "../screens/Login";
 import Header from "../components/Header";
 import React from "react";
 import TeamList from "../screens/TeamList";
-import ResetPW from "../screens/ResetPassword";
+// import ResetPW from "../screens/ResetPassword";
 
 const screens = {
   Login: {
@@ -23,16 +23,16 @@ const screens = {
         headerTintColor: "white"
       };
     }
-  },
-  ResetPW: {
-    screen: ResetPW,
-    navigationOptions: () => {
-      return {
-        headerTitle: "Reset Password",
-        headerTintColor: "white"
-      };
-    }
   }
+  // ResetPW: {
+  //   screen: ResetPW,
+  //   navigationOptions: () => {
+  //     return {
+  //       headerTitle: "Reset Password",
+  //       headerTintColor: "white"
+  //     };
+  //   }
+  // }
 };
 
 const LoginStack = createStackNavigator(screens, {
