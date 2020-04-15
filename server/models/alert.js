@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
 const alertSchema = new Schema({
   creator: {
     type: Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
   },
   urgency: {
     type: String,
@@ -17,4 +17,4 @@ const alertSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model('Alert', alertSchema);
+module.exports = mongoose.model("Alert", alertSchema);

@@ -8,7 +8,7 @@ module.exports = {
   teams: async () => {
     try {
       const teams = await Team.find();
-      return teams.map(team => {
+      return teams.map((team) => {
         return transformTeam(team);
       });
     } catch (err) {
@@ -38,10 +38,7 @@ module.exports = {
     // if (!req.isAuth) {
     // 	throw new Error('Unauthenticated!');
     // }
-
-    // TODO: NEED CURRENT LOGGED IN USER ID ///
-    req.userId = "5e815389f1088e659c4bddc4";
-    let creator;
+    // let creator;
     try {
       const creator = await User.findById(args.userId);
       if (!creator) {
@@ -63,7 +60,7 @@ module.exports = {
 
       let createdTeam = transformTeam(result);
 
-      console.log(createdTeam);
+      // console.log(createdTeam);
 
       creator.createdTeams.push(team);
       creator.joinedTeams.push(team);
@@ -92,6 +89,7 @@ module.exports = {
         throw new Error("Team not found.");
       }
 
+      // TODO: CHECK IF USER IS ALREADY IN TEAM //
       team.members.push(user);
       await team.save();
 
@@ -108,9 +106,6 @@ module.exports = {
     // if (!req.isAuth) {
     // 	throw new Error('Unauthenticated!');
     // }
-
-    args.username = "whyit2";
-    args.teamId = "5e891ee7be2c6d8e45403855";
 
     try {
       let user = await User.findOne({ username: args.username });
@@ -136,6 +131,7 @@ module.exports = {
     }
   },
   createAlert: async (args, req) => {
+    //////////////////////////////////// TODO /////////////////////////////
     // if (!req.isAuth) {
     // 	throw new Error('Unauthenticated!');
     // }
@@ -161,7 +157,7 @@ module.exports = {
       const alert = new Alert({
         creator: args.userId,
         urgency: args.alertInput.urgency,
-        message: args.alertInput.message
+        message: args.alertInput.message,
       });
       console.log(alert);
 
@@ -178,5 +174,25 @@ module.exports = {
       console.log(err);
       throw err;
     }
-  }
+  },
+  // FOR HOLDING CURRENT SELECTED TEAM IN USER DATA // ////////////////////////////////////
+  setTeam: async (args, req) => {
+    console.log("ADD TO TEAM CURRENT");
+
+    try {
+      const curr = await Current.findOneAndUpdate({ userId: args.userId });
+      if (!curr) {
+        throw new Error("User not found.");
+      }
+
+      curr.teamId = args.teamId;
+      const result = await curr.save();
+      console.log(curr);
+
+      return curr;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  },
 };

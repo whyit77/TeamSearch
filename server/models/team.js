@@ -6,40 +6,40 @@ const teamSchema = new Schema(
   {
     teamName: {
       type: String,
-      required: true
+      required: true,
     },
     searchDescription: {
       type: String,
-      required: true
+      required: true,
     },
     subjectDescription: {
       type: String,
-      required: true
+      required: true,
     },
     radius: {
       type: Number,
-      required: false
+      required: true,
     },
     code: {
       type: String,
-      required: true
+      required: true,
     },
     creator: {
       type: Schema.Types.ObjectId,
-      ref: "User"
+      ref: "User",
     },
     members: [
       {
         type: Schema.Types.ObjectId,
-        ref: "User"
-      }
+        ref: "User",
+      },
     ],
     alerts: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Alert"
-      }
-    ]
+        ref: "Alert",
+      },
+    ],
   },
   { timestamps: true }
 );
