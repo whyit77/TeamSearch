@@ -1,6 +1,7 @@
 const Team = require("../../models/team");
 const User = require("../../models/user");
 const Alert = require("../../models/alert");
+const Current = require("../../models/current");
 const { transformTeam, bindUser, transformAlert } = require("./merge");
 const randomize = require("randomatic");
 

@@ -52,26 +52,6 @@ module.exports = buildSchema(`
     createdTeams: [Team!]
     createdEvents: [Event!]
   }
-type Alert {
-  _id: ID!
-  creator: User!
-  urgency: String!
-  message: String!
-}
-
-type Team {
-  _id: ID!
-  teamName: String!
-  searchDescription: String!
-  subjectDescription: String!
-  radius: Int!
-  code: String!
-  creator: User!
-  members: [User!]
-  alerts: [Alert]
-  createdAt: String!
-  updatedAt: String!
-}
 
   type AuthData {
     userId: ID!
@@ -92,17 +72,11 @@ type Team {
     subjectDescription: String!
     radius: Int
   }
+  
 type Current {
   userId: String!
   username: String!
   teamId: String!
-}
-
-input EventInput {
-  title: String!
-  description: String!
-  price: Float!
-  date: String!
 }
 
   input AlertInput {
