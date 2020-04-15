@@ -1,4 +1,4 @@
-const { buildSchema } = require('graphql');
+const { buildSchema } = require("graphql");
 
 module.exports = buildSchema(`
   type Booking {
@@ -25,27 +25,6 @@ module.exports = buildSchema(`
     message: String!
   }
 
-  type Team {
-    _id: ID!
-    teamName: String!
-    searchDescription: String!
-    subjectDescription: String!
-    radius: Int
-    code: String!
-    creator: User!
-    members: [User!]
-    alerts: [Alert]
-    createdAt: String!
-    updatedAt: String!
-  }
-
-type Alert {
-  _id: ID!
-  creator: User!
-  urgency: String!
-  message: String!
-}
-
 type Team {
   _id: ID!
   teamName: String!
@@ -59,6 +38,20 @@ type Team {
   pins: [Pin!]
   createdAt: String!
   updatedAt: String!
+}
+
+type User {
+  _id: ID!
+  username: String!
+  email: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+  phone: String!
+  description: String
+  joinedTeams: [Team!]
+  createdTeams: [Team!]
+  createdEvents: [Event!]
 }
 
   type AuthData {
@@ -76,16 +69,17 @@ type Pin {
   creator: User!
 }
 
-type AuthData {
-  userId: ID!
-  token: String!
-  tokenExpiration: Int!
-}
-
 type Current {
   userId: String!
   username: String!
   teamId: String!
+}
+
+input TeamInput {
+  teamName: String!
+  searchDescription: String!
+  subjectDescription: String!
+  radius: Int
 }
 
 input EventInput {
@@ -99,11 +93,6 @@ input EventInput {
     urgency: String!
     message: String!
   }
-
-input AlertInput {
-  urgency: String!
-  message: String!
-}
 
 input PinInput {
   title: String!
