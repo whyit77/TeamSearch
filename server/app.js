@@ -35,9 +35,8 @@ app.use((req, res, next) => {
 //////// CHANGE CONNECT URL (in nodemon.json) FOR THE DB YOU ARE USING //////////
 mongoose
 	.connect(
-		// `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
-    `mongodb://bsarian:Llebysysysys123@cluster0-shard-00-00-sigoc.mongodb.net:27017,cluster0-shard-00-01-sigoc.mongodb.net:27017,cluster0-shard-00-02-sigoc.mongodb.net:27017/test?replicaSet=Cluster0-shard-0&ssl=true&authSource=admin`,
-    { useNewUrlParser: true, useUnifiedTopology: true }
+		`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
+    // { useNewUrlParser: true, useUnifiedTopology: true }
     )
 	.then(() => {
 		app.listen(3000);

@@ -139,10 +139,10 @@ module.exports = {
     // 	throw new Error('Unauthenticated!');
     // }
 
-    args.userId = "5e810bca46838b520f986577";
-    args.teamId = "5e891ee7be2c6d8e45403855";
-    args.alertInput.urgency = "High";
-    args.alertInput.message = "This is a highly urgent alert";
+    // args.userId = "5e7031dc9c7708107b2bfaa7";
+    // args.teamId = "5e96a01304852dfea220a0db";
+    // args.alertInput.urgency = "High";
+    // args.alertInput.message = "This is a highly urgent alert";
 
     try {
       let user = await User.findById(args.userId);

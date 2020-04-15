@@ -133,7 +133,7 @@ type RootMutation {
     setUser(userId: String!, username: String!): Current
     logout(username: String!): Current
     joinTeam(teamCode: String!): Team
-    createPin(pinInput: PinInput): Pin
+    createPin(userId: String!, teamId: String!, pinInput: PinInput): Pin
 }
 
   schema {

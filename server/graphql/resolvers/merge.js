@@ -106,6 +106,7 @@ const transformTeam = (team) => {
     creator: singleUser.bind(this, team.creator),
     members: users.bind(this, team._doc.members),
     alerts: alerts.bind(this, team._doc.alerts),
+    pins: pins.bind(this, team._doc.pins)
   };
 };
 
@@ -114,7 +115,6 @@ const transformAlert = (alert) => {
     ...alert._doc,
     _id: alert.id,
     creator: singleUser.bind(this, alert.creator),
-    pins: pins.bind(this, team._doc.pins)
   };
 };
 
