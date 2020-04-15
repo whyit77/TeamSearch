@@ -16,7 +16,7 @@ export default class CreateTeamMenuIcon extends Component {
       code: "",
       creator: "",
       error: "",
-      dialogIsVisible: false
+      dialogIsVisible: false,
     };
   }
 
@@ -31,7 +31,7 @@ export default class CreateTeamMenuIcon extends Component {
             username
           }
         }
-      ` // me query pulls first person in database
+      `, // me query pulls first person in database
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
@@ -39,10 +39,10 @@ export default class CreateTeamMenuIcon extends Component {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(async res => {
+      .then(async (res) => {
         const responseJson = await res.json();
         console.log(responseJson);
 
@@ -51,7 +51,7 @@ export default class CreateTeamMenuIcon extends Component {
           const userId = responseJson.data.me.userId;
 
           this.setState({
-            userId: userId
+            userId: userId,
           });
 
           return responseJson;
@@ -59,13 +59,13 @@ export default class CreateTeamMenuIcon extends Component {
 
         throw new Error(responseJson.error);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
 
   // set currently selected team
-  setTeam = teamId => {
+  setTeam = (teamId) => {
     const userId = this.state.userId;
 
     let requestBody = {
@@ -80,18 +80,18 @@ export default class CreateTeamMenuIcon extends Component {
       `,
       variables: {
         userId: userId,
-        teamId: teamId
-      }
+        teamId: teamId,
+      },
     };
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
     fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(async res => {
+      .then(async (res) => {
         const responseJson = await res.json();
         console.log(responseJson);
 
@@ -104,7 +104,7 @@ export default class CreateTeamMenuIcon extends Component {
         this.setState({ error: responseJson.errors[0].message });
         throw new Error(responseJson.error);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -126,26 +126,26 @@ export default class CreateTeamMenuIcon extends Component {
           }`,
       variables: {
         userId: userId,
-        teamCode: teamCode
-      }
+        teamCode: teamCode,
+      },
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.9:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(async res => {
+      .then(async (res) => {
         const responseJson = await res.json();
         console.log(responseJson);
 
         if (responseJson.data.joinTeam == null) {
           this.setState({
             error: responseJson.errors[0].message,
-            dialogIsVisible: true // re-show dialog box if error
+            dialogIsVisible: true, // re-show dialog box if error
           });
 
           console.log(this.state.error);
@@ -161,7 +161,7 @@ export default class CreateTeamMenuIcon extends Component {
           this.setState({
             teamId: teamId,
             code: code,
-            creator: creator
+            creator: creator,
           });
 
           console.log("JOINED");
@@ -175,7 +175,7 @@ export default class CreateTeamMenuIcon extends Component {
 
         throw new Error(responseJson.error);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -189,7 +189,7 @@ export default class CreateTeamMenuIcon extends Component {
   }
 
   _menu = null;
-  setMenuRef = ref => {
+  setMenuRef = (ref) => {
     this._menu = ref;
   };
   showMenu = () => {
@@ -226,12 +226,12 @@ export default class CreateTeamMenuIcon extends Component {
             <DialogInput
               dialogIsVisible={this.state.dialogIsVisible}
               closeDialogInput={() => this.setState({ dialogIsVisible: false })}
-              submitInput={textValue => this.fetchJoinTeam(textValue)}
+              submitInput={(textValue) => this.fetchJoinTeam(textValue)}
               outerContainerStyle={{ backgroundColor: "rgba(0,0,0, 0.75)" }}
               containerStyle={{
                 backgroundColor: B3,
                 borderColor: "#590900",
-                borderWidth: 5
+                borderWidth: 5,
               }}
               titleStyle={{ color: "white" }}
               title="Join a Team"
@@ -245,7 +245,7 @@ export default class CreateTeamMenuIcon extends Component {
                 color: "black",
                 borderColor: "black",
                 borderWidth: 2,
-                marginBottom: 20
+                marginBottom: 20,
               }}
               autoCapitalize={false}
               autoCorrect={false}
@@ -268,6 +268,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F5FCFF"
-  }
+    backgroundColor: "#F5FCFF",
+  },
 });

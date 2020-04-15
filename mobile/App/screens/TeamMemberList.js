@@ -5,11 +5,11 @@ import {
   View,
   TouchableOpacity,
   StatusBar,
-  FlatList
+  FlatList,
 } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 import { Card, Avatar } from "react-native-elements";
-import {YellowBox} from 'react-native';
+import { YellowBox } from "react-native";
 import { TeamMember } from "../components/TeamMember";
 import { mainStyle, B3, B2, B1 } from "../styles/styles";
 import { ScrollView } from "react-native-gesture-handler";
@@ -23,15 +23,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   text: {
     color: "black",
     fontSize: 15,
     textAlign: "center",
 
-    fontWeight: "600"
-  }
+    fontWeight: "600",
+  },
 });
 
 // Necessary to extract how many team members are currently in a team and then make rows for all members
@@ -41,7 +41,7 @@ export default class TeamMemberList extends Component {
     this.state = {
       data: [],
       teamId: "",
-      teamName: ""
+      teamName: "",
     };
   }
 
@@ -55,7 +55,7 @@ export default class TeamMemberList extends Component {
             teamId
           }
         }
-      ` // me query pulls first person in database
+      `, // me query pulls first person in database
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
@@ -63,10 +63,10 @@ export default class TeamMemberList extends Component {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(async res => {
+      .then(async (res) => {
         const responseJson = await res.json();
         console.log(responseJson);
 
@@ -75,7 +75,7 @@ export default class TeamMemberList extends Component {
           const teamId = responseJson.data.me.teamId;
 
           this.setState({
-            teamId: teamId
+            teamId: teamId,
           });
 
           return responseJson;
@@ -83,7 +83,7 @@ export default class TeamMemberList extends Component {
 
         throw new Error(responseJson.error);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -112,21 +112,21 @@ export default class TeamMemberList extends Component {
         }
       }`,
       variables: {
-        teamId: teamId
-      }
+        teamId: teamId,
+      },
     };
 
     console.log("fetching...");
     console.disableYellowBox = true;
 
-    fetch("http://192.168.1.9:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(async res => {
+      .then(async (res) => {
         const responseJson = await res.json();
 
         console.log(responseJson);
@@ -148,7 +148,7 @@ export default class TeamMemberList extends Component {
 
           this.setState({
             data: names,
-            teamName: teamName
+            teamName: teamName,
           });
 
           return responseJson;
@@ -157,7 +157,7 @@ export default class TeamMemberList extends Component {
         this.setState({ error: responseJson.errors[0].message });
         throw new Error(responseJson.error);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -181,15 +181,13 @@ export default class TeamMemberList extends Component {
       headerRight: () => (
         <TeamMemberListAddButton
           // teamId={"5e9189523778984ecc120f3c"} ////////////////////////////
-          option1Click={team =>
+          option1Click={(team) =>
             navigation.navigate("TeamMemberList", { teamId: team })
           }
         />
-      )
+      ),
     };
-    
   };
-  
 
   render() {
     return (
@@ -201,37 +199,44 @@ export default class TeamMemberList extends Component {
 
         <FlatList
           data={this.state.data}
-          numColumns ={2}
+          numColumns={2}
           renderItem={({ item: rowData }) => {
             return (
               <TouchableOpacity
                 onPress={() =>
                   this.props.navigation.navigate("MemberProfile", {
-                    memberId: rowData._id
+                    memberId: rowData._id,
                   })
                 }
               >
                 <Card
                   title={rowData.firstName + " " + rowData.lastName}
-                  titleStyle={{alignItems: 'flex-start', marginTop: 10, color: 'white'}}
-
+                  titleStyle={{
+                    alignItems: "flex-start",
+                    marginTop: 10,
+                    color: "white",
+                  }}
                   // image={{ url: "http://via.placeholder.com/160x160" }}
-                  containerStyle={{ 
-                    padding: 0, 
+                  containerStyle={{
+                    padding: 0,
                     width: 160,
-                    height: 160, 
-                    backgroundColor: B3, 
+                    height: 160,
+                    backgroundColor: B3,
                     borderRadius: 30,
-                    borderWidth: 0, 
-                    borderColor: B1
-                  }}                
+                    borderWidth: 0,
+                    borderColor: B1,
+                  }}
                 >
                   <Avatar
-                    overlayContainerStyle={{backgroundColor: B2, borderBottomEndRadius: 25, borderBottomStartRadius: 25}}
+                    overlayContainerStyle={{
+                      backgroundColor: B2,
+                      borderBottomEndRadius: 25,
+                      borderBottomStartRadius: 25,
+                    }}
                     size="xlarge"
                     title={rowData.firstName[0] + rowData.lastName[0]}
-                    containerStyle={{ marginTop: -17, width: 160}}
-                    titleStyle={{ color: "#5e5e5e"}}
+                    containerStyle={{ marginTop: -17, width: 160 }}
+                    titleStyle={{ color: "#5e5e5e" }}
                   />
                 </Card>
               </TouchableOpacity>
@@ -239,11 +244,10 @@ export default class TeamMemberList extends Component {
           }}
           keyExtractor={(item, index) => index}
         />
-      {/* <Text style={styles.text}> Team Member 1 </Text>
+        {/* <Text style={styles.text}> Team Member 1 </Text>
       <TouchableOpacity onPress={() => this.props.navigation.navigate("MemberProfile")}>
         <Text style={styles.text}> View Profile </Text>
       </TouchableOpacity> */}
- 
       </SafeAreaView>
     );
   }
