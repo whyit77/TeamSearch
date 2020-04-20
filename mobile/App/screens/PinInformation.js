@@ -12,7 +12,7 @@ import {
   Button,
   StatusBar,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 
 import {
@@ -20,23 +20,23 @@ import {
   mainStyle,
   exampleText,
   formStyle,
-  teamListStyle
+  teamListStyle,
 } from "../styles/styles";
 import { TextField, ErrorText } from "../components/Form";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center"
+    alignItems: "center",
   },
-  underline: { textDecorationLine: "underline" }
+  underline: { textDecorationLine: "underline" },
 });
 
 class PinInformation extends React.Component {
   state = {
     name: "",
-    pinLoc: "",
-    description: ""
+    location: "",
+    description: "",
   };
 
   render() {
@@ -56,7 +56,7 @@ class PinInformation extends React.Component {
           </View>
           <TextField
             value={this.state.location}
-            onChangeText={location => this.setState({ location })}
+            onChangeText={(location) => this.setState({ location })}
             placeholder="Name of pin"
             maxLength={40}
           />
@@ -64,7 +64,7 @@ class PinInformation extends React.Component {
           <Text style={formStyle.label}> Pinned By: (Name) </Text>
 
           <TextField
-            onChangeText={description => this.setState({ description })}
+            onChangeText={(description) => this.setState({ description })}
             placeholder="Description of pin:"
             maxLength={250}
           />
@@ -73,7 +73,7 @@ class PinInformation extends React.Component {
               style={buttonStyle.buttonContainer}
               onPress={() =>
                 this.props.navigation.navigate("Map", {
-                  location: "Test"
+                  loc: "Test",
                 })
               }
             >
