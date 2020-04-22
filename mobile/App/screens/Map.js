@@ -1,25 +1,24 @@
 import React from "react";
-import { 
-  StyleSheet, 
-  View, 
-  Text, 
-  TouchableOpacity, 
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
   Platform,
   Alert,
   Console,
 } from "react-native";
-import MapView, { 
-  PROVIDER_GOOGLE, 
-  Heatmap, 
+import MapView, {
+  PROVIDER_GOOGLE,
+  Heatmap,
   Marker,
   Polyline,
-  AnimatedRegion, 
-  Callout
+  AnimatedRegion,
+  Callout,
 } from "react-native-maps";
 import haversine from "haversine";
-import { EmbeddedWebView } from "../components/EmbeddedWebView";
-import { location } from "../screens/PinInformation";
-
+// import { EmbeddedWebView } from "../components/EmbeddedWebView";
+// import { location } from "../screens/PinInformation";
 
 const LATITUDE_DELTA = 0.009;
 const LONGITUDE_DELTA = 0.009;
@@ -37,12 +36,12 @@ let currentLat = 0;
 let currentLong = 0;
 let currentLocation = 0;
 
-let pinLat = 0;
-let pinLong = 0;
-let pinLocation = 0;
+// let pinLat = 0;
+// let pinLong = 0;
+// let pinLocation = 0;
 
 navigator.geolocation.getCurrentPosition(
-  position => {
+  (position) => {
     currentLocation =
       JSON.stringify(position.coords.latitude) +
       "," +
@@ -50,19 +49,26 @@ navigator.geolocation.getCurrentPosition(
     currentLat = position.coords.latitude;
     currentLong = position.coords.longitude;
   },
-  error => Alert.alert(error.message),
+  (error) => Alert.alert(error.message),
   { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
 );
+
+// var coord = { latitude: 0.0, longitude: 0.0 };
+// var pin = { pin: "", coordinate: coord };
 
 class Map extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-
+      userId: "",
+      username: "",
+      teamId: "",
+      teamName: "",
       latitude: LATITUDE,
       longitude: LONGITUDE,
       markers: [],
+      rawPins: [],
       routeCoordinates: [],
       distanceTravelled: 0,
       prevLatLng: {},
@@ -72,7 +78,7 @@ class Map extends React.Component {
         latitude: LATITUDE,
         longitude: LONGITUDE,
         latitudeDelta: 0,
-        longitudeDelta: 0
+        longitudeDelta: 0,
       }),
 
       // Initial Position in the state
@@ -81,8 +87,7 @@ class Map extends React.Component {
         longitude: LONGITUDE,
         latitudeDelta: 0,
         longitudeDelta: 0,
-      // },
-      
+        // },
 
         // latitude: 40.7143,
         // longitude: -74.0042,
@@ -91,10 +96,10 @@ class Map extends React.Component {
 
         mapRegion: null,
         lastLat: null,
-        lastLong: null
+        lastLong: null,
       },
 
-      markers: []
+      // markers: [],
       // pinName: name,
       // pinLocation: location,
       // pinDescription: descr
@@ -144,18 +149,157 @@ class Map extends React.Component {
     { latitude: 41.094, longitude: -74.0068, weight: 1 },
     { latitude: 41.0874, longitude: -74.0052, weight: 1 },
     { latitude: 41.0824, longitude: -74.0024, weight: 1 },
-    { latitude: 41.0232, longitude: -74.0014, weight: 1 }
+    { latitude: 41.0232, longitude: -74.0014, weight: 1 },
   ];
 
-  async componentDidMount() {
+  async fetchCurrentTeam() {
+    console.log("fetchCurrentTeam");
 
-    this.getCurrentLocation();
+    let requestBody = {
+      query: `
+        query {
+          me {
+            userId
+            username
+            teamId
+          }
+        }
+      `, // me query pulls first person in database
+    };
+
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.11:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(async (res) => {
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          // set current logged in user and selected team in state
+          const userId = responseJson.data.me.userId;
+          const username = responseJson.data.me.username;
+          const teamId = responseJson.data.me.teamId;
+
+          this.setState({
+            userId: userId,
+            username: username,
+            teamId: teamId,
+          });
+
+          this.fetchTeamInfo();
+
+          return responseJson;
+        }
+
+        throw new Error(responseJson.error);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // get team map info (PINS)
+  fetchTeamInfo() {
+    console.log("PIN INFO");
+    const teamId = this.state.teamId;
+
+    let requestBody = {
+      query: `
+          query getTeam($teamId: String!) {
+            getTeam(teamId: $teamId) {
+              teamName
+              pins {
+                title
+                latitude
+                longitude
+              }
+            }
+          }`,
+      variables: {
+        teamId: teamId,
+      },
+    };
+
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.11:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(async (res) => {
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          const teamName = responseJson.data.getTeam.teamName;
+          const pinArr = responseJson.data.getTeam.pins;
+
+          const pinList = [];
+          for (let i = 0; i < pinArr.length; i++) {
+            pinList.push(pinArr[i]);
+          }
+          // console.log("PINLIST:");
+          // console.log(pinList);
+
+          this.setState({
+            teamName: teamName,
+            rawPins: pinList,
+          });
+
+          this.fixRawPins();
+
+          return responseJson;
+        }
+
+        console.log("ERROR");
+        throw new Error(responseJson.error);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  fixRawPins() {
+    console.log("FIX");
+    const rawPins = this.state.rawPins;
+    // console.log(rawPins[0].latitude);
+
+    let newList = [];
+    // var coord = { longitude: 0.0, latitude: 0.0 };
+    // var newMarker = { pin: "", coord };
+
+    for (let i = 0; i < rawPins.length; i++) {
+      var coord = {
+        latitude: rawPins[i].latitude,
+        longitude: rawPins[i].longitude,
+      };
+      var newMarker = { pin: rawPins[i].title, coordinate: coord };
+      newList.push(newMarker);
+    }
+
+    // console.log(newList);
+
+    this.setState({ markers: newList });
+  }
+
+  async componentDidMount() {
+    await this.fetchCurrentTeam(); // set teamId
+    console.log(this.state.teamId);
+
+    await this.getCurrentLocation();
     this.interval = setInterval(() => this.sendCurrentData(), 30000); // sends the current position automatically every 30 seconds
 
     const { coordinate } = await this.state;
 
     this.watchID = navigator.geolocation.watchPosition(
-      position => {
+      (position) => {
         const { routeCoordinates, distanceTravelled } = this.state;
         const { latitude, longitude } = position.coords;
         // const weight = 1;
@@ -166,9 +310,9 @@ class Map extends React.Component {
           longitude,
           // weight
         };
-        
-        console.log("Current Location: " + newCoordinate.latitude)
-        
+
+        console.log("Current Location: " + newCoordinate.latitude);
+
         if (Platform.OS === "android") {
           if (this.marker) {
             this.marker._component.animateMarkerToCoordinate(
@@ -178,49 +322,50 @@ class Map extends React.Component {
           }
         } else {
           coordinate.timing(newCoordinate).start();
-          
-          console.log(this.state.routeCoordinates)
+
+          console.log(this.state.routeCoordinates);
         }
 
         this.setState({
           latitude,
           longitude,
           routeCoordinates: routeCoordinates.concat([newCoordinate]),
-          distanceTravelled: distanceTravelled + this.calcDistance(newCoordinate),
-          prevLatLng: newCoordinate
+          distanceTravelled:
+            distanceTravelled + this.calcDistance(newCoordinate),
+          prevLatLng: newCoordinate,
         });
       },
-      error => console.log(error),
+      (error) => console.log(error),
       {
         enableHighAccuracy: true,
         timeout: 20000,
         maximumAge: 1000,
-        distanceFilter: 0
+        distanceFilter: 0,
       }
     );
   }
 
   // FUNCTION: Getting a user's current location for
   //////////// initial location
- async getCurrentLocation() {
+  async getCurrentLocation() {
     navigator.geolocation.getCurrentPosition(
-        position => {
+      (position) => {
         let region = {
-                latitude: parseFloat(position.coords.latitude),
-                longitude: parseFloat(position.coords.longitude),
-                latitudeDelta: 5,
-                longitudeDelta: 5
-            };
-            this.setState({
-                initialRegion: region
-            });
-        },
-        error => console.log(error),
-        {
-            enableHighAccuracy: true,
-            timeout: 20000,
-            maximumAge: 1
-        }
+          latitude: parseFloat(position.coords.latitude),
+          longitude: parseFloat(position.coords.longitude),
+          latitudeDelta: 5,
+          longitudeDelta: 5,
+        };
+        this.setState({
+          initialRegion: region,
+        });
+      },
+      (error) => console.log(error),
+      {
+        enableHighAccuracy: true,
+        timeout: 20000,
+        maximumAge: 1,
+      }
     );
   }
 
@@ -231,9 +376,7 @@ class Map extends React.Component {
     initialRegion["latitudeDelta"] = 0.005;
     initialRegion["longitudeDelta"] = 0.005;
     this.mapView.animateToRegion(initialRegion, 10);
-  } 
-  
-  
+  }
 
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
@@ -243,37 +386,42 @@ class Map extends React.Component {
     latitude: this.state.latitude,
     longitude: this.state.longitude,
     latitudeDelta: LATITUDE_DELTA,
-    longitudeDelta: LONGITUDE_DELTA
+    longitudeDelta: LONGITUDE_DELTA,
   });
 
-  calcDistance = newLatLng => {
+  calcDistance = (newLatLng) => {
     const { prevLatLng } = this.state;
     return haversine(prevLatLng, newLatLng) || 0;
   };
 
-  
-
-
+  // set default values of new pin and add to list
   handlePress(e) {
+    const coord = e.nativeEvent.coordinate;
+    console.log(coord);
+    const { latitude, longitude } = coord;
     this.setState({
       markers: [
         ...this.state.markers,
         {
-          coordinate: e.nativeEvent.coordinate,
-          pin: `$$getRandomInt(50,300)`
-        }
-      ]
+          // pin: `$$getRandomInt(50,300)`,
+          pin: "new pin",
+          coordinate: coord,
+        },
+      ],
     });
+
+    // pinLat = latitude;
+    // pinLong = longitude;
   }
 
   sendCurrentData() {
     navigator.geolocation.getCurrentPosition(
-      position => {
+      (position) => {
         currentLat = position.coords.latitude;
         currentLong = position.coords.longitude;
         currentLocation = currentLat + "," + currentLong;
       },
-      error => Alert.alert(error.message),
+      (error) => Alert.alert(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     );
 
@@ -295,100 +443,108 @@ class Map extends React.Component {
     const midY = (currentLong + this.points[0].longitude) / 2;
     const deltaY = this.points[0].longitude - currentLong;
 
-    const loc = this.props.navigation.getParam("location", location);
+    // const loc = this.props.navigation.getParam("location", location);
 
     navigator.geolocation.getCurrentPosition(
-      position => {
+      (position) => {
         currentLat = position.coords.latitude;
         currentLong = position.coords.longitude;
         currentLocation = currentLat + "," + currentLong;
       },
-      error => Alert.alert(error.message),
+      (error) => Alert.alert(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     );
 
     return (
       <View style={styles.container}>
-
-      <MapView
-        provider={PROVIDER_GOOGLE}
-        ref={map => (this._map = map)}
-        style={styles.map}
-        // initialRegion={this.state.initialRegion}
-        initialRegion={{
-          latitude: midX,
-          longitude: midY,
-          latitudeDelta: deltaX,
-          longitudeDelta: deltaY
-        }}
-        showsUserLocation
-        followsUserLocation
-        loadingEnabled
-        region={this.getMapRegion()}
-        onLongPress={this.handlePress}
-        showsMyLocationButton={true}
-      >
-        <Polyline coordinates={this.state.routeCoordinates} strokeWidth={0} />
+        <MapView
+          provider={PROVIDER_GOOGLE}
+          ref={(map) => (this._map = map)}
+          style={styles.map}
+          // initialRegion={this.state.initialRegion}
+          initialRegion={{
+            latitude: midX,
+            longitude: midY,
+            latitudeDelta: deltaX,
+            longitudeDelta: deltaY,
+          }}
+          showsUserLocation
+          followsUserLocation
+          loadingEnabled
+          region={this.getMapRegion()}
+          onLongPress={this.handlePress}
+          showsMyLocationButton={true}
+        >
+          <Polyline coordinates={this.state.routeCoordinates} strokeWidth={0} />
           <Marker.Animated
-            ref={marker => {
+            ref={(marker) => {
               this.marker = marker;
             }}
             coordinate={this.state.coordinate}
           />
-          
-        <TouchableOpacity onPress={this.getCurrentPosition}>
-          <Text style={{ height: 100, width: 400 }}>
-            Initial Position: {currentLocation}
-          </Text>
-        </TouchableOpacity>
 
-        <Heatmap
-          initialRegion={this.state.initialPosition}
-          // points={this.points}
-          points={this.state.routeCoordinates}
-          radius={40}
-          gradient={{
-            colors: ["black", "purple", "red", "yellow", "white"],
-            startPoints: [0.01, 0.04, 0.1, 0.45, 0.5],
-            colorMapSize: 200
-          }}
-        />
-        {this.state.markers.map((marker, i, navigation) => {
-          return (
-            <Marker
-              coordinate={(this.state.latitude, this.state.longitude)}
-              key={i}
-              // title="Pin"
-              // description="This is the missing item!"
-              onPress={this.onPress}
-              {...marker}
-              draggable
-              onDragEnd={e => console.log(e.nativeEvent.coordinate)}
-              // image={require("../cougar_walk.jpg")}
-            >
-              <Callout
-                onPress={() => {
-                  this.props.navigation.navigate("PinInformation");
-                }}
+          <TouchableOpacity onPress={this.getCurrentPosition}>
+            <Text style={{ height: 100, width: 400 }}>
+              Initial Position: {currentLocation}
+            </Text>
+          </TouchableOpacity>
+
+          <Heatmap
+            initialRegion={this.state.initialPosition}
+            // points={this.points}
+            points={this.state.routeCoordinates}
+            radius={40}
+            gradient={{
+              colors: ["black", "purple", "red", "yellow", "white"],
+              startPoints: [0.01, 0.04, 0.1, 0.45, 0.5],
+              colorMapSize: 200,
+            }}
+          />
+          {this.state.markers.map((marker, i, navigation) => {
+            // const { lat, long } = marker.coordinate;
+
+            // console.log("MARKER COORD:");
+            // console.log(marker);
+
+            return (
+              <Marker
+                coordinate={marker.coordinate}
+                key={i}
+                title={marker.pin}
+                // description="This is the missing item!"
+                onPress={this.onPress}
+                {...marker}
+                draggable
+                onDragEnd={(e) => console.log(e.nativeEvent.coordinate)}
+                // image={require("../cougar_walk.jpg")}
               >
-                <View>
-                  <Text> {loc} </Text>
-                </View>
-              </Callout>
-            </Marker>
-          );
-        })}
-      </MapView>
-      <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={this.getCurrentLocation} style={[styles.bubble, styles.button]}>
+                <Callout
+                  onPress={() => {
+                    this.props.navigation.navigate("PinInformation", {
+                      lat: marker.coordinate.latitude,
+                      long: marker.coordinate.longitude,
+                    });
+                  }}
+                >
+                  <View>
+                    <Text>{marker.pin}</Text>
+                  </View>
+                </Callout>
+              </Marker>
+            );
+          })}
+        </MapView>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={this.getCurrentLocation}
+            style={[styles.bubble, styles.button]}
+          >
             <Text style={styles.bottomBarContent}>
               {parseFloat(this.state.distanceTravelled).toFixed(2)} mi
             </Text>
           </TouchableOpacity>
         </View>
-
       </View>
-
     );
   }
 }
@@ -398,35 +554,35 @@ const styles = StyleSheet.create({
     flex: 1,
     ...StyleSheet.absoluteFillObject,
     justifyContent: "flex-end",
-    alignItems: "center"
+    alignItems: "center",
   },
   container: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: "flex-end",
-    alignItems: "center"
+    alignItems: "center",
   },
   bubble: {
     flex: 1,
     backgroundColor: "rgba(255,255,255,0.7)",
     paddingHorizontal: 18,
     paddingVertical: 12,
-    borderRadius: 20
+    borderRadius: 20,
   },
   latlng: {
     width: 200,
-    alignItems: "stretch"
+    alignItems: "stretch",
   },
   button: {
     width: 80,
     paddingHorizontal: 12,
     alignItems: "center",
-    marginHorizontal: 10
+    marginHorizontal: 10,
   },
   buttonContainer: {
     flexDirection: "row",
     marginVertical: 20,
-    backgroundColor: "transparent"
-  }
+    backgroundColor: "transparent",
+  },
 });
 
 export default Map;

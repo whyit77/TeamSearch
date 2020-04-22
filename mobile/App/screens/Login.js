@@ -19,8 +19,6 @@ import {
 
 import { NetworkInfo } from "react-native-network-info";
 
-//////// TODO: LEARN TO DO AUTH TO HAVE LOGGED IN ID //////////////////
-
 const initialState = {
   userId: "",
   username: "",
@@ -67,6 +65,15 @@ export default class Login extends React.Component {
       .then(async (res) => {
         const responseJson = await res.json();
         console.log(responseJson);
+
+        // if (responseJson.data == null) {
+        //   const err = responseJson.errors[0].message;
+        //   console.log("RESET");
+        //   this.setState(initialState);
+        //   console.log(this.state.username);
+        //   this.setState({ error: err });
+        //   return responseJson;
+        // }
 
         if (res.ok) {
           console.log("Okay LOGIN");
