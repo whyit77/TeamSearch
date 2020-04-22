@@ -1,22 +1,29 @@
 const { buildSchema } = require("graphql");
 
 module.exports = buildSchema(`
-type Booking {
-    _id: ID!
-    event: Event!
-    user: User!
-    createdAt: String!
-    updatedAt: String!
-}
+  type Booking {
+      _id: ID!
+      event: Event!
+      user: User!
+      createdAt: String!
+      updatedAt: String!
+  }
 
-type Event {
-  _id: ID!
-  title: String!
-  description: String!
-  price: Float!
-  date: String!
-  creator: User!
-}
+  type Event {
+    _id: ID!
+    title: String!
+    description: String!
+    price: Float!
+    date: String!
+    creator: User!
+  }
+
+  type Alert {
+    _id: ID!
+    creator: User!
+    urgency: String!
+    message: String!
+  }
 
 type Team {
   _id: ID!
@@ -27,6 +34,8 @@ type Team {
   code: String!
   creator: User!
   members: [User!]
+  alerts: [Alert]
+  pins: [Pin!]
   createdAt: String!
   updatedAt: String!
 }
@@ -45,10 +54,32 @@ type User {
   createdEvents: [Event!]
 }
 
-type AuthData {
-  userId: ID!
-  token: String!
-  tokenExpiration: Int!
+  type AuthData {
+    userId: ID!
+    token: String!
+    tokenExpiration: Int!
+  }
+
+type Pin {
+  _id: ID!
+  title: String!
+  description: String!
+  latitude: Float!
+  longitude: Float!
+  creator: User!
+}
+
+type Current {
+  userId: String!
+  username: String!
+  teamId: String!
+}
+
+input TeamInput {
+  teamName: String!
+  searchDescription: String!
+  subjectDescription: String!
+  radius: Int
 }
 
 input EventInput {
@@ -58,11 +89,16 @@ input EventInput {
   date: String!
 }
 
-input TeamInput {
-  teamName: String!
-  searchDescription: String!
-  subjectDescription: String!
-  radius: Int!
+  input AlertInput {
+    urgency: String!
+    message: String!
+  }
+
+input PinInput {
+  title: String!
+  description: String!
+  latitude: Float!
+  longitude: Float!
 }
 
 input UserInput {
@@ -76,15 +112,15 @@ input UserInput {
   description: String
 }
 
-type RootQuery {
-    events: [Event!]!
-    bookings: [Booking!]!
-    teams: [Team!]!
-    login(username: String!, password: String!): AuthData!
-    getUser(userId: String!): User!
-    getTeam(teamId: String!): Team!
-    me: User!
-}
+  type RootQuery {
+      events: [Event!]!
+      bookings: [Booking!]!
+      teams: [Team!]!
+      login(username: String!, password: String!): AuthData!
+      getUser(userId: String!): User!
+      getTeam(teamId: String!): Team!
+      me: Current!
+  }
 
 type RootMutation {
     createEvent(eventInput: EventInput): Event
@@ -92,11 +128,17 @@ type RootMutation {
     createTeam(userId: String!, teamInput: TeamInput): Team
     bookEvent(eventId: ID!): Booking!
     cancelBooking(bookingId: ID!): Event!
-    joinTeam(teamCode: String!): Team
+    addUserToTeam(username: String!, teamId: String!): Team
+    createAlert(userId: String!, teamId: String!, alertInput: AlertInput): Alert
+    setUser(userId: String!, username: String!): Current!
+    setTeam(userId: String!, teamId: String!): Current!
+    logout(username: String!): Current
+    joinTeam(userId: String!, teamCode: String!): Team
+    createPin(userId: String!, teamId: String!, pinInput: PinInput): Pin
 }
 
-schema {
-    query: RootQuery
-    mutation: RootMutation
-}
+  schema {
+      query: RootQuery
+      mutation: RootMutation
+  }
 `);

@@ -6,19 +6,22 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   ScrollView,
-  StatusBar
+  StatusBar,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { TextField } from "../components/Form";
 import { mainStyle, formStyle } from "../styles/styles";
+
+import { StackActions } from "@react-navigation/native";
+import { NavigationActions } from "react-navigation";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 });
 
 // export default ({ navigation }) => (
@@ -26,18 +29,72 @@ const styles = StyleSheet.create({
 export default class App extends React.Component {
   // static contextType = AuthContext;
 
-  state = {
-    teamName: "",
-    searchDescription: "",
-    subjectDescription: "",
-    radius: "",
-    code: "",
-    creator: ""
-  };
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
-    // TODO: GET CURRENT TEAM (just made or selected from list) //
-    const teamId = "5e84e6ea4cc6a4552005268c";
+    this.state = {
+      // teamId: this.props.navigation.getParam("teamId"),
+      teamId: "",
+      teamName: "",
+      searchDescription: "",
+      subjectDescription: "",
+      radius: "",
+      code: "",
+      creator: "",
+    };
+  }
+
+  async fetchCurrentTeam() {
+    let requestBody = {
+      query: `
+        query {
+          me {
+            userId
+            username
+            teamId
+          }
+        }
+      `, // me query pulls first person in database
+    };
+
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.11:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(async (res) => {
+        // if (res.status !== 200 && res.status !== 201) {
+        //   throw new Error("Failed!");
+        // }
+
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          // set currently selected team in state
+          const teamId = responseJson.data.me.teamId;
+
+          this.setState({
+            teamId: teamId,
+          });
+
+          return responseJson;
+        }
+
+        throw new Error(responseJson.error);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  fetchTeam() {
+    // TODO: GET CURRENT TEAM (just made or selected from list) // done
+    // const teamId = "5e8128d77fa7512864614453";
+    const teamId = this.state.teamId;
 
     let requestBody = {
       query: `
@@ -55,19 +112,19 @@ export default class App extends React.Component {
             }
           }`,
       variables: {
-        teamId: teamId
-      }
+        teamId: teamId,
+      },
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://<IPv4>:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(async res => {
+      .then(async (res) => {
         const responseJson = await res.json();
         console.log(responseJson);
 
@@ -86,7 +143,7 @@ export default class App extends React.Component {
             subjectDescription: subjectDescription,
             radius: radius,
             code: code,
-            creator: creator
+            creator: creator,
           });
 
           return responseJson;
@@ -94,9 +151,38 @@ export default class App extends React.Component {
 
         throw new Error(responseJson.error);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
+  }
+
+  componentDidMount() {
+    this.fetchCurrentTeam(); // get currently selected team
+    console.log("mount");
+    // const isFocused = this.props.navigation.isFocused();
+    // if (isFocused) {
+    //   console.log("mount 2...");
+    //   this.fetchCurrentTeam();
+    // }
+  }
+
+  componentWillUnmount() {
+    console.log("unmount");
+    // const resetAction = NavigationActions.reset({
+    //   index: 0,
+    //   actions: [NavigationActions.navigate({ routeName: "TeamList" })]
+    // });
+    // this.props.navigation.dispatch(resetAction);
+    // this.props.navigation.getParam("refresh");
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.teamId !== this.state.teamId) {
+      console.log("UPDATING...");
+      this.fetchTeam();
+    }
+    // this.fetchTeam();
+    // console.log("update");
   }
 
   render() {

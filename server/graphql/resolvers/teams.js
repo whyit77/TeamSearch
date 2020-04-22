@@ -1,13 +1,15 @@
 const Team = require("../../models/team");
 const User = require("../../models/user");
-const { transformTeam, bindUser } = require("./merge");
+const Alert = require("../../models/alert");
+const Current = require("../../models/current");
+const { transformTeam, bindUser, transformAlert } = require("./merge");
 const randomize = require("randomatic");
 
 module.exports = {
   teams: async () => {
     try {
       const teams = await Team.find();
-      return teams.map(team => {
+      return teams.map((team) => {
         return transformTeam(team);
       });
     } catch (err) {
@@ -37,10 +39,7 @@ module.exports = {
     // if (!req.isAuth) {
     // 	throw new Error('Unauthenticated!');
     // }
-
-    // TODO: NEED CURRENT LOGGED IN USER ID ///
-    req.userId = "5e815389f1088e659c4bddc4";
-    let creator;
+    // let creator;
     try {
       const creator = await User.findById(args.userId);
       if (!creator) {
@@ -62,7 +61,7 @@ module.exports = {
 
       let createdTeam = transformTeam(result);
 
-      console.log(createdTeam);
+      // console.log(createdTeam);
 
       creator.createdTeams.push(team);
       creator.joinedTeams.push(team);
@@ -91,6 +90,7 @@ module.exports = {
         throw new Error("Team not found.");
       }
 
+      // TODO: CHECK IF USER IS ALREADY IN TEAM //
       team.members.push(user);
       await team.save();
 
@@ -102,5 +102,98 @@ module.exports = {
       console.log(err);
       throw err;
     }
-  }
+  },
+  addUserToTeam: async (args, req) => {
+    // if (!req.isAuth) {
+    // 	throw new Error('Unauthenticated!');
+    // }
+
+    try {
+      let user = await User.findOne({ username: args.username });
+      if (!user) {
+        throw new Error("User not found.");
+      }
+
+      let team = await Team.findById(args.teamId);
+      if (!team) {
+        throw new Error("Team not found.");
+      }
+
+      team.members.push(user);
+      await team.save();
+
+      user.joinedTeams.push(team);
+      await user.save();
+
+      return transformTeam(team);
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  },
+  createAlert: async (args, req) => {
+    //////////////////////////////////// TODO /////////////////////////////
+    // if (!req.isAuth) {
+    // 	throw new Error('Unauthenticated!');
+    // }
+
+    // args.userId = "5e7031dc9c7708107b2bfaa7";
+    // args.teamId = "5e96a01304852dfea220a0db";
+    // args.alertInput.urgency = "High";
+    // args.alertInput.message = "This is a highly urgent alert";
+
+    try {
+      let user = await User.findById(args.userId);
+      if (!user) {
+        throw new Error("User not found.");
+      }
+
+      let team = await Team.findById(args.teamId);
+      if (!team) {
+        throw new Error("Team not found.");
+      }
+
+      console.log(user);
+
+      const alert = new Alert({
+        creator: args.userId,
+        urgency: args.alertInput.urgency,
+        message: args.alertInput.message,
+      });
+      console.log(alert);
+
+      const result = await alert.save();
+
+      let createdAlert = transformAlert(result);
+      console.log(createdAlert);
+
+      team.alerts.push(alert);
+      await team.save();
+
+      return createdAlert;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  },
+  // FOR HOLDING CURRENT SELECTED TEAM IN USER DATA // ////////////////////////////////////
+  setTeam: async (args, req) => {
+    console.log("ADD TO TEAM CURRENT");
+
+    try {
+      const curr = await Current.findOneAndUpdate({ userId: args.userId });
+      if (!curr) {
+        throw new Error("User not found.");
+      }
+
+      curr.teamId = args.teamId;
+      const result = await curr.save();
+      console.log(curr);
+
+      return curr;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  },
 };
