@@ -25,34 +25,44 @@ module.exports = buildSchema(`
     message: String!
   }
 
-type Team {
-  _id: ID!
-  teamName: String!
-  searchDescription: String!
-  subjectDescription: String!
-  radius: Int!
-  code: String!
-  creator: User!
-  members: [User!]
-  alerts: [Alert]
-  pins: [Pin!]
-  createdAt: String!
-  updatedAt: String!
-}
+  type Team {
+    _id: ID!
+    teamName: String!
+    searchDescription: String!
+    subjectDescription: String!
+    radius: Int!
+    code: String!
+    creator: User!
+    members: [User!]
+    alerts: [Alert!]
+    pins: [Pin!]
+    coordinates: [Coordinate!]
+    createdAt: String!
+    updatedAt: String!
+  }
 
-type User {
-  _id: ID!
-  username: String!
-  email: String!
-  firstName: String!
-  lastName: String!
-  password: String!
-  phone: String!
-  description: String
-  joinedTeams: [Team!]
-  createdTeams: [Team!]
-  createdEvents: [Event!]
-}
+  type Coordinate {
+    _id: ID!
+    creator: User!
+    latitude: Float!
+    longitude: Float!
+    gradient: Int
+    Color: String
+  }
+
+  type User {
+    _id: ID!
+    username: String!
+    email: String!
+    firstName: String!
+    lastName: String!
+    password: String!
+    phone: String!
+    description: String
+    joinedTeams: [Team!]
+    createdTeams: [Team!]
+    createdEvents: [Event!]
+  }
 
   type AuthData {
     userId: ID!
@@ -60,57 +70,62 @@ type User {
     tokenExpiration: Int!
   }
 
-type Pin {
-  _id: ID!
-  title: String!
-  description: String!
-  latitude: Float!
-  longitude: Float!
-  creator: User!
-}
+  type Pin {
+    _id: ID!
+    title: String!
+    description: String!
+    latitude: Float!
+    longitude: Float!
+    creator: User!
+  }
 
-type Current {
-  userId: String!
-  username: String!
-  teamId: String!
-}
+  type Current {
+    userId: String!
+    username: String!
+    teamId: String!
+  }
 
-input TeamInput {
-  teamName: String!
-  searchDescription: String!
-  subjectDescription: String!
-  radius: Int
-}
+  input TeamInput {
+    teamName: String!
+    searchDescription: String!
+    subjectDescription: String!
+    radius: Int
+  }
 
-input EventInput {
-  title: String!
-  description: String!
-  price: Float!
-  date: String!
-}
+  input EventInput {
+    title: String!
+    description: String!
+    price: Float!
+    date: String!
+  }
 
   input AlertInput {
     urgency: String!
     message: String!
   }
 
-input PinInput {
-  title: String!
-  description: String!
-  latitude: Float!
-  longitude: Float!
-}
+  input PinInput {
+    title: String!
+    description: String!
+    latitude: Float!
+    longitude: Float!
+  }
 
-input UserInput {
-  username: String!
-  email: String!
-  firstName: String!
-  lastName: String!
-  password: String!
-  repassword: String!
-  phone: String!
-  description: String
-}
+  input CoordinateInput {
+    latitude: Float!
+    longitude: Float!
+  }
+
+  input UserInput {
+    username: String!
+    email: String!
+    firstName: String!
+    lastName: String!
+    password: String!
+    repassword: String!
+    phone: String!
+    description: String
+  }
 
   type RootQuery {
       events: [Event!]!
@@ -122,7 +137,7 @@ input UserInput {
       me: Current!
   }
 
-type RootMutation {
+  type RootMutation {
     createEvent(eventInput: EventInput): Event
     createUser(userInput: UserInput): User
     createTeam(userId: String!, teamInput: TeamInput): Team
@@ -135,10 +150,11 @@ type RootMutation {
     logout(username: String!): Current
     joinTeam(userId: String!, teamCode: String!): Team
     createPin(userId: String!, teamId: String!, pinInput: PinInput): Pin
-}
+    createCoordinate(userId: String!, teamId: String!, coordinateInput: CoordinateInput): Coordinate
+  }
 
   schema {
-      query: RootQuery
-      mutation: RootMutation
+    query: RootQuery
+    mutation: RootMutation
   }
 `);

@@ -4,6 +4,8 @@ const bookingResolver = require('./booking');
 const teamResolver = require('./teams');
 const userInfoResolver = require('./userInfo');
 const pinResolver = require('./pin');
+const alertResolver = require('./alert');
+const coordinateResolver = require('./coordinate');
 
 const rootResolver = {
   ...authResolver,
@@ -12,6 +14,8 @@ const rootResolver = {
   ...teamResolver,
   ...userInfoResolver,
   ...pinResolver,
+  ...alertResolver,
+  ...coordinateResolver,
 };
 
 module.exports = rootResolver;

@@ -52,6 +52,12 @@ const teamSchema = new Schema(
         ref: "Alert",
       },
     ],
+    coordinates: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Coordinate",
+      },
+    ],
   },
   { timestamps: true }
 );
