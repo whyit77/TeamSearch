@@ -329,18 +329,18 @@ class Map extends React.Component {
         showsMyLocationButton={true}
       >
         <Polyline coordinates={this.state.routeCoordinates} strokeWidth={0} />
-          <Marker.Animated
+          {/* <Marker.Animated
             ref={marker => {
               this.marker = marker;
             }}
             coordinate={this.state.coordinate}
-          />
+          /> */}
           
-        <TouchableOpacity onPress={this.getCurrentPosition}>
+        {/* <TouchableOpacity onPress={this.getCurrentPosition}>
           <Text style={{ height: 100, width: 400 }}>
             Initial Position: {currentLocation}
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <Heatmap
           initialRegion={this.state.initialPosition}
@@ -409,7 +409,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(255,255,255,0.7)",
     paddingHorizontal: 18,
-    paddingVertical: 12,
+    paddingVertical: 2,
     borderRadius: 20
   },
   latlng: {

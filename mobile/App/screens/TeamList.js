@@ -13,6 +13,8 @@ import { Team } from "../components/Team";
 import { mainStyle } from "../styles/styles";
 import CreateTeamMenuIcon from "../components/CreateTeamMenuIcon";
 import { TeamListCard } from "../components/TeamListCard";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 
 import { NavigationEvents } from "react-navigation";
 
@@ -46,7 +48,7 @@ export default class TeamList extends Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -95,7 +97,7 @@ export default class TeamList extends Component {
       },
     };
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -151,7 +153,7 @@ export default class TeamList extends Component {
     if (this.state.count == 1) {
       console.log("fetching...");
 
-      fetch("http://192.168.1.11:3000/graphql", {
+      fetch("http://192.168.1.10:3000/graphql", {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {
@@ -272,6 +274,8 @@ export default class TeamList extends Component {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+        <KeyboardAwareScrollView extraScrollHeight={50}>
+
         {this.state.data.length != 0 ? (
           <FlatList
             data={this.state.data}
@@ -294,6 +298,7 @@ export default class TeamList extends Component {
         ) : (
           <Text style={mainStyle.bigText}>No Teams to Display</Text>
         )}
+        </KeyboardAwareScrollView>
       </SafeAreaView>
     );
   }

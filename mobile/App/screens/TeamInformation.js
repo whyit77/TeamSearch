@@ -11,6 +11,7 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { TextField } from "../components/Form";
 import { mainStyle, formStyle } from "../styles/styles";
+import { Button } from "../components/Button";
 
 import { StackActions } from "@react-navigation/native";
 import { NavigationActions } from "react-navigation";
@@ -58,7 +59,7 @@ export default class App extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -117,7 +118,7 @@ export default class App extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -241,12 +242,17 @@ export default class App extends React.Component {
             </View>
             <View>
               <View style={formStyle.buttons}>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   style={formStyle.formButton}
                   onPress={() => this.props.navigation.navigate("TeamAlerts")}
                 >
                   <Text style={mainStyle.smallText}>Alerts</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+                <Button
+                  style={formStyle.formButton}
+                  text="Alerts"
+                  onPress={() => this.props.navigation.navigate("TeamAlerts")}
+                />
               </View>
             </View>
           </ScrollView>

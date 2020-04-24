@@ -49,7 +49,15 @@ const mainStyle = StyleSheet.create({
     fontSize: 30,
     color: WHITE,
     margin: 10,
-    textAlign: 'center'
+    textAlign: 'center',
+  },
+  titleDisplay: {
+    fontSize: 30,
+    color: WHITE,
+    margin: 10,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    
   },
   smallText: {
     fontSize: 20,
@@ -182,8 +190,8 @@ const formStyle = StyleSheet.create({
     // paddingVertical: 9,
     // paddingHorizontal: 20,
     borderRadius: 30,
-    width: 250,
-     marginTop: 10,
+    width: 150,
+    marginTop: 10,
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',

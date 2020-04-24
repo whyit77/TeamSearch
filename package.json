@@ -1,10 +1,12 @@
 {
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.6",
+    "connect": "^3.7.0",
     "format-code": "yarn run prettier && yarn run lint:fix",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --write \"*.js\"",
+    "react-native-dialog-input": "^1.0.7",
     "react-native-gesture-handler": "^1.5.3",
     "react-native-keyboard-aware-scrollview": "^2.1.0",
     "react-native-network-info": "^5.2.1",

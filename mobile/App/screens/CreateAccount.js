@@ -78,7 +78,7 @@ export default class CreateAccount extends React.Component {
     };
 
     // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -229,6 +229,7 @@ export default class CreateAccount extends React.Component {
                   value={this.state.password}
                   autoCapitalize="none"
                   style={formStyle.placeholderStyle}
+                  placeholder="8 characters long"
                   color="white"
                   selectionColor="red"
                   keyboardAppearance="dark"
@@ -260,7 +261,7 @@ export default class CreateAccount extends React.Component {
                 <Text style={formStyle.label}>Certifications/Description</Text>
                 <TextField
                   //label="Certifications/Description"
-                  placeholder="CPR certified, own a trained search hound, etc..."
+                  placeholder="CPR certified, etc.."
                   onChangeText={(description) => this.setState({ description })}
                   value={this.state.description}
                   autoCapitalize="none"

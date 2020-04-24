@@ -57,7 +57,7 @@ export default class Login extends React.Component {
     };
 
     // CHECK IP ADDRESS ////////////////////////////////////////////////////////////////////////////// 192.168.1.9
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -116,7 +116,7 @@ export default class Login extends React.Component {
       },
     };
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -183,7 +183,7 @@ export default class Login extends React.Component {
                 selectionColor="red"
                 keyboardAppearance="dark"
               />
-              <View style={formStyle.textBlock}>
+              {/* <View style={formStyle.textBlock}>
                 <TouchableOpacity
                   onPress={() => this.props.navigation.navigate("Reset")}
                 >
@@ -191,7 +191,7 @@ export default class Login extends React.Component {
                     Forgot Password?
                   </Text>
                 </TouchableOpacity>
-              </View>
+              </View> */}
               <ErrorText text={this.state.error} />
               <View style={formStyle.formButtonContainer}>
                 <Button
