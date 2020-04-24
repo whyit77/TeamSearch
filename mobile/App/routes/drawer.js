@@ -13,6 +13,7 @@ import SettingsStack from "./settingsStack";
 import Alert from "react-native";
 import PinInformationStack from "./pinInformationStack";
 import React, { Component } from "react";
+import HiddenDrawerItem from "../components/HiddenDrawerItem";
 
 const RootDrawerNavigator = createDrawerNavigator(
   {
@@ -26,6 +27,7 @@ const RootDrawerNavigator = createDrawerNavigator(
       screen: ResetPasswordStack,
       navigationOptions: {
         title: "Reset Password",
+        drawerLabel: <HiddenDrawerItem />,
       },
     },
     FirstTimeUserCreation: {
@@ -68,6 +70,7 @@ const RootDrawerNavigator = createDrawerNavigator(
       screen: PinInformationStack,
       navigationOptions: {
         title: "Pin Information",
+        drawerLabel: <HiddenDrawerItem />,
       },
     },
     TeamAlerts: {
