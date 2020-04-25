@@ -7,6 +7,8 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   StatusBar,
+  RefreshControl,
+  ActivityIndicator,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { TextField } from "../components/Form";
@@ -41,6 +43,7 @@ export default class App extends React.Component {
       radius: "",
       code: "",
       creator: "",
+      refreshing: true
     };
   }
 
@@ -79,6 +82,7 @@ export default class App extends React.Component {
 
           this.setState({
             teamId: teamId,
+            refreshing: false,
           });
 
           return responseJson;
@@ -144,6 +148,7 @@ export default class App extends React.Component {
             radius: radius,
             code: code,
             creator: creator,
+            refreshing: false,
           });
 
           return responseJson;
@@ -184,8 +189,30 @@ export default class App extends React.Component {
     // this.fetchTeam();
     // console.log("update");
   }
-
+  onRefresh() {
+    //Clear old data of the list
+    this.setState({ 
+      teamId: "",
+      teamName: "",
+      searchDescription: "",
+      subjectDescription: "",
+      radius: "",
+      code: "",
+      creator: "",
+      refreshing: true
+    });
+    //Call the Service to get the latest data
+    this.fetchCurrentTeam();
+  } 
   render() {
+    if (this.state.refreshing) {
+      return (
+        //loading view while data is loading
+        <View style={{ flex: 1,  backgroundColor: "#5c5c5c", paddingTop: 20 }}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
     return (
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
@@ -195,7 +222,14 @@ export default class App extends React.Component {
           behavior="padding"
           enabled
         >
-          <ScrollView contentContainerStyle={formStyle.formContainer}>
+          <ScrollView contentContainerStyle={formStyle.formContainer}
+                      refreshControl={
+                        <RefreshControl
+                          //refresh control used for the Pull to Refresh
+                          refreshing={this.state.refreshing}
+                          onRefresh={this.onRefresh.bind(this)}
+                        />
+                      }>
             <View style={(formStyle.formContainer, { paddingVertical: 20 })}>
               <Text style={formStyle.label}>Team Name: </Text>
               <TextField editable={false}>
@@ -249,6 +283,7 @@ export default class App extends React.Component {
                 </TouchableOpacity>
               </View>
             </View>
+            
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
