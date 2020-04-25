@@ -217,6 +217,10 @@ class Map extends React.Component {
                 title
                 latitude
                 longitude
+                description
+                creator {
+                  username
+                }
               }
             }
           }`,
@@ -280,7 +284,13 @@ class Map extends React.Component {
         latitude: rawPins[i].latitude,
         longitude: rawPins[i].longitude,
       };
-      var newMarker = { pin: rawPins[i].title, coordinate: coord };
+      var newMarker = {
+        pin: rawPins[i].title,
+        coordinate: coord,
+        creator: rawPins[i].creator.username,
+        description: rawPins[i].description,
+        new: false, // mark if pin is NOT new (not editable)
+      };
       newList.push(newMarker);
     }
 
@@ -398,7 +408,7 @@ class Map extends React.Component {
   handlePress(e) {
     const coord = e.nativeEvent.coordinate;
     console.log(coord);
-    const { latitude, longitude } = coord;
+    // const { latitude, longitude } = coord;
     this.setState({
       markers: [
         ...this.state.markers,
@@ -406,6 +416,9 @@ class Map extends React.Component {
           // pin: `$$getRandomInt(50,300)`,
           pin: "new pin",
           coordinate: coord,
+          creator: this.state.userId,
+          description: "",
+          new: true, // new pin (editable)
         },
       ],
     });
@@ -503,8 +516,8 @@ class Map extends React.Component {
           {this.state.markers.map((marker, i, navigation) => {
             // const { lat, long } = marker.coordinate;
 
-            // console.log("MARKER COORD:");
-            // console.log(marker);
+            // console.log("MARKER creator:");
+            // console.log(marker.creator);
 
             return (
               <Marker
@@ -523,6 +536,10 @@ class Map extends React.Component {
                     this.props.navigation.navigate("PinInformation", {
                       lat: marker.coordinate.latitude,
                       long: marker.coordinate.longitude,
+                      name: marker.pin,
+                      desc: marker.description,
+                      creator: marker.creator,
+                      flag: marker.new,
                     });
                   }}
                 >

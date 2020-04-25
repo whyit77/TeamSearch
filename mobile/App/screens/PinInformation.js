@@ -37,10 +37,12 @@ const initialState = {
   username: "",
   teamId: "",
   pinName: "",
-  pinLat: 0.0,
-  pinLong: 0.0,
+  pinLat: "",
+  pinLong: "",
   description: "",
+  creator: "",
   error: "",
+  flag: "",
 };
 
 class PinInformation extends React.Component {
@@ -88,6 +90,8 @@ class PinInformation extends React.Component {
             teamId: teamId,
           });
 
+          // this.setParams();
+
           return responseJson;
         }
 
@@ -97,6 +101,24 @@ class PinInformation extends React.Component {
         console.log(err);
       });
   }
+
+  // setParams() {
+  //   console.log("params");
+  //   const lat = this.props.navigation.getParam("lat");
+  //   const lon = this.props.navigation.getParam("long");
+  //   const name = this.props.navigation.getParam("name");
+  //   const desc = this.props.navigation.getParam("desc");
+  //   const cre = this.props.navigation.getParam("creator");
+  //   const fl = this.props.navigation.getParam("flag");
+  //   this.setState({
+  //     pinLat: lat,
+  //     pinLong: lon,
+  //     pinName: name,
+  //     description: desc,
+  //     creator: cre,
+  //     flag: fl,
+  //   });
+  // }
 
   handleSubmit = () => {
     const userId = this.state.userId;
@@ -117,6 +139,9 @@ class PinInformation extends React.Component {
               description
               latitude
               longitude
+              creator {
+                username
+              }
             }
           }
         `,
@@ -145,6 +170,9 @@ class PinInformation extends React.Component {
 
         if (res.ok) {
           console.log("Okay PIN");
+          const creator = responseJson.data.createPin.creator.username;
+
+          this.setState({ creator: creator });
 
           this.props.navigation.navigate("MapView");
           this.setState(initialState);
@@ -157,6 +185,8 @@ class PinInformation extends React.Component {
       .catch((err) => {
         console.log(err);
       });
+
+    this.forceUpdate(); // update components
   };
 
   async componentDidMount() {
@@ -165,23 +195,27 @@ class PinInformation extends React.Component {
     this.setState({
       pinLat: this.props.navigation.getParam("lat"),
       pinLong: this.props.navigation.getParam("long"),
+      pinName: this.props.navigation.getParam("name"),
+      description: this.props.navigation.getParam("desc"),
+      creator: this.props.navigation.getParam("creator"),
+      flag: this.props.navigation.getParam("flag"),
     });
   }
 
   render() {
-    return (
+    return this.state.flag ? ( // if it is a new pin, editable
       <View style={formStyle.formContainer}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
         <ScrollView contentContainerStyle={formStyle.formContainer}>
           <View style={mainStyle.container}>
             {/* <Image
-              style={{ width: 100, height: 100 }}
-              source={{
-                uri:
-                  "https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png"
-              }}
-            /> */}
+                style={{ width: 100, height: 100 }}
+                source={{
+                  uri:
+                    "https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png"
+                }}
+              /> */}
           </View>
           <Text style={formStyle.label}>Pinned By: {this.state.username}</Text>
           <Text style={formStyle.label}>Pin Title:</Text>
@@ -205,6 +239,35 @@ class PinInformation extends React.Component {
               <Text style={buttonStyle.buttonText}>Apply</Text>
             </TouchableOpacity>
           </View>
+        </ScrollView>
+      </View>
+    ) : (
+      <View style={formStyle.formContainer}>
+        <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+
+        <ScrollView contentContainerStyle={formStyle.formContainer}>
+          <View style={mainStyle.container}>
+            {/* <Image
+                style={{ width: 100, height: 100 }}
+                source={{
+                  uri:
+                    "https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png"
+                }}
+              /> */}
+          </View>
+          <Text style={formStyle.label}>Pinned By: {this.state.creator}</Text>
+          <Text style={formStyle.label}>Pin Title: {this.state.pinName}</Text>
+          <Text style={formStyle.label}>
+            Pin Description: {this.state.description}
+          </Text>
+          {/* <View style={mainStyle.container}>
+              <TouchableOpacity
+                style={buttonStyle.buttonContainer}
+                onPress={() => this.handleSubmit()}
+              >
+                <Text style={buttonStyle.buttonText}>Apply</Text>
+              </TouchableOpacity>
+            </View> */}
         </ScrollView>
       </View>
     );
