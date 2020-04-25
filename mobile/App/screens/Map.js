@@ -14,7 +14,8 @@ import MapView, {
   Marker,
   Polyline,
   AnimatedRegion, 
-  Callout
+  Callout,
+  camera
 } from "react-native-maps";
 import haversine from "haversine";
 import { EmbeddedWebView } from "../components/EmbeddedWebView";
@@ -327,6 +328,14 @@ class Map extends React.Component {
         region={this.getMapRegion()}
         onLongPress={this.handlePress}
         showsMyLocationButton={true}
+        // mapType="mutedStandard"
+        customMapStyle={{tintColor: "red"}}
+        userLocationPriority='high'
+        userLocationUpdateInterval={15000}
+        loadingEnabled={true}
+        compassOffset={false}
+        tintColor={'red'}
+        showsCompass={true}
       >
         <Polyline coordinates={this.state.routeCoordinates} strokeWidth={0} />
           {/* <Marker.Animated
