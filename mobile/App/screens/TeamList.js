@@ -8,10 +8,13 @@ import {
   SafeAreaView,
   StatusBar,
   FlatList,
+  RefreshControl,
+  ActivityIndicator,
 } from "react-native";
 import { Team } from "../components/Team";
 import { mainStyle } from "../styles/styles";
 import CreateTeamMenuIcon from "../components/CreateTeamMenuIcon";
+import CreateTeam from "../screens/CreateTeam";
 import { TeamListCard } from "../components/TeamListCard";
 
 import { NavigationEvents } from "react-navigation";
@@ -28,6 +31,7 @@ export default class TeamList extends Component {
       teamId: "",
       count: 1,
       data: [],
+      refreshing: true
     };
   }
 
@@ -46,7 +50,7 @@ export default class TeamList extends Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.0.152:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -63,6 +67,7 @@ export default class TeamList extends Component {
 
           this.setState({
             userId: userId,
+            refreshing: false,
           });
 
           return responseJson;
@@ -95,7 +100,7 @@ export default class TeamList extends Component {
       },
     };
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.0.152:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -112,7 +117,10 @@ export default class TeamList extends Component {
           return responseJson;
         }
 
-        this.setState({ error: responseJson.errors[0].message });
+        this.setState({ 
+          refreshing: false,
+          error: responseJson.errors[0].message
+        });
         throw new Error(responseJson.error);
       })
       .catch((err) => {
@@ -126,10 +134,10 @@ export default class TeamList extends Component {
 
     let requestBody = {
       query: `
-		      query getUser($userId: String!) {
-		        getUser(userId: $userId) {
+          query getUser($userId: String!) {
+            getUser(userId: $userId) {
               username
-		          joinedTeams {
+              joinedTeams {
                 _id
                 teamName
                 subjectDescription
@@ -139,10 +147,10 @@ export default class TeamList extends Component {
                 members {
                   username
                 }
-		          }
-		        }
-		      }
-		    `,
+              }
+            }
+          }
+        `,
       variables: {
         userId: userId,
       },
@@ -151,7 +159,7 @@ export default class TeamList extends Component {
     if (this.state.count == 1) {
       console.log("fetching...");
 
-      fetch("http://192.168.1.11:3000/graphql", {
+      fetch("http://192.168.0.152:3000/graphql", {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {
@@ -175,6 +183,7 @@ export default class TeamList extends Component {
             }
 
             this.setState({
+              refreshing: false,
               data: info,
             });
 
@@ -194,6 +203,12 @@ export default class TeamList extends Component {
 
   componentDidMount() {
     this.fetchCurrentUser(); // get logged in user
+    this.willFocusSubscription = this.props.navigation.addListener(
+      'willFocus',
+      () => {
+        this.fetchCurrentUser();
+      }
+    );
     // this.fetchUserTeams(); // populate team list
     console.log("MOUNTED");
     // const isFocused = this.props.navigation.isFocused();
@@ -213,9 +228,12 @@ export default class TeamList extends Component {
   }
 
   componentWillUnmount() {
+    this.willFocusSubscription.remove();
     // Remove the event listener before removing the screen from the stack
     // this.focusListener.remove();
     console.log("unm");
+    // this.focusListener.remove();
+    // clearTimeout(this.state)
   }
 
   // componentDidMount() {
@@ -254,6 +272,7 @@ export default class TeamList extends Component {
           }}
           option1Click={() => {
             navigation.navigate("CreateTeam");
+            console.log("Clicked");
           }}
           option2Click={() => {
             navigation.navigate("TeamInfo");
@@ -267,8 +286,29 @@ export default class TeamList extends Component {
       ),
     };
   };
-
+  onRefresh() {
+    //Clear old data of the list
+    this.setState({ 
+      status: "Active",
+      joinedTeams: [],
+      teamId: "",
+      count: 1,
+      data: [],
+      refreshing: true
+    });
+    //Call the Service to get the latest data
+    this.fetchUserTeams();
+  }
   render() {
+
+    if (this.state.refreshing) {
+      return (
+        //loading view while data is loading
+        <View style={{ flex: 1,  backgroundColor: "#5c5c5c", paddingTop: 20 }}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
     return (
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
@@ -289,6 +329,13 @@ export default class TeamList extends Component {
                 </TouchableOpacity>
               );
             }}
+            refreshControl={
+              <RefreshControl
+                //refresh control used for the Pull to Refresh
+                refreshing={this.state.refreshing}
+                onRefresh={this.onRefresh.bind(this)}
+              />
+            }
             keyExtractor={(item, index) => index}
           />
         ) : (
