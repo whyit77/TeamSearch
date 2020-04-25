@@ -20,7 +20,8 @@ const RootDrawerNavigator = createDrawerNavigator(
     Login: {
       screen: LoginStack,
       navigationOptions: {
-        title: "Sign Out",
+        title: "Login",
+        drawerLabel: <HiddenDrawerItem />,
       },
     },
     ResetPassword: {
@@ -34,6 +35,7 @@ const RootDrawerNavigator = createDrawerNavigator(
       screen: FirstTimeUserCreationStack,
       navigationOptions: {
         title: "Create Account",
+        drawerLabel: <HiddenDrawerItem />,
       },
     },
     TeamListView: {

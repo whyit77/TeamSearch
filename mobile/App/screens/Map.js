@@ -17,6 +17,7 @@ import MapView, {
   Callout,
 } from "react-native-maps";
 import haversine from "haversine";
+import { radius } from "../screens/TeamInformation";
 // import { EmbeddedWebView } from "../components/EmbeddedWebView";
 // import { location } from "../screens/PinInformation";
 
@@ -168,7 +169,7 @@ class Map extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.3:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -226,7 +227,7 @@ class Map extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.3:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -437,6 +438,7 @@ class Map extends React.Component {
   }
 
   render() {
+    const searchRadius = this.props.navigation.getParam("radius", radius);
     const midX = (currentLat + this.points[0].latitude) / 2;
     const deltaX = this.points[0].latitude - currentLat;
 
@@ -528,6 +530,7 @@ class Map extends React.Component {
                 >
                   <View>
                     <Text>{marker.pin}</Text>
+                    <Text> {searchRadius} </Text>
                   </View>
                 </Callout>
               </Marker>

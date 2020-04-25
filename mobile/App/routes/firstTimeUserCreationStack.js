@@ -6,21 +6,20 @@ import React from "react";
 const screens = {
   CreateAccount: {
     screen: CreateAccount,
-    navigationOptions: ({ navigation }) => {
+    navigationOptions: () => {
       return {
-        headerTitle: () => (
-          <Header navigation={navigation} title="Create Account" />
-        )
+        headerTitle: "Create Account",
+        headerTintColor: "white",
       };
-    }
-  }
+    },
+  },
 };
 
 const FirstTimeUserCreationStack = createStackNavigator(screens, {
   defaultNavigationOptions: {
     headerTintColor: "#444",
-    headerStyle: { backgroundColor: "#292929", height: 100 }
-  }
+    headerStyle: { backgroundColor: "#292929", height: 100 },
+  },
 });
 
 export default FirstTimeUserCreationStack;
