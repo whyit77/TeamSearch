@@ -11,10 +11,6 @@ module.exports = {
     // 	throw new Error('Unauthenticated!');
     // }
 
-    // TODO: NEED CURRENT LOGGED IN USER ID ///
-    // args.userId = "5e7031dc9c7708107b2bfaa7";
-    // args.teamId = "5e96a01304852dfea220a0db";
-    let creator;
     try {
       let user = await User.findById(args.userId);
       if (!user) {
@@ -35,7 +31,7 @@ module.exports = {
       });
 
       const result = await pin.save();
-      console.log(pin);
+      // console.log(pin);
 
       let createdPin = transformPin(result);
 

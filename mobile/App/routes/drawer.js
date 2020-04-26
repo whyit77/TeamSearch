@@ -64,12 +64,12 @@ const RootDrawerNavigator = createDrawerNavigator(
         title: "Heatmap",
       },
     },
-    PinInformation: {
-      screen: PinInformationStack,
-      navigationOptions: {
-        title: "Pin Information",
-      },
-    },
+    // PinInformation: {
+    //   screen: PinInformationStack,
+    //   navigationOptions: {
+    //     title: "Pin Information",
+    //   },
+    // },
     TeamAlerts: {
       screen: TeamAlertsStack,
       navigationOptions: {

@@ -36,8 +36,18 @@ type Team {
   members: [User!]
   alerts: [Alert]
   pins: [Pin!]
+  coordinates: [Coordinate!]
   createdAt: String!
   updatedAt: String!
+}
+
+type Coordinate {
+  _id: ID!
+  creator: User!
+  latitude: Float!
+  longitude: Float!
+  gradient: Int
+  Color: String
 }
 
 type User {
@@ -54,11 +64,11 @@ type User {
   createdEvents: [Event!]
 }
 
-  type AuthData {
-    userId: ID!
-    token: String!
-    tokenExpiration: Int!
-  }
+type AuthData {
+  userId: ID!
+  token: String!
+  tokenExpiration: Int!
+}
 
 type Pin {
   _id: ID!
@@ -89,10 +99,10 @@ input EventInput {
   date: String!
 }
 
-  input AlertInput {
-    urgency: String!
-    message: String!
-  }
+input AlertInput {
+  urgency: String!
+  message: String!
+}
 
 input PinInput {
   title: String!
@@ -100,6 +110,12 @@ input PinInput {
   latitude: Float!
   longitude: Float!
 }
+
+input CoordinateInput {
+  latitude: Float!
+  longitude: Float!
+}
+
 
 input UserInput {
   username: String!
@@ -112,15 +128,15 @@ input UserInput {
   description: String
 }
 
-  type RootQuery {
-      events: [Event!]!
-      bookings: [Booking!]!
-      teams: [Team!]!
-      login(username: String!, password: String!): AuthData!
-      getUser(userId: String!): User!
-      getTeam(teamId: String!): Team!
-      me: Current!
-  }
+type RootQuery {
+    events: [Event!]!
+    bookings: [Booking!]!
+    teams: [Team!]!
+    login(username: String!, password: String!): AuthData!
+    getUser(userId: String!): User!
+    getTeam(teamId: String!): Team!
+    me: Current!
+}
 
 type RootMutation {
     createEvent(eventInput: EventInput): Event
@@ -135,6 +151,7 @@ type RootMutation {
     logout(username: String!): Current
     joinTeam(userId: String!, teamCode: String!): Team
     createPin(userId: String!, teamId: String!, pinInput: PinInput): Pin
+    createCoordinate(userId: String!, teamId: String!, coordinateInput: CoordinateInput): Coordinate
 }
 
   schema {
