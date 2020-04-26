@@ -17,6 +17,60 @@ import HiddenDrawerItem from "../components/HiddenDrawerItem";
 
 const RootDrawerNavigator = createDrawerNavigator(
   {
+    TeamListView: {
+      screen: TeamListStack,
+      navigationOptions: {
+        title: "Team List",
+      },
+    },
+    Settings: {
+      screen: SettingsStack,
+      navigationOptions: {
+        title: "Settings",
+      },
+    },
+    CreateNewGroup: {
+      screen: CreateGroupStack,
+      navigationOptions: {
+        title: "Create Team",
+        drawerLabel: <HiddenDrawerItem />,
+      },
+    },
+    TeamInfo: {
+      screen: TeamInfoStack,
+      navigationOptions: {
+        title: "Team Info",
+        drawerLabel: <HiddenDrawerItem />,
+      },
+    },
+    TeamMemberList: {
+      screen: TeamMemberListStack,
+      navigationOptions: {
+        title: "Team Member List",
+        drawerLabel: <HiddenDrawerItem />,
+      },
+    },
+    MapView: {
+      screen: MapViewStack,
+      navigationOptions: {
+        title: "Heatmap",
+        drawerLabel: <HiddenDrawerItem />,
+      },
+    },
+    PinInformation: {
+      screen: PinInformationStack,
+      navigationOptions: {
+        title: "Pin Information",
+        drawerLabel: <HiddenDrawerItem />,
+      },
+    },
+    TeamAlerts: {
+      screen: TeamAlertsStack,
+      navigationOptions: {
+        title: "Team Alerts",
+        drawerLabel: <HiddenDrawerItem />,
+      },
+    },
     Login: {
       screen: LoginStack,
       navigationOptions: {
@@ -36,55 +90,6 @@ const RootDrawerNavigator = createDrawerNavigator(
       navigationOptions: {
         title: "Create Account",
         drawerLabel: <HiddenDrawerItem />,
-      },
-    },
-    TeamListView: {
-      screen: TeamListStack,
-      navigationOptions: {
-        title: "Team List",
-      },
-    },
-    CreateNewGroup: {
-      screen: CreateGroupStack,
-      navigationOptions: {
-        title: "Create Team",
-      },
-    },
-    TeamInfo: {
-      screen: TeamInfoStack,
-      navigationOptions: {
-        title: "Team Info",
-      },
-    },
-    TeamMemberList: {
-      screen: TeamMemberListStack,
-      navigationOptions: {
-        title: "Team Member List",
-      },
-    },
-    MapView: {
-      screen: MapViewStack,
-      navigationOptions: {
-        title: "Heatmap",
-      },
-    },
-    PinInformation: {
-      screen: PinInformationStack,
-      navigationOptions: {
-        title: "Pin Information",
-        drawerLabel: <HiddenDrawerItem />,
-      },
-    },
-    TeamAlerts: {
-      screen: TeamAlertsStack,
-      navigationOptions: {
-        title: "Team Alerts",
-      },
-    },
-    Settings: {
-      screen: SettingsStack,
-      navigationOptions: {
-        title: "Settings",
       },
     },
   },
