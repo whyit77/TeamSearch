@@ -366,7 +366,7 @@ class Map extends React.Component {
     await this.fetchCurrentTeam(); // set teamId
 
     await this.getCurrentLocation();
-    this.interval = setInterval(() => this.sendCurrentData(), 30000); // sends the current position automatically every 30 seconds
+    this.interval = setInterval(() => this.sendCurrentData(), 10000); // sends the current position automatically every 10 seconds
 
     const { coordinate } = await this.state;
 
@@ -552,13 +552,13 @@ class Map extends React.Component {
           showsMyLocationButton={true}
         >
           <Polyline coordinates={this.state.routeCoordinates} strokeWidth={0} />
-          <Marker.Animated
+          {/* <Marker.Animated
             ref={(marker) => {
               this.marker = marker;
             }}
             coordinate={this.state.coordinate}
             title="start"
-          />
+          /> */}
 
           {/* <TouchableOpacity onPress={this.getCurrentPosition}>
             <Text style={{ height: 100, width: 400 }}>
