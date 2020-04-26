@@ -13,25 +13,17 @@ import SettingsStack from "./settingsStack";
 import Alert from "react-native";
 import PinInformationStack from "./pinInformationStack";
 import React, { Component } from "react";
+import { StackNavigator, DrawerNavigator } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+import HiddenDrawerItem from "../components/HiddenDrawerItem";
 
-const RootDrawerNavigator = createDrawerNavigator(
+const loginNavigator = createDrawerNavigator(
   {
     Login: {
       screen: LoginStack,
       navigationOptions: {
         title: "Sign Out",
-      },
-    },
-    // ResetPassword: {
-    //   screen: ResetPasswordStack,
-    //   navigationOptions: {
-    //     title: "Reset Password",
-    //   },
-    // },
-    FirstTimeUserCreation: {
-      screen: FirstTimeUserCreationStack,
-      navigationOptions: {
-        title: "Create Account",
+        drawerLabel: <HiddenDrawerItem />,
       },
     },
     TeamListView: {
@@ -40,12 +32,62 @@ const RootDrawerNavigator = createDrawerNavigator(
         title: "Team List",
       },
     },
-    CreateNewGroup: {
-      screen: CreateGroupStack,
+    Settings: {
+      screen: SettingsStack,
       navigationOptions: {
-        title: "Create Team",
+        title: "Settings",
       },
     },
+    // FirstTimeUserCreation: {
+    //     screen: FirstTimeUserCreationStack,
+    //     navigationOptions: {
+    //       title: "Create Account",
+    //     },
+    //   },
+  },
+  {
+    drawerBackgroundColor: "#292929",
+    contentOptions: {
+      activeTintColor: "red",
+      activeBackgroundColor: "#3d3d3d",
+      inactiveTintColor: "white",
+      inactiveBackgroundColor: "#292929",
+    },
+  }
+);
+
+const RootDrawerNavigator = createDrawerNavigator(
+  {
+    // Login: {
+    //   screen: LoginStack,
+    //   navigationOptions: {
+    //     title: "Sign Out",
+    //   },
+    // },
+    // ResetPassword: s{
+    //   screen: ResetPasswordStack,
+    //   navigationOptions: {
+    //     title: "Reset Password",
+    //   },
+    // },
+    // FirstTimeUserCreation: {
+    //   screen: FirstTimeUserCreationStack,
+    //   navigationOptions: {
+    //     title: "Create Account",
+    //   },
+    // },
+    TeamListView: {
+      screen: TeamListStack,
+      navigationOptions: {
+        title: "Team List",
+      },
+    },
+    // CreateNewGroup: {
+    //   screen: CreateGroupStack,
+    //   navigationOptions: {
+    //     title: "Create Team",
+    //   },
+    // },
     TeamInfo: {
       screen: TeamInfoStack,
       navigationOptions: {
@@ -94,4 +136,19 @@ const RootDrawerNavigator = createDrawerNavigator(
   }
 );
 
-export default createAppContainer(RootDrawerNavigator);
+const PrimaryNav = createStackNavigator(
+  {
+    loginStack: { screen: loginNavigator },
+    drawerStack: { screen: RootDrawerNavigator },
+  },
+  {
+    // Default config for all screens
+    headerMode: "none",
+    // title: 'Main',
+    initialRouteName: "loginStack",
+    // transitionConfig: noTransitionConfig
+  }
+);
+
+export default createAppContainer(PrimaryNav);
+// export default createAppContainer(RootDrawerNavigator);

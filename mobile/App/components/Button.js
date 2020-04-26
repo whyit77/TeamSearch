@@ -12,8 +12,8 @@ import {
 const styles = StyleSheet.create({
 	button: {
 		backgroundColor: '#D22322',
-		paddingVertical: 10,
-		paddingHorizontal: 45,
+		paddingVertical: 9,
+		paddingHorizontal: 10,
 		alignItems: 'center',
 		marginHorizontal: 20,
 	},

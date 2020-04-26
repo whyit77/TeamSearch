@@ -7,10 +7,13 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   StatusBar,
+  RefreshControl,
+  ActivityIndicator,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { TextField } from "../components/Form";
-import { mainStyle, formStyle } from "../styles/styles";
+import { mainStyle, formStyle, B1, B2, B3 } from "../styles/styles";
+import { Button } from "../components/Button";
 
 import { StackActions } from "@react-navigation/native";
 import { NavigationActions } from "react-navigation";
@@ -41,6 +44,7 @@ export default class App extends React.Component {
       radius: "",
       code: "",
       creator: "",
+      refreshing: true,
     };
   }
 
@@ -58,7 +62,7 @@ export default class App extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -79,6 +83,7 @@ export default class App extends React.Component {
 
           this.setState({
             teamId: teamId,
+            refreshing: false,
           });
 
           return responseJson;
@@ -117,7 +122,7 @@ export default class App extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -144,6 +149,7 @@ export default class App extends React.Component {
             radius: radius,
             code: code,
             creator: creator,
+            refreshing: false,
           });
 
           return responseJson;
@@ -184,8 +190,30 @@ export default class App extends React.Component {
     // this.fetchTeam();
     // console.log("update");
   }
-
+  onRefresh() {
+    //Clear old data of the list
+    this.setState({
+      teamId: "",
+      teamName: "",
+      searchDescription: "",
+      subjectDescription: "",
+      radius: "",
+      code: "",
+      creator: "",
+      refreshing: true,
+    });
+    //Call the Service to get the latest data
+    this.fetchCurrentTeam();
+  }
   render() {
+    if (this.state.refreshing) {
+      return (
+        //loading view while data is loading
+        <View style={{ flex: 1, backgroundColor: B1, paddingTop: 20 }}>
+          <ActivityIndicator size="large" />
+        </View>
+      );
+    }
     return (
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
@@ -195,7 +223,16 @@ export default class App extends React.Component {
           behavior="padding"
           enabled
         >
-          <ScrollView contentContainerStyle={formStyle.formContainer}>
+          <ScrollView
+            contentContainerStyle={formStyle.formContainer}
+            refreshControl={
+              <RefreshControl
+                //refresh control used for the Pull to Refresh
+                refreshing={this.state.refreshing}
+                onRefresh={this.onRefresh.bind(this)}
+              />
+            }
+          >
             <View style={(formStyle.formContainer, { paddingVertical: 20 })}>
               <Text style={formStyle.label}>Team Name: </Text>
               <TextField editable={false}>

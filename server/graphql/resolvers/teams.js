@@ -4,6 +4,7 @@ const Current = require("../../models/current");
 const { transformTeam, bindUser, transformAlert } = require("./merge");
 const randomize = require("randomatic");
 
+
 module.exports = {
   teams: async () => {
     try {
@@ -110,6 +111,7 @@ module.exports = {
     try {
       let user = await User.findOne({ username: args.username });
       if (!user) {
+        // Alert.alert("User not found.")
         throw new Error("User not found.");
       }
 

@@ -9,10 +9,10 @@ import {
   StyleSheet,
   Image,
   Alert,
-  Button,
   StatusBar,
   ScrollView,
   TouchableOpacity,
+  SafeAreaView,
 } from "react-native";
 
 import {
@@ -21,8 +21,12 @@ import {
   exampleText,
   formStyle,
   teamListStyle,
+  B1,
+  B2,
+  B3,
 } from "../styles/styles";
 import { TextField, ErrorText } from "../components/Form";
+import { Button } from "../components/Button";
 
 const styles = StyleSheet.create({
   container: {
@@ -67,7 +71,7 @@ class PinInformation extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -136,7 +140,7 @@ class PinInformation extends React.Component {
     };
 
     // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -204,64 +208,160 @@ class PinInformation extends React.Component {
 
   render() {
     return this.state.flag ? ( // if it is a new pin, editable
-      <View style={formStyle.formContainer}>
+      <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
-        <ScrollView contentContainerStyle={formStyle.formContainer}>
-          <View style={mainStyle.container}>
-            {/* <Image
+        <ScrollView contentContainerStyle={mainStyle.toplevel}>
+          {/* <View style={mainStyle.container}>
+            <Image
                 style={{ width: 100, height: 100 }}
                 source={{
                   uri:
                     "https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png"
                 }}
-              /> */}
+              />
           </View>
-          <Text style={formStyle.label}>Pinned By: {this.state.username}</Text>
+          <View style={mainStyle.container}>
+            <Image
+                style={{ width: 100, height: 100 }}
+                source={{
+                  uri:
+                    "https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png"
+                }}
+              />
+          </View> */}
+
+          <View
+            style={
+              (mainStyle.container,
+              {
+                backgroundColor: B2,
+                // borderBottomColor: B3,
+                // borderColor: B3,
+                borderBottomWidth: 2,
+                borderBottomEndRadius: 100,
+                borderBottomStartRadius: 100,
+              })
+            }
+            // onPress={}
+          >
+            <Text style={mainStyle.pinInfoTitle}>
+              Pinned By:{" "}
+              <Text style={(mainStyle.pinInfoTitle, { fontWeight: "bold" })}>
+                {" "}
+                {this.state.username}
+              </Text>
+            </Text>
+          </View>
           <Text style={formStyle.label}>Pin Title:</Text>
           <TextField
             value={this.state.pinName}
             onChangeText={(pinName) => this.setState({ pinName })}
             placeholder="Name of pin"
             maxLength={40}
+            style={formStyle.placeholderStyle}
+            color="white"
+            selectionColor="red"
+            keyboardAppearance="dark"
+            labelTextColor="white"
           />
           <Text style={formStyle.label}>Pin Description:</Text>
           <TextField
             onChangeText={(description) => this.setState({ description })}
             placeholder="Description of pin"
             maxLength={250}
+            style={formStyle.placeholderStyle}
+            color="white"
+            selectionColor="red"
+            keyboardAppearance="dark"
+            labelTextColor="white"
+            multiline={true}
           />
           <ErrorText text={this.state.error} />
-          <View style={mainStyle.container}>
+          {/* <View style={mainStyle.container}> */}
+          {/* <View style={mainStyle.container}>
             <TouchableOpacity
               style={buttonStyle.buttonContainer}
               onPress={() => this.handleSubmit()}
             >
               <Text style={buttonStyle.buttonText}>Apply</Text>
             </TouchableOpacity>
+          </View> */}
+          <View style={formStyle.formButtonContainer}>
+            <Button
+              style={formStyle.formButton}
+              text="Apply"
+              color="white"
+              onPress={() => this.handleSubmit()}
+            />
           </View>
         </ScrollView>
-      </View>
+      </SafeAreaView>
     ) : (
-      <View style={formStyle.formContainer}>
+      <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
         <ScrollView contentContainerStyle={formStyle.formContainer}>
-          <View style={mainStyle.container}>
-            {/* <Image
+          {/* <View style={mainStyle.container}>
+            <Image
                 style={{ width: 100, height: 100 }}
                 source={{
                   uri:
                     "https://cdn4.iconfinder.com/data/icons/ios7-essence/23/device_camera_capture_photo__-512.png"
                 }}
-              /> */}
+              />
+          </View> */}
+
+          <View
+            style={
+              (mainStyle.container,
+              {
+                backgroundColor: B2,
+                // borderBottomColor: B3,
+                // borderColor: B3,
+                borderBottomWidth: 2,
+                borderBottomEndRadius: 100,
+                borderBottomStartRadius: 100,
+              })
+            }
+            // onPress={}
+          >
+            <Text style={mainStyle.pinInfoTitle}>
+              Pinned By:{" "}
+              <Text style={(mainStyle.pinInfoTitle, { fontWeight: "bold" })}>
+                {" "}
+                {this.state.username}
+              </Text>
+            </Text>
           </View>
-          <Text style={formStyle.label}>Pinned By: {this.state.creator}</Text>
-          <Text style={formStyle.label}>Pin Title: {this.state.pinName}</Text>
+
           <Text style={formStyle.label}>
-            Pin Description: {this.state.description}
+            Title:
+            <Text
+              style={
+                (formStyle.label,
+                { color: "white", fontWeight: "bold", fontSize: 25 })
+              }
+            >
+              {" "}
+              {this.state.pinName}
+            </Text>
           </Text>
-          <ErrorText text={this.state.error} />
+          {/* <TextField editable={false}> */}
+
+          {/* </TextField> */}
+          {/* <Text style={formStyle.label}>Title: {this.state.pinName}</Text> */}
+          {/* <Text style={formStyle.label}>
+            Pin Description: {this.state.description}
+          </Text> */}
+
+          <Text style={formStyle.label}>Description:</Text>
+          {/* <Text style={mainStyle.smallText}>{this.state.description}</Text> */}
+          <TextField editable={false} multiline={true}>
+            <Text style={formStyle.placeholderStyle}>
+              {this.state.description}
+            </Text>
+          </TextField>
           {/* <View style={mainStyle.container}>
               <TouchableOpacity
                 style={buttonStyle.buttonContainer}
@@ -271,7 +371,7 @@ class PinInformation extends React.Component {
               </TouchableOpacity>
             </View> */}
         </ScrollView>
-      </View>
+      </SafeAreaView>
     );
   }
 }

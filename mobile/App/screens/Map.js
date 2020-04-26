@@ -15,6 +15,7 @@ import MapView, {
   Polyline,
   AnimatedRegion,
   Callout,
+  camera,
 } from "react-native-maps";
 import haversine from "haversine";
 // import { EmbeddedWebView } from "../components/EmbeddedWebView";
@@ -226,7 +227,7 @@ class Map extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -293,7 +294,7 @@ class Map extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
