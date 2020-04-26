@@ -9,33 +9,69 @@ export const TeamAlert = ({ title, message, sender, time, urgency }) => (
     <TouchableOpacity style={teamListStyle.teamContainer}>
         <View style={teamListStyle.centerContainer}>
         <View style={teamListStyle.container1}>
-            <View style={teamListStyle.nameContainer}>
-                <Text style={teamListStyle.teamLabelText}>Title: </Text>
-                <Text style={teamListStyle.teamInputText}>{title}</Text>
+            <View 
+            overflow={"hidden"}
+            AccessibilityRole={"summary"}
+            style={teamListStyle.nameContainer}
+            style={teamListStyle.nameContainer}
+            >
+                <Text adjustsFontSizeToFit={true} style={teamListStyle.teamLabelText}>
+                Title:
+                <Text style={teamListStyle.teamInputText}> {title}</Text>
+                </Text>
             </View>
-            <View style={teamListStyle.statusContainer}>
-                <Text style={teamListStyle.teamLabelText}>Urgency: </Text>
-                <Text style={teamListStyle.teamInputText}>{urgency}</Text>
+            <View 
+                overflow={"hidden"}
+                AccessibilityRole={"summary"}
+                style={teamListStyle.nameContainer}
+                style={teamListStyle.statusContainer}
+            >
+                <Text adjustsFontSizeToFit={true} style={teamListStyle.teamLabelText}>
+                Urgency:
+                <Text style={teamListStyle.teamInputText}> {urgency}</Text>
+                </Text>
             </View>
         </View>
-        <View style={teamListStyle.container2}>
+        <View 
+            overflow={"hidden"}
+            AccessibilityRole={"summary"}
+            style={teamListStyle.container2}
+        >
             <View style={teamListStyle.adminContainer}>
-                <Text style={teamListStyle.teamLabelText}>From: </Text>
-                <Text style={teamListStyle.teamInputText}>{sender}</Text>
+                <Text numberOfLines={1} adjustsFontSizeToFit={true} style={teamListStyle.teamLabelText}>
+                From:
+                <Text style={teamListStyle.teamInputText}> {sender}</Text>
+                </Text>
             </View>
-            <View style={teamListStyle.sizeContainer}>
-                <Text style={teamListStyle.teamLabelText}>Time: </Text>
-                <Text style={teamListStyle.teamInputText}>{time}</Text>
-
+            <View 
+            overflow={"hidden"}
+            AccessibilityRole={"summary"}
+            style={teamListStyle.sizeContainer}
+            >
+                <Text numberOfLines={1} adjustsFontSizeToFit={true} style={teamListStyle.teamLabelText}>Time:
+                <Text style={teamListStyle.teamInputText}> {time}</Text>
+                </Text>
             </View>
         </View>
         
         <View style={teamListStyle.container3}>
-            <View style={teamListStyle.descriptionContainer}>
-                <Text style={teamListStyle.teamLabelText}>Message: </Text>
-                <Text style={teamListStyle.teamInputText}>{message}</Text>
-
-            </View>
+        <View
+          overflow={"hidden"}
+          AccessibilityRole={"summary"}
+          style={teamListStyle.descriptionContainer}
+        >
+          <Text style={teamListStyle.teamLabelText}>
+            Description:
+            <Text
+              style={teamListStyle.teamInputText}
+              adjustsFontSizeToFit={true}
+            >
+              {" "}
+              {message}
+            </Text>
+            {/* ...{" "} */}
+          </Text>
+        </View>
         </View>
     </View>
   </TouchableOpacity>

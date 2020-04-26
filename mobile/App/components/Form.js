@@ -38,6 +38,7 @@ export const TextField = ({ label, information, ...props }) => (
       placeholderTextColor="#828282"
       {...props}
       value={information}
+      
     />
   </View>
 );
