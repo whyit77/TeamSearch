@@ -240,14 +240,14 @@ export default class App extends React.Component {
                </TextField> */}
             </View>
             <View>
-              <View style={formStyle.buttons}>
+              {/* <View style={formStyle.buttons}>
                 <TouchableOpacity
                   style={formStyle.formButton}
                   onPress={() => this.props.navigation.navigate("TeamAlerts")}
                 >
                   <Text style={mainStyle.smallText}>Alerts</Text>
                 </TouchableOpacity>
-              </View>
+              </View> */}
             </View>
           </ScrollView>
         </KeyboardAvoidingView>

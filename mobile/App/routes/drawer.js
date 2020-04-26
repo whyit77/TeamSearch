@@ -22,12 +22,12 @@ const RootDrawerNavigator = createDrawerNavigator(
         title: "Sign Out",
       },
     },
-    ResetPassword: {
-      screen: ResetPasswordStack,
-      navigationOptions: {
-        title: "Reset Password",
-      },
-    },
+    // ResetPassword: {
+    //   screen: ResetPasswordStack,
+    //   navigationOptions: {
+    //     title: "Reset Password",
+    //   },
+    // },
     FirstTimeUserCreation: {
       screen: FirstTimeUserCreationStack,
       navigationOptions: {

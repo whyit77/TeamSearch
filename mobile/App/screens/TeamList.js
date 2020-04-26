@@ -148,48 +148,48 @@ export default class TeamList extends Component {
       },
     };
 
-    if (this.state.count == 1) {
-      console.log("fetching...");
+    // if (this.state.count == 1) {
+    console.log("fetching...");
 
-      fetch("http://192.168.1.11:3000/graphql", {
-        method: "POST",
-        body: JSON.stringify(requestBody),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then(async (res) => {
-          const responseJson = await res.json();
+    fetch("http://192.168.1.11:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(async (res) => {
+        const responseJson = await res.json();
 
-          console.log(responseJson);
-          console.disableYellowBox = true;
+        console.log(responseJson);
+        console.disableYellowBox = true;
 
-          if (res.ok) {
-            console.log("Okay Fetched Teams");
+        if (res.ok) {
+          console.log("Okay Fetched Teams");
 
-            const joinedTeams = responseJson.data.getUser.joinedTeams;
+          const joinedTeams = responseJson.data.getUser.joinedTeams;
 
-            const info = [];
-            for (let i = 0; i < joinedTeams.length; i++) {
-              info.push(joinedTeams[i]);
-            }
-
-            this.setState({
-              data: info,
-            });
-
-            return responseJson;
+          const info = [];
+          for (let i = 0; i < joinedTeams.length; i++) {
+            info.push(joinedTeams[i]);
           }
 
-          this.setState({ error: responseJson.errors[0].message });
-          throw new Error(responseJson.error);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+          this.setState({
+            data: info,
+          });
 
-      this.state.count = 2;
-    }
+          return responseJson;
+        }
+
+        this.setState({ error: responseJson.errors[0].message });
+        throw new Error(responseJson.error);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    this.state.count = 2;
+    // }
   }
 
   componentDidMount() {
@@ -226,7 +226,9 @@ export default class TeamList extends Component {
   componentDidUpdate(prevProps, prevState) {
     // if (prevState.data !== this.state.data) {
     console.log("UPDATING...");
-    this.fetchUserTeams(); // populate team list
+    if (this.state.count == 1) {
+      this.fetchUserTeams(); // populate team list
+    }
     // }
     // if (prevState.data !== this.state.data) {
     //   console.log("UPDATING...");
@@ -279,6 +281,7 @@ export default class TeamList extends Component {
               return (
                 <TouchableOpacity>
                   <Team
+                    extraData={this.state}
                     onPress={() => this.setTeam(rowData._id)}
                     name={rowData.teamName}
                     status={this.state.status}

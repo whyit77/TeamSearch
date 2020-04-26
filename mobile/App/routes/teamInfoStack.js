@@ -11,9 +11,9 @@ const screens = {
     screen: TeamInfo,
     navigationOptions: ({ navigation }) => {
       return {
-        headerTitle: () => <Header navigation={navigation} title="Team Info" />
+        headerTitle: () => <Header navigation={navigation} title="Team Info" />,
       };
-    }
+    },
   },
   // Map: {
   //   screen: HeatMap,
@@ -33,23 +33,23 @@ const screens = {
   //     };
   //   }
   // },
-  TeamAlerts: {
-    screen: TeamAlerts,
-    navigationOptions: () => {
-      return {
-        headerTitle: "Team Alerts",
-        headerTintColor: "white"
-      };
-    }
-  }
+  // TeamAlerts: {
+  //   screen: TeamAlerts,
+  //   navigationOptions: () => {
+  //     return {
+  //       headerTitle: "Team Alerts",
+  //       headerTintColor: "white"
+  //     };
+  //   }
+  // }
 };
 
 const TeamInfoStack = createStackNavigator(screens, {
   defaultNavigationOptions: {
     headerTintColor: "#444",
-    headerStyle: { backgroundColor: "#292929", height: 100 }
+    headerStyle: { backgroundColor: "#292929", height: 100 },
   },
-  initialRouteName: "TeamInfo"
+  initialRouteName: "TeamInfo",
 });
 
 export default TeamInfoStack;

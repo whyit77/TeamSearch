@@ -20,7 +20,7 @@ module.exports = {
         throw new Error("Team not found.");
       }
 
-      console.log(user);
+      // console.log(user);
 
       const alert = new Alert({
         creator: args.userId,
@@ -28,12 +28,12 @@ module.exports = {
         message: args.alertInput.message,
         title: args.alertInput.title,
       });
-      console.log(alert);
+      // console.log(alert);
 
       const result = await alert.save();
 
       let createdAlert = transformAlert(result);
-      console.log(createdAlert);
+      // console.log(createdAlert);
 
       team.alerts.push(alert);
       await team.save();
