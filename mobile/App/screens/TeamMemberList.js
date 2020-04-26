@@ -209,8 +209,8 @@ export default class TeamMemberList extends Component {
     if (this.state.refreshing) {
       return (
         //loading view while data is loading
-        <View style={{ flex: 1,  backgroundColor: "#5c5c5c", paddingTop: 20 }}>
-          <ActivityIndicator />
+        <View style={{ flex: 1,  backgroundColor: B1, paddingTop: 20, }}>
+          <ActivityIndicator size="large" />
         </View>
       );
     }

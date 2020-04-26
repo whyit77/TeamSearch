@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { TextField } from "../components/Form";
-import { mainStyle, formStyle } from "../styles/styles";
+import { mainStyle, formStyle, B1, B2, B3 } from "../styles/styles";
 import { Button } from "../components/Button";
 
 import { StackActions } from "@react-navigation/native";
@@ -209,8 +209,8 @@ export default class App extends React.Component {
     if (this.state.refreshing) {
       return (
         //loading view while data is loading
-        <View style={{ flex: 1,  backgroundColor: "#5c5c5c", paddingTop: 20 }}>
-          <ActivityIndicator />
+        <View style={{ flex: 1,  backgroundColor: B1, paddingTop: 20, }}>
+          <ActivityIndicator size="large" />
         </View>
       );
     }

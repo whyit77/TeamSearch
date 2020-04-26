@@ -12,7 +12,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { Team } from "../components/Team";
-import { mainStyle } from "../styles/styles";
+import { mainStyle, B1, B2 } from "../styles/styles";
 import CreateTeamMenuIcon from "../components/CreateTeamMenuIcon";
 import CreateTeam from "../screens/CreateTeam";
 import { TeamListCard } from "../components/TeamListCard";
@@ -306,15 +306,27 @@ export default class TeamList extends Component {
     if (this.state.refreshing) {
       return (
         //loading view while data is loading
-        <View style={{ flex: 1,  backgroundColor: "#5c5c5c", paddingTop: 20 }}>
-          <ActivityIndicator />
+        <View style={{ flex: 1,  backgroundColor: B1, paddingTop: 20, }}>
+          <ActivityIndicator size="large" />
         </View>
       );
     }
     return (
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
-        <KeyboardAwareScrollView extraScrollHeight={50}>
+        <View style={
+          mainStyle.container,
+          {backgroundColor:B2, 
+          // borderBottomColor: B3,
+          // borderColor: B3, 
+          borderBottomWidth: 2, 
+          borderBottomEndRadius: 100,
+          borderBottomStartRadius: 100
+          }}
+          // onPress={}
+          >
+          {/* <Text style={mainStyle.titleDisplay}>{this.state.teamName}</Text> */}
+        </View>
 
         {this.state.data.length != 0 ? (
           <FlatList
@@ -345,7 +357,6 @@ export default class TeamList extends Component {
         ) : (
           <Text style={mainStyle.bigText}>No Teams to Display</Text>
         )}
-        </KeyboardAwareScrollView>
       </SafeAreaView>
     );
   }
