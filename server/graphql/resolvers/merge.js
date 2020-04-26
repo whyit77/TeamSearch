@@ -115,6 +115,8 @@ const transformAlert = (alert) => {
     ...alert._doc,
     _id: alert.id,
     creator: singleUser.bind(this, alert.creator),
+    createdAt: dateToString(alert._doc.createdAt),
+    updatedAt: dateToString(alert._doc.updatedAt),
   };
 };
 

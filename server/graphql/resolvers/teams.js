@@ -159,6 +159,7 @@ module.exports = {
         creator: args.userId,
         urgency: args.alertInput.urgency,
         message: args.alertInput.message,
+        title: args.alertInput.title,
       });
       console.log(alert);
 
