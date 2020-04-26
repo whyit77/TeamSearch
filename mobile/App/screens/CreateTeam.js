@@ -250,21 +250,6 @@ export default class CreateTeam extends React.Component {
                 labelTextColor="white"
                 autoCapitalize="words"
               />
-              {/* <Text style={formStyle.label} >Team Code: {this.state.code}</Text> */}
-              {/* <TextField
-            //label="Team Code"
-            onChangeText={teamCode => this.setState({ teamCode })}
-            value={this.state.teamCode}
-            autoCapitalize="none"
-            placeholder='XXXXX'
-            style={formStyle.placeholderStyle}
-            color='white'
-            selectionColor='red'
-            keyboardAppearance='dark'
-            labelTextColor='white'
-            keyboardType='number-pad'
-            maxLength={5}
-          /> */}
               <Text style={formStyle.label}>Search Description</Text>
               <TextField
                 //label="Search Description"

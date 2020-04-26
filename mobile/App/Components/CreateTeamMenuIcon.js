@@ -227,34 +227,52 @@ export default class CreateTeamMenuIcon extends Component {
               dialogIsVisible={this.state.dialogIsVisible}
               closeDialogInput={() => this.setState({ dialogIsVisible: false })}
               submitInput={(textValue) => this.fetchJoinTeam(textValue)}
-              outerContainerStyle={{ backgroundColor: "rgba(0,0,0, 0.75)" }}
+              outerContainerStyle={{ backgroundColor: "rgba(0,0,0, 0.50)" }}
               containerStyle={{
-                backgroundColor: B3,
-                borderColor: "#590900",
-                borderWidth: 5,
+                backgroundColor: "#3d3d3d",
+                borderColor: "#3d3d3d",
+                borderWidth: 8,
+                padding: -120,
               }}
               titleStyle={{ color: "white" }}
               title="Join a Team"
-              subTitleStyle={{ color: "white" }}
+              subTitleStyle={{
+                color: "white",
+                fontSize: 13,
+                marginTop: 6,
+                marginBottom: -10,
+              }}
               subtitle="Please enter the team code"
               placeholderInput={
                 this.state.error == "" ? "Team Code" : this.state.error
               }
               placeholderTextColor={this.state.error == "" ? "grey" : "red"}
+              textInputProps={{
+                autoCorrect: false,
+                autoCapitalize: false,
+              }}
               textInputStyle={{
-                color: "black",
-                borderColor: "black",
+                color: "white",
+                borderColor: "#292929",
                 borderWidth: 2,
                 marginBottom: 20,
+                backgroundColor: "#292929",
+                fontSize: 20,
+                fontWeight: "bold",
+                textAlign: "center",
+                selctionColor: "red",
+                autoCorrect: false,
+                spellCheck: false,
               }}
-              autoCapitalize={false}
-              autoCorrect={false}
+              spellCheck={false}
               secureTextEntry={false}
-              buttonsStyle={{ borderColor: "white" }}
-              textCancelStyle={{ color: "white", marginVertical: 3 }}
+              keyboardAppearance="dark"
+              // buttonsStyle={{ borderColor: "white", borderWidth: 2 }}
+
+              textCancelStyle={{ color: "white" }}
               submitTextStyle={{ color: "white" }}
               cancelButtonText="Cancel"
-              submitButtonText="Join"
+              submitButtonText="Add"
             />
           </View>
         </Menu>

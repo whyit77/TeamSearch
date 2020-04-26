@@ -18,7 +18,7 @@ export default HeaderPopup = () => (
             <MaterialIcons name="add" size={45} />
             </MenuTrigger>
 
-            <MenuOptions>
+            <MenuOptions >
               <MenuOption onSelect={() => navigation.navigate(CreateTeam)} text="Create Team" />
               <MenuOption onSelect={() => alert(`Delete`)}>
                 <Text style={{ color: 'red' }}>Delete</Text>

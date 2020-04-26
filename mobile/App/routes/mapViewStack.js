@@ -9,27 +9,27 @@ const screens = {
     screen: MapView,
     navigationOptions: ({ navigation }) => {
       return {
-        headerTitle: () => <Header navigation={navigation} title="Heatmap" />
+        headerTitle: () => <Header navigation={navigation} title="Heatmap" />,
       };
-    }
+    },
   },
   PinInformation: {
     screen: PinInformation,
     navigationOptions: () => {
       return {
-        headerTitle: "PinInformation",
-        headerTintColor: "white"
+        headerTitle: "Pin Information",
+        headerTintColor: "white",
       };
-    }
-  }
+    },
+  },
 };
 
 const MapViewStack = createStackNavigator(screens, {
   defaultNavigationOptions: {
     headerTintColor: "#444",
-    headerStyle: { backgroundColor: "#292929", height: 100 }
+    headerStyle: { backgroundColor: "#292929", height: 100 },
   },
-  initialRouteName: "MapView"
+  initialRouteName: "MapView",
 });
 
 export default MapViewStack;

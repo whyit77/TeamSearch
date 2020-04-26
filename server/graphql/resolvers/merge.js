@@ -3,6 +3,7 @@ const Team = require("../../models/team");
 const User = require("../../models/user");
 const Alert = require("../../models/alert");
 const Pin = require("../../models/pin");
+const Coordinate = require("../../models/coordinate");
 const { dateToString } = require("../../helpers/date");
 
 const events = async (eventIds) => {
@@ -60,6 +61,17 @@ const pins = async (pinIds) => {
   }
 };
 
+const coordinates = async (coorIds) => {
+  try {
+    const coordinates = await Coordinate.find({ _id: { $in: coorIds } });
+    return coordinates.map((coor) => {
+      return transformCoordinate(coor);
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
 const singleEvent = async (eventId) => {
   try {
     const event = await Event.findById(eventId);
@@ -106,7 +118,8 @@ const transformTeam = (team) => {
     creator: singleUser.bind(this, team.creator),
     members: users.bind(this, team._doc.members),
     alerts: alerts.bind(this, team._doc.alerts),
-    pins: pins.bind(this, team._doc.pins)
+    pins: pins.bind(this, team._doc.pins),
+    coordinates: coordinates.bind(this, team._doc.coordinates),
   };
 };
 
@@ -115,6 +128,8 @@ const transformAlert = (alert) => {
     ...alert._doc,
     _id: alert.id,
     creator: singleUser.bind(this, alert.creator),
+    createdAt: dateToString(alert._doc.createdAt),
+    updatedAt: dateToString(alert._doc.updatedAt),
   };
 };
 
@@ -125,6 +140,16 @@ const transformPin = (pin) => {
     createdAt: dateToString(pin._doc.createdAt),
     updatedAt: dateToString(pin._doc.updatedAt),
     creator: singleUser.bind(this, pin.creator),
+  };
+};
+
+const transformCoordinate = (coor) => {
+  return {
+    ...coor._doc,
+    _id: coor.id,
+    creator: singleUser.bind(this, coor.creator),
+    createdAt: dateToString(coor._doc.createdAt),
+    updatedAt: dateToString(coor._doc.updatedAt),
   };
 };
 
@@ -145,6 +170,7 @@ exports.transformTeam = transformTeam;
 exports.transformUser = transformUser;
 exports.transformAlert = transformAlert;
 exports.transformPin = transformPin;
+exports.transformCoordinate = transformCoordinate;
 
 // exports.user = user;
 // exports.events = events;
