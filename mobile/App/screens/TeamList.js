@@ -325,7 +325,7 @@ export default class TeamList extends Component {
           }}
           // onPress={}
           >
-          {/* <Text style={mainStyle.titleDisplay}>{this.state.teamName}</Text> */}
+          <Text style={mainStyle.text}>Please select a team:</Text>
         </View>
 
         {this.state.data.length != 0 ? (
