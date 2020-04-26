@@ -7,7 +7,6 @@ import DialogInput from "react-native-dialog-input-custom";
 import { Button } from "react-native-dialog-input-custom/components/button";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-
 export default class TeamMemberListAddButton extends Component {
   constructor(props) {
     super(props);
@@ -35,7 +34,7 @@ export default class TeamMemberListAddButton extends Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.10:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -89,7 +88,7 @@ export default class TeamMemberListAddButton extends Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.10:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -152,63 +151,60 @@ export default class TeamMemberListAddButton extends Component {
           <MaterialIcons name="add" size={40} style={{ color: "white" }} />
         </Button>
         <View style={styles.container}>
-        <KeyboardAwareScrollView extraScrollHeight={50}>
+          <KeyboardAwareScrollView extraScrollHeight={50}>
+            <DialogInput
+              dialogIsVisible={this.state.dialogIsVisible}
+              closeDialogInput={() => this.setState({ dialogIsVisible: false })}
+              submitInput={(textValue) => this.fetchAddMember(textValue)}
+              outerContainerStyle={{ backgroundColor: "rgba(0,0,0, 0.50)" }}
+              containerStyle={{
+                backgroundColor: "#3d3d3d",
+                borderColor: "#3d3d3d",
+                borderWidth: 8,
+                padding: -120,
+              }}
+              titleStyle={{ color: "white" }}
+              title="Add a Team Member"
+              subTitleStyle={{
+                color: "white",
+                fontSize: 13,
+                marginTop: 6,
+                marginBottom: -10,
+              }}
+              subtitle="Please enter the username of the team member you wish to add"
+              placeholderInput={
+                this.state.error == "" ? "Team Member" : this.state.error
+              }
+              placeholderTextColor={this.state.error == "" ? "grey" : "red"}
+              textInputProps={{
+                autoCorrect: false,
+                autoCapitalize: false,
+              }}
+              textInputStyle={{
+                color: "white",
+                borderColor: "#292929",
+                borderWidth: 2,
+                marginBottom: 20,
+                backgroundColor: "#292929",
+                fontSize: 20,
+                fontWeight: "bold",
+                textAlign: "center",
+                selctionColor: "red",
+                autoCorrect: false,
+                spellCheck: false,
+              }}
+              spellCheck={false}
+              secureTextEntry={false}
+              keyboardAppearance="dark"
+              // buttonsStyle={{ borderColor: "white", borderWidth: 2 }}
 
-          <DialogInput
-            dialogIsVisible={this.state.dialogIsVisible}
-            closeDialogInput={() => this.setState({ dialogIsVisible: false })}
-
-            submitInput={(textValue) => this.fetchAddMember(textValue)}
-            outerContainerStyle={{ backgroundColor: "rgba(0,0,0, 0.50)" }}
-            containerStyle={{ backgroundColor: "#3d3d3d", borderColor: "#3d3d3d", borderWidth: 8, padding: -120 }}
-
-            titleStyle={{ color: "white" }}
-            title="Add a Team Member"
-
-            subTitleStyle={{ color: "white", fontSize: 13, marginTop: 6, marginBottom: -10}}
-            subtitle="Please enter the username of the team member you wish to add"
-
-            placeholderInput={
-              this.state.error == "" ? "Team Member" : this.state.error
-            }
-            placeholderTextColor={this.state.error == "" ? "grey" : "red"}
-
-            textInputProps={{
-              autoCorrect: false,
-              autoCapitalize: false,
-            }}
-
-            textInputStyle={{
-              color: "white",
-              borderColor: "#292929",
-              borderWidth: 2,
-              marginBottom: 20,
-              backgroundColor: "#292929",
-              fontSize: 20,
-              fontWeight: 'bold',
-              textAlign: 'center',
-              selctionColor: 'red',
-              autoCorrect: false,
-              spellCheck: false,
-              
-            }}
-
-            spellCheck={false}
-            secureTextEntry={false}
-            keyboardAppearance='dark'
-            // buttonsStyle={{ borderColor: "white", borderWidth: 2 }}
-
-            textCancelStyle={{ color: "white" }}
-            submitTextStyle={{ color: "white" }}
-            
-            cancelButtonText="Cancel"
-            submitButtonText="Add"
-          />
-
+              textCancelStyle={{ color: "white" }}
+              submitTextStyle={{ color: "white" }}
+              cancelButtonText="Cancel"
+              submitButtonText="Add"
+            />
           </KeyboardAwareScrollView>
         </View>
-
-        
       </View>
     );
   }

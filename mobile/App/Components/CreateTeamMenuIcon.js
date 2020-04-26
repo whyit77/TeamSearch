@@ -35,7 +35,7 @@ export default class CreateTeamMenuIcon extends Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.10:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -84,7 +84,7 @@ export default class CreateTeamMenuIcon extends Component {
       },
     };
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.10:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -131,7 +131,7 @@ export default class CreateTeamMenuIcon extends Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.10:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -223,57 +223,57 @@ export default class CreateTeamMenuIcon extends Component {
           <MenuItem onPress={this.option1Click}>{this.props.option1}</MenuItem>
           <MenuItem onPress={this.option2Click}>{this.props.option2}</MenuItem>
           <View style={styles.container}>
+            <DialogInput
+              dialogIsVisible={this.state.dialogIsVisible}
+              closeDialogInput={() => this.setState({ dialogIsVisible: false })}
+              submitInput={(textValue) => this.fetchJoinTeam(textValue)}
+              outerContainerStyle={{ backgroundColor: "rgba(0,0,0, 0.50)" }}
+              containerStyle={{
+                backgroundColor: "#3d3d3d",
+                borderColor: "#3d3d3d",
+                borderWidth: 8,
+                padding: -120,
+              }}
+              titleStyle={{ color: "white" }}
+              title="Join a Team"
+              subTitleStyle={{
+                color: "white",
+                fontSize: 13,
+                marginTop: 6,
+                marginBottom: -10,
+              }}
+              subtitle="Please enter the team code"
+              placeholderInput={
+                this.state.error == "" ? "Team Code" : this.state.error
+              }
+              placeholderTextColor={this.state.error == "" ? "grey" : "red"}
+              textInputProps={{
+                autoCorrect: false,
+                autoCapitalize: false,
+              }}
+              textInputStyle={{
+                color: "white",
+                borderColor: "#292929",
+                borderWidth: 2,
+                marginBottom: 20,
+                backgroundColor: "#292929",
+                fontSize: 20,
+                fontWeight: "bold",
+                textAlign: "center",
+                selctionColor: "red",
+                autoCorrect: false,
+                spellCheck: false,
+              }}
+              spellCheck={false}
+              secureTextEntry={false}
+              keyboardAppearance="dark"
+              // buttonsStyle={{ borderColor: "white", borderWidth: 2 }}
 
-          <DialogInput
-            dialogIsVisible={this.state.dialogIsVisible}
-            closeDialogInput={() => this.setState({ dialogIsVisible: false })}
-
-            submitInput={(textValue) => this.fetchJoinTeam(textValue)}
-            outerContainerStyle={{ backgroundColor: "rgba(0,0,0, 0.50)" }}
-            containerStyle={{ backgroundColor: "#3d3d3d", borderColor: "#3d3d3d", borderWidth: 8, padding: -120 }}
-
-            titleStyle={{ color: "white" }}
-            title="Join a Team"
-
-            subTitleStyle={{ color: "white", fontSize: 13, marginTop: 6, marginBottom: -10}}
-            subtitle="Please enter the team code"
-
-            placeholderInput={
-              this.state.error == "" ? "Team Code" : this.state.error
-            }
-            placeholderTextColor={this.state.error == "" ? "grey" : "red"}
-
-            textInputProps={{
-              autoCorrect: false,
-              autoCapitalize: false,
-            }}
-
-            textInputStyle={{
-              color: "white",
-              borderColor: "#292929",
-              borderWidth: 2,
-              marginBottom: 20,
-              backgroundColor: "#292929",
-              fontSize: 20,
-              fontWeight: 'bold',
-              textAlign: 'center',
-              selctionColor: 'red',
-              autoCorrect: false,
-              spellCheck: false,
-              
-            }}
-
-            spellCheck={false}
-            secureTextEntry={false}
-            keyboardAppearance='dark'
-            // buttonsStyle={{ borderColor: "white", borderWidth: 2 }}
-
-            textCancelStyle={{ color: "white" }}
-            submitTextStyle={{ color: "white" }}
-            
-            cancelButtonText="Cancel"
-            submitButtonText="Add"
-          />
+              textCancelStyle={{ color: "white" }}
+              submitTextStyle={{ color: "white" }}
+              cancelButtonText="Cancel"
+              submitButtonText="Add"
+            />
           </View>
         </Menu>
       </View>

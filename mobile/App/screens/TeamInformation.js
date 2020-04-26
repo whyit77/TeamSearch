@@ -62,7 +62,7 @@ export default class App extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.10:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -122,7 +122,7 @@ export default class App extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.10:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -217,6 +217,22 @@ export default class App extends React.Component {
     return (
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+        <View
+          style={
+            (mainStyle.container,
+            {
+              backgroundColor: B2,
+              // borderBottomColor: B3,
+              // borderColor: B3,
+              borderBottomWidth: 2,
+              borderBottomEndRadius: 100,
+              borderBottomStartRadius: 100,
+            })
+          }
+          // onPress={}
+        >
+          <Text style={mainStyle.text}>Pull Down to Refresh</Text>
+        </View>
 
         <KeyboardAvoidingView
           style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}

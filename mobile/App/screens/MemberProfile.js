@@ -22,7 +22,7 @@ import {
   teamListStyle,
   B1,
   B2,
-  B3
+  B3,
 } from "../styles/styles";
 import { TextField, ErrorText } from "../components/Form";
 
@@ -63,7 +63,7 @@ class MemberProfile extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.10:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -123,10 +123,10 @@ class MemberProfile extends React.Component {
 
     if (Platform.OS === "android") {
       // phoneNumber = "tel:${1234567890}";
-      phoneNumber = "sms:${"+this.state.phone+"}";
+      phoneNumber = "sms:${" + this.state.phone + "}";
     } else {
       // phoneNumber = 'telprompt:${1234567890}';
-      phoneNumber = "sms:${"+this.state.phone+"}";
+      phoneNumber = "sms:${" + this.state.phone + "}";
     }
 
     Linking.openURL("sms:" + this.state.phone);
@@ -206,7 +206,7 @@ class MemberProfile extends React.Component {
               <Text style={formStyle.label}>
                 Email:
                 <Text
-                  onPress={() => Linking.openURL("mailto:"+ this.state.email)}
+                  onPress={() => Linking.openURL("mailto:" + this.state.email)}
                   title="support@example.com"
                   style={formStyle.placeholderStyle}
                 >

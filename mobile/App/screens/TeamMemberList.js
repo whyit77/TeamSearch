@@ -47,7 +47,7 @@ export default class TeamMemberList extends Component {
       data: [],
       teamId: "",
       teamName: "",
-      refreshing: true
+      refreshing: true,
     };
   }
 
@@ -65,7 +65,7 @@ export default class TeamMemberList extends Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.10:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -82,7 +82,7 @@ export default class TeamMemberList extends Component {
 
           this.setState({
             teamId: teamId,
-            refreshing: false
+            refreshing: false,
           });
 
           return responseJson;
@@ -126,7 +126,7 @@ export default class TeamMemberList extends Component {
     console.log("fetching...");
     console.disableYellowBox = true;
 
-    fetch("http://192.168.1.10:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -156,7 +156,7 @@ export default class TeamMemberList extends Component {
           this.setState({
             data: names,
             teamName: teamName,
-            refreshing: false
+            refreshing: false,
           });
 
           return responseJson;
@@ -201,15 +201,15 @@ export default class TeamMemberList extends Component {
       data: [],
       teamId: "",
       teamName: "",
-      refreshing: true
+      refreshing: true,
     });
-    this.fetchCurrentTeam(); 
+    this.fetchCurrentTeam();
   }
   render() {
     if (this.state.refreshing) {
       return (
         //loading view while data is loading
-        <View style={{ flex: 1,  backgroundColor: B1, paddingTop: 20, }}>
+        <View style={{ flex: 1, backgroundColor: B1, paddingTop: 20 }}>
           <ActivityIndicator size="large" />
         </View>
       );
@@ -219,24 +219,27 @@ export default class TeamMemberList extends Component {
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
         {/* <KeyboardAwareScrollView extraScrollHeight={50}> */}
 
-        <View style={
-          mainStyle.container,
-          {backgroundColor:B2, 
-          // borderBottomColor: B3,
-          // borderColor: B3, 
-          borderBottomWidth: 2, 
-          borderBottomEndRadius: 100,
-          borderBottomStartRadius: 100
-          }}
+        <View
+          style={
+            (mainStyle.container,
+            {
+              backgroundColor: B2,
+              // borderBottomColor: B3,
+              // borderColor: B3,
+              borderBottomWidth: 2,
+              borderBottomEndRadius: 100,
+              borderBottomStartRadius: 100,
+            })
+          }
           // onPress={}
-          >
+        >
           <Text style={mainStyle.titleDisplay}>{this.state.teamName}</Text>
         </View>
 
         <FlatList
           data={this.state.data}
           numColumns={2}
-          columnWrapperStyle={{marginBottom: 50}}
+          columnWrapperStyle={{ marginBottom: 50 }}
           renderItem={({ item: rowData }) => {
             return (
               <TouchableOpacity
@@ -277,9 +280,6 @@ export default class TeamMemberList extends Component {
                   />
                 </Card>
               </TouchableOpacity>
-              
-              
-
             );
           }}
           refreshControl={
@@ -295,7 +295,7 @@ export default class TeamMemberList extends Component {
       <TouchableOpacity onPress={() => this.props.navigation.navigate("MemberProfile")}>
         <Text style={styles.text}> View Profile </Text>
       </TouchableOpacity> */}
-      {/* </KeyboardAwareScrollView> */}
+        {/* </KeyboardAwareScrollView> */}
       </SafeAreaView>
     );
   }
