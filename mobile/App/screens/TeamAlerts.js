@@ -328,7 +328,7 @@ class TeamAlerts extends React.Component {
 
           {this.state.alerts.length != 0 ? (
             <FlatList
-              data={this.state.alerts}
+              data={this.state.alerts.reverse()}
               renderItem={({ item: rowData }) => {
                 return (
                   <TeamAlert
