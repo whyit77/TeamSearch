@@ -23,6 +23,9 @@ module.exports = buildSchema(`
     creator: User!
     urgency: String!
     message: String!
+    title: String!
+    createdAt: String!
+    updatedAt: String!
   }
 
 type Team {
@@ -78,6 +81,8 @@ type Pin {
   latitude: Float!
   longitude: Float!
   creator: User!
+  createdAt: String!
+  updatedAt: String!
 }
 
 type Current {
@@ -100,10 +105,11 @@ input EventInput {
   date: String!
 }
 
-input AlertInput {
-  urgency: String!
-  message: String!
-}
+  input AlertInput {
+    urgency: String!
+    message: String!
+    title: String!
+  }
 
 input PinInput {
   title: String!

@@ -5,15 +5,9 @@ const { transformAlert } = require("./merge");
 
 module.exports = {
   createAlert: async (args, req) => {
-    //////////////////////////////////// TODO /////////////////////////////
     // if (!req.isAuth) {
     // 	throw new Error('Unauthenticated!');
     // }
-
-    // args.userId = "5e7031dc9c7708107b2bfaa7";
-    // args.teamId = "5e96a01304852dfea220a0db";
-    // args.alertInput.urgency = "High";
-    // args.alertInput.message = "This is a highly urgent alert";
 
     try {
       let user = await User.findById(args.userId);
@@ -32,6 +26,7 @@ module.exports = {
         creator: args.userId,
         urgency: args.alertInput.urgency,
         message: args.alertInput.message,
+        title: args.alertInput.title,
       });
       console.log(alert);
 

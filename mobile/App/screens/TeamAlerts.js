@@ -8,12 +8,12 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   SafeAreaView,
-  StatusBar
+  StatusBar,
+  FlatList,
 } from "react-native";
-// import SafeAreaView from "react-native-safe-area-view";
 import ModalDropdown from "react-native-modal-dropdown";
 import { TextField, ErrorText } from "../components/Form";
-import {TeamAlert} from '../components/TeamAlert';
+import { TeamAlert } from '../components/TeamAlert';
 
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer, AppRegistry } from "react-navigation";
@@ -38,71 +38,285 @@ const styles = StyleSheet.create({
   }
 });
 
+const initialState = {
+  title: "",
+  alertMessage: "",
+  urgency: "",
+  error: "",
+  userId: "",
+  username: "",
+  teamId: "",
+  alerts: [],
+  count: 1,
+};
 
+const urgencyOptions = ["High", "Medium", "Low"];
 
-// Urgency Level Dropdown Menu
+class TeamAlerts extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = initialState;
+  }
 
-// export default ({ navigation }) => (
-export default class TeamAlerts extends Component {
-  state = {
-    title: "Example Alerts",
-    alertMessage: "",
-    sender: " Dr. Dan",
-    time: "", // TODO add time stamp
-    urgency: "",
-    sends:"",
-    error: ""
+  async fetchCurrent() {
+    console.log("fetchCurrent");
+
+    let requestBody = {
+      query: `
+        query {
+          me {
+            userId
+            username
+            teamId
+          }
+        }
+      `, // me query pulls first person in database
+    };
+
+    // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.16:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(async (res) => {
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          // set current logged in user and selected team in state
+          const userId = responseJson.data.me.userId;
+          const username = responseJson.data.me.username;
+          const teamId = responseJson.data.me.teamId;
+
+          this.setState({
+            userId: userId,
+            username: username,
+            teamId: teamId,
+          });
+
+          return responseJson;
+        }
+
+        throw new Error(responseJson.error);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  handleSubmit = () => {
+    const title = this.state.title;
+    const message = this.state.alertMessage;
+    const urgency = this.state.urgency;
+    const teamId = this.state.teamId;
+    const userId = this.state.userId;
+
+    let requestBody = {
+      query: `
+      mutation CreateAlert($userId: String!, $teamId: String!, $title: String!, $message: String!, $urgency: String!) {
+        createAlert(userId: $userId, teamId: $teamId, 
+          alertInput: {title: $title, urgency: $urgency, message: $message}) {
+            title
+            message
+            urgency
+            creator {
+              username
+            }
+          }
+        }`,
+      variables: {
+        userId: userId,
+        teamId: teamId,
+        title: title,
+        message: message,
+        urgency: urgency
+      },
+    };
+
+    console.log(requestBody);
+
+    // CHECK IP ADDRESS ////////////////////////////////////////////////////////////////////////////// 192.168.1.9
+    fetch("http://192.168.1.16:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(async (res) => {
+        const responseJson = await res.json();
+        console.log(responseJson);
+
+        if (res.ok) {
+          console.log("OKAY ALERT CREATION");
+          this.setState({
+            title: "",
+            alertMessage: "",
+            urgency: "",
+            count: 1,
+          });
+          return responseJson;
+        }
+
+        this.setState(initialState);
+        this.setState({ error: responseJson.errors[0].message });
+        throw new Error(responseJson.error);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
+
+  async fetchTeamAlerts() {
+    const teamId = this.state.teamId;
+
+    console.log("fetchTeamAlerts");
+
+    let requestBody = {
+      query: `
+        query GetTeam($teamId: String!) {
+          getTeam(teamId: $teamId) {
+            alerts {
+              creator {
+                username
+              }
+              title
+              message
+              urgency
+              createdAt
+            }
+          }
+        }`,
+      variables: {
+        teamId: teamId,
+      },
+    };
+
+    if (this.state.count == 1) {
+      console.log("fetching...");
+
+      fetch("http://192.168.1.16:3000/graphql", {
+        method: "POST",
+        body: JSON.stringify(requestBody),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then(async (res) => {
+          const responseJson = await res.json();
+
+          console.log(responseJson);
+          console.disableYellowBox = true;
+
+          if (res.ok) {
+            console.log("Okay Fetched Alerts");
+
+            const alerts = responseJson.data.getTeam.alerts;
+
+            const info = [];
+            for (let i = 0; i < alerts.length; i++) {
+              info.push(alerts[i]);
+            }
+
+            this.setState({
+              alerts: info,
+            });
+
+            this.state.count = 2;
+            return responseJson;
+          }
+
+          this.setState({ error: responseJson.errors[0].message });
+          throw new Error(responseJson.error);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      this.state.count = 2;
+    }
+  }
+
+  async componentDidMount() {
+    this.fetchCurrent(); // fetch current user and team
+    console.log("mount");
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("UPDATING...");
+    this.fetchTeamAlerts(); // populate alert list
+  }
+
   render() {
-    return(
-  <View style={mainStyle.toplevel}>
-    <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+    return (
+      <View style={mainStyle.toplevel}>
+        <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+        <View style={formStyle.formContainer}>
+          <Text style={formStyle.label}>Type your update here: </Text>
+          <TextField
+            color='white'
+            style={formStyle.placeholderStyle}
+            placeholder="Title"
+            selectionColor='red'
+            keyboardAppearance='dark'
+            labelTextColor='white'
+            onChangeText={(title) => this.setState({ title })}
+            value={this.state.title}
+          />
+          <TextField
+            color='white'
+            style={formStyle.placeholderStyle}
+            placeholder="Alert Message"
+            selectionColor='red'
+            keyboardAppearance='dark'
+            labelTextColor='white'
+            onChangeText={(alertMessage) => this.setState({ alertMessage })}
+            value={this.state.alertMessage}
+          />
 
-    <KeyboardAwareScrollView extraScrollHeight={50}>
-  <ScrollView contentContainerStyle={mainStyle.toplevel}>
-    <View style={formStyle.formContainer}>
-    <Text style={formStyle.label}>Type your update here: </Text>
-    <TextField 
-      color='white' 
-      style={formStyle.placeholderStyle} 
-      placeholder="Title" 
-      selectionColor='red'
-      keyboardAppearance='dark'
-      labelTextColor='white'
-      
-      />
-      <TextField 
-      color='white' 
-      style={formStyle.placeholderStyle} 
-      placeholder="Alert Message" 
-      selectionColor='red'
-      keyboardAppearance='dark'
-      labelTextColor='white'
-      
-      />
-      
 
-    <Text style={formStyle.label}>Urgency Level: </Text>
-    <ModalDropdown
-      style={{margin: 20, color: 'white'}}
-      color={'white'}
-      options={["Very important", "Important", "Not important"]}
-      dropdownStyle={styles.container}
-      textStyle={mainStyle.text}
-    />
-    <View style={mainStyle.container}>
-    <TouchableOpacity style={buttonStyle.buttonContainer} onPress={() => navigation.navigate("TeamInfo")}>
-      <Text style={buttonStyle.buttonText}>Send</Text>
-    </TouchableOpacity>
-    </View>
-    <Text style={mainStyle.bigText}>Current Notifications </Text>
-    <TeamAlert title={this.state.title} urgency={this.state.urgency} sender={this.state.sender} time={this.state.time}></TeamAlert>
-    
-    </View>
-    </ScrollView>
-    </KeyboardAwareScrollView>
-  </View>
-  )
+          <Text style={formStyle.label}>Urgency Level: </Text>
+          <ModalDropdown
+            style={{ margin: 20, color: 'white' }}
+            color={'white'}
+            options={urgencyOptions}
+            dropdownStyle={styles.container}
+            textStyle={mainStyle.text}
+            onSelect={(idx, urgency) => this.setState({ urgency })}
+          />
+          <View style={mainStyle.container}>
+            <TouchableOpacity style={buttonStyle.buttonContainer} onPress={() => this.handleSubmit()}>
+              <Text style={buttonStyle.buttonText}>Send</Text>
+            </TouchableOpacity>
+          </View>
+          <Text style={mainStyle.bigText}>Current Notifications:</Text>
+
+          {this.state.alerts.length != 0 ? (
+            <FlatList
+              data={this.state.alerts}
+              renderItem={({ item: rowData }) => {
+                return (
+                  <TeamAlert
+                    title={rowData.title}
+                    urgency={rowData.urgency}
+                    message={rowData.message}
+                    sender={rowData.creator.username}
+                    time={new Date(rowData.createdAt).toISOString().split("T")[0]}
+                  />
+                );
+              }}
+              keyExtractor={(item, index) => index}
+            />
+          ) : (
+              <Text style={mainStyle.bigText}>No Alerts to Display</Text>
+            )}
+        </View>
+      </View>
+    )
+  }
 }
-}
-// );
+
+export default TeamAlerts;
