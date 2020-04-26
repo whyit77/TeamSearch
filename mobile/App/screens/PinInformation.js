@@ -148,6 +148,25 @@ class PinInformation extends React.Component {
 
         console.log(responseJson);
 
+        if (responseJson.data.createPin == null) {
+          const err = responseJson.errors[0].message;
+          if (err.includes("Pin validation failed")) {
+            this.setState({
+              error: "Pin validation failed: required fields missing.",
+            });
+          }
+
+          return responseJson;
+        }
+
+        if (responseJson.data.createPin.title.includes("Tap to Edit")) {
+          this.setState({
+            error: "Pin validation failed: required fields missing.",
+          });
+
+          return responseJson;
+        }
+
         if (res.ok) {
           console.log("Okay PIN");
           const creator = responseJson.data.createPin.creator.username;
@@ -160,6 +179,7 @@ class PinInformation extends React.Component {
         }
 
         this.setState(initialState);
+        this.setState({ error: responseJson.errors[0].message });
         throw new Error(responseJson.error);
       })
       .catch((err) => {
@@ -211,6 +231,7 @@ class PinInformation extends React.Component {
             placeholder="Description of pin"
             maxLength={250}
           />
+          <ErrorText text={this.state.error} />
           <View style={mainStyle.container}>
             <TouchableOpacity
               style={buttonStyle.buttonContainer}
@@ -240,6 +261,7 @@ class PinInformation extends React.Component {
           <Text style={formStyle.label}>
             Pin Description: {this.state.description}
           </Text>
+          <ErrorText text={this.state.error} />
           {/* <View style={mainStyle.container}>
               <TouchableOpacity
                 style={buttonStyle.buttonContainer}
