@@ -79,7 +79,7 @@ class TeamAlerts extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.5:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -144,7 +144,7 @@ class TeamAlerts extends React.Component {
     // console.log(requestBody);
 
     // CHECK IP ADDRESS ////////////////////////////////////////////////////////////////////////////// 192.168.1.9
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.5:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -219,7 +219,7 @@ class TeamAlerts extends React.Component {
     // if (this.state.count == 1) {
     console.log("fetching...");
 
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.5:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -314,8 +314,8 @@ class TeamAlerts extends React.Component {
           {this.state.error != "" ? (
             <ErrorText text={this.state.error} />
           ) : (
-            <View />
-          )}
+              <View />
+            )}
           <View style={mainStyle.container}>
             <TouchableOpacity
               style={buttonStyle.buttonContainer}
@@ -346,8 +346,8 @@ class TeamAlerts extends React.Component {
               keyExtractor={(item, index) => index}
             />
           ) : (
-            <Text style={mainStyle.bigText}>No Alerts to Display</Text>
-          )}
+              <Text style={mainStyle.bigText}>No Alerts to Display</Text>
+            )}
         </View>
       </View>
     );
