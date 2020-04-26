@@ -169,7 +169,7 @@ class Map extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -231,7 +231,7 @@ class Map extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -490,27 +490,25 @@ class Map extends React.Component {
         onLongPress={this.handlePress}
         showsMyLocationButton={true}
         // mapType="mutedStandard"
-        customMapStyle={{tintColor: "red"}}
         userLocationPriority='high'
         userLocationUpdateInterval={15000}
         loadingEnabled={true}
-        compassOffset={false}
         tintColor={'red'}
         showsCompass={true}
       >
         <Polyline coordinates={this.state.routeCoordinates} strokeWidth={0} />
-        <Marker.Animated
+        {/* <Marker.Animated
             ref={(marker) => {
               this.marker = marker;
             }}
             coordinate={this.state.coordinate}
-          />
+          /> */}
 
-          <TouchableOpacity onPress={this.getCurrentPosition}>
+          {/* <TouchableOpacity onPress={this.getCurrentPosition}>
             <Text style={{ height: 100, width: 400 }}>
               Initial Position: {currentLocation}
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
         <Heatmap
           initialRegion={this.state.initialPosition}

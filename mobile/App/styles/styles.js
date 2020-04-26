@@ -59,6 +59,14 @@ const mainStyle = StyleSheet.create({
     fontWeight: 'bold',
     
   },
+  pinInfoTitle: {
+    fontSize: 20,
+    color: WHITE,
+    margin: 10,
+    textAlign: 'center',
+    // fontWeight: 'bold',
+    
+  },
   smallText: {
     fontSize: 20,
     color: 'white',
