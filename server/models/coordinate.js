@@ -24,6 +24,10 @@ const coordinateSchema = new Schema(
       type: String,
       required: false,
     },
+    weight: {
+      type: Number,
+      required: true,
+    },
   },
   { timestamps: true }
 );

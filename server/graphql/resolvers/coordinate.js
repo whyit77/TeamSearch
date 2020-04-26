@@ -5,15 +5,9 @@ const { transformCoordinate } = require("./merge");
 
 module.exports = {
   createCoordinate: async (args, req) => {
-    //////////////////////////////////// TODO /////////////////////////////
     // if (!req.isAuth) {
     // 	throw new Error('Unauthenticated!');
     // }
-
-    // args.userId = "5e7031dc9c7708107b2bfaa7";
-    // args.teamId = "5e96a01304852dfea220a0db";
-    // args.alertInput.urgency = "High";
-    // args.alertInput.message = "This is a highly urgent alert";
 
     try {
       let user = await User.findById(args.userId);
@@ -26,12 +20,11 @@ module.exports = {
         throw new Error("Team not found.");
       }
 
-      // onsole.log(user);
-
       const coor = new Coordinate({
         creator: args.userId,
         latitude: args.coordinateInput.latitude,
         longitude: args.coordinateInput.longitude,
+        weight: args.coordinateInput.weight,
         // gradient: args.coordinateInput.gradient || -1,
         // color: args.coordinateInput.color || '',
       });

@@ -190,7 +190,7 @@ export default class Login extends React.Component {
                 selectionColor="red"
                 keyboardAppearance="dark"
               />
-              <View style={formStyle.textBlock}>
+              {/* <View style={formStyle.textBlock}>
                 <TouchableOpacity
                   onPress={() => this.props.navigation.navigate("Reset")}
                 >
@@ -198,7 +198,7 @@ export default class Login extends React.Component {
                     Forgot Password?
                   </Text>
                 </TouchableOpacity>
-              </View>
+              </View> */}
               <ErrorText text={this.state.error} />
               <View style={formStyle.formButtonContainer}>
                 <Button

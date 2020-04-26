@@ -25,11 +25,11 @@ const LONGITUDE_DELTA = 0.009;
 const LATITUDE = 37.78825;
 const LONGITUDE = -122.4324;
 
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min;
-}
+// function getRandomInt(min, max) {
+//   min = Math.ceil(min);
+//   max = Math.floor(max);
+//   return Math.floor(Math.random() * (max - min)) + min;
+// }
 
 // These are the values that we are looking at pushing to the database
 let currentLat = 0;
@@ -72,6 +72,7 @@ class Map extends React.Component {
       routeCoordinates: [],
       distanceTravelled: 0,
       prevLatLng: {},
+      points: [],
 
       // Gathering Coordinates
       coordinate: new AnimatedRegion({
@@ -87,70 +88,127 @@ class Map extends React.Component {
         longitude: LONGITUDE,
         latitudeDelta: 0,
         longitudeDelta: 0,
-        // },
-
-        // latitude: 40.7143,
-        // longitude: -74.0042,
-        // latitudeDelta: 0.09,
-        // longitudeDelta: 0.035,
-
         mapRegion: null,
         lastLat: null,
         lastLong: null,
       },
-
-      // markers: [],
-      // pinName: name,
-      // pinLocation: location,
-      // pinDescription: descr
     };
 
     this.handlePress = this.handlePress.bind(this);
   }
 
-  points = [
-    { latitude: 40.7828, longitude: -74.0065, weight: 1 },
-    { latitude: 41.7121, longitude: -74.0042, weight: 1 },
-    { latitude: 40.7102, longitude: -75.006, weight: 1 },
-    { latitude: 40.7123, longitude: -74.0052, weight: 1 },
-    { latitude: 40.7032, longitude: -74.0042, weight: 1 },
-    { latitude: 40.7198, longitude: -74.0024, weight: 1 },
-    { latitude: 41.7223, longitude: -74.0053, weight: 1 },
-    { latitude: 40.7181, longitude: -74.0042, weight: 1 },
-    { latitude: 40.7124, longitude: -74.0023, weight: 1 },
-    { latitude: 40.7648, longitude: -74.0012, weight: 1 },
-    { latitude: 41.7128, longitude: -74.0027, weight: 1 },
-    { latitude: 40.7223, longitude: -74.0153, weight: 1 },
-    { latitude: 40.7193, longitude: -74.0052, weight: 1 },
-    { latitude: 40.7241, longitude: -75.0013, weight: 1 },
-    { latitude: 41.7518, longitude: -74.0085, weight: 1 },
-    { latitude: 40.7599, longitude: -74.0093, weight: 1 },
-    { latitude: 41.7523, longitude: -74.0021, weight: 1 },
-    { latitude: 40.7342, longitude: -74.0152, weight: 1 },
-    { latitude: 40.7484, longitude: -75.0042, weight: 1 },
-    { latitude: 40.7929, longitude: -75.0023, weight: 1 },
-    { latitude: 40.7292, longitude: -74.0013, weight: 1 },
-    { latitude: 40.794, longitude: -74.0048, weight: 1 },
-    { latitude: 40.7874, longitude: -74.0052, weight: 1 },
-    { latitude: 40.7824, longitude: -74.0024, weight: 1 },
-    { latitude: 40.7232, longitude: -74.0094, weight: 1 },
-    { latitude: 41.7342, longitude: -74.0152, weight: 1 },
-    { latitude: 41.7484, longitude: -74.0012, weight: 1 },
-    { latitude: 41.7929, longitude: -74.0073, weight: 1 },
-    { latitude: 41.7292, longitude: -74.0013, weight: 1 },
-    { latitude: 41.794, longitude: -74.0058, weight: 1 },
-    { latitude: 41.7874, longitude: -74.0352, weight: 1 },
-    { latitude: 41.7824, longitude: -74.0024, weight: 1 },
-    { latitude: 41.7232, longitude: -74.0094, weight: 1 },
-    { latitude: 41.0342, longitude: -75.0152, weight: 1 },
-    { latitude: 41.0484, longitude: -75.0012, weight: 1 },
-    { latitude: 41.0929, longitude: -75.0073, weight: 1 },
-    { latitude: 41.0292, longitude: -74.0013, weight: 1 },
-    { latitude: 41.094, longitude: -74.0068, weight: 1 },
-    { latitude: 41.0874, longitude: -74.0052, weight: 1 },
-    { latitude: 41.0824, longitude: -74.0024, weight: 1 },
-    { latitude: 41.0232, longitude: -74.0014, weight: 1 },
-  ];
+  // points = [
+  //   { latitude: 40.7828, longitude: -74.0065, weight: 1 },
+  // { latitude: 41.7121, longitude: -74.0042, weight: 1 },
+  // { latitude: 40.7102, longitude: -75.006, weight: 1 },
+  // { latitude: 40.7123, longitude: -74.0052, weight: 1 },
+  // { latitude: 40.7032, longitude: -74.0042, weight: 1 },
+  // { latitude: 40.7198, longitude: -74.0024, weight: 1 },
+  // { latitude: 41.7223, longitude: -74.0053, weight: 1 },
+  // { latitude: 40.7181, longitude: -74.0042, weight: 1 },
+  // { latitude: 40.7124, longitude: -74.0023, weight: 1 },
+  // { latitude: 40.7648, longitude: -74.0012, weight: 1 },
+  // { latitude: 41.7128, longitude: -74.0027, weight: 1 },
+  // { latitude: 40.7223, longitude: -74.0153, weight: 1 },
+  // { latitude: 40.7193, longitude: -74.0052, weight: 1 },
+  // { latitude: 40.7241, longitude: -75.0013, weight: 1 },
+  // { latitude: 41.7518, longitude: -74.0085, weight: 1 },
+  // { latitude: 40.7599, longitude: -74.0093, weight: 1 },
+  // { latitude: 41.7523, longitude: -74.0021, weight: 1 },
+  // { latitude: 40.7342, longitude: -74.0152, weight: 1 },
+  // { latitude: 40.7484, longitude: -75.0042, weight: 1 },
+  // { latitude: 40.7929, longitude: -75.0023, weight: 1 },
+  // { latitude: 40.7292, longitude: -74.0013, weight: 1 },
+  // { latitude: 40.794, longitude: -74.0048, weight: 1 },
+  // { latitude: 40.7874, longitude: -74.0052, weight: 1 },
+  // { latitude: 40.7824, longitude: -74.0024, weight: 1 },
+  // { latitude: 40.7232, longitude: -74.0094, weight: 1 },
+  // { latitude: 41.7342, longitude: -74.0152, weight: 1 },
+  // { latitude: 41.7484, longitude: -74.0012, weight: 1 },
+  // { latitude: 41.7929, longitude: -74.0073, weight: 1 },
+  // { latitude: 41.7292, longitude: -74.0013, weight: 1 },
+  // { latitude: 41.794, longitude: -74.0058, weight: 1 },
+  // { latitude: 41.7874, longitude: -74.0352, weight: 1 },
+  // { latitude: 41.7824, longitude: -74.0024, weight: 1 },
+  // { latitude: 41.7232, longitude: -74.0094, weight: 1 },
+  // { latitude: 41.0342, longitude: -75.0152, weight: 1 },
+  // { latitude: 41.0484, longitude: -75.0012, weight: 1 },
+  // { latitude: 41.0929, longitude: -75.0073, weight: 1 },
+  // { latitude: 41.0292, longitude: -74.0013, weight: 1 },
+  // { latitude: 41.094, longitude: -74.0068, weight: 1 },
+  // { latitude: 41.0874, longitude: -74.0052, weight: 1 },
+  // { latitude: 41.0824, longitude: -74.0024, weight: 1 },
+  // { latitude: 41.0232, longitude: -74.0014, weight: 1 },
+  // ];
+
+  storeCoords = (clat, clong) => {
+    const userId = this.state.userId;
+    const teamId = this.state.teamId;
+    const lat = clat;
+    const long = clong;
+    const weight = 1;
+
+    let requestBody = {
+      query: `
+          mutation createCoordinate($userId: String!, $teamId: String!, $latitude: Float!, $longitude: Float!, $weight: Int!) {
+            createCoordinate(userId: $userId, teamId: $teamId, coordinateInput: { latitude: $latitude, longitude: $longitude, weight: $weight}) {
+              _id
+              latitude
+              longitude
+              creator {
+                username
+              }
+            }
+          }
+        `,
+      variables: {
+        userId: userId,
+        teamId: teamId,
+        latitude: lat,
+        longitude: long,
+        weight: weight,
+      },
+    };
+
+    // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.11:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(async (res) => {
+        const responseJson = await res.json();
+
+        console.log(responseJson);
+
+        if (res.ok) {
+          console.log("Okay ADD HEATMAP");
+
+          this.setState({
+            points: [
+              ...this.state.points,
+              {
+                latitude: responseJson.data.createCoordinate.latitude,
+                longitude: responseJson.data.createCoordinate.longitude,
+                weight: responseJson.data.createCoordinate.weight,
+              },
+            ],
+          });
+
+          return responseJson;
+        }
+
+        console.log("ERRRRROR");
+        throw new Error(responseJson.error);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // this.forceUpdate(); // update components
+  };
 
   async fetchCurrentTeam() {
     console.log("fetchCurrentTeam");
@@ -203,7 +261,7 @@ class Map extends React.Component {
       });
   }
 
-  // get team map info (PINS)
+  // get team map info (PINS, COORDS)
   fetchTeamInfo() {
     console.log("PIN INFO");
     const teamId = this.state.teamId;
@@ -221,6 +279,11 @@ class Map extends React.Component {
                 creator {
                   username
                 }
+              }
+              coordinates {
+                latitude
+                longitude
+                weight
               }
             }
           }`,
@@ -244,20 +307,25 @@ class Map extends React.Component {
         if (res.ok) {
           const teamName = responseJson.data.getTeam.teamName;
           const pinArr = responseJson.data.getTeam.pins;
+          const coordArr = responseJson.data.getTeam.coordinates;
 
           const pinList = [];
           for (let i = 0; i < pinArr.length; i++) {
             pinList.push(pinArr[i]);
           }
-          // console.log("PINLIST:");
-          // console.log(pinList);
+
+          const coordList = [];
+          for (let i = 0; i < coordArr.length; i++) {
+            coordList.push(coordArr[i]);
+          }
 
           this.setState({
             teamName: teamName,
             rawPins: pinList,
+            points: coordList,
           });
 
-          this.fixRawPins();
+          this.fixRawPins(); // transform pin list so it fits with markers later
 
           return responseJson;
         }
@@ -270,14 +338,11 @@ class Map extends React.Component {
       });
   }
 
+  // transform pin list so it fits with markers later
   fixRawPins() {
-    console.log("FIX");
     const rawPins = this.state.rawPins;
-    // console.log(rawPins[0].latitude);
 
     let newList = [];
-    // var coord = { longitude: 0.0, latitude: 0.0 };
-    // var newMarker = { pin: "", coord };
 
     for (let i = 0; i < rawPins.length; i++) {
       var coord = {
@@ -294,14 +359,11 @@ class Map extends React.Component {
       newList.push(newMarker);
     }
 
-    // console.log(newList);
-
     this.setState({ markers: newList });
   }
 
   async componentDidMount() {
     await this.fetchCurrentTeam(); // set teamId
-    console.log(this.state.teamId);
 
     await this.getCurrentLocation();
     this.interval = setInterval(() => this.sendCurrentData(), 30000); // sends the current position automatically every 30 seconds
@@ -332,7 +394,7 @@ class Map extends React.Component {
           }
         } else {
           coordinate.timing(newCoordinate).start();
-
+          console.log("here");
           console.log(this.state.routeCoordinates);
         }
 
@@ -408,13 +470,12 @@ class Map extends React.Component {
   handlePress(e) {
     const coord = e.nativeEvent.coordinate;
     console.log(coord);
-    // const { latitude, longitude } = coord;
+
     this.setState({
       markers: [
         ...this.state.markers,
         {
-          // pin: `$$getRandomInt(50,300)`,
-          pin: "new pin",
+          pin: "Tap to Edit",
           coordinate: coord,
           creator: this.state.userId,
           description: "",
@@ -422,9 +483,6 @@ class Map extends React.Component {
         },
       ],
     });
-
-    // pinLat = latitude;
-    // pinLong = longitude;
   }
 
   sendCurrentData() {
@@ -438,7 +496,12 @@ class Map extends React.Component {
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     );
 
-    //  TODO: Update Heatmap
+    console.log("force update????");
+
+    this.storeCoords(currentLat, currentLong); // store current loc in db
+    // this.forceUpdate(); // update components
+
+    // //  TODO: Update Heatmap
     // Alert.alert(
     //   "Adding/Updating Pins and Heatmap\n" +
     //     "Lat:" +
@@ -450,11 +513,11 @@ class Map extends React.Component {
   }
 
   render() {
-    const midX = (currentLat + this.points[0].latitude) / 2;
-    const deltaX = this.points[0].latitude - currentLat;
+    // const midX = (currentLat + this.points[0].latitude) / 2;
+    // const deltaX = this.points[0].latitude - currentLat;
 
-    const midY = (currentLong + this.points[0].longitude) / 2;
-    const deltaY = this.points[0].longitude - currentLong;
+    // const midY = (currentLong + this.points[0].longitude) / 2;
+    // const deltaY = this.points[0].longitude - currentLong;
 
     // const loc = this.props.navigation.getParam("location", location);
 
@@ -474,13 +537,13 @@ class Map extends React.Component {
           provider={PROVIDER_GOOGLE}
           ref={(map) => (this._map = map)}
           style={styles.map}
-          // initialRegion={this.state.initialRegion}
-          initialRegion={{
-            latitude: midX,
-            longitude: midY,
-            latitudeDelta: deltaX,
-            longitudeDelta: deltaY,
-          }}
+          initialRegion={this.state.initialRegion}
+          // initialRegion={{
+          //   latitude: midX,
+          //   longitude: midY,
+          //   latitudeDelta: deltaX,
+          //   longitudeDelta: deltaY,
+          // }}
           showsUserLocation
           followsUserLocation
           loadingEnabled
@@ -494,18 +557,19 @@ class Map extends React.Component {
               this.marker = marker;
             }}
             coordinate={this.state.coordinate}
+            title="start"
           />
 
-          <TouchableOpacity onPress={this.getCurrentPosition}>
+          {/* <TouchableOpacity onPress={this.getCurrentPosition}>
             <Text style={{ height: 100, width: 400 }}>
               Initial Position: {currentLocation}
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <Heatmap
             initialRegion={this.state.initialPosition}
-            // points={this.points}
-            points={this.state.routeCoordinates}
+            points={this.state.points}
+            // points={this.state.routeCoordinates}
             radius={40}
             gradient={{
               colors: ["black", "purple", "red", "yellow", "white"],
@@ -524,7 +588,6 @@ class Map extends React.Component {
                 coordinate={marker.coordinate}
                 key={i}
                 title={marker.pin}
-                // description="This is the missing item!"
                 onPress={this.onPress}
                 {...marker}
                 draggable
@@ -551,7 +614,7 @@ class Map extends React.Component {
             );
           })}
         </MapView>
-        <View style={styles.buttonContainer}>
+        {/* <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={this.getCurrentLocation}
             style={[styles.bubble, styles.button]}
@@ -560,7 +623,7 @@ class Map extends React.Component {
               {parseFloat(this.state.distanceTravelled).toFixed(2)} mi
             </Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
     );
   }

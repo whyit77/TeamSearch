@@ -90,8 +90,6 @@ class PinInformation extends React.Component {
             teamId: teamId,
           });
 
-          // this.setParams();
-
           return responseJson;
         }
 
@@ -101,24 +99,6 @@ class PinInformation extends React.Component {
         console.log(err);
       });
   }
-
-  // setParams() {
-  //   console.log("params");
-  //   const lat = this.props.navigation.getParam("lat");
-  //   const lon = this.props.navigation.getParam("long");
-  //   const name = this.props.navigation.getParam("name");
-  //   const desc = this.props.navigation.getParam("desc");
-  //   const cre = this.props.navigation.getParam("creator");
-  //   const fl = this.props.navigation.getParam("flag");
-  //   this.setState({
-  //     pinLat: lat,
-  //     pinLong: lon,
-  //     pinName: name,
-  //     description: desc,
-  //     creator: cre,
-  //     flag: fl,
-  //   });
-  // }
 
   handleSubmit = () => {
     const userId = this.state.userId;
@@ -186,7 +166,7 @@ class PinInformation extends React.Component {
         console.log(err);
       });
 
-    this.forceUpdate(); // update components
+    // this.forceUpdate();
   };
 
   async componentDidMount() {

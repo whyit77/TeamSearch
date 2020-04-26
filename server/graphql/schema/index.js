@@ -48,6 +48,7 @@ type Coordinate {
   longitude: Float!
   gradient: Int
   Color: String
+  weight: Int!
 }
 
 type User {
@@ -114,6 +115,7 @@ input PinInput {
 input CoordinateInput {
   latitude: Float!
   longitude: Float!
+  weight: Int!
 }
 
 
