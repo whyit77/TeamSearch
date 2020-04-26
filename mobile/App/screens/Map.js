@@ -98,121 +98,8 @@ class Map extends React.Component {
     this.handlePress = this.handlePress.bind(this);
   }
 
-  // points = [
-  //   { latitude: 40.7828, longitude: -74.0065, weight: 1 },
-  // { latitude: 41.7121, longitude: -74.0042, weight: 1 },
-  // { latitude: 40.7102, longitude: -75.006, weight: 1 },
-  // { latitude: 40.7123, longitude: -74.0052, weight: 1 },
-  // { latitude: 40.7032, longitude: -74.0042, weight: 1 },
-  // { latitude: 40.7198, longitude: -74.0024, weight: 1 },
-  // { latitude: 41.7223, longitude: -74.0053, weight: 1 },
-  // { latitude: 40.7181, longitude: -74.0042, weight: 1 },
-  // { latitude: 40.7124, longitude: -74.0023, weight: 1 },
-  // { latitude: 40.7648, longitude: -74.0012, weight: 1 },
-  // { latitude: 41.7128, longitude: -74.0027, weight: 1 },
-  // { latitude: 40.7223, longitude: -74.0153, weight: 1 },
-  // { latitude: 40.7193, longitude: -74.0052, weight: 1 },
-  // { latitude: 40.7241, longitude: -75.0013, weight: 1 },
-  // { latitude: 41.7518, longitude: -74.0085, weight: 1 },
-  // { latitude: 40.7599, longitude: -74.0093, weight: 1 },
-  // { latitude: 41.7523, longitude: -74.0021, weight: 1 },
-  // { latitude: 40.7342, longitude: -74.0152, weight: 1 },
-  // { latitude: 40.7484, longitude: -75.0042, weight: 1 },
-  // { latitude: 40.7929, longitude: -75.0023, weight: 1 },
-  // { latitude: 40.7292, longitude: -74.0013, weight: 1 },
-  // { latitude: 40.794, longitude: -74.0048, weight: 1 },
-  // { latitude: 40.7874, longitude: -74.0052, weight: 1 },
-  // { latitude: 40.7824, longitude: -74.0024, weight: 1 },
-  // { latitude: 40.7232, longitude: -74.0094, weight: 1 },
-  // { latitude: 41.7342, longitude: -74.0152, weight: 1 },
-  // { latitude: 41.7484, longitude: -74.0012, weight: 1 },
-  // { latitude: 41.7929, longitude: -74.0073, weight: 1 },
-  // { latitude: 41.7292, longitude: -74.0013, weight: 1 },
-  // { latitude: 41.794, longitude: -74.0058, weight: 1 },
-  // { latitude: 41.7874, longitude: -74.0352, weight: 1 },
-  // { latitude: 41.7824, longitude: -74.0024, weight: 1 },
-  // { latitude: 41.7232, longitude: -74.0094, weight: 1 },
-  // { latitude: 41.0342, longitude: -75.0152, weight: 1 },
-  // { latitude: 41.0484, longitude: -75.0012, weight: 1 },
-  // { latitude: 41.0929, longitude: -75.0073, weight: 1 },
-  // { latitude: 41.0292, longitude: -74.0013, weight: 1 },
-  // { latitude: 41.094, longitude: -74.0068, weight: 1 },
-  // { latitude: 41.0874, longitude: -74.0052, weight: 1 },
-  // { latitude: 41.0824, longitude: -74.0024, weight: 1 },
-  // { latitude: 41.0232, longitude: -74.0014, weight: 1 },
-  // ];
-
-  storeCoords = (clat, clong) => {
-    const userId = this.state.userId;
-    const teamId = this.state.teamId;
-    const lat = clat;
-    const long = clong;
-    const weight = 1;
-
-    let requestBody = {
-      query: `
-          mutation createCoordinate($userId: String!, $teamId: String!, $latitude: Float!, $longitude: Float!, $weight: Int!) {
-            createCoordinate(userId: $userId, teamId: $teamId, coordinateInput: { latitude: $latitude, longitude: $longitude, weight: $weight}) {
-              _id
-              latitude
-              longitude
-              creator {
-                username
-              }
-            }
-          }
-        `,
-      variables: {
-        userId: userId,
-        teamId: teamId,
-        latitude: lat,
-        longitude: long,
-        weight: weight,
-      },
-    };
-
-    // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.11:3000/graphql", {
-      method: "POST",
-      body: JSON.stringify(requestBody),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then(async (res) => {
-        const responseJson = await res.json();
-
-        console.log(responseJson);
-
-        if (res.ok) {
-          console.log("Okay ADD HEATMAP");
-
-          this.setState({
-            points: [
-              ...this.state.points,
-              {
-                latitude: responseJson.data.createCoordinate.latitude,
-                longitude: responseJson.data.createCoordinate.longitude,
-                weight: responseJson.data.createCoordinate.weight,
-              },
-            ],
-          });
-
-          return responseJson;
-        }
-
-        console.log("ERRRRROR");
-        throw new Error(responseJson.error);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    // this.forceUpdate(); // update components
-  };
-
-  async fetchCurrentTeam() {
-    console.log("fetchCurrentTeam");
+  async fetchCurrent() {
+    console.log("fetchCurrent");
 
     let requestBody = {
       query: `
@@ -363,8 +250,113 @@ class Map extends React.Component {
     this.setState({ markers: newList });
   }
 
+  storeCoords = (clat, clong) => {
+    const userId = this.state.userId;
+    const teamId = this.state.teamId;
+    const lat = clat;
+    const long = clong;
+    const weight = 1;
+
+    let requestBody = {
+      query: `
+          mutation createCoordinate($userId: String!, $teamId: String!, $latitude: Float!, $longitude: Float!, $weight: Int!) {
+            createCoordinate(userId: $userId, teamId: $teamId, coordinateInput: { latitude: $latitude, longitude: $longitude, weight: $weight}) {
+              _id
+              latitude
+              longitude
+              creator {
+                username
+              }
+            }
+          }
+        `,
+      variables: {
+        userId: userId,
+        teamId: teamId,
+        latitude: lat,
+        longitude: long,
+        weight: weight,
+      },
+    };
+
+    // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
+    fetch("http://192.168.1.11:3000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(async (res) => {
+        const responseJson = await res.json();
+
+        console.log(responseJson);
+
+        if (res.ok) {
+          console.log("Okay ADD HEATMAP");
+
+          this.setState({
+            points: [
+              ...this.state.points,
+              {
+                latitude: responseJson.data.createCoordinate.latitude,
+                longitude: responseJson.data.createCoordinate.longitude,
+                weight: responseJson.data.createCoordinate.weight,
+              },
+            ],
+          });
+
+          return responseJson;
+        }
+
+        console.log("ERRRRROR");
+        throw new Error(responseJson.error);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // this.forceUpdate(); // update components
+  };
+
+  // FUNCTION: Getting a user's current location for
+  //////////// initial location
+  async getCurrentLocation() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        let region = {
+          latitude: parseFloat(position.coords.latitude),
+          longitude: parseFloat(position.coords.longitude),
+          latitudeDelta: 5,
+          longitudeDelta: 5,
+        };
+        this.setState({
+          initialRegion: region,
+        });
+      },
+      (error) => console.log(error),
+      {
+        enableHighAccuracy: true,
+        timeout: 20000,
+        maximumAge: 1,
+      }
+    );
+  }
+
+  // FUNCTION: Setting initial location
+  ////////////
+  goToInitialLocation() {
+    let initialRegion = Object.assign({}, this.state.initialRegion);
+    initialRegion["latitudeDelta"] = 0.005;
+    initialRegion["longitudeDelta"] = 0.005;
+    this.mapView.animateToRegion(initialRegion, 10);
+  }
+
   async componentDidMount() {
-    await this.fetchCurrentTeam(); // set teamId
+    // await this.fetchCurrentTeam(); // set teamId
+    this.focus = this.props.navigation.addListener("willFocus", () => {
+      this.fetchCurrent();
+    });
 
     await this.getCurrentLocation();
     this.interval = setInterval(() => this.sendCurrentData(), 10000); // sends the current position automatically every 10 seconds
@@ -418,41 +410,17 @@ class Map extends React.Component {
     );
   }
 
-  // FUNCTION: Getting a user's current location for
-  //////////// initial location
-  async getCurrentLocation() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        let region = {
-          latitude: parseFloat(position.coords.latitude),
-          longitude: parseFloat(position.coords.longitude),
-          latitudeDelta: 5,
-          longitudeDelta: 5,
-        };
-        this.setState({
-          initialRegion: region,
-        });
-      },
-      (error) => console.log(error),
-      {
-        enableHighAccuracy: true,
-        timeout: 20000,
-        maximumAge: 1,
-      }
-    );
-  }
-
-  // FUNCTION: Setting initial location
-  ////////////
-  goToInitialLocation() {
-    let initialRegion = Object.assign({}, this.state.initialRegion);
-    initialRegion["latitudeDelta"] = 0.005;
-    initialRegion["longitudeDelta"] = 0.005;
-    this.mapView.animateToRegion(initialRegion, 10);
+  componentWillUpdate() {
+    // this.focus = this.props.navigation.addListener("focus", () => {
+    //   this.fetchCurrentTeam();
+    // });
+    // this.forceUpdate();
   }
 
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
+    console.log("unmount");
+    this.focus.remove();
   }
 
   getMapRegion = () => ({

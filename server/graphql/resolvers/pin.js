@@ -35,7 +35,7 @@ module.exports = {
 
       let createdPin = transformPin(result);
 
-      console.log(createdPin);
+      // console.log(createdPin);
 
       team.pins.push(pin);
       await team.save();
