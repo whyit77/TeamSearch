@@ -10,7 +10,7 @@
     "react-native-gesture-handler": "^1.5.3",
     "react-native-keyboard-aware-scrollview": "^2.1.0",
     "react-native-network-info": "^5.2.1",
-    "react-navigation": "^4.0.10",
+    "react-navigation": "^4.3.8",
     "react-navigation-stack": "^2.0.15"
   },
   "devDependencies": {
