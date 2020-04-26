@@ -11,7 +11,6 @@ import {
   StatusBar,
   FlatList,
 } from "react-native";
-// import SafeAreaView from "react-native-safe-area-view";
 import ModalDropdown from "react-native-modal-dropdown";
 import { TextField, ErrorText } from "../components/Form";
 import { TeamAlert } from '../components/TeamAlert';
@@ -53,7 +52,6 @@ const initialState = {
 
 const urgencyOptions = ["High", "Medium", "Low"];
 
-// export default ({ navigation }) => (
 class TeamAlerts extends React.Component {
   constructor(props) {
     super(props);
@@ -99,8 +97,6 @@ class TeamAlerts extends React.Component {
             teamId: teamId,
           });
 
-          // this.setParams();
-
           return responseJson;
         }
 
@@ -115,7 +111,7 @@ class TeamAlerts extends React.Component {
     const title = this.state.title;
     const message = this.state.alertMessage;
     const urgency = this.state.urgency;
-    const teamId = "5e96a01304852dfea220a0db" //this.state.teamId;
+    const teamId = this.state.teamId;
     const userId = this.state.userId;
 
     let requestBody = {
@@ -175,7 +171,7 @@ class TeamAlerts extends React.Component {
   };
 
   async fetchTeamAlerts() {
-    const teamId = "5e96a01304852dfea220a0db" //this.state.teamId;
+    const teamId = this.state.teamId;
 
     console.log("fetchTeamAlerts");
 
@@ -322,5 +318,5 @@ class TeamAlerts extends React.Component {
     )
   }
 }
-// );
+
 export default TeamAlerts;
