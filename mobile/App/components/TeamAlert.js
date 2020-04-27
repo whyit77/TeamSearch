@@ -80,7 +80,7 @@ export const TeamAlert = ({ title, message, sender, time, urgency }) => (
           </Text>
         </View>
         </View>
-      </View>
+      {/* </View> */}
     </View>
   </TouchableOpacity>
 );

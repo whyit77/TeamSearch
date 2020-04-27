@@ -8,6 +8,7 @@ import {
   FlatList,
   RefreshControl,
   ActivityIndicator,
+  Dimensions
 } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 import { Card, Avatar } from "react-native-elements";
