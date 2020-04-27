@@ -13,7 +13,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 export const TeamAlert = ({ title, message, sender, time, urgency }) => (
 
-    <TouchableOpacity style={teamListStyle.teamContainer}>
+    <View style={teamListStyle.teamContainer}>
         <View style={teamListStyle.centerContainer}>
         <View style={teamListStyle.container1}>
             <View 
@@ -82,5 +82,5 @@ export const TeamAlert = ({ title, message, sender, time, urgency }) => (
         </View>
       {/* </View> */}
     </View>
-  </TouchableOpacity>
+  </View>
 );
