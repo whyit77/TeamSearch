@@ -275,7 +275,7 @@ class TeamAlerts extends React.Component {
     return (
       <View style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
-        <KeyboardAwareScrollView extraScrollHeight={50}>
+        {/* <KeyboardAwareScrollView extraScrollHeight={50}> */}
 
         <View style={formStyle.formContainer}>
         <Text style={formStyle.label}>Enter Alert Information: </Text>
@@ -379,7 +379,7 @@ class TeamAlerts extends React.Component {
               <Text style={mainStyle.bigText}>No Alerts to Display</Text>
             )}
         </View>
-        </KeyboardAwareScrollView>
+        {/* </KeyboardAwareScrollView> */}
       </View>
     );
   }
