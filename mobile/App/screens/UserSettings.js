@@ -151,6 +151,8 @@ export default class App extends React.Component {
             userId: userId,
           });
 
+          this.fetchUser();
+
           return responseJson;
         }
 
@@ -237,12 +239,12 @@ export default class App extends React.Component {
     console.log("mount");
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.userId !== this.state.userId) {
-      console.log("UPDATING...");
-      this.fetchUser(); // populate logged in user info
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.userId !== this.state.userId) {
+  //     console.log("UPDATING...");
+  //     this.fetchUser(); // populate logged in user info
+  //   }
+  // }
 
   dialCall = () => {
     let phoneNumber = "";
