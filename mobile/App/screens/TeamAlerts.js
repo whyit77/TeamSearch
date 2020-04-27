@@ -284,11 +284,12 @@ class TeamAlerts extends React.Component {
             style={{
               marginTop: 20,
               // marginBottom: 20, 
-              height: 25, 
+              height: 30, 
               backgroundColor: B2, 
-              width: 200, 
+              width: 120, 
               alignSelf: 'center', 
               borderRadius: 30,
+              justifyContent: 'center'
             }}
 
             dropdownStyle={styles.container}
@@ -297,10 +298,12 @@ class TeamAlerts extends React.Component {
               backgroundColor: B3, 
               color: 'white', 
               fontSize: 15,
+              alignSelf: 'center'
+
 
             }}
             textStyle={mainStyle.text}
-            defaultValue={'Select Urgency...'}
+            defaultValue={'Urgency...'}
             options={urgencyOptions}
             onSelect={(idx, urgency) => this.setState({ urgency })}
             keyboardShouldPersistTaps='never'
@@ -393,12 +396,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     // marginLeft: screen.width/2-110,
-    width: 200,
+    width: 100,
     borderRadius: 30,
     height: 98,
     borderWidth: 0,
     borderTopWidth: 3,
     borderTopColor: B1,
+    alignSelf: 'center',
+    marginLeft: 10
+
+
     // borderBottomColor: 'white',
   },
   text: {
