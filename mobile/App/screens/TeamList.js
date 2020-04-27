@@ -319,14 +319,11 @@ export default class TeamList extends Component {
             (mainStyle.container,
             {
               backgroundColor: B2,
-              // borderBottomColor: B3,
-              // borderColor: B3,
               borderBottomWidth: 2,
               borderBottomEndRadius: 100,
               borderBottomStartRadius: 100,
             })
           }
-          // onPress={}
         >
           <Text style={mainStyle.text}>Please select a team:</Text>
         </View>
