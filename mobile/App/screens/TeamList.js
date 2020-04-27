@@ -280,11 +280,11 @@ export default class TeamList extends Component {
           option2Click={() => {
             navigation.navigate("TeamInfo");
           }}
-          // option2Click={(team) => {
-          //   navigation.navigate("TeamInfo", {
-          //     teamId: team
-          //   });
-          // }}
+        // option2Click={(team) => {
+        //   navigation.navigate("TeamInfo", {
+        //     teamId: team
+        //   });
+        // }}
         />
       ),
     };
@@ -324,6 +324,7 @@ export default class TeamList extends Component {
               borderBottomStartRadius: 100,
             })
           }
+        // onPress={}
         >
           <Text style={mainStyle.text}>Please select a team:</Text>
         </View>
@@ -356,8 +357,8 @@ export default class TeamList extends Component {
             keyExtractor={(item, index) => index}
           />
         ) : (
-          <Text style={mainStyle.bigText}>No Teams to Display</Text>
-        )}
+            <Text style={mainStyle.bigText}>No Teams to Display</Text>
+          )}
       </SafeAreaView>
     );
   }

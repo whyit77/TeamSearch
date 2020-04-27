@@ -136,8 +136,9 @@ export default class Login extends React.Component {
 
         if (res.ok) {
           console.log("Okay CURRENT");
-          this.props.navigation.navigate("TeamListView");
           this.setState(initialState);
+          this.props.navigation.navigate("TeamListView");
+
           return responseJson;
         }
 
@@ -164,7 +165,7 @@ export default class Login extends React.Component {
             <View style={formStyle.formContainer}>
               <Text style={formStyle.label}>Username</Text>
               <TextField
-                //label="Username"
+                // label="Username"
                 placeholder="Username"
                 onChangeText={(username) => this.setState({ username })}
                 value={this.state.username}
@@ -175,7 +176,7 @@ export default class Login extends React.Component {
                 keyboardAppearance="dark"
                 // keyboardType="username"
                 labelTextColor="white"
-                // textContentType="username"
+              // textContentType="username"
               />
               <Text style={formStyle.label}>Password</Text>
               <TextField

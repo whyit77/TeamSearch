@@ -229,7 +229,7 @@ export default class App extends React.Component {
               borderBottomStartRadius: 100,
             })
           }
-          // onPress={}
+        // onPress={}
         >
           <Text style={mainStyle.text}>Pull Down to Refresh</Text>
         </View>

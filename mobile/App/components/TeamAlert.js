@@ -1,8 +1,15 @@
 import React from "react";
-import { Text, View, TextInput, StyleSheet, Dimensions, StatusBar, TouchableOpacity } from "react-native";
-import {mainStyle, teamListStyle} from '../styles/styles';
+import {
+  Text,
+  View,
+  TextInput,
+  StyleSheet,
+  Dimensions,
+  StatusBar,
+  TouchableOpacity,
+} from "react-native";
+import { mainStyle, teamListStyle } from "../styles/styles";
 import Icon from "react-native-vector-icons/Ionicons";
-
 
 export const TeamAlert = ({ title, message, sender, time, urgency }) => (
 
@@ -73,7 +80,7 @@ export const TeamAlert = ({ title, message, sender, time, urgency }) => (
           </Text>
         </View>
         </View>
+      </View>
     </View>
   </TouchableOpacity>
-
 );

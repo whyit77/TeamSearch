@@ -358,7 +358,7 @@ class TeamAlerts extends React.Component {
 
           {this.state.alerts.length != 0 ? (
             <FlatList
-              data={this.state.alerts}
+              data={this.state.alerts.reverse()}
               renderItem={({ item: rowData }) => {
                 return (
                   <TeamAlert
@@ -376,8 +376,8 @@ class TeamAlerts extends React.Component {
               keyExtractor={(item, index) => index}
             />
           ) : (
-            <Text style={mainStyle.bigText}>No Alerts to Display</Text>
-          )}
+              <Text style={mainStyle.bigText}>No Alerts to Display</Text>
+            )}
         </View>
         </KeyboardAwareScrollView>
       </View>

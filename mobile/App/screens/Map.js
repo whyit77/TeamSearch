@@ -17,7 +17,7 @@ import MapView, {
   Callout,
   camera,
 } from "react-native-maps";
-import haversine from "haversine";
+import haversine from "haversine"
 // import { EmbeddedWebView } from "../components/EmbeddedWebView";
 // import { location } from "../screens/PinInformation";
 
@@ -93,6 +93,14 @@ class Map extends React.Component {
         lastLat: null,
         lastLong: null,
       },
+
+      region: {
+        latitude: LATITUDE,
+        longitude: LONGITUDE,
+        latitudeDelta: 0.2,
+        longitudeDelta: 0.2,
+      }
+
     };
 
     this.handlePress = this.handlePress.bind(this);
@@ -359,7 +367,7 @@ class Map extends React.Component {
     });
 
     await this.getCurrentLocation();
-    this.interval = setInterval(() => this.sendCurrentData(), 10000); // sends the current position automatically every 10 seconds
+    this.interval = setInterval(() => this.sendCurrentData(), 30000); // sends the current position automatically every 10 seconds
 
     const { coordinate } = await this.state;
 
@@ -408,6 +416,25 @@ class Map extends React.Component {
         distanceFilter: 0,
       }
     );
+
+    Geolocation.getCurrentPosition(
+      (position) => {
+        console.warn(position.coords.latitude);
+        console.warn(position.coords.longitude);
+        this.setState({
+          region: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: 0.02,
+            longitudeDelta: 0,
+          }
+        });
+      },
+      (error) => {
+        console.warn(error.code, error.message);
+      },
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    )
   }
 
   componentWillUpdate() {
@@ -481,6 +508,13 @@ class Map extends React.Component {
     // );
   }
 
+  onRegionChangeComplete(region) {
+    this.setState({
+      region: region
+    });
+  }
+
+
   render() {
     // const midX = (currentLat + this.points[0].latitude) / 2;
     // const deltaX = this.points[0].latitude - currentLat;
@@ -506,6 +540,9 @@ class Map extends React.Component {
           provider={PROVIDER_GOOGLE}
           ref={(map) => (this._map = map)}
           style={styles.map}
+          onRegionChangeComplete={region => {
+            this.setState({ region });
+          }}
           initialRegion={this.state.initialRegion}
           // initialRegion={{
           //   latitude: midX,
@@ -516,7 +553,7 @@ class Map extends React.Component {
           showsUserLocation
           followsUserLocation
           loadingEnabled
-          region={this.getMapRegion()}
+          region={this.state.region}
           onLongPress={this.handlePress}
           showsMyLocationButton={true}
         >
@@ -536,8 +573,9 @@ class Map extends React.Component {
           </TouchableOpacity> */}
 
           <Heatmap
-            initialRegion={this.state.initialPosition}
+            //initialRegion={this.state.initialPosition}
             points={this.state.points}
+            region={this.state.region}
             // points={this.state.routeCoordinates}
             radius={40}
             gradient={{
@@ -550,6 +588,8 @@ class Map extends React.Component {
             // const { lat, long } = marker.coordinate;
 
             // console.log("MARKER creator:");
+
+
             // console.log(marker.creator);
 
             return (
@@ -561,7 +601,7 @@ class Map extends React.Component {
                 {...marker}
                 draggable
                 onDragEnd={(e) => console.log(e.nativeEvent.coordinate)}
-                // image={require("../cougar_walk.jpg")}
+              // image={require("../cougar_walk.jpg")}
               >
                 <Callout
                   onPress={() => {
@@ -635,3 +675,4 @@ const styles = StyleSheet.create({
 });
 
 export default Map;
+

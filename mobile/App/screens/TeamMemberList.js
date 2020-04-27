@@ -231,7 +231,7 @@ export default class TeamMemberList extends Component {
               borderBottomStartRadius: 100,
             })
           }
-          // onPress={}
+        // onPress={}
         >
           <Text style={mainStyle.titleDisplay}>{this.state.teamName}</Text>
         </View>

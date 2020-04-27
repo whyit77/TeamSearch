@@ -243,7 +243,7 @@ class PinInformation extends React.Component {
                 borderBottomStartRadius: 100,
               })
             }
-            // onPress={}
+          // onPress={}
           >
             <Text style={mainStyle.pinInfoTitle}>
               Pinned By:{" "}
@@ -298,11 +298,11 @@ class PinInformation extends React.Component {
         </ScrollView>
       </SafeAreaView>
     ) : (
-      <SafeAreaView style={mainStyle.toplevel}>
-        <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
+        <SafeAreaView style={mainStyle.toplevel}>
+          <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
 
-        <ScrollView contentContainerStyle={formStyle.formContainer}>
-          {/* <View style={mainStyle.container}>
+          <ScrollView contentContainerStyle={formStyle.formContainer}>
+            {/* <View style={mainStyle.container}>
             <Image
                 style={{ width: 100, height: 100 }}
                 source={{
@@ -312,57 +312,57 @@ class PinInformation extends React.Component {
               />
           </View> */}
 
-          <View
-            style={
-              (mainStyle.container,
-              {
-                backgroundColor: B2,
-                // borderBottomColor: B3,
-                // borderColor: B3,
-                borderBottomWidth: 2,
-                borderBottomEndRadius: 100,
-                borderBottomStartRadius: 100,
-              })
-            }
+            <View
+              style={
+                (mainStyle.container,
+                {
+                  backgroundColor: B2,
+                  // borderBottomColor: B3,
+                  // borderColor: B3,
+                  borderBottomWidth: 2,
+                  borderBottomEndRadius: 100,
+                  borderBottomStartRadius: 100,
+                })
+              }
             // onPress={}
-          >
-            <Text style={mainStyle.pinInfoTitle}>
-              Pinned By:{" "}
-              <Text style={(mainStyle.pinInfoTitle, { fontWeight: "bold" })}>
+            >
+              <Text style={mainStyle.pinInfoTitle}>
+                Pinned By:{" "}
+                <Text style={(mainStyle.pinInfoTitle, { fontWeight: "bold" })}>
+                  {" "}
+                  {this.state.username}
+                </Text>
+              </Text>
+            </View>
+
+            <Text style={formStyle.label}>
+              Title:
+            <Text
+                style={
+                  (formStyle.label,
+                    { color: "white", fontWeight: "bold", fontSize: 25 })
+                }
+              >
                 {" "}
-                {this.state.username}
+                {this.state.pinName}
               </Text>
             </Text>
-          </View>
+            {/* <TextField editable={false}> */}
 
-          <Text style={formStyle.label}>
-            Title:
-            <Text
-              style={
-                (formStyle.label,
-                { color: "white", fontWeight: "bold", fontSize: 25 })
-              }
-            >
-              {" "}
-              {this.state.pinName}
-            </Text>
-          </Text>
-          {/* <TextField editable={false}> */}
-
-          {/* </TextField> */}
-          {/* <Text style={formStyle.label}>Title: {this.state.pinName}</Text> */}
-          {/* <Text style={formStyle.label}>
+            {/* </TextField> */}
+            {/* <Text style={formStyle.label}>Title: {this.state.pinName}</Text> */}
+            {/* <Text style={formStyle.label}>
             Pin Description: {this.state.description}
           </Text> */}
 
-          <Text style={formStyle.label}>Description:</Text>
-          {/* <Text style={mainStyle.smallText}>{this.state.description}</Text> */}
-          <TextField editable={false} multiline={true}>
-            <Text style={formStyle.placeholderStyle}>
-              {this.state.description}
-            </Text>
-          </TextField>
-          {/* <View style={mainStyle.container}>
+            <Text style={formStyle.label}>Description:</Text>
+            {/* <Text style={mainStyle.smallText}>{this.state.description}</Text> */}
+            <TextField editable={false} multiline={true}>
+              <Text style={formStyle.placeholderStyle}>
+                {this.state.description}
+              </Text>
+            </TextField>
+            {/* <View style={mainStyle.container}>
               <TouchableOpacity
                 style={buttonStyle.buttonContainer}
                 onPress={() => this.handleSubmit()}
@@ -370,9 +370,9 @@ class PinInformation extends React.Component {
                 <Text style={buttonStyle.buttonText}>Apply</Text>
               </TouchableOpacity>
             </View> */}
-        </ScrollView>
-      </SafeAreaView>
-    );
+          </ScrollView>
+        </SafeAreaView>
+      );
   }
 }
 
