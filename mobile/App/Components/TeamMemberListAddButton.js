@@ -150,8 +150,8 @@ export default class TeamMemberListAddButton extends Component {
     return (
       <View style={this.props.menustyle}>
         {/* <View alignSelf={'flex-start'} overflow={"hidden"}> */}
-        <TouchableOpacity  onPress={this.option1Click}>
-          <MaterialIcons name="add"  size={40} style={{ color: "white", marginTop: 5, marginRight: 10, paddingBottom: 40 }} />
+        <TouchableOpacity  style={{ marginTop: screen.height/25}} onPress={this.option1Click}>
+          <MaterialIcons name="add"  size={40} style={{ color: "white", marginRight: 15, marginBottom: 30, paddingBottom: 40 }} />
         </TouchableOpacity>
         {/* </View> */}
         <View style={styles.container}>

@@ -26,6 +26,8 @@ const mainStyle = StyleSheet.create({
     // height: screen.height*1.5,
     // paddingVertical: 20,
     // paddingBottom: 100
+    width: screen.width,
+    flexDirection: 'column'
 
 
   },

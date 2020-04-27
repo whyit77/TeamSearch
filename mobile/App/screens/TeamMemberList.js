@@ -8,6 +8,7 @@ import {
   FlatList,
   RefreshControl,
   ActivityIndicator,
+  Dimensions
 } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 import { Card, Avatar } from "react-native-elements";
@@ -20,6 +21,7 @@ import TeamMemberListAddButton from "../components/TeamMemberListAddButton";
 import Icon from "react-native-vector-icons/Ionicons";
 import { NavigationEvents } from "react-navigation";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+const screen = Dimensions.get('screen');
 
 // import Avatar from '../components/Avatar';
 
@@ -235,7 +237,7 @@ export default class TeamMemberList extends Component {
         >
           <Text style={mainStyle.titleDisplay}>{this.state.teamName}</Text>
         </View>
-
+<View style={mainStyle.toplevel}>
         <FlatList
           data={this.state.data}
           numColumns={2}
@@ -291,6 +293,7 @@ export default class TeamMemberList extends Component {
           }
           keyExtractor={(item, index) => index}
         />
+        </View>
         {/* <Text style={styles.text}> Team Member 1 </Text>
       <TouchableOpacity onPress={() => this.props.navigation.navigate("MemberProfile")}>
         <Text style={styles.text}> View Profile </Text>
