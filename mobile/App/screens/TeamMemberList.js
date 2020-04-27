@@ -65,7 +65,7 @@ export default class TeamMemberList extends Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.5:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -126,7 +126,7 @@ export default class TeamMemberList extends Component {
     console.log("fetching...");
     console.disableYellowBox = true;
 
-    fetch("http://192.168.1.5:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {

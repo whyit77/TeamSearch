@@ -51,7 +51,7 @@ export default class TeamList extends Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.5:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -101,7 +101,7 @@ export default class TeamList extends Component {
       },
     };
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.5:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -160,7 +160,7 @@ export default class TeamList extends Component {
     // if (this.state.count == 1) {
     console.log("fetching...");
 
-    fetch("http://192.168.1.5:3000/graphql", {
+    fetch("http://192.168.1.10:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -319,8 +319,6 @@ export default class TeamList extends Component {
             (mainStyle.container,
             {
               backgroundColor: B2,
-              // borderBottomColor: B3,
-              // borderColor: B3,
               borderBottomWidth: 2,
               borderBottomEndRadius: 100,
               borderBottomStartRadius: 100,

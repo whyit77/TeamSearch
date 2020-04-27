@@ -17,13 +17,6 @@ const screens = {
   },
   CreateTeam: {
     screen: CreateTeam,
-    // navigationOptions: ({ navigation }) => {
-    //   return {
-    //     headerTitle: () => (
-    //       <Header navigation={navigation} title="Create Team" />
-    //     )
-    //   };
-    // }
     navigationOptions: () => {
       return {
         headerTitle: "Create Team",
