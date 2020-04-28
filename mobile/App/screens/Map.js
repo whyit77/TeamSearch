@@ -17,7 +17,7 @@ import MapView, {
   Callout,
   camera,
 } from "react-native-maps";
-import haversine from "haversine"
+import haversine from "haversine";
 // import { EmbeddedWebView } from "../components/EmbeddedWebView";
 // import { location } from "../screens/PinInformation";
 
@@ -99,8 +99,7 @@ class Map extends React.Component {
         longitude: LONGITUDE,
         latitudeDelta: 0.2,
         longitudeDelta: 0.2,
-      }
-
+      },
     };
 
     this.handlePress = this.handlePress.bind(this);
@@ -122,7 +121,7 @@ class Map extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.10:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -189,7 +188,7 @@ class Map extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.10:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -288,7 +287,7 @@ class Map extends React.Component {
     };
 
     // CHECK IP ADDRESS ///////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.10:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -367,7 +366,7 @@ class Map extends React.Component {
     });
 
     await this.getCurrentLocation();
-    this.interval = setInterval(() => this.sendCurrentData(), 30000); // sends the current position automatically every 10 seconds
+    this.interval = setInterval(() => this.sendCurrentData(), 10000); // sends the current position automatically every 10 seconds
 
     const { coordinate } = await this.state;
 
@@ -427,14 +426,14 @@ class Map extends React.Component {
             longitude: position.coords.longitude,
             latitudeDelta: 0.02,
             longitudeDelta: 0,
-          }
+          },
         });
       },
       (error) => {
         console.warn(error.code, error.message);
       },
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-    )
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
   }
 
   componentWillUpdate() {
@@ -510,10 +509,9 @@ class Map extends React.Component {
 
   onRegionChangeComplete(region) {
     this.setState({
-      region: region
+      region: region,
     });
   }
-
 
   render() {
     // const midX = (currentLat + this.points[0].latitude) / 2;
@@ -540,7 +538,7 @@ class Map extends React.Component {
           provider={PROVIDER_GOOGLE}
           ref={(map) => (this._map = map)}
           style={styles.map}
-          onRegionChangeComplete={region => {
+          onRegionChangeComplete={(region) => {
             this.setState({ region });
           }}
           initialRegion={this.state.initialRegion}
@@ -589,7 +587,6 @@ class Map extends React.Component {
 
             // console.log("MARKER creator:");
 
-
             // console.log(marker.creator);
 
             return (
@@ -601,7 +598,7 @@ class Map extends React.Component {
                 {...marker}
                 draggable
                 onDragEnd={(e) => console.log(e.nativeEvent.coordinate)}
-              // image={require("../cougar_walk.jpg")}
+                // image={require("../cougar_walk.jpg")}
               >
                 <Callout
                   onPress={() => {
@@ -675,4 +672,3 @@ const styles = StyleSheet.create({
 });
 
 export default Map;
-

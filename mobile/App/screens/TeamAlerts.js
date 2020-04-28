@@ -11,7 +11,7 @@ import {
   StatusBar,
   FlatList,
   Picker,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import ModalDropdown from "react-native-modal-dropdown";
 import { TextField, ErrorText } from "../components/Form";
@@ -29,14 +29,13 @@ import {
   teamListStyle,
   B1,
   B2,
-  B3
+  B3,
 } from "../styles/styles";
 import { Team } from "../components/Team";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { withTheme } from "react-native-elements";
 
-const screen = Dimensions.get('screen');
-
+const screen = Dimensions.get("screen");
 
 const initialState = {
   title: "",
@@ -74,7 +73,7 @@ class TeamAlerts extends React.Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.10:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -139,7 +138,7 @@ class TeamAlerts extends React.Component {
     // console.log(requestBody);
 
     // CHECK IP ADDRESS ////////////////////////////////////////////////////////////////////////////// 192.168.1.9
-    fetch("http://192.168.1.10:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -214,7 +213,7 @@ class TeamAlerts extends React.Component {
     // if (this.state.count == 1) {
     console.log("fetching...");
 
-    fetch("http://192.168.1.10:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -271,44 +270,39 @@ class TeamAlerts extends React.Component {
   }
 
   render() {
-
     return (
       <View style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
         {/* <KeyboardAwareScrollView extraScrollHeight={50}> */}
 
         <View style={formStyle.formContainer}>
-        <Text style={formStyle.label}>Enter Alert Information: </Text>
+          <Text style={formStyle.label}>Enter Alert Information: </Text>
 
-        <ModalDropdown
+          <ModalDropdown
             style={{
               marginTop: 20,
-              // marginBottom: 20, 
-              height: 30, 
-              backgroundColor: B2, 
-              width: 120, 
-              alignSelf: 'center', 
+              // marginBottom: 20,
+              height: 30,
+              backgroundColor: B2,
+              width: 120,
+              alignSelf: "center",
               borderRadius: 30,
-              justifyContent: 'center'
+              justifyContent: "center",
             }}
-
             dropdownStyle={styles.container}
-            
             dropdownTextStyle={{
-              backgroundColor: B3, 
-              color: 'white', 
+              backgroundColor: B3,
+              color: "white",
               fontSize: 15,
-              alignSelf: 'center'
-
-
+              alignSelf: "center",
             }}
             textStyle={mainStyle.text}
-            defaultValue={'Urgency...'}
+            defaultValue={"Urgency..."}
             options={urgencyOptions}
             onSelect={(idx, urgency) => this.setState({ urgency })}
-            keyboardShouldPersistTaps='never'
+            keyboardShouldPersistTaps="never"
             dropdownTextHighlightStyle={{
-              color: 'red', 
+              color: "red",
             }}
             showsVerticalScrollIndicator={true}
             animated={true}
@@ -316,16 +310,15 @@ class TeamAlerts extends React.Component {
           {/* <Text style={formStyle.label}>Type your update here: </Text> */}
 
           <TextField
-                placeholder="Title"
-                autoCapitalize="words"
-                style={formStyle.placeholderStyle}
-                color="white"
-                selectionColor="red"
-                keyboardAppearance="dark"
-                onChangeText={(title) => this.setState({ title })}
-                value={this.state.title}
-
-              />
+            placeholder="Title"
+            autoCapitalize="words"
+            style={formStyle.placeholderStyle}
+            color="white"
+            selectionColor="red"
+            keyboardAppearance="dark"
+            onChangeText={(title) => this.setState({ title })}
+            value={this.state.title}
+          />
           <TextField
             color="white"
             style={formStyle.placeholderStyle}
@@ -336,7 +329,7 @@ class TeamAlerts extends React.Component {
             onChangeText={(alertMessage) => this.setState({ alertMessage })}
             value={this.state.alertMessage}
           />
-          
+
           {this.state.error != "" ? (
             <ErrorText text={this.state.error} />
           ) : (
@@ -351,12 +344,12 @@ class TeamAlerts extends React.Component {
             </TouchableOpacity>
           </View> */}
           <View style={mainStyle.container}>
-                <Button
-                  style={formStyle.formButton}
-                  text="Send"
-                  onPress={() => this.handleSubmit()}
-                />
-              </View>
+            <Button
+              style={formStyle.formButton}
+              text="Send"
+              onPress={() => this.handleSubmit()}
+            />
+          </View>
           <Text style={mainStyle.bigText}>Current Notifications:</Text>
 
           {this.state.alerts.length != 0 ? (
@@ -379,8 +372,8 @@ class TeamAlerts extends React.Component {
               keyExtractor={(item, index) => index}
             />
           ) : (
-              <Text style={mainStyle.bigText}>No Alerts to Display</Text>
-            )}
+            <Text style={mainStyle.bigText}>No Alerts to Display</Text>
+          )}
         </View>
         {/* </KeyboardAwareScrollView> */}
       </View>
@@ -402,9 +395,8 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderTopWidth: 3,
     borderTopColor: B1,
-    alignSelf: 'center',
-    marginLeft: 10
-
+    alignSelf: "center",
+    marginLeft: 10,
 
     // borderBottomColor: 'white',
   },

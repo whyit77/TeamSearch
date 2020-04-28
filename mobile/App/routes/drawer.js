@@ -22,7 +22,7 @@ const loginNavigator = createDrawerNavigator(
     Login: {
       screen: LoginStack,
       navigationOptions: {
-        title: "Sign Out",
+        title: "Login",
         drawerLabel: <HiddenDrawerItem />,
       },
     },

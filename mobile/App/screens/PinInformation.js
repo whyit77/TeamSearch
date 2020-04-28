@@ -337,7 +337,7 @@ class PinInformation extends React.Component {
               Pinned By:{" "}
               <Text style={(mainStyle.pinInfoTitle, { fontWeight: "bold" })}>
                 {" "}
-                {this.state.username}
+                {this.state.creator}
               </Text>
             </Text>
           </View>

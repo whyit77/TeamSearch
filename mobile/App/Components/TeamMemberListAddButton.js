@@ -1,13 +1,18 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, StyleSheet, Modal, Dimensions } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Modal,
+  Dimensions,
+} from "react-native";
 import Menu, { MenuItem } from "react-native-material-menu";
 import { MaterialIcons } from "@expo/vector-icons";
 import DialogInput from "react-native-dialog-input-custom";
 
 import { Button } from "react-native-dialog-input-custom/components/button";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-const screen = Dimensions.get('screen');
-
+const screen = Dimensions.get("screen");
 
 export default class TeamMemberListAddButton extends Component {
   constructor(props) {
@@ -36,7 +41,7 @@ export default class TeamMemberListAddButton extends Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.10:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -90,7 +95,7 @@ export default class TeamMemberListAddButton extends Component {
     };
 
     // CHECK IP ADDRESS //////////////////////////////////////////////////////////////////////////////
-    fetch("http://192.168.1.10:3000/graphql", {
+    fetch("http://192.168.1.11:3000/graphql", {
       method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
@@ -150,8 +155,20 @@ export default class TeamMemberListAddButton extends Component {
     return (
       <View style={this.props.menustyle}>
         {/* <View alignSelf={'flex-start'} overflow={"hidden"}> */}
-        <TouchableOpacity  style={{ marginTop: screen.height/25}} onPress={this.option1Click}>
-          <MaterialIcons name="add"  size={40} style={{ color: "white", marginRight: 15, marginBottom: 30, paddingBottom: 40 }} />
+        <TouchableOpacity
+          style={{ marginTop: screen.height / 25 }}
+          onPress={this.option1Click}
+        >
+          <MaterialIcons
+            name="add"
+            size={40}
+            style={{
+              color: "white",
+              marginRight: 15,
+              marginBottom: 30,
+              paddingBottom: 40,
+            }}
+          />
         </TouchableOpacity>
         {/* </View> */}
         <View style={styles.container}>
