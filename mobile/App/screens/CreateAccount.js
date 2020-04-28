@@ -229,6 +229,7 @@ export default class CreateAccount extends React.Component {
                   value={this.state.password}
                   autoCapitalize="none"
                   style={formStyle.placeholderStyle}
+                  placeholder="8 characters long"
                   color="white"
                   selectionColor="red"
                   keyboardAppearance="dark"
@@ -260,7 +261,7 @@ export default class CreateAccount extends React.Component {
                 <Text style={formStyle.label}>Certifications/Description</Text>
                 <TextField
                   //label="Certifications/Description"
-                  placeholder="CPR certified, own a trained search hound, etc..."
+                  placeholder="CPR certified, etc.."
                   onChangeText={(description) => this.setState({ description })}
                   value={this.state.description}
                   autoCapitalize="none"

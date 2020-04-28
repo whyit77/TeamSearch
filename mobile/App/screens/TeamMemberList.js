@@ -6,6 +6,9 @@ import {
   TouchableOpacity,
   StatusBar,
   FlatList,
+  RefreshControl,
+  ActivityIndicator,
+  Dimensions,
 } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 import { Card, Avatar } from "react-native-elements";
@@ -14,8 +17,11 @@ import { TeamMember } from "../components/TeamMember";
 import { mainStyle, B3, B2, B1 } from "../styles/styles";
 import { ScrollView } from "react-native-gesture-handler";
 import TeamMemberListAddButton from "../components/TeamMemberListAddButton";
+
 import Icon from "react-native-vector-icons/Ionicons";
 import { NavigationEvents } from "react-navigation";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 // import Avatar from '../components/Avatar';
 
 const styles = StyleSheet.create({
@@ -42,6 +48,7 @@ export default class TeamMemberList extends Component {
       data: [],
       teamId: "",
       teamName: "",
+      refreshing: true,
     };
   }
 
@@ -76,6 +83,7 @@ export default class TeamMemberList extends Component {
 
           this.setState({
             teamId: teamId,
+            refreshing: false,
           });
 
           return responseJson;
@@ -149,6 +157,7 @@ export default class TeamMemberList extends Component {
           this.setState({
             data: names,
             teamName: teamName,
+            refreshing: false,
           });
 
           return responseJson;
@@ -188,18 +197,50 @@ export default class TeamMemberList extends Component {
       ),
     };
   };
-
+  onRefresh() {
+    this.setState({
+      data: [],
+      teamId: "",
+      teamName: "",
+      refreshing: true,
+    });
+    this.fetchCurrentTeam();
+  }
   render() {
+    if (this.state.refreshing) {
+      return (
+        //loading view while data is loading
+        <View style={{ flex: 1, backgroundColor: B1, paddingTop: 20 }}>
+          <ActivityIndicator size="large" />
+        </View>
+      );
+    }
     return (
       <SafeAreaView style={mainStyle.toplevel}>
         <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
-        <View style={mainStyle.container}>
-          <Text style={mainStyle.bigText}>{this.state.teamName}</Text>
+        {/* <KeyboardAwareScrollView extraScrollHeight={50}> */}
+
+        <View
+          style={
+            (mainStyle.container,
+            {
+              backgroundColor: B2,
+              // borderBottomColor: B3,
+              // borderColor: B3,
+              borderBottomWidth: 2,
+              borderBottomEndRadius: 100,
+              borderBottomStartRadius: 100,
+            })
+          }
+          // onPress={}
+        >
+          <Text style={mainStyle.titleDisplay}>{this.state.teamName}</Text>
         </View>
 
         <FlatList
           data={this.state.data}
           numColumns={2}
+          columnWrapperStyle={{ marginBottom: 50 }}
           renderItem={({ item: rowData }) => {
             return (
               <TouchableOpacity
@@ -242,12 +283,20 @@ export default class TeamMemberList extends Component {
               </TouchableOpacity>
             );
           }}
+          refreshControl={
+            <RefreshControl
+              //refresh control used for the Pull to Refresh
+              refreshing={this.state.refreshing}
+              onRefresh={this.onRefresh.bind(this)}
+            />
+          }
           keyExtractor={(item, index) => index}
         />
         {/* <Text style={styles.text}> Team Member 1 </Text>
       <TouchableOpacity onPress={() => this.props.navigation.navigate("MemberProfile")}>
         <Text style={styles.text}> View Profile </Text>
       </TouchableOpacity> */}
+        {/* </KeyboardAwareScrollView> */}
       </SafeAreaView>
     );
   }

@@ -46,10 +46,10 @@ const teamSchema = new Schema(
         ref: "Pin",
       },
     ],
-    alerts: [
+    coordinates: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Alert",
+        ref: "Coordinate",
       },
     ],
   },

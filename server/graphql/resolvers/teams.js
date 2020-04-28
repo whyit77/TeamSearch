@@ -1,9 +1,9 @@
 const Team = require("../../models/team");
 const User = require("../../models/user");
-const Alert = require("../../models/alert");
 const Current = require("../../models/current");
 const { transformTeam, bindUser, transformAlert } = require("./merge");
 const randomize = require("randomatic");
+
 
 module.exports = {
   teams: async () => {
@@ -27,7 +27,7 @@ module.exports = {
     try {
       const team = await Team.findById(args.teamId);
 
-      // console.log(team);
+      console.log(team);
       return transformTeam(team);
     } catch (err) {
       throw err;
@@ -111,6 +111,7 @@ module.exports = {
     try {
       let user = await User.findOne({ username: args.username });
       if (!user) {
+        // Alert.alert("User not found.")
         throw new Error("User not found.");
       }
 
@@ -126,51 +127,6 @@ module.exports = {
       await user.save();
 
       return transformTeam(team);
-    } catch (err) {
-      console.log(err);
-      throw err;
-    }
-  },
-  createAlert: async (args, req) => {
-    //////////////////////////////////// TODO /////////////////////////////
-    // if (!req.isAuth) {
-    // 	throw new Error('Unauthenticated!');
-    // }
-
-    // args.userId = "5e7031dc9c7708107b2bfaa7";
-    // args.teamId = "5e96a01304852dfea220a0db";
-    // args.alertInput.urgency = "High";
-    // args.alertInput.message = "This is a highly urgent alert";
-
-    try {
-      let user = await User.findById(args.userId);
-      if (!user) {
-        throw new Error("User not found.");
-      }
-
-      let team = await Team.findById(args.teamId);
-      if (!team) {
-        throw new Error("Team not found.");
-      }
-
-      console.log(user);
-
-      const alert = new Alert({
-        creator: args.userId,
-        urgency: args.alertInput.urgency,
-        message: args.alertInput.message,
-      });
-      console.log(alert);
-
-      const result = await alert.save();
-
-      let createdAlert = transformAlert(result);
-      console.log(createdAlert);
-
-      team.alerts.push(alert);
-      await team.save();
-
-      return createdAlert;
     } catch (err) {
       console.log(err);
       throw err;

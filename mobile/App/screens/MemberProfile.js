@@ -20,6 +20,9 @@ import {
   exampleText,
   formStyle,
   teamListStyle,
+  B1,
+  B2,
+  B3,
 } from "../styles/styles";
 import { TextField, ErrorText } from "../components/Form";
 
@@ -119,11 +122,11 @@ class MemberProfile extends React.Component {
     let phoneNumber = "";
 
     if (Platform.OS === "android") {
-      phoneNumber = "tel:${1234567890}";
-      phoneNumber = "sms:${1234567890}";
+      // phoneNumber = "tel:${1234567890}";
+      phoneNumber = "sms:${" + this.state.phone + "}";
     } else {
       // phoneNumber = 'telprompt:${1234567890}';
-      phoneNumber = "sms:${1234567890}";
+      phoneNumber = "sms:${" + this.state.phone + "}";
     }
 
     Linking.openURL("sms:" + this.state.phone);
@@ -144,12 +147,15 @@ class MemberProfile extends React.Component {
             <View style={mainStyle.container}>
               <Avatar
                 rounded
-                icon={{ name: "user", type: "font-awesome" }}
+                // icon={{ name: "user", type: "font-awesome" }}
                 title={this.state.firstName[0] + this.state.lastName[0]}
                 onPress={() => console.log("Works!")}
                 activeOpacity={0.7}
                 containerStyle={{ margin: 10, size: 60 }}
                 size={150}
+                overlayContainerStyle={{
+                  backgroundColor: B2,
+                }}
               />
             </View>
 
@@ -200,7 +206,7 @@ class MemberProfile extends React.Component {
               <Text style={formStyle.label}>
                 Email:
                 <Text
-                  onPress={() => Linking.openURL("mailto:support@example.com")}
+                  onPress={() => Linking.openURL("mailto:" + this.state.email)}
                   title="support@example.com"
                   style={formStyle.placeholderStyle}
                 >
@@ -210,9 +216,9 @@ class MemberProfile extends React.Component {
               </Text>
 
               <Text style={formStyle.label}>Profile Description</Text>
-              <Text style={mainStyle.smallText}>{this.state.description}</Text>
+              {/* <Text style={mainStyle.smallText}>{this.state.description}</Text> */}
               <TextField editable={false} multiline={true}>
-                <Text style={formStyle.fillInText}>
+                <Text style={formStyle.placeholderStyle}>
                   {this.state.description}
                 </Text>
               </TextField>

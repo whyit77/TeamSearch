@@ -15,6 +15,12 @@ const alertSchema = new Schema({
     type: String,
     required: true,
   },
-});
+  title: {
+    type: String,
+    required: true,
+  },
+},
+  { timestamps: true }
+);
 
 module.exports = mongoose.model("Alert", alertSchema);

@@ -11,26 +11,19 @@ const screens = {
     screen: TeamListView,
     navigationOptions: ({ navigation }) => {
       return {
-        headerTitle: () => <Header navigation={navigation} title="Team List" />
+        headerTitle: () => <Header navigation={navigation} title="Team List" />,
       };
-    }
+    },
   },
   CreateTeam: {
     screen: CreateTeam,
-    navigationOptions: ({ navigation }) => {
+    navigationOptions: () => {
       return {
-        headerTitle: () => (
-          <Header navigation={navigation} title="Create Team" />
-        )
+        headerTitle: "Create Team",
+        headerTintColor: "white",
       };
-    }
-    // navigationOptions: () => {
-    //   return {
-    //     headerTitle: "Create Team",
-    //     headerTintColor: "white"
-    //   };
-    // }
-  }
+    },
+  },
   // TeamInfo: {
   //   screen: TeamInfo,
   //   navigationOptions: () => {
@@ -53,8 +46,8 @@ const screens = {
 const TeamListStack = createStackNavigator(screens, {
   defaultNavigationOptions: {
     headerTintColor: "#444",
-    headerStyle: { backgroundColor: "#292929", height: 100 }
-  }
+    headerStyle: { backgroundColor: "#292929", height: 100 },
+  },
 });
 
 export default TeamListStack;

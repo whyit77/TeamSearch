@@ -19,8 +19,6 @@ import {
 
 import { NetworkInfo } from "react-native-network-info";
 
-//////// TODO: LEARN TO DO AUTH TO HAVE LOGGED IN ID //////////////////
-
 const initialState = {
   userId: "",
   username: "",
@@ -67,6 +65,15 @@ export default class Login extends React.Component {
       .then(async (res) => {
         const responseJson = await res.json();
         console.log(responseJson);
+
+        // if (responseJson.data == null) {
+        //   const err = responseJson.errors[0].message;
+        //   console.log("RESET");
+        //   this.setState(initialState);
+        //   console.log(this.state.username);
+        //   this.setState({ error: err });
+        //   return responseJson;
+        // }
 
         if (res.ok) {
           console.log("Okay LOGIN");
@@ -129,8 +136,9 @@ export default class Login extends React.Component {
 
         if (res.ok) {
           console.log("Okay CURRENT");
-          this.props.navigation.navigate("TeamListView");
           this.setState(initialState);
+          this.props.navigation.navigate("TeamListView");
+
           return responseJson;
         }
 
@@ -157,7 +165,7 @@ export default class Login extends React.Component {
             <View style={formStyle.formContainer}>
               <Text style={formStyle.label}>Username</Text>
               <TextField
-                //label="Username"
+                // label="Username"
                 placeholder="Username"
                 onChangeText={(username) => this.setState({ username })}
                 value={this.state.username}
@@ -183,7 +191,7 @@ export default class Login extends React.Component {
                 selectionColor="red"
                 keyboardAppearance="dark"
               />
-              <View style={formStyle.textBlock}>
+              {/* <View style={formStyle.textBlock}>
                 <TouchableOpacity
                   onPress={() => this.props.navigation.navigate("Reset")}
                 >
@@ -191,7 +199,7 @@ export default class Login extends React.Component {
                     Forgot Password?
                   </Text>
                 </TouchableOpacity>
-              </View>
+              </View> */}
               <ErrorText text={this.state.error} />
               <View style={formStyle.formButtonContainer}>
                 <Button
